@@ -1,0 +1,53 @@
+html {
+    font-size: 10px; /* px means "pixels": the base font size is now 10 pixels high  */
+    font-family: 'Gloria Hallelujah', cursive;
+
+    font-family: 'Shadows Into Light', cursive;
+    background-color: #00539F;
+}
+body {  width: 700px;
+    margin: 15px auto;
+    background-color: #FF9500;
+    padding: 10px 20px 20px 20px;
+    border: 5px solid black;
+}
+p, li {
+    color: rgb(39, 7, 7);
+    font-size: 16px;
+    line-height: 2;
+    letter-spacing: 1px;
+}
+li {font-size: 20;
+color: rgb(28, 134, 69);
+text-shadow: 13px 13px 1px black;
+}
+
+h1 {
+    font-size: 60px;
+    text-align: center;
+    margin: 0;
+    padding: 20px 0;
+    color: #00539F;
+    text-shadow: 3px 3px 1px black;
+  }
+  iframe { 
+    display: block;
+    margin: 0 auto;
+    border: 15px solid black;
+    border-radius: 12px;
+}
+  img {
+    display: block;
+    margin: 0 auto;
+    border: 15px solid black;
+    border-radius: 12px;
+   }
+  button {
+    font-size: 60px;
+    display: block;
+    margin: 5% auto;
+    color: rgb(87, 14, 136);
+    cursor: pointer;
+    border-radius: 12px;
+    
+}
