@@ -16,7 +16,7 @@ body {
   text-shadow: 1px 1px 1px black;
   background: #1abc9c;
   color: rgb(255, 255, 255);
-  background-image: linear-gradient(rgba(241, 50, 155, 0.616), rgba(255, 255, 0, 0.774)), url("../images/codebgsmall2c.jpg");
+  background-image: linear-gradient(rgba(241, 50, 155, 0.616), rgba(255, 255, 0, 0.774)), url("/images/codebgsmall2c.jpg");
 }
 
 /* Increase the font size of the heading */
