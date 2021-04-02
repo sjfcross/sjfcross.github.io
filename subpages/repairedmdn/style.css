@@ -1,0 +1,96 @@
+html {
+    font-size: 10px; /* px means "pixels": the base font size is now 10 pixels high  */
+    font-family: 'Gloria Hallelujah', cursive;
+
+    font-family: 'Shadows Into Light', cursive;
+    background-color: #6394c5;
+}
+   
+header {  
+      margin: 15px auto;
+      background-color: #7aa079;
+      padding: 10px 20px 20px 20px;
+      border-bottom: 1px solid black;
+}
+
+nav {  
+  margin: 15px auto;
+  background-color: #c08db3;
+  padding: 10px 20px 20px 20px;
+  border: 5px solid black;
+  display: inline-block;
+  
+}
+body { 
+       width: 1400px;
+    margin: 15px auto;
+    background-color: #b69d79;
+    padding: 10px 20px 20px 20px;
+    border: 5px solid black;
+    background-image: linear-gradient(rgba(0, 0, 255, 0.5), rgba(255, 255, 0, 0.5)),
+                  url("/images/lizard.png");
+}
+p, li {
+    color: rgb(39, 7, 7);
+    font-size: 16px;
+    line-height: 2;
+    letter-spacing: 1px;
+}
+li {font-size: 20;
+color: rgb(28, 134, 69);
+text-shadow: 1px 1px 1px black;
+}
+
+h1 {
+    font-size: 60px;
+    text-align: center;
+    margin: 0;
+    padding: 20px 0;
+    color: #00539F;
+    text-shadow: 3px 3px 1px black;
+  }
+  iframe { 
+    display: block;
+    margin: 0 auto;
+    border: 15px solid black;
+    border-radius: 12px;
+}
+aside {
+  width: 40%;
+  padding-left: .5rem;
+  margin-left: .5rem;
+  float: right;
+  box-shadow: inset 5px 0 5px -5px #7ca6bb;
+  font-style: oblique;
+  color: #29627e;
+}
+
+aside > p {
+  margin: .5rem;
+}
+
+p {
+  font-family: 'Fira Sans', sans-serif;
+}
+  img {
+    display: block;
+    margin: 0 auto;
+    border: 15px solid black;
+    border-radius: 12px;
+   }
+  button {
+    font-size: 60px;
+    display: block;
+    margin: 5% auto;
+    color: rgb(87, 14, 136);
+    cursor: pointer;
+    border-radius: 12px;
+    
+}
+footer {
+  text-align: center;
+  margin: 0;
+  padding: 20px 0;
+  color: #061c31;
+  border: 1px solid black;
+}
