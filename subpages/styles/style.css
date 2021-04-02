@@ -90,8 +90,9 @@ body {
 }
 
 /*Need abit space around the lists*/
-.li {
-  padding: 20px;
+ul li {
+  background: #cce5ff;
+  margin: 5px;
 }
 
 /* Trying a div on the second part of the hummus 
