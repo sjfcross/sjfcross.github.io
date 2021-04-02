@@ -90,7 +90,7 @@ body {
 }
 
 /*Need abit space around the lists*/
-ul li {
+ul {
   background: #cce5ff;
   margin: 5px;
 }
