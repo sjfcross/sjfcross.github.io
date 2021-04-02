@@ -89,6 +89,11 @@ body {
   padding: 20px;
 }
 
+/*Need abit space around the lists*/
+.li{
+  padding: 10px;
+}
+
 /* Trying a div on the second part of the hummus 
 site*/
 .Detailing {
