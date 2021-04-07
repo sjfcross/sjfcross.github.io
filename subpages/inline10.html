@@ -99,7 +99,14 @@ alt="Elva dressed as a fairy"&gt;
 <li>A space</li>
 <li>The width of the slot the image will fill when the media condition is true (480px)</li>
 </p>
-
+<p>So, with these attributes in place, the browser will:
+<ol>
+  <li>Look at its device width.</li>
+<li>Work out which media condition in the sizes list is the first one to be true.</li>
+<li>Look at the slot size given to that media query.</li>
+<li>Load the image referenced in the srcset list that has the same size as the slot or, if there isn't one, the first image that is bigger than the chosen slot size.</li>
+</ol>
+</p>
 
 
 
