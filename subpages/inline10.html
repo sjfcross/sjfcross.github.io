@@ -109,7 +109,36 @@ alt="Elva dressed as a fairy"&gt;
 </p>
 <p>And that's it! At this point, if a supporting browser with a viewport width of 480px loads the page, the (max-width: 600px) media condition will be true, and so the browser chooses the 480px slot. The elva-fairy-480w.jpg will be loaded, as its inherent width (480w) is closest to the slot size.</p>
 
+<H3>Resolution switching - Same Size - Diff Resolutions</H3>
 
+<p>If you're supporting multiple display resolutions, but everyone sees your image at the same real-world size on the screen, you can allow the browser to choose an appropriate resolution image by using srcset with x-descriptors and without sizes — a somewhat easier syntax! </p>
+
+<strong>
+  <p>
+  <pre>
+<img srcset="elva-fairy-320w.jpg,
+             elva-fairy-480w.jpg 1.5x,
+             elva-fairy-640w.jpg 2x"
+     src="elva-fairy-640w.jpg"
+     alt="Elva dressed as a fairy">
+
+    </pre>
+  </p>
+  </strong>
+
+  <p>In this example, the following CSS is applied to the image so that it will have a width of 320 pixels on the screen (also called CSS pixels):</p>
+
+  <strong>
+    <p>
+    <pre>
+      
+      img {
+        width: 320px;
+      }
+
+    </pre>
+  </p>
+  </strong>
 
 
 </div>
