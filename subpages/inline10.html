@@ -89,8 +89,14 @@ alt="Elva dressed as a fairy"&gt;
   not px as you might expect. This is the image's real size, which can be found 
   by inspecting the image file.</li>
 </p>
-
-
+<p>sizes defines a set of media conditions (e.g. screen widths) and indicates what image size 
+  would be best to choose, when certain media conditions are true. 
+<br>In this case, before each comma we write:</p>
+<p>
+<li>A media condition ((max-width:600px)) — you'll learn more about these in the CSS topic, but for now let's just say that <strong> a media condition describes a possible state that the screen can be in.</strong> In this case, we are saying "when the viewport width is 600 pixels or less".
+<li>A space</li>
+<li>The width of the slot the image will fill when the media condition is true (480px)</li>
+</p>
 </div>
 </div>
 
