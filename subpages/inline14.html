@@ -7,6 +7,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 
+.horizontal {
+  writing-mode: horizontal-tb;
+}
+
+.vertical {
+  writing-mode: vertical-rl;
+}
+    
 
 </style>
 </head>
@@ -76,10 +84,33 @@
 <li>vertical-lr: Left-to-right block flow direction. Sentences run vertically.</li>
     </ul>
 </p>
-<p>So the writing-mode property is in reality setting the direction in which block-level elements are displayed on the page — either from top-to-bottom, right-to-left, or left-to-right. This then dictates the direction text flows in sentences.
+<p>So the writing-mode property is in reality setting the direction in which block-level elements are displayed on the 
+    page — either from top-to-bottom, right-to-left, or left-to-right. This then dictates the direction text flows in sentences.
 </p>
 
+<h3>Writing modes and block and inline layout</h3>
 
+<p>We have already discussed block and inline layout, and the fact that some things display as block elements and others 
+as inline elements. As we have seen described above, block and inline is tied to the writing mode of the document, 
+and not the physical screen. Blocks are only displayed from the top to the bottom of the page if you are using a writing mode 
+that displays text horizontally, such as English.
+</p>
+<p>
+If we look at an example this will become clearer. In this next example I have two boxes that contain a heading and a paragraph. 
+The first uses writing-mode: horizontal-tb, a writing mode that is written horizontally and from the top of the page to the bottom. 
+The second uses writing-mode: vertical-rl; this is a writing mode that is written vertically and from right to left.
+</p>
+
+<div class="wrapper">
+  <div class="box horizontal">
+    <h2>Heading</h2>
+    <p>A paragraph. Demonstrating Writing Modes in CSS.</p>
+  </div>
+  <div class="box vertical">
+    <h2>Heading</h2>
+    <p>A paragraph. Demonstrating Writing Modes in CSS.</p>
+  </div>
+</div>
 
 
 
