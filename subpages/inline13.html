@@ -16,14 +16,6 @@ span {
   background-color: rgba(255,255,255,.5);
 }
 
-.boxa {
-  background: url(/images/balloons.jpg);
-}
-
-.boxb {
-  background-image: url(star.png);
-}
-
 </style>
 </head>
 <body>
@@ -87,19 +79,22 @@ span {
    
 <h3>Background images</h3>
 
-
 <p>The background-image property enables the display of an image in the background of an element. 
-    In the example below, we have two boxes — one has a background image which is larger than the box, the other has a small image of a star.
-</p>
-<p>
-This example demonstrates two things about background images. By default, the large image is not scaled down to fit the box, 
-so we only see a small corner of it, whereas the small image is tiled to fill the box. In this case, the actual image is just a single star.
+   A  large image is not scaled down to fit the box, 
+   so we only see a small corner of it, whereas the small image is tiled to fill the box. 
 </p>
 
-<div class="wrapper">
-    <div class="boxa"></div>
-    <div class="boxb"></div>
-</div>
+<h3>Controlling background-repeat</h3>
+
+<p>The background-repeat property is used to control the tiling behavior of images. The available values are:</p>
+<p>
+<ul>
+    <li>no-repeat — stop the background from repeating altogether.</li>
+    <li>repeat-x — repeat horizontally.</li>
+    <li>repeat-y — repeat vertically.</li>
+    <li>repeat — the default; repeat in both directions.</li>
+</ul>
+</p>
       
 
 
