@@ -41,6 +41,11 @@
   border: 5px solid rgb(172, 20, 20);
   writing-mode: vertical-rl;
 }
+.boxb {
+  inline-size: 200px;
+  writing-mode: horizontal-tb;
+}
+
 
 
 
@@ -210,6 +215,29 @@ h2 &#123;
 
 </strong></code></pre>
 
+
+<h3>Logical values</h3>
+
+<p>We have so far looked at logical property names. There are also some properties that take physical values of top, right, bottom, and left. 
+  These values also have mappings, to logical values — block-start, inline-end, block-end, and inline-start.
+</p>
+<p>
+For example, you can float an image left to cause text to wrap round the image. You could replace left with inline-start as shown in the example below.
+</p>
+<p>
+Change the writing mode on this example to vertical-rl to see what happens to the image. Change inline-start to inline-end to change the float.
+</p>
+
+
+<div class="wrapper">
+  <div class="boxb logicalb">
+    
+    <img src="big-star.png" alt="star" style="float: inline-start; margin-inline-end: 10px; margin-block-end: 10px;">
+
+    <p>This box uses logical properties. The star image has been floated inline-start, it also has a margin on the inline-end and block-end.</p>
+
+  </div>
+</div>
 
 <p><a href="/subpages/tables/tables.html">Experimental space (some tables ref other css)</a></p>
 </div>
