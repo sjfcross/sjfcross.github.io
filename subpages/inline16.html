@@ -75,6 +75,14 @@ table.blueTable tfoot .links a{
   border-radius: 5px;
 }
 
+.ems li {
+  font-size: 1.3em;
+}
+
+.rems li {
+  font-size: 1.3rem;
+}
+
 </style>
 
 </head>
@@ -184,6 +192,52 @@ table.blueTable tfoot .links a{
     <p>
     <img src="/images/absolutelengthunits.PNG" alt="Length Units">
     </p> 
+
+    <h3>ems and rems</h3>
+
+    <p>em and rem are the two relative lengths you are likely to encounter most frequently when sizing anything from boxes to text. 
+    </p>
+    <p>To recap, the em unit means "my parent element's font-size" in the case of typography. 
+        The &lt;li&gt; elements inside the &lt;ul&gt; with a class of ems take their sizing from their parent. So each successive level of nesting gets progressively larger, 
+        as each has its font size set to 1.3em — 1.3 times its parent's font size.
+    </p>
+    <p>To recap, the rem unit means "The root element's font-size". (rem stands for "root em".) 
+        The &lt;li&gt; elements inside the &lt;ul&gt; with a class of rems take their sizing from the root element (&lt;html&gt;). This means that each successive level of 
+        nesting does not keep getting larger.
+    </p>
+
+
+    <ul class="ems">
+        <li>One</li>
+        <li>Two</li>
+        <li>Three
+          <ul>
+            <li>Three A</li>
+            <li>Three B
+              <ul>
+                <li>Three B 2</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      
+      <ul class="rems">
+        <li>One</li>
+        <li>Two</li>
+        <li>Three
+          <ul>
+            <li>Three A</li>
+            <li>Three B
+              <ul>
+                <li>Three B 2</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+
+
 
 </div>
 </div>
