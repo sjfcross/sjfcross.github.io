@@ -28,6 +28,19 @@
   padding-left:  10px; /* 3 */
 }
 
+.boxa {
+  width: 150px;
+}
+
+.horizontala {
+  writing-mode: horizontal-tb;
+}
+
+.verticala {
+  writing-mode: vertical-rl;
+}
+
+
 
 </style>
 </head>
@@ -125,9 +138,32 @@ The second uses writing-mode: vertical-rl; this is a writing mode that is writte
   </div>
 </div>
 
+<p>What we really want in this scenario, is to essentially swap height and width along with the writing mode. When we're in a vertical writing 
+  mode we want the box to expand in the block dimension just like it does in the horizontal mode.
+</p>
+<p>
+To make this easier, CSS has recently developed a set of mapped properties. These essentially replace physical properties — things 
+like width and height — with logical, or flow relative versions.
+</p>
+<p>
+The property mapped to width when in a horizontal writing mode is called <italic>inline-size</italic>— it refers to the size in the inline dimension. 
+The property for height is named <italic>block-size</italic> and is the size in the block dimension. You can see how this works in the example below 
+where we have replaced width with inline-size.
+</p>
 
-
-
+<div class="wrapper">
+  <div class="boxa horizontala">
+    <h2>Heading</h2>
+    <p>A paragraph. Demonstrating Writing Modes in CSS.</p>
+    <p>These boxes have a width.</p>
+  </div>
+  <div class="boxa verticala">
+    <h2>Heading</h2>
+    <p>A paragraph. Demonstrating Writing Modes in CSS.</p>
+    <p>These boxes have a width.</p>
+  </div>
+</div>
+    
 
 
 
