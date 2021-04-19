@@ -173,7 +173,27 @@ table.blueTable tfoot .links a{
   width: 450px;
   height: 130px;
 }
-    
+
+.seven {
+  background-color: hsla(188, 97%, 28%, .3);
+  width: 450px;
+  height: 130px;
+  border-radius: 20px;
+}
+
+.eight {
+  background-color: hsla(321, 47%, 57%, .7);
+  width: 450px;
+  height: 130px;
+  border-radius: 20px;
+}
+
+.nine {
+  background-color: hsla(174, 77%, 31%, .9);
+  width: 450px;
+  height: 130px;
+  border-radius: 20px;
+} 
 
 
 
@@ -400,12 +420,33 @@ These values are a bit more complex and less easy to understand, but they are a 
 
 
 <div class="box4">
-  
   <div class="box four">rgba(2, 121, 139, .3)</div>
   <div class="box five">rgba(197, 93, 161, .7)</div>
   <div class="box six">rgba(18, 138, 125, .9)</div>
-
 </div>
+
+<h4>HSL and HSLA values</h4>
+
+<p>Slightly less well-supported than RGB is the HSL color model (not supported on old versions of IE), which was implemented after much interest from designers. 
+  Instead of red, green, and blue values, the hsl() function accepts hue, saturation, and lightness values, which are used to distinguish between the 16.7 million colors, 
+  but in a different way:
+</p>
+<p>
+<ul>
+   <li>Hue: The base shade of the color. This takes a value between 0 and 360, representing the angles around a color wheel.</li>
+   <li>Saturation: How saturated is the color? This takes a value from 0–100%, where 0 is no color (it will appear as a shade of grey), and 100% is full color saturation</li>
+  <li>Lightness: How light or bright is the color? This takes a value from 0–100%, where 0 is no light (it will appear completely black) and 100% is full light (it will appear completely white)</li>
+  </ul>
+</p>
+
+
+<div class="box4">
+  <div class="box seven">hsla(188, 97%, 28%, .3)</div>
+  <div class="box eight">hsla(321, 47%, 57%, .7)</div>
+  <div class="box nine">hsla(174, 77%, 31%, .9)</div>
+</div>
+    
+
 
 
 </div>
