@@ -22,32 +22,32 @@ overflow: auto;
 }
 
 
-.box2 {
+#box2 {
   border: 5px solid black;
   height: 480px;
   width: 800px;
   overflow:hidden;
 }
 
-.box2 .box3 {
+#box2 #box3 {
 
   position: relative;
            width: 50%;
            height: 50%;
            margin: auto;
            margin-top: 25%;
-           margin-bottom: 25%;
+           
 
 }
 
-
-.box3 {
+/*
+#box3 {
 
 border: 5px solid black;
 background-color: coral;
 opacity: 0.3;
 }
-
+*/
 
 
 #first {
@@ -62,7 +62,6 @@ opacity: 0.3;
            height: 50%;
            margin: auto;
            margin-top: 25%;
-           margin-bottom: 25%;
            background: green;
         }
 
@@ -297,13 +296,13 @@ table.blueTable tfoot .links a{
 </p>
 
 
-<div class="box2">
+<div id="box2">
 <!--First section-->
 
   <div style="background-image: url('/images/controller.jpg');
   background-size: cover; height:480px; padding-top:80px;">
   
-  <div class="box3">I am a box with opacity</div>
+  <div id="box3">I am a box with opacity</div>
 
 </div>
 </div>
