@@ -7,6 +7,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 
+
+
+.wrapper {
+  border: 5px solid black;
+  padding: 1em;
+  height: 500px;
+  width: 500px;
+}
+
 .box {
   border: 5px solid black;
   padding: 1em;
@@ -137,6 +146,23 @@ table.blueTable tfoot .links a{
 .three {
   background-color: #128a7d;
 }
+
+.four {
+  background-color: rgba(2, 121, 139, .3);
+}
+
+.five {
+  background-color: rgba(197, 93, 161, .7);
+}
+
+.six {
+  background-color: rgba(18, 138, 125, .9);
+}
+    
+
+
+
+
 </style>
 
 </head>
@@ -350,7 +376,16 @@ These values are a bit more complex and less easy to understand, but they are a 
   <div class="box three">128a7d</div>
 </div>
 
-
+<div id="box4">
+      <div style="background-image: url('/images/balloons.jpg');
+    background-size: cover; height:480px; padding-top:80px;">
+<div class="wrapper">
+  <div class="box four">rgba(2, 121, 139, .3)</div>
+  <div class="box five">rgba(197, 93, 161, .7)</div>
+  <div class="box six">rgba(18, 138, 125, .9)</div>
+</div>
+  </div>
+  </div>
 
 </div>
 </div>
