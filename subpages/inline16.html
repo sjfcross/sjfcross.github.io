@@ -41,7 +41,21 @@ background-color: coral;
 opacity: 0.3;
 }
 
-
+#first {
+        width: 100px;
+        height: 100px;
+        background: red;
+        overflow: hidden;
+       }
+       #first #second{
+           position: relative;
+           width: 50%;
+           height: 50%;
+           margin: auto;
+           margin-top: 25%;
+           background: green;
+        }
+        
 table.blueTable {
   border: 1px solid #1C6EA4;
   background-color: #EEEEEE;
@@ -276,15 +290,19 @@ table.blueTable tfoot .links a{
 <div class="box2">
 <!--First section-->
 
-
   <div style="background-image: url('/images/controller.jpg');
   background-size: cover; height:480px; padding-top:80px;">
   
   <div class="box3">I am a box with opacity</div>
 
-
-  </div>
 </div>
+</div>
+
+<div id="first">
+  <div id="second"></div>
+ </div>
+
+
 
 </div>
 </div>
