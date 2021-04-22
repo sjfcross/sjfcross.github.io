@@ -16,6 +16,11 @@
   width: 350px;
 }
 
+.wrapper2 {
+  width: 400px;
+  border: 5px solid black;
+}
+
 .box {
   border: 2px solid black;
   padding: 1em;
@@ -60,6 +65,13 @@ overflow: auto;
   content: "This is a string. I know because it is quoted in the CSS."
 }
        
+
+.box7 {
+  width: calc(20% + 100px);
+  border: 5px solid rgb(60, 15, 221);
+}
+
+
 
 .image {
   background-image: url(/images/star.png);
@@ -516,13 +528,29 @@ In this case, the value is quoted to demonstrate that it is a string. In the bel
 <div class="box6"></div> 
 
 
+<h4>Functions</h4>
+
+<p>The final type of value we will take a look at is the group of values known as functions. In programming, a function is a reusable section of code that 
+  can be run multiple times to complete a repetitive task with minimum effort on the part of both the developer and the computer. Functions are usually associated 
+  with languages like JavaScript, Python, or C++, but they do exist in CSS too, as property values. We've already seen functions in action in the Colors section — rgb(), hsl(), etc.
+  The value used to return an image from a file — url() — is also a function.
+</p>
+<p>
+A value that behaves more like something you might find in a traditional programming language is the calc() CSS function. This function gives you the ability to do simple 
+calculations inside your CSS. It's particularly useful if you want to work out values that you can't define when writing the CSS for your project, and need the browser to work 
+out for you at runtime.
+</p>
+<p>
+For example, below we are using calc() to make the box 20% + 100px wide. The 20% is calculated from the width of the parent container .wrapper and so will change if 
+that width changes. We can't do this calculation beforehand because we don't know what 20% of the parent will be, so we use calc() to tell the browser to do it for us.
+</p>
 
 
 
 
-
-
-
+<div class="wrapper2">
+  <div class="box7">My width is calculated.</div> 
+</div>
 
 
 
