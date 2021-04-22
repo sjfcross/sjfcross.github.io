@@ -39,6 +39,15 @@ overflow: auto;
 
 }
 
+.box5 {
+  height: 300px;
+  width: 400px;
+  background-image: url(/images/star.png);
+  background-repeat: no-repeat;
+  background-position: right 40px;
+}
+    
+
 .image {
   background-image: url(/images/star.png);
 }
@@ -464,6 +473,23 @@ In the example below, we have demonstrated an image and a gradient in use as a v
 
 <div class="box image"></div>
 <div class="box gradient"></div>  
+
+<h4>Position</h4>
+
+<p>The &lt;position&gt; value type represents a set of 2D coordinates, used to position an item such as a background image (via background-position). 
+  It can take keywords such as top, left, bottom, right, and center to align items with specific bounds of a 2D box, along with lengths, which represent offsets 
+  from the top and left-hand edges of the box.
+</p>
+<p>
+A typical position value consists of two values — the first sets the position horizontally, the second vertically. If you only specify values
+for one axis the other will default to center.
+</p>
+<p>
+In the following example we have positioned a background image 40px from the top and to the right of the container using a keyword.
+</p>
+
+<div class="box5"></div> 
+
 
 
 </div>
