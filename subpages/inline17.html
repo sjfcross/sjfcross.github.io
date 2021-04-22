@@ -7,7 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-
+.wrapper {
+    border: 3px solid rgb(139, 0, 46);
+}
 .box {
   border: 5px solid darkblue;
   width: 50%;
@@ -19,7 +21,11 @@
   padding: 10%;
 }    
 
-
+.box3 {
+  border: 5px solid darkblue;
+  min-height: 150px;
+  width: 200px;
+}
 
 </style>
 
@@ -110,8 +116,21 @@
      This means you can have equal-sized margins and padding all around the box. This is a fact worth remembering if you do use percentages in this way.    
 </p>
 
+<h3>min- and max- sizes</h3>
 
+<p>In addition to giving things a fixed size, we can ask CSS to give an element a minimum or a maximum size.
+    If you have a box that might contain a variable amount of content, and you always want it to be at least a certain height, you could set the min-height property on it. 
+    The box will always be at least this height, but will then grow taller if there is more content than the box has space for at its minimum height.
+</p>
+<p>
+In the example below you can see two boxes, both with a defined height of 150 pixels. 
+The box on the left is 150 pixels tall; the box on the right has content that needs more room, and so it has grown taller than 150 pixels.
+</p>
 
+<div class="wrapper">
+    <div class="box3"></div>
+    <div class="box3">These boxes both have a min-height set, this box has content in it which will need more space than the assigned height, and so it grows from the minimum.</div>
+  </div>
 
 
 
