@@ -31,6 +31,14 @@
   width: 200px;
   border: 3px solid rgb(139, 0, 46);
 }
+.box5 {
+  border: 5px solid darkblue;
+  width: 20vw;
+  height: 20vh;
+  font-size: 10vh;
+}
+
+
 .minibox {
   width: 50px;
   border: 3px solid rgb(139, 0, 46);
@@ -177,6 +185,27 @@ The box on the top is 70 pixels tall; the box on the right has content that need
     <div class="minibox"><img src="/images/star.png" alt="star" class="max"></div>
   </div>
       
+  <h3>Viewport units</h3>
+
+  <p>The viewport — which is the visible area of your page in the browser you are using to view a site — also has a size. 
+      In CSS we have units which relate to the size of the viewport — the vw unit for viewport width, and vh for viewport height. 
+      Using these units you can size something relative to the viewport of the user.
+</p>
+<p>
+  1vh is equal to 1% of the viewport height, and 1vw is equal to 1% of the viewport width. 
+  You can use these units to size boxes, but also text. In the example below we have a box which is sized as 20vh and 20vw. 
+  The box contains a letter A, which has been given a font-size of 10vh.
+</p>
+
+<div class="box5">
+    A
+  </div>
+
+
+
+
+
+
 
 </div>
 </div>
