@@ -27,6 +27,24 @@
   width: 200px;
 }
 
+.box4 {
+  width: 200px;
+}
+.minibox {
+  width: 50px;
+}
+.width {
+  width: 100%;
+}
+.max {
+  max-width: 100%;
+}
+
+
+
+
+
+
 </style>
 
 
@@ -132,10 +150,31 @@ The box on the top is 70 pixels tall; the box on the right has content that need
     <div class="box3">These boxes both have a min-height set, this box has content in it which will need more space than the assigned height, and so it grows from the minimum.</div>
   </div>
 
+  <h4>This is very useful for dealing with variable amounts of content while avoiding overflow.</h4>
 
+ <p>A common use of max-width is to cause images to scale down if there is not enough space to display them at their intrinsic width while making sure they don't 
+     become larger than that width.
+</p>
+<p>
+  As an example, if you were to set width: 100% on an image, and its intrinsic width was smaller than its container, the image would be forced to stretch and
+  become larger, causing it to look pixelated.
+</p>
+<p>
+  If you instead use max-width: 100%, and its intrinsic width was greater than its container, the image is able to become smaller than its container size, 
+  and will stop at 100% of its container size.
+</p>
+<p>
+  In the example below, we have used the same image three times. The first image has been given<strong> width: 100% </strong>and is in a container which is larger than it,
+   therefore it stretches to the container width. The second image has <strong>max-width: 100% </strong>set on it and therefore does not stretch to fill the container. 
+   The third box contains the same image again, also with <strong>max-width: 100% </strong>set; in this case you can see how it has scaled down to fit into the box.
+</p>
 
-
-
+<div class="wrapper">
+    <div class="box4"><img src="/images/star.png" alt="star" class="width"></div>
+    <div class="box4"><img src="/images/star.png" alt="star" class="max"></div>
+    <div class="minibox"><img src="/images/star.png" alt="star" class="max"></div>
+  </div>
+      
 
 </div>
 </div>
