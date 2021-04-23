@@ -66,6 +66,27 @@ img {
   object-fit: fill;
 }
 
+input[type="text"],
+input[type="email"] {
+  border: 4px solid green;
+  background-color: coral;
+  margin: 0 0 1em 0;
+  padding: 13px;
+  width: 100%;
+}
+
+input[type="submit"] {
+  border: 3px solid #333;
+  background-color: blue;
+  border-radius: 5px;
+  padding: 10px 2em;
+  font-weight: bold;
+  color: #fff;
+}
+
+input[type="submit"]:hover {
+  background-color: #333;
+}
 
 
 
@@ -203,7 +224,14 @@ Form elements can be a tricky issue when it comes to styling with CSS, and the W
   in how much styling and customization they allow for such items.
 </p>
 
+<form>
+  <div><label for="name">Name</label>
+  <input type="text" id="name"></div>
+  <div><label for="email">Email</label>
+  <input type="email" id="email"></div>
 
+  <div class="buttons"><input type="submit" value="Submit"></div>
+</form>
 
 
 </div>
