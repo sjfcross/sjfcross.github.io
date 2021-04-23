@@ -5,7 +5,43 @@
 <link href="styles/style.css" rel="stylesheet">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
 
+.wrapper {
+    width: 700px;
+    height: 700px;
+    border: 3px solid rgb(139, 0, 46);
+}
+
+
+.box {
+  width: 200px;
+  height: 200px;
+  border: 2px solid rgb(14, 0, 139);
+}
+
+img {
+  height: 100%;
+  width: 100%;
+}
+
+.cover {
+  object-fit: cover;
+}
+
+.contain {
+  object-fit: contain;
+}
+
+.fill {
+  object-fit: fill;
+}
+
+
+
+
+
+</style>
 
 </head>
 <body>
@@ -52,7 +88,44 @@
 <div class="main">
 
 
-<H2 style="color:rgb(12, 150, 70); font-size: 150%;">Images, media, and form elements</h2>
+<H2 style="color:rgb(12, 150, 70); font-size: 200%;">Images, media, and form elements</h2>
+
+    <h3>Sizing images</h3>
+
+    <p>As you already know from following these lessons, everything in CSS generates a box. If you place an image inside a box that is smaller or larger than the
+         intrinsic dimensions of the image file in either direction, it will either appear smaller than the box, or overflow the box. You need to make a decision 
+         about what happens with the overflow.
+    </p>
+
+<p>As we learned in our previous lesson, a common technique is to make the max-width of an image 100%. This will enable the image to become
+     smaller in size than the box but not larger. This technique will work with other replaced elements such as &lt;video&gt;s, or &lt;iframe&gt;s.
+</p>
+<p>You can make other choices about images inside containers. For example, you may want to size an image so it completely covers a box.
+</p>
+<p>
+The object-fit property can help you here. When using object-fit the replaced element can be sized to fit a box in a variety of ways.
+</p>
+<p>
+Below we have used the value cover, which sizes the image down, maintaining the aspect ratio so that it neatly fills the box. As the aspect ratio is maintained 
+some parts of the image will be cropped by the box.
+</p>
+
+
+<div class="wrapper">
+    <div class="box"><img src="balloons.jpg" alt="balloons" class="cover"></div>
+    <div class="box"><img src="balloons.jpg" alt="balloons" class="contain"></div>
+    <div class="box"><img src="balloons.jpg" alt="balloons" class="fill"></div>
+  </div>
+
+
+
+
+
+
+
+
+
+
 
 
 
