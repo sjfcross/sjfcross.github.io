@@ -15,7 +15,8 @@
 
 .box {
 
-  margin: 10%;
+  margin: 5%;
+  border-radius: 5px;
   width: 200px;
   height: 200px;
   border: 2px solid rgb(233, 59, 6);
@@ -119,7 +120,7 @@ some parts of the image will be cropped by the box.
     <div class="box"><img src="/images/balloons.jpg" alt="balloons" class="fill"></div>
   </div>
 
-  <p>If we use contain as a value the image will be scaled down until it is small enough to fit inside the box. This will result in "letterboxing" if it is not the same aspect ratio as the box.
+  <p>If we use <strong>contain</strong> as a value the image will be scaled down until it is small enough to fit inside the box. This will result in "letterboxing" if it is not the same aspect ratio as the box.
 </p>
   
 <p>In the third box we used  the value of <strong>fill</strong>, which will fill the box but not maintain the aspect ratio.
