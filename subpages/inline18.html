@@ -14,6 +14,22 @@
     border-radius: 5px;
 }
 
+.wrapper2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 200px 200px;
+  gap: 20px;
+}
+
+.wrapper2 > div {
+  background-color: rebeccapurple;
+  border-radius: .5em;
+}
+
+
+
+
+
 .box {
 
   margin: 3%;
@@ -107,7 +123,7 @@ img {
 <p>You can make other choices about images inside containers. For example, you may want to size an image so it completely covers a box.
 </p>
 <p>
-The <strong>object-fit</strong>property can help you here. When using <strong>object-fit</strong> the replaced element can be sized to fit a box in a variety of ways.
+The <strong>object-fit</strong> property can help you here. When using <strong>object-fit</strong> the replaced element can be sized to fit a box in a variety of ways.
 </p>
 <p>
 Below we have used the value <strong>cover</strong>, which sizes the image down, maintaining the aspect ratio so that it neatly fills the box. As the aspect ratio is maintained 
@@ -127,8 +143,24 @@ some parts of the image will be cropped by the box.
 <p>In the third box we used  the value of <strong>fill</strong>, which will fill the box but not maintain the aspect ratio.
 </p>
 
+<h3>Replaced elements in layout</h3>
+
+<p>When using various CSS layout techniques on replaced elements, you may well find that they behave slightly differently to other elements. 
+ For example, in a flex or grid layout elements are stretched by default to fill the entire area. Images will not stretch, and instead will be aligned to the start of 
+ the grid area or flex container.
+</p>
+<p>
+You can see this happening in the example below where we have a two column, two row grid container, which has four items in it.
+All of the &lt;div&gt; elements have a background color and stretch to fill the row and column. The image, however, does not stretch.
+</p>
 
 
+<div class="wrapper2">
+    <img src="/images/star.png" alt="star">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
 
 
 
