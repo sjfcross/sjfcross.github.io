@@ -40,6 +40,10 @@
   display: inline-block;
 }
 
+img {
+  height: 100%;
+  width: 100%;
+}
 
 .cover {
   object-fit: cover;
@@ -147,7 +151,16 @@ some parts of the image will be cropped by the box.
 </p>
 <p>
 You can see this happening in the example below where we have a two column, two row grid container, which has four items in it.
-All of the &lt;div&gt; elements have a background color and stretch to fill the row and column. The image, however, does not stretch.
+All of the &lt;div&gt; elements have a background color and stretch to fill the row and column. The image, however, does not stretch if we do not use additionally
+something like :  
+<pre>
+<code>
+img &#123;
+    height: 100%;
+    width: 100%;
+    &#125;
+</code>
+</pre>
 </p>
 
 
