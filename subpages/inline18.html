@@ -46,12 +46,12 @@
   display: inline-block;
 }
 
-
+/*
 img {
   height: 100%;
   width: 100%;
 }
-
+*/
 
 
 .cover {
@@ -141,9 +141,9 @@ some parts of the image will be cropped by the box.
 
 
 <div class="wrapper">
-    <div class="box"><img src="/images/balloons.jpg" alt="balloons" class="cover"></div>
-    <div class="box"><img src="/images/balloons.jpg" alt="balloons" class="contain"></div>
-    <div class="box"><img src="/images/balloons.jpg" alt="balloons" class="fill"></div>
+    <div class="box"><img src="/images/balloons.jpg" alt="balloons" class="cover" height="100%" width="100%"> </div>
+    <div class="box"><img src="/images/balloons.jpg" alt="balloons" class="contain" height="100%" width="100%"> </div>
+    <div class="box"><img src="/images/balloons.jpg" alt="balloons" class="fill" height="100%" width="100%"> </div>
   </div>
 
   <p>If we use <strong>contain</strong> as a value the image will be scaled down until it is small enough to fit inside the box. This will result in "letterboxing" if it is not the same aspect ratio as the box.
