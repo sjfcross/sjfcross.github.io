@@ -46,6 +46,14 @@
   display: inline-block;
 }
 
+
+.box2 {
+margin: 3%;
+border-radius: 5px;
+border: 2px solid rgb(233, 59, 6);
+background-color: burlywood;
+}
+
 /* I put these into the ballon img directly
 img {
   height: 100%;
@@ -240,6 +248,51 @@ Form elements can be a tricky issue when it comes to styling with CSS, and the W
 <p>In some browsers, form elements do not inherit font styling by default. Therefore if you want to be sure that your form fields use the font defined on the body, 
   or on a parent element, you should add this rule to your CSS.
 </p>
+
+<h3>Other useful settings</h3>
+<p>
+In addition to the rules mentioned above, you should also set overflow: auto on &lt;textarea&gt;s to stop IE showing a scrollbar when there is no need for one:
+</p>
+
+<h3>Putting it all together into a "reset"</h3>
+
+<p>As a final step, we can wrap up the various properties discussed above into the following "form reset" to provide a consistent base to work from. This includes all the items mentioned in the last three sections:
+</p>
+
+<p>
+<pre>
+<code>
+  button,
+  input,
+  select,
+  textarea &#123;
+    font-family: inherit;
+    font-size: 100%;
+    box-sizing: border-box;
+    padding: 0; margin: 0;
+  &#125;
+  
+  textarea &#123;
+    overflow: auto;
+  &#125; 
+  
+</code>
+</pre>
+</p>
+<div class="box2">
+<p>
+  <strong>Note:</strong> Normalizing stylesheets are used by many developers to create a set of baseline styles to use on all projects. 
+  Typically these do similar things to those described above, making sure that anything different across browsers is set to a consistent 
+  default before you do your own work on the CSS. They are not as important as they once were, as browsers are typically more consistent 
+  than in the past. However if you want to take a look at one example, check out  <a href="https://necolas.github.io/normalize.css/">Normalize.css</a> , 
+  which is a very popular stylesheet used as a base by many projects.
+</p>
+
+
+</div>
+
+
+
 
 
 </div>
