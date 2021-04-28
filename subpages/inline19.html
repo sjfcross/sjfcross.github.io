@@ -57,10 +57,11 @@
       <p>Let's start by looking at a typical HTML table. Well, I say typical — most HTML table examples are about shoes, or the weather, or employees; we decided to 
         make things more interesting by making it about famous punk bands from the UK. The markup looks like so:
       </p>
-      
+
       <p>
         <pre>
         <code>
+
           &lt;table&gt;
           &lt;caption&gt;A summary of the UK's most famous punk bands&lt;/caption&gt;
           &lt;thead&gt;
@@ -106,7 +107,57 @@
         </pre>
         </p>
 
-    <a href="/subpages/tablestyling/punktable.html">Working the Punktable</a></li>
+        <p>The table is nicely marked up, easily stylable, and accessible, thanks to features such as scope, &lt;caption&gt;, &lt;thead&gt;, &lt;tbody&gt;, etc.
+           Unfortunately, it doesn't look good when rendered on the screen.
+        </p>
+        <a href="https://mdn.github.io/learning-area/css/styling-boxes/styling-tables/punk-bands-unstyled.html">Like that.</a>
+
+        <h3>Spacing and layout</h3>
+
+<p>The first thing we need to do is sort out the spacing/layout — default table styling is so cramped! To do this, we add the following CSS to the style.css file:
+</p>
+
+<p>
+  <pre>
+  <code>
+
+/* spacing */
+
+table &#123;
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+  border: 3px solid purple;
+&#125;
+
+thead th:nth-child(1) &#123;
+  width: 30%;
+&#125;
+
+thead th:nth-child(2) &#123;
+  width: 20%;
+&#125;
+
+thead th:nth-child(3) &#123;
+  width: 15%;
+&#125;
+
+thead th:nth-child(4) &#123;
+  width: 35%;
+&#125;
+
+th, td &#123;
+  padding: 20px;
+&#125;
+
+
+</code>
+</pre>
+</p>
+
+    <a href="/subpages/tablestyling/punktable.html">Here is the Punktable</a>
+
+
   </div>
 </div>
 
