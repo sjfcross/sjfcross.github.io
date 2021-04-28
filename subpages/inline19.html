@@ -380,6 +380,39 @@ thead th, tfoot th, tfoot td &#123;
   but we decided to do it separately for the benefit of older browsers that don't support multiple background images or linear gradients.
 </p>
 
+<h3>Zebra striping</h3>
+
+<p>We wanted to dedicate a separate section to showing you how to implement zebra stripes — alternating rows of color 
+  that make the different data rows in your table easier to parse and read.
+  Lets add the following CSS to the bottom of our style.css file:
+</p>
+
+<div class="codebox">
+  <p>
+    <pre>
+    <code>
+/* zebra striping */
+
+tbody tr:nth-child(odd) &#123;
+  background-color: #ff33cc;
+&#125;
+
+tbody tr:nth-child(even) &#123;
+  background-color: #e495e4;
+&#125;
+
+tbody tr &#123;
+  background-image: url(noise.png);
+&#125;
+
+table &#123;
+  background-color: #ff33cc;
+&#125;
+
+</code>
+</pre>
+</p>
+</div>
 
     <a href="/subpages/tablestyling/punktable.html" target="_blank">Here is the Punktable</a> 
 
