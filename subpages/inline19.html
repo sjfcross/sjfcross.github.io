@@ -49,6 +49,63 @@
   </ol>
     </div>
   <div class="main">
+
+    <H2 style="color:rgb(12, 150, 70); font-size: 200%;">Styling tables</h2> 
+
+      <h3>A typical HTML table</h3>
+
+      <p>Let's start by looking at a typical HTML table. Well, I say typical — most HTML table examples are about shoes, or the weather, or employees; we decided to 
+        make things more interesting by making it about famous punk bands from the UK. The markup looks like so:
+      </p>
+      
+      <p>
+        <pre>
+        <code>
+          &lt;table&gt;
+          &lt;caption&gt;A summary of the UK's most famous punk bands&lt;/caption&gt;
+          &lt;thead&gt;
+            &lt;tr&gt;
+              &lt;th scope="col"&gt;Band&lt;/th&gt;
+              &lt;th scope="col"&gt;Year formed&lt;/th&gt;
+              &lt;th scope="col"&gt;No. of Albums&lt;/th&gt;
+              &lt;th scope="col"&gt;Most famous song&lt;/th&gt;
+            &lt;/tr&gt;
+          &lt;/thead&gt;
+          &lt;tbody&gt;
+            &lt;tr&gt;
+              &lt;th scope="row"&gt;Buzzcocks&lt;/th&gt;
+              &lt;td&gt;1976&lt;/td&gt;
+              &lt;td&gt;9&lt;/td&gt;
+              &lt;td&gt;Ever fallen in love (with someone you shouldn't've)&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;th scope="row"&gt;The Clash&lt;/th&gt;
+              &lt;td&gt;1976&lt;/td&gt;
+              &lt;td&gt;6&lt;/td&gt;
+              &lt;td&gt;London Calling&lt;/td&gt;
+            &lt;/tr&gt;
+        
+              ... some rows removed for brevity
+        
+            &lt;tr&gt;
+              &lt;th scope="row"&gt;The Stranglers&lt;/th&gt;
+              &lt;td&gt;1974&lt;/td&gt;
+              &lt;td&gt;17&lt;/td&gt;
+              &lt;td&gt;No More Heroes&lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/tbody&gt;
+          &lt;tfoot&gt;
+            &lt;tr&gt;
+              &lt;th scope="row" colspan="2"&gt;Total albums&lt;/th&gt;
+              &lt;td colspan="2"&gt;77&lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/tfoot&gt;
+        &lt;/table&gt;
+          
+        </code>
+        </pre>
+        </p>
+
     <a href="/subpages/tablestyling/punktable.html">Working the Punktable</a></li>
   </div>
 </div>
