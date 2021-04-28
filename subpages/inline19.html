@@ -9,7 +9,6 @@
 
 code {
 font-size: 1.3em;
-background-color: cadetblue;
 }
 
 .center {
@@ -19,7 +18,9 @@ background-color: cadetblue;
   width: 50%;
 }
 
-
+.codebox {
+  background-color: rgb(80, 101, 102);
+}
 
 
 
@@ -80,7 +81,7 @@ background-color: cadetblue;
       <p>Let's start by looking at a typical HTML table. Well, I say typical — most HTML table examples are about shoes, or the weather, or employees; we decided to 
         make things more interesting by making it about famous punk bands from the UK. The markup looks like so:
       </p>
-
+      <div class="codebox">
       <p>
         <pre>
         <code>
@@ -129,7 +130,7 @@ background-color: cadetblue;
         </code>
         </pre>
         </p>
-
+</div>
         <p>The table is nicely marked up, easily stylable, and accessible, thanks to features such as scope, &lt;caption&gt;, &lt;thead&gt;, &lt;tbody&gt;, etc.
            Unfortunately, it doesn't look good when rendered on the screen.
         </p>
@@ -140,6 +141,7 @@ background-color: cadetblue;
 <p>The first thing we need to do is sort out the spacing/layout — default table styling is so cramped! To do this, we add the following CSS to the style.css file:
 </p>
 
+<div class="codebox">
 <p>
   <pre>
   <code>
@@ -176,6 +178,7 @@ th, td &#123;
 </code>
 </pre>
 </p>
+</div>
 
 <p>The most important parts to note are as follows:</p>
 
