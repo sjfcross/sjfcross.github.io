@@ -12,7 +12,12 @@ font-size: 1.3em;
 background-color: cadetblue;
 }
 
-
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
 
 
 
@@ -168,10 +173,48 @@ th, td &#123;
   padding: 20px;
 &#125;
 
-
 </code>
 </pre>
 </p>
+
+<p>The most important parts to note are as follows:</p>
+
+<li>   
+  <p>
+  A <code>table-layout</code> value of fixed is generally a good idea to set on your table, as it makes the table behave a bit more predictably by default. 
+  Normally, table columns tend to be sized according to how much content they contain, which produces some strange results. 
+  With <code>table-layout: fixed</code>, you can size your columns according to the width of their headings, and then deal with their content as appropriate. 
+  This is why we've selected the four different headings with the </code> thead th:nth-child(n) (:nth-child) </code>selector ("Select the nth child that is a <code>&lt;th&gt;</code> element in a sequence, 
+  inside a <code>&lt;thead&gt;</code> element") and given them set percentage widths. The entire column width follows the width of its heading, making for a nice way to size your table columns. 
+  Chris Coyier discusses this technique in more detail in Fixed Table Layouts.
+</p>
+<p>
+ We've coupled this with a <code>width</code> of 100%, meaning that the table will fill any container it is put in, and be nicely responsive (although it would still need some more work to 
+get it looking good on narrow screen widths).
+</p>
+</li>
+<li>
+  <p>  A <code>border-collapse</code> value of collapse is a standard best practice for any table styling effort. By default, when you set borders on table elements, they will all have 
+    spacing between them, as the below image illustrates:
+</p> 
+<img src="/images/no-border-collapse.png" alt="Not collapsed" class="center"> 
+    
+  <p>
+    This doesn't look very nice (although it might be the look you want, who knows?) With <code>border-collapse: collapse;</code> set, the borders collapse down into one, which looks much better:
+  </p>
+  <img src="/images/border-collapse.png" alt="Collapsed" class="center"> 
+
+  <li> We've put a <code>border</code> around the whole table, which is needed because we'll be putting some borders round the table header and footer later on — it looks really odd 
+    and disjointed when you don't have a border round the whole outside of the table and end up with gaps.
+  </li>
+  <li>
+    We've set some <code>padding</code> on the <code>&lt;th&gt;</code> and <code>&lt;td&gt;</code> elements — this gives the data items some space to breathe, making the table look a lot more legible.
+  </li>
+</p>
+
+
+
+
 
     <a href="/subpages/tablestyling/punktable.html" target="_blank">Here is the Punktable</a> 
 
