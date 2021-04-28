@@ -24,6 +24,12 @@ background-color: rgb(214, 202, 191);
 }
 
 
+.interbox {
+font-size: 1.1em;
+background-color: rgb(180, 147, 116);
+}
+
+
 
 
 
@@ -192,7 +198,10 @@ th, td &#123;
   inside a <code>&lt;thead&gt;</code> element") and given them set percentage widths. The entire column width follows the width of its heading, making for a nice way to size your table columns. 
   Chris Coyier discusses this technique in more detail in Fixed Table Layouts.
 </p>
+</li>
+
 <p>
+  <div class="interbox">
   <h3>Intermezzo :nth-child() </h3>
   <p>The :nth-child() CSS pseudo-class matches elements based on their position in a group of siblings.</p>
 
@@ -216,8 +225,12 @@ th, td &#123;
 </pre>
 </p>
 </div>
-
 </p>
+</div>
+
+
+
+<li>
 <p>
  We've coupled this with a <code>width</code> of 100%, meaning that the table will fill any container it is put in, and be nicely responsive (although it would still need some more work to 
 get it looking good on narrow screen widths).
@@ -233,6 +246,7 @@ get it looking good on narrow screen widths).
     This doesn't look very nice (although it might be the look you want, who knows?) With <code>border-collapse: collapse;</code> set, the borders collapse down into one, which looks much better:
   </p>
   <img src="/images/border-collapse.png" alt="Collapsed" class="center"> 
+  </li>
 
   <li> We've put a <code>border</code> around the whole table, which is needed because we'll be putting some borders round the table header and footer later on — it looks really odd 
     and disjointed when you don't have a border round the whole outside of the table and end up with gaps.
@@ -305,7 +319,7 @@ tfoot th &#123;
 </p>
 </div>
 
-<ul>
+
   <p>There is nothing really specific to tables here; we are generally tweaking the font styling to make things easier to read:
   </p>
 
@@ -320,7 +334,7 @@ tfoot th &#123;
 </li>
 <li>  We've right-aligned the heading inside the <code>&lt;tfoot&gt;</code> so that it is visually associated better with its data point.
 </li>
-</ul>
+
 
 <p>The result looks a bit neater:</p>
 
