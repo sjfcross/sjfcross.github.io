@@ -5,7 +5,17 @@
 <link href="styles/style.css" rel="stylesheet">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
 
+.codebox {
+  background-color: rgb(214, 202, 191);
+}
+
+
+
+
+
+</style>
 
 </head>
 <body>
@@ -53,6 +63,128 @@
 
     </div>
   <div class="main">
+
+    <H2 style="color:rgb(12, 150, 70); font-size: 200%;">Organizing your CSS</h2> 
+
+        <h3>Tips to keep your CSS tidy</h3>
+
+
+        <h2>Does your project have a coding style guide?</h2>
+
+<p>If you are working with a team on an existing project, the first thing to check is whether the project has an existing style guide for CSS. 
+    The team style guide should always win over your own personal preferences. There often isn't a right or wrong way to do things, but consistency is important.
+</p>
+
+        <h2>Keep it consistent</h2>
+
+<p>If you get to set the rules for the project or are working alone, then the most important thing to do is to keep things consistent. 
+    Consistency can be applied in all sorts of ways, such as using the same naming conventions for classes, choosing one method of describing color, 
+    or maintaining consistent formatting (for example will you use tabs or spaces to indent your code? If spaces, how many spaces?)
+</p>
+<p>Having a set of rules you always follow reduces the amount of mental overhead needed when writing CSS, as some of the decisions are already made.
+</p>
+
+        <h2>Formatting readable CSS</h2>
+
+<p>There are a couple of ways you will see CSS formatted. Some developers put all of the rules onto a single line, like so:
+</p>
+<div class="codebox">
+      <p>
+        <pre>
+        <code>
+
+            .box &#123; background-color: #567895; &#125;
+            h2 &#123; background-color: black; color: white; &#125;
+  
+        </code>
+    </pre>
+    </p>
+</div>
+
+<p>Other developers prefer to break everything onto a new line:</p>
+
+<div class="codebox">
+      <p>
+        <pre>
+        <code>
+            
+            .box &#123;
+            background-color: #567895;
+          &#125;
+          
+          h2 &#123;
+            background-color: black;
+            color: white;
+          &#125;
+          
+          
+  
+        </code>
+    </pre>
+    </p>
+</div>
+
+            <h2>Comment your CSS</h2>
+
+<p>Adding comments to your CSS will help any future developer work with your CSS file, but will also help you when you come back to the project after a break.
+</p>
+
+<p>A good tip is to add a block of comments between logical sections in your stylesheet too, to help locate different sections quickly when scanning through, 
+    or even give you something to search for to jump right into that part of the CSS. If you use a string which won't appear in the code you can jump from 
+    section to section by searching for it — below we have used ||.</p>
+
+
+    <div class="codebox">
+        <p>
+          <pre>
+          <code>
+              
+            /* || General styles */
+
+            ...
+            
+            /* || Typography */
+            
+            ...
+            
+            /* || Header and Main Navigation */
+            
+            ...
+            
+          </code>
+      </pre>
+      </p>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   </div>
 </div>
