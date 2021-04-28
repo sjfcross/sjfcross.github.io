@@ -23,6 +23,11 @@ background-color: rgb(214, 202, 191);
   background-color: rgb(214, 202, 191);
 }
 
+.quickbox {
+  background-image: url(/images/noise.png);
+  background-color: rgb(211, 172, 136);
+}
+
 
 .interbox {
 font-size: 1.1em;
@@ -435,7 +440,7 @@ table &#123;
   <p>
     <pre>
     <code>
-      
+
 /* caption */
 
 caption &#123;
@@ -455,6 +460,36 @@ caption &#123;
 
 
     <a href="/subpages/tablestyling/punktable.html" target="_blank">Here is the Punktable</a> 
+
+
+    <div class="quickbox">
+    <h3>Table styling quick tips</h3>
+
+    <p>Before moving on, we thought we'd provide you with a quick list of the most useful points illustrated above:
+    </p>
+    <ul>
+        <li>Make your table markup as simple as possible, and keep things flexible, e.g. by using percentages, so the design is more responsive.</li>
+        <li> Use table-layout: fixed to create a more predictable table layout that allows you to easily set column widths by setting width on their headings (&lt;th&gt;).</li>
+        <li> Use border-collapse: collapse to make table elements borders collapse into each other, producing a neater and easier to control look.</li>
+        <li> Use &lt;thead&gt;, &lt;tbody&gt;, and &lt;tfoot&gt; to break up your table into logical chunks and provide extra places to apply CSS to, so it is easier to layer 
+          styles on top of one another if required.</li>
+        <li>Use zebra striping to make alternative rows easier to read.</li>
+        <li>Use text-align to line up your <th> and <td> text, to make things neater and easier to follow.</li>
+    </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   </div>
 </div>
