@@ -1,0 +1,43 @@
+thead th:nth-child(2) {
+    text-align: right;
+  }
+  
+  thead th:nth-child(3) {
+    text-align: right;
+  }
+  
+  tbody td:nth-child(2) {
+    text-align: right;
+  }
+  
+  tbody td:nth-child(3) {
+    text-align: right;
+    padding: 0 10px 0 0;
+  }
+  thead th:nth-child(1) {
+    text-align: left;
+  }
+  thead th:nth-child(4) {
+    text-align: left;
+  vertical-align: top;
+  padding: 0 5px
+   
+  }
+  
+  tbody th:nth-child(1){
+  text-align: left;
+  }
+  
+  table {
+   border-collapse: collapse;
+   border-top: 1px solid black;
+   border-bottom: 1px solid black;
+  }
+  
+  tfoot {
+  border-top: 1px solid grey
+  }
+  
+  tbody tr:nth-child(odd) {
+    background-color: #faf3f2;
+  }
