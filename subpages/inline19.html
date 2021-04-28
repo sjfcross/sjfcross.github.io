@@ -268,6 +268,73 @@ First, add the following &lt;link&gt; element into your HTML head, just above yo
 </div>
 
 
+Now we add the following CSS into our style.css file, below the previous addition:
+
+<div class="codebox">
+  <p>
+    <pre>
+    <code>
+
+/* typography */
+
+html &#123;
+  font-family: 'helvetica neue', helvetica, arial, sans-serif;
+&#125;
+
+thead th, tfoot th &#123;
+  font-family: 'Rock Salt', cursive;
+&#125;
+
+th &#123;
+  letter-spacing: 2px;
+&#125;
+
+td &#123;
+  letter-spacing: 1px;
+&#125;
+
+tbody td &#123;
+  text-align: center;
+&#125;
+
+tfoot th &#123;
+  text-align: right;
+&#125; 
+</code>
+</pre>
+</p>
+</div>
+
+<ul>
+  <p>There is nothing really specific to tables here; we are generally tweaking the font styling to make things easier to read:
+  </p>
+
+<li>  We have set a global sans-serif font stack; this is purely a stylistic choice. We've also set our custom font on the headings inside the
+     &lt;thead&gt; and &lt;tfoot&gt; elements, for a nice grungy, punky look.
+</li>
+<li>  We've set some letter-spacing on the headings and cells, as we feel it aids readability. Again, mostly a stylistic choice.
+</li>
+<li>  We've center-aligned the text in the table cells inside the &lt;tbody&gt; so that they line up with the headings. By default, cells are given a text-align value of left, 
+  and headings are given a value of center, but generally it looks better to have the alignments set the same for both. The default bold weight on the heading fonts 
+  is enough to differentiate their look.
+</li>
+<li>  We've right-aligned the heading inside the &lt;tfoot&gt; so that it is visually associated better with its data point.
+</li>
+</ul>
+
+<p>The result looks a bit neater:</p>
+
+<img src="/images/table-with-typography.png" alt="typoed" class="center"> 
+
+
+
+
+
+
+
+
+
+
     <a href="/subpages/tablestyling/punktable.html" target="_blank">Here is the Punktable</a> 
 
   </div>
