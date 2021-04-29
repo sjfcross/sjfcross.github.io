@@ -391,6 +391,59 @@ article.main p.box &#123
 
 <p>The disadvantage of using such a system is that they can seem overly complex, especially for smaller projects.</p>
 
+<h3>Build systems for CSS</h3>
+
+<p>Another way to organize CSS is to take advantage of some of the tooling that is available for front-end developers, which allows you to take a slightly more programmatic 
+  approach to writing CSS. There are a number of tools which we refer to as <strong>pre-processors</strong> and <strong>post-processors</strong>. A pre-processor runs over your raw files and turns them into a 
+  stylesheet, whereas a post-processor takes your finished stylesheet and does something to it — perhaps to optimize it in order that it will load faster.
+</p>
+
+<p>Using any of these tools will require that your development environment can run the scripts that do the pre and post-processing. Many code editors can do this for you, 
+  or you can install command line tools to help.
+</p>
+<p>The most popular pre-processor is <a href="https://sass-lang.com/">Sass</a>. This is not a Sass tutorial, so I will briefly explain a couple of the things that Sass can do, 
+  which are really helpful in terms of organization, even if you don't use any of the other Sass features. If you want to learn a lot more about Sass, start with the 
+  <a href="https://sass-lang.com/guide">Sass basics</a>,then move on to their other documentation.
+</p>
+<h2>Defining variables</h2>
+
+<p>CSS now has native custom properties, making this feature increasingly less important, however one of the reasons you might use Sass is to be able to define all of the colors and fonts used in a project as settings, then use that variable around the project. This means that if you realize you have used the wrong shade of blue, you only need change it in one place.
+</p>
+<p>If we created a variable called $base-color as in the first line below, we could then use it through the stylesheet anywhere that required that color.
+</p>
+
+<div class="codebox">
+  <p>
+  <pre>
+  <code>
+    $base-color: #c6538c;
+
+    .alert &#123;
+      border: 1px solid $base-color;
+    &#125;
+    
+  </code>
+  </pre>
+  </p>
+  </div>
+
+  <div class="codebox">
+    <p>
+    <pre>
+    <code>
+      .alert &#123;
+        border: 1px solid #c6538c;
+        &#125;
+    </code>
+    </pre>
+    </p>
+    </div>
+
+
+
+
+
+
 </div>
 </div>
 
