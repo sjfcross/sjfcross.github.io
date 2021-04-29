@@ -171,25 +171,99 @@
 </ul>
 
 
+<p>So we start with this section of the stylesheet for providing default styling for the type on the site, setting up a default style for data tables and lists and so on.
+</p>
+
+<div class="codebox">
+<p>
+<pre>
+<code>
+
+/* || GENERAL STYLES */
+
+body &#123; ... &#125;
+
+h1, h2, h3, h4 &#123; ... &#125;
+
+ul &#123; ... &#125;
+
+blockquote &#123; ... &#125;
+
+</code>
+</pre>
+</p>
+</div>
+
+
+<p>After this section we could define a few utility classes, for example a class that removes the default list style for lists we're going to display as flex 
+  items or in some other way. If you have a few things you know you will want to apply to lots of different elements, they can come in this section.
+</p>
 
 
 
+<div class="codebox">
+  <p>
+  <pre>
+  <code>
+  
+    /* || UTILITIES */
+
+    .nobullets &#123;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    &#125;
+    
+    ...
+    
+  </code>
+  </pre>
+  </p>
+  </div>
+  
+
+  <p>Then we can add everything that is used sitewide. That might be things like the basic page layout, the header, navigation styling, and so on.
+  </p>
+
+  <div class="codebox">
+    <p>
+    <pre>
+    <code>
+    
+/* || SITEWIDE */
+
+.main-nav &#123; ... &#125;
+
+.logo &#123; ... &#125;
+
+      
+    </code>
+    </pre>
+    </p>
+    </div>
+
+<p>Finally we will include CSS for specific things, broken down by the context, page or even component in which they are used.
+</p>
 
 
+<div class="codebox">
+  <p>
+  <pre>
+  <code>
+  
+    /* || STORE PAGES */
 
+    .product-listing &#123; ... &#125;
+    
+    .product-box &#123; ... &#125;
 
+    
+  </code>
+  </pre>
+  </p>
+  </div>
 
-
-
-
-
-
-
-
-
-
-
-
+<p>By ordering things in this way, we at least have an idea in which part of the stylesheet we will be looking for something that we want to change.</p>
 
 
 
