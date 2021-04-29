@@ -269,7 +269,41 @@ blockquote &#123; ... &#125;
 
 <p>By ordering things in this way, we at least have an idea in which part of the stylesheet we will be looking for something that we want to change.</p>
 
+<h3>Avoid overly-specific selectors</h3>
 
+<p>If you create very specific selectors you will often find that you need to duplicate chunks of your CSS to apply the same rules to another element. 
+  For example, you might have something like the below selector, which applies the rule to a &lt;p&gt; with a class of box inside an &lt;article&gt; with a class of main.
+  </p>>
+
+ 
+<div class="codebox">
+<p>
+<pre>
+<code>
+article.main p.box &#123
+  border: 1px solid #ccc;
+  &#125
+</code>
+</pre>
+</p>
+</div>
+<p>If you then wanted to apply the same rules to something outside of main, or to something other than a &lt;p&lt;, you would have to add another selector to 
+  these rules or create a whole new ruleset. Instead, you could use the selector .box to apply your rule to any element that has the class box:
+</p>
+<div class="codebox">
+  <p>
+  <pre>
+  <code>
+    .box &#123
+      border: 1px solid #ccc;
+      &#125
+  </code>
+  </pre>
+  </p>
+  </div>
+
+
+<p>There will be times when making something more specific makes sense, however this will generally be an exception rather than usual practice.</p>
 
 
 
