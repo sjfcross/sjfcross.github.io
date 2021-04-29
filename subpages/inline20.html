@@ -350,8 +350,45 @@ article.main p.box &#123
    over websites for comments, listings, and so on.
 </p>
 
+<h3>BEM</h3>
 
+<p>BEM stands for Block Element Modifier. In BEM a block is a stand-alone entity such as a button, menu, or logo. An element is something like a list item or a title 
+  that is tied to the block it is in. A modifier is a flag on a block or element that changes the styling or behavior. You will be able to recognize code that uses 
+  BEM due to the extensive use of dashes and underscores in the CSS classes. For example, look at the classes applied to this HTML from the page about
+   <a href="http://getbem.com/naming/"> BEM Naming conventions:</a>
+</p>
+
+<div class="codebox">
+  <p>
+  <pre>
+  <code>
+    &lt;form class="form form--theme-xmas form--simple"&gt;
+    &lt;input class="form__input" type="text" /&gt;
+    &lt;input
+      class="form__submit form__submit--disabled"
+      type="submit" /&gt;
+  &lt;/form&gt;
+  </code>
+  </pre>
+  </p>
   </div>
+
+
+
+<p>The additional classes are similar to those used in the OOCSS example, however they use the strict naming conventions of BEM.
+</p>
+<p>BEM is widely used in larger web projects and many people write their CSS in this way. It is likely that you will come across examples, even in tutorials, that use BEM syntax, without mentioning why the CSS is structured in such a way.
+</p>
+<p>To read more about the system read <a href="https://css-tricks.com/bem-101/">BEM 101</a> on CSS Tricks.
+</p>
+
+
+
+
+
+
+
+</div>
 </div>
 
 <div class="footer">
