@@ -5,7 +5,31 @@
 <link href="styles/style.css" rel="stylesheet">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
 
+code {
+    background-color: rgb(114, 131, 102);   
+}
+
+
+.notebox {
+  margin: auto;
+  width: 50%;
+  border: 3px solid green;
+  padding: 10px;
+background-color: rgb(180, 199, 166);
+border-radius: 5px;
+}
+
+
+
+
+
+
+
+
+
+</style>
 
 </head>
 <body>
@@ -55,13 +79,31 @@
 
 
 
-    <H2 style="color:rgb(12, 150, 70); font-size: 200%;">Organizing your CSS</h2> 
-    <H2 style="color:rgb(12, 150, 70); font-size: 150%;">Fundamental text and font styling</H2>
+    <H2 style="color:rgb(12, 150, 70); font-size: 200%;">Styling Text</h2> 
 
+    <H2 style="color:rgb(12, 150, 70); font-size: 150%;">1. Fundamental text and font styling</H2>
 
+    <p>The CSS properties used to style text generally fall into two categories, which we'll look at separately in this article:
+    </p>
 
+<ul>
+    <li><strong>Font styles:</strong> Properties that affect the font that is applied to the text, affecting what font is applied, how big it is, whether it is bold, italic, etc.
+    </li>
+    </li><strong>Text layout styles:</strong> Properties that affect the spacing and other layout features of the text, allowing manipulation of, for example, the space between lines 
+    and letters, and how the text is aligned within the content box.
+    </li>
+</ul>
 
-
+<div class="notebox">
+    <p>
+    
+    <strong>Note:</strong>Bear in mind that the text inside an element is all affected as one single entity. 
+    You can't select and style subsections of text unless you wrap them in an appropriate element (such as a <code>&lt;span&gt;</code> or <code>&lt;strong&gt;</code>), 
+    or use a text-specific pseudo-element like <code>::first-letter</code> (selects the first letter of an element's text), <code>::first-line</code>(selects the first line of an element's text), 
+    or <code>::selection</code> (selects the text currently highlighted by the cursor.)
+      
+    </p>
+    </div>
 
 
 
