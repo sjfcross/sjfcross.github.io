@@ -265,30 +265,30 @@ These are the so-called web safe fonts.
 
         <h3>Font size</h3>
 
-<p>In our previous module's CSS values and units article, we reviewed length and size units. Font size (set with the font-size property) can take values measured in most of 
+<p>In our previous module's CSS values and units article, we reviewed length and size units. Font size (set with the <code>font-size</code>property) can take values measured in most of 
     these units (and others, such as percentages), however the most common units you'll use to size text are:
 </p>
 <ul>
-    <li>px (pixels): The number of pixels high you want the text to be. This is an absolute unit — it results in the same final computed value for the font on the page in 
+    <li><strong>px (pixels):</strong> The number of pixels high you want the text to be. This is an absolute unit — it results in the same final computed value for the font on the page in 
         pretty much any situation.
     </li>
-    <li>ems: 1 em is equal to the font size set on the parent element of the current element we are styling (more specifically, the width of a capital letter M contained 
+    <li><strong>ems:</strong> 1 <code>em</code> is equal to the font size set on the parent element of the current element we are styling (more specifically, the width of a capital letter M contained 
         inside the parent element.) This can become tricky to work out if you have a lot of nested elements with different font sizes set, but it is doable, as you'll see below. 
         Why bother? It is quite natural once you get used to it, and you can use em to size everything, not just text. You can have an entire website sized using em, 
         which makes maintenance easy.
     </li>
     <li>
-    </li>rems: These work just like em, except that 1 rem is equal to the font size set on the root element of the document (i.e. &lt;html&gt;), not the parent element. 
+    </li><strong>rems:</strong> These work just like <code>em</code>, except that 1 <code>rem</code> is equal to the font size set on the root element of the document (i.e. &lt;html&gt;), not the parent element. 
         This makes doing the maths to work out your font sizes much easier, although if you want to support really old browsers, you might struggle — rem is not 
         supported in Internet Explorer 8 and below.
 </ul>
 
-<p>The font-size of an element is inherited from that element's parent element. This all starts with the root element of the entire document — &lt;html&gt; — the font-size 
+<p>The font-size of an element is inherited from that element's parent element. This all starts with the root element of the entire document — <code>&lt;html&gt;</code> — the font-size 
     of which is set to 16px as standard across browsers. Any paragraph (or another element that doesn't have a different size set by the browser) inside the root element 
-    will have a final size of 16 px. Other elements may have different default sizes, for example an &lt;h1&gt; element has a size of 2 em set by default, so it will 
+    will have a final size of 16 px. Other elements may have different default sizes, for example an<code> &lt;h1&gt; </code>element has a size of 2 em set by default, so it will 
     have a final size of 32 px.
 </p>
-<p>Things become more tricky when you start altering the font size of nested elements. For example, if you had an <article> element in your page, and set its font-size to 1.5 em (which would compute to 24 px final size), and then wanted the paragraphs inside the <article> elements to have a computed font size of 20 px, what em value would you use?
+<p>Things become more tricky when you start altering the font size of nested elements. For example, if you had an <code>&lt;article&gt;</code> element in your page, and set its font-size to 1.5 em (which would compute to 24 px final size), and then wanted the paragraphs inside the <article> elements to have a computed font size of 20 px, what em value would you use?
 </p>
 
 <div class="codebox">
