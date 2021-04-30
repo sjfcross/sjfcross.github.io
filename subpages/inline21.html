@@ -348,6 +348,42 @@ These are the so-called web safe fonts.
 
 <img src="/images/fontsexa4.PNG" alt="sizing" class="center"></p>
 
+<h3>Font style, font weight, text transform, and text decoration</h3>
+
+<p>CSS provides four common properties to alter the visual weight/emphasis of text:
+</p>
+<ul>
+<li>font-style: Used to turn italic text on and off. Possible values are as follows (you'll rarely use this, unless you want to turn some italic styling off for some reason):
+        <li>normal: Sets the text to the normal font (turns existing italics off.)
+        </li>
+        <li>italic: Sets the text to use the italic version of the font if available; if not available, it will simulate italics with oblique instead.
+        </li>
+        <li>oblique: Sets the text to use a simulated version of an italic font, created by slanting the normal version.
+        </li>
+</li>
+<li>font-weight: Sets how bold the text is. This has many values available in case you have many font variants available (such as -light, -normal, -bold, -extrabold, -black, etc.), but realistically you'll rarely use any of them except for normal and bold:
+        <li>normal, bold: Normal and bold font weight
+        </li>
+        <li>lighter, bolder: Sets the current element's boldness to be one step lighter or heavier than its parent element's boldness.
+        </li>
+        <li> 100–900: Numeric boldness values that provide finer grained control than the above keywords, if needed. 
+        </li>
+</li>
+<li>    text-transform: Allows you to set your font to be transformed. Values include:
+        none: Prevents any transformation.
+        uppercase: Transforms all text to capitals.
+        lowercase: Transforms all text to lower case.
+        capitalize: Transforms all words to have the first letter capitalized.
+        full-width: Transforms all glyphs to be written inside a fixed-width square, similar to a monospace font, allowing aligning of e.g. Latin characters along with Asian language glyphs (like Chinese, Japanese, Korean).
+</li>
+<li>text-decoration: Sets/unsets text decorations on fonts (you'll mainly use this to unset the default underline on links when styling them.) Available values are:
+        none: Unsets any text decorations already present.
+        underline: Underlines the text.
+        overline: Gives the text an overline.
+        line-through: Puts a strikethrough over the text.
+</li>
+  </ul>
+    You should note that text-decoration can accept multiple values at once, if you want to add multiple decorations simultaneously, for example text-decoration: underline overline. Also note that text-decoration is a shorthand property for text-decoration-line, text-decoration-style, and text-decoration-color. You can use combinations of these property values to create interesting effects, for example text-decoration: line-through red wavy.
 
 
 
