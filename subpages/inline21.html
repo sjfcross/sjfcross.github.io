@@ -517,8 +517,31 @@ These are the so-called web safe fonts.
   </p>
   </div>
 
+ 
+  <H2 style="color:rgb(12, 150, 70); font-size: 150%;"> Text layout</H2>
 
-
+ <p>With basic font properties out the way, let's now have a look at properties we can use to affect text layout.
+</p>
+  <h3>Text alignment</h3>
+  
+  <p>The <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-align"><code>text-align</code></a> property is used to control how text is aligned within 
+    its containing content box. The available values are as follows, and work in pretty much the same way as they do in a regular word processor application:
+  </p>
+  <ul>
+      <li><code>left:</code> Left-justifies the text.
+      </li>
+      <li><code>right:</code> Right-justifies the text.
+    </li>
+    <li><code>center:</code> Centers the text.
+    </li>
+    <li> <code>justify:</code> Makes the text spread out, varying the gaps in between the words so that all lines of text are the same width.
+      You need to use this carefully — it can look terrible, especially when applied to a paragraph with lots of long words in it. 
+      If you are going to use this, you should also think about using something else along with it, such as hyphens, to break some of the longer words across lines.
+    </li>
+    </ul>
+  <p>If we applied text-align: center; to the &lt;h1&gt; in our example, we'd end up with this:
+  </p>
+  <img src="/images/textalign.PNG" alt="sizing" class="center"></p>
 
 
 
