@@ -371,7 +371,7 @@ These are the so-called web safe fonts.
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight"><code><strong>font-weight</strong></code></a>: Sets how bold the text is. This has many values available in case you have many font variants available 
     (such as -light, -normal, -bold, -extrabold, -black, etc.), but realistically you'll rarely use any of them except for normal and bold:
     <ul>    
-        <li><code>normal, bold</code>: Normal and bold font weight
+        <li><code>normal, bold</code>: Normal and <strong style="font-weight: bold;">bold</strong> font weight
         </li>
         <li><code>lighter, bolder</code>: Sets the current element's boldness to be one step lighter or heavier than its parent element's boldness.
         </li>
@@ -384,13 +384,13 @@ These are the so-called web safe fonts.
         <li><code>none</code>: Prevents any transformation.
         
         </li>
-        <li><code>uppercase</code>: Transforms all text to capitals.
+        <li><code>uppercase</code>: Transforms <span style="text-transform: uppercase;">all text to capitals</span>.
         </li>
         <li><code>lowercase</code>: Transforms all text to lower case.
         </li>
-        <li><code>capitalize</code>: Transforms all words to have the first letter capitalized.
+        <li><code>capitalize</code>: Transforms all words to <span style="text-transform: capitalize;">have the first letter capitalized</span>.
         </li>
-        <li><code>full-width</code>: Transforms all glyphs to be written inside a fixed-width square, similar to a monospace font, allowing aligning of e.g. Latin characters along with Asian language glyphs (like Chinese, Japanese, Korean).
+        <li><code>full-width</code>: Transforms all glyphs to be <span style="text-transform: full-width;">written inside a fixed-width square</span>, similar to a monospace font, allowing aligning of e.g. Latin characters along with Asian language glyphs (like Chinese, Japanese, Korean).
         </li>
     </ul>
 </li>
@@ -399,18 +399,20 @@ These are the so-called web safe fonts.
     <ul>    
     <li><code>none</code>: Unsets any text decorations already present.
     </li>
-    <li><code>underline</code>: Underlines the text.
+    <li><code>underline</code>:<u>Underlines the text</u>.
     </li>
-    <li> <code>overline</code>: Gives the text an overline.
+    <li> <code>overline</code>: <span style="text-decoration: overline;">Gives the text an overline</span>.
     </li>
-    <li><code>line-through</code>: Puts a strikethrough over the text.
+    <li><code>line-through</code>: Puts a <s style="text-decoration: line-through;">strikethrough over the text</s> over the text.
     </li>
     </ul>
 </li>
   </ul>
-  <p>You should note that text-decoration can accept multiple values at once, if you want to add multiple decorations simultaneously, for example text-decoration: 
-    underline overline. Also note that text-decoration is a shorthand property for text-decoration-line, text-decoration-style, and text-decoration-color. 
-    You can use combinations of these property values to create interesting effects, for example text-decoration: line-through red wavy.
+  <p>You should note that <code>text-decoration</code> can accept multiple values at once, if you want to add multiple decorations simultaneously, for example
+     <span style="text-decoration: underline overline;"><code>text-decoration: underline overline</code></span>. Also note that text-decoration is a shorthand property 
+     for <code>text-decoration-line, text-decoration-style,</code> and <code>text-decoration-color. </code>
+    You can use combinations of these property values to create interesting effects, for example 
+    <span style="text-decoration: line-through red wavy;"><code>text-decoration: line-through red wavy</code>.</span>.
   </p>
 
 
