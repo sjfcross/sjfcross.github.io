@@ -634,9 +634,30 @@ These are the so-called web safe fonts.
    </ul>
 
 
+   <h3>Font shorthand</h3>
 
+   <p>Many font properties can also be set through the shorthand property font. These are written in the following order:  
+     <code>font-style</code>, <code>font-variant</code>, <code>font-weight</code>, <code>font-stretch</code>, <code>font-size, <code>line-height</code>, and <code>font-family</code>.
+  </p>
 
+   <p>Among all those properties, only font-size and font-family are required when using the font shorthand property.
+  </p>
 
+   <p>A forward slash has to be put in between the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-size"><code>font-size</code></a> and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/line-height"><code>line-height</code></a> properties.</p>
+   <p>A full example would look like this:
+  </p>
+
+   <div class="codebox">
+    <p>
+    <pre>
+    <code>
+    p::first-line &#123;
+    font: italic normal bold normal 3em/1.5 Helvetica, Arial, sans-serif;
+    &#125;
+  </code>
+  </pre>
+  </p>
+  </div> 
 
 
 
