@@ -5,6 +5,20 @@
 <link href="styles/style.css" rel="stylesheet">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+code {
+    background-color: rgb(205, 221, 194);   
+    font-size: 1.2em;
+}
+
+
+
+
+
+
+</style>
+
 
 
 </head>
@@ -60,8 +74,24 @@
     <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Creating_hyperlinks">Creating hyperlinks</a>. 
     In this article we'll build on this knowledge, showing you best practices for styling links.</p>
 
+    <h3>Link states</h3>
+    
+    <p>The first thing to understand is the concept of link states — different states that links can exist in, which can be styled using different 
+        <a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors#pseudo-classes">pseudo-classes</a>:</p>
 
-
+        <ul>
+         <li><strong>Link</strong>: A link which has a destination (i.e. not just a named anchor), styled using the 
+            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:link"><code>:link</code></a> pseudo class.</li>
+         <li><strong>Visited</strong>: A link when it has already been visited (exists in the browser's history), 
+            styled using the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:visited"><code>:visited</code></a> pseudo class.</li>
+         <li><strong>Hover</strong>: A link when it is being hovered over by a user's mouse pointer, styled using the
+            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:hover"><code>:hover</code></a> pseudo class.</li>
+         <li><strong>Focus</strong>: A link when it has been focused (for example moved to by a keyboard user using the <kbd>Tab</kbd> key or similar, 
+            or programmatically focused using <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLOrForeignElement/focus" title="HTMLElement.focus()"><code>HTMLElement.focus()</code></a>)
+             — this is styled using the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:focus"><code>:focus</code></a> pseudo class.</li>
+         <li><strong>Active</strong>: A link when it is being activated (e.g. clicked on), styled using the
+             <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:active"><code>:active</code></a> pseudo class.</li>
+        </ul>
 
 
 
