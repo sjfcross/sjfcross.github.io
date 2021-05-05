@@ -322,9 +322,9 @@ paragraph for reference, paragraph for reference, paragraph for reference.</p>
     <code>
 
 
-        ol &#123
+        ol &#123;
             list-style-type: upper-roman;
-          &#125
+          &#125;
           
     
     </code>
@@ -341,24 +341,30 @@ paragraph for reference, paragraph for reference, paragraph for reference.</p>
 <p>You can find a lot more options by checking out the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-type"><code>list-style-type</code></a> reference page.
 </p>
 
+<h2>Bullet position</h2>
 
+<p>The list-style-position property sets whether the bullets appear inside the list items, or outside them before the start of each item. The default value is outside, 
+    which causes the bullets to sit outside the list items, as seen above.
+</p>
+
+<p>If you set the value to inside, the bullets will sit inside the lines:
+</p>
 
 <div class="codebox">
     <p>
     <pre>
     <code>
-    p::first-line &#123;
-      letter-spacing: 4px;
-      word-spacing: 4px;
-    &#125;
-  </code>
-  </pre>
-  </p>
-  </div> 
-
-
-
-
+    
+        ol &#123;
+            list-style-type: upper-roman;
+            list-style-position: inside;
+          &#125;
+          
+    </code>
+    </pre>
+    </p>
+    </div> 
+    
 
 
 
