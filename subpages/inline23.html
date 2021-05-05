@@ -7,6 +7,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 
+
+.codebox {
+  background-color: rgb(205, 221, 194);
+  font-weight: bold;
+}
+
 code {
     background-color: rgb(205, 221, 194);   
     font-size: 1.2em;
@@ -140,6 +146,134 @@ ul {
             The outline is a useful accessibility aid, so think carefully before turning it off; you should at least double up the styles given to the 
             link hover state on the focus state too.</li>
     </ul>
+
+    <h3>Styling some links</h3>
+
+    <p>Now we've looked at the default states in some detail, let's look at a typical set of link styles.
+    </p>
+
+    <p>To start off with, we'll write out our empty rulesets:</p>
+
+
+
+<div class="codebox">
+<p>
+<pre>
+<code>
+
+    a &#123;
+
+    &#125;
+    
+    a:link &#123;
+    
+    &#125;
+    
+    a:visited &#123;
+    
+    &#125;
+    
+    a:focus &#123;
+    
+    &#125;
+    
+    a:hover &#123;
+    
+    &#125;
+    
+    a:active &#123;
+    
+    &#125;
+       
+</code>
+</pre>
+</p>
+</div> 
+
+<p>This order is important because the link styles build on one another, for example the styles in the first rule will apply to all the subsequent ones, 
+    and when a link is being activated, it is usually also being hovered over. If you put these in the wrong order, and you're changing the same properties 
+    in each ruleset, things won't work as you expect. To remember the order, you could try using a mnemonic like 
+    <strong>L</strong>o<strong>V</strong>e <strong>F</strong>ears <strong>HA</strong>te.
+</p>
+
+<p>Now let's add some more information to get this styled properly:</p>
+
+
+<div class="codebox">
+<p>
+<pre>
+<code>
+      
+body &#123;
+width: 300px;
+margin: 0 auto;
+font-size: 1.2rem;
+font-family: sans-serif;
+&#125;
+
+p &#123;
+line-height: 1.4;
+&#125;
+
+a &#123;
+outline: none;
+text-decoration: none;
+padding: 2px 1px 0;
+&#125;
+
+a:link &#123;
+color: #265301;
+&#125;
+
+a:visited &#123;
+color: #437A16;
+&#125;
+
+a:focus &#123;
+border-bottom: 1px solid;
+background: #BAE498;
+&#125;
+
+a:hover &#123;
+border-bottom: 1px solid;
+background: #CDFEAA;
+&#125;
+
+a:active &#123;
+background: #265301;
+color: #CDFEAA;
+&#125;
+
+</code>
+</pre>
+</p>
+</div> 
+
+<p>We'll also provide some sample HTML to apply the CSS to:</p>
+
+
+<div class="codebox">
+    <p>
+    <pre>
+    <code>
+    
+&lt;p&gt;There are several browsers available, such as &lt;a href="#"&gt;Mozilla
+Firefox&lt;/a&gt;, &lt;a href="#"&gt;Google Chrome&lt;/a&gt;, and
+&lt;a href="#"&gt;Microsoft Edge&lt;/a&gt;.&lt;/p&gt;
+    
+    </code>
+    </pre>
+    </p>
+    </div> 
+
+    <p>Putting the two together gives us this result:</p>
+
+
+
+    <p style="text-align:center;"><a href="/subpages/fontexa/Linktest.html" style="font-size: 2rem;">Link to the linkz</a></p>
+
+
+
 
 
 
