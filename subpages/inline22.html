@@ -447,6 +447,59 @@ paragraph for reference, paragraph for reference, paragraph for reference.</p>
 
    <img src="/images/list_formatting.png" alt="sizing" class="center"></p>
 
+   <h2>list-style shorthand</h2>
+
+   <p>The three properties mentioned above can all be set using a single shorthand property, list-style. For example, the following CSS:
+   </p>
+
+   
+
+<div class="codebox">
+    <p>
+    <pre>
+    <code>
+            ul &#123;
+            list-style-type: square;
+            list-style-image: url(example.png);
+            list-style-position: inside;
+          &#125;
+    </code>
+    </pre>
+    </p>
+    </div> 
+     
+   
+   <p>Could be replaced by this:</p>
+   
+   <p>
+    <pre>
+    <code>
+            ul &#123;            
+            list-style: square url(example.png) inside;
+        &#125;
+    </code>
+    </pre>
+    </p>
+    </div> 
+
+   
+   <p>The values can be listed in any order, and you can use one, two or all three (the default values used for the properties that are not included are 
+       disc, none, and outside). If both a type and an image are specified, the type is used as a fallback if the image can't be loaded for some reason.
+   </p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
