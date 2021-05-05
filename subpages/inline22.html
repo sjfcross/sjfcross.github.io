@@ -10,8 +10,41 @@
 .codebox {
   background-color: rgb(205, 221, 194);
 }
+code {
+    background-color: rgb(205, 221, 194);   
+    font-size: 1.2em;
+}
 
+/*Test*/
 
+/* General styles */
+
+html {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 10px;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+ul,ol,dl,p {
+  font-size: 1.5rem;
+}
+
+li, p {
+  line-height: 1.5;
+}
+
+/* Description list styles */
+
+dd, dt {
+  line-height: 1.5;
+}
+
+dt {
+  font-weight: bold;
+}
 
 
 
@@ -123,8 +156,7 @@
       &lt;dt&gt;Green salad&lt;/dt&gt;
       &lt;dd&gt;That green healthy stuff that many of us just use to garnish kebabs.&lt;/dd&gt;
     &lt;/dl&gt;
-    
-  &#125;
+
 </code>
 </pre>
 </p>
@@ -133,31 +165,102 @@
 <p>If you go to the <a href="https://mdn.github.io/learning-area/css/styling-text/styling-lists/"> live example</a> now and investigate the list elements using browser developer tools, you'll notice a couple of styling defaults:
 </p>
 <ul>
-    The &lt;ul&gt; and &lt;ol&gt; elements have a top and bottom margin of 16px (1em)  and a padding-left of 40px (2.5em.)
-    The list items (&lt;li&gt; elements) have no set defaults for spacing.
-    The &lt;dl&gt; element has a top and bottom margin of 16px (1em), but no padding set.
-    The &lt;dd&gt; elements have margin-left of 40px (2.5em.)
-    The &lt;p&gt; elements we've included for reference have a top and bottom margin of 16px (1em), the same as the different list types.
+    The <code>&lt;ul&gt;</code> and <code>&lt;ol&gt;</code> elements have a top and bottom margin of 16px (1em)  and a <code>padding-left</code> of 40px (2.5em.)
+    The list items (<code>&lt;li&gt;</code> elements) have no set defaults for spacing.
+    The <code>&lt;dl&gt;</code> element has a top and bottom <code>margin</code> of 16px (1em), but no <code>padding</code> set.
+    The <code>&lt;dd&gt;</code> elements have <code>margin-left</code> of 40px (2.5em.)
+    The <code>&lt;p&gt;</code> elements we've included for reference have a top and bottom <code>margin</code> of 16px (1em), the same as the different list types.
 </ul>
 
+<h2>Handling list spacing</h2>
 
+<p>When styling lists, you need to adjust their styles so they keep the same vertical spacing as their surrounding elements 
+    (such as paragraphs and images; sometimes called vertical rhythm), and the same horizontal spacing as each other. 
+</p>
 
+<p>The CSS used for the text styling and spacing is as follows:
+</p>
 
+<div class="codebox">
+    <p>
+    <pre>
+    <code>
 
+/* General styles */
 
+html &#123;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 10px;
+&#125;
 
+h2 &#123;
+  font-size: 2rem;
+&#125;
 
+ul,ol,dl,p &#123;
+  font-size: 1.5rem;
+&#125;
 
+li, p &#123;
+  line-height: 1.5;
+&#125;
 
+/* Description list styles */
 
+dd, dt &#123;
+  line-height: 1.5;
+&#125;
 
+dt &#123;
+  font-weight: bold;
+&#125;
 
+</code>
+</pre>
+</p>
+</div> 
 
+<H2 style="color:rgb(53, 12, 150); font-size: 200%;">Here be the example</h2> 
 
+<h2>Shopping (unordered) list</h2>
 
+<p>Paragraph for reference, paragraph for reference, paragraph for reference,
+paragraph for reference, paragraph for reference, paragraph for reference.</p>
 
+<ul>
+  <li>Hummus</li>
+  <li>Pita</li>
+  <li>Green salad</li>
+  <li>Halloumi</li>
+</ul>
 
+<h2>Recipe (ordered) list</h2>
 
+<p>Paragraph for reference, paragraph for reference, paragraph for reference,
+paragraph for reference, paragraph for reference, paragraph for reference.</p>
+
+<ol>
+  <li>Toast pita, leave to cool, then slice down the edge.</li>
+  <li>Fry the halloumi in a shallow, non-stick pan, until browned on both sides.</li>
+  <li>Wash and chop the salad.</li>
+  <li>Fill pita with salad, hummus, and fried halloumi.</li>
+</ol>
+
+<h2>Ingredient description list</h2>
+
+<p>Paragraph for reference, paragraph for reference, paragraph for reference,
+paragraph for reference, paragraph for reference, paragraph for reference.</p>
+
+<dl>
+  <dt>Hummus</dt>
+  <dd>A thick dip/sauce generally made from chick peas blended with tahini, lemon juice, salt, garlic, and other ingredients.</dd>
+  <dt>Pita</dt>
+  <dd>A soft, slightly leavened flatbread.</dd>
+  <dt>Halloumi</dt>
+  <dd>A semi-hard, unripened, brined cheese with a higher-than-usual melting point, usually made from goat/sheep milk.</dd>
+  <dt>Green salad</dt>
+  <dd>That green healthy stuff that many of us just use to garnish kebabs.</dd>
+</dl>
 
 
 
