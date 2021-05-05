@@ -487,10 +487,37 @@ paragraph for reference, paragraph for reference, paragraph for reference.</p>
        disc, none, and outside). If both a type and an image are specified, the type is used as a fallback if the image can't be loaded for some reason.
    </p>
 
+   <h2>Controlling list counting</h2>
+
+   <p>Sometimes you might want to count differently on an ordered list — e.g. starting from a number other than 1, or counting backwards, or counting
+        in steps of more than 1. HTML and CSS have some tools to help you here.</p>
+
+   <h2>start</h2>
+   
+   <p>The start attribute allows you to start the list counting from a number other than 1. The following example:</p>
+   
+
+<div class="codebox">
+    <p>
+    <pre>
+    <code>
+        &lt;ol start="4"&gt;
+        &lt;li&gt;Toast pita, leave to cool, then slice down the edge.&lt;/li&gt;
+        &lt;li&gt;Fry the halloumi in a shallow, non-stick pan, until browned on both sides.&lt;/li&gt;
+        &lt;li&gt;Wash and chop the salad.&lt;/li&gt;
+        &lt;li&gt;Fill pita with salad, hummus, and fried halloumi.&lt;/li&gt;
+      &lt;/ol&gt;
+        </code>
+    </pre>
+    </p>
+    </div> 
+    
+
+   
+   Gives you this output:
 
 
-
-
+   <img src="/images/startcount.PNG" alt="sizing" class="center"></p>
 
 
 
