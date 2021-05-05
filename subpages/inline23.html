@@ -104,10 +104,42 @@ ul {
     <p style="text-align:center;"><a href="#" style="font-size: 2rem;">A simple link</a></p>
 
 
+    <p>You'll notice a few things as you explore the default styles:</p>
 
+    <ul>
+     <li>Links are underlined.</li>
+     <li>Unvisited links are blue.</li>
+     <li>Visited links are purple.</li>
+     <li>Hovering a link makes the mouse pointer change to a little hand icon.</li>
+     <li>Focused links have an outline around them — you should be able to focus on the 
+         links on this page with the keyboard by pressing the tab key (On Mac, you'll need to 
+         use <kbd>option</kbd> + <kbd>tab</kbd>, or&nbsp;enable the 
+         <a href="https://support.apple.com/guide/mac-help/use-your-keyboard-like-a-mouse-mchlp1399/">
+            Full Keyboard Access: All controls</a> option by pressing <kbd>Ctrl</kbd> + <kbd>F7</kbd>.)</li>
+     <li>Active links are red (Try holding down the mouse button on the link as you click it.)</li>
+    </ul>
+    
+    <p>Interestingly enough, these default styles are nearly the same as they were back in the early days of browsers in the mid-1990s. 
+        This is because users know and have come to expect this behavior — if links were styled differently, it would confuse a 
+        lot of people. This doesn't mean that you shouldn't style links at all, just that you should not stray too far from the expected behavior. 
+        You should at least:</p>
 
-
-
+    <ul>
+         <li>Use underlining for links, but not for other things. If you don't want to underline links, at least highlight them in some other way.</li>
+         <li>Make them react in some way when hovered/focused, and in a slightly different way when activated.</li>
+    </ul>
+           
+           <p>The default styles can be turned off/changed using the following CSS properties:</p>
+           
+    <ul>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color"><code>color</code></a> for the text color.</li>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/cursor"><code>cursor</code></a> for the mouse pointer style — you shouldn't turn this 
+            off unless you've got a very good reason.</li>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/outline"><code>outline</code></a> for the text outline (an outline is similar to a border, 
+            the only difference being that border takes up space in the box and an outline doesn't; it just sits over the top of the background). 
+            The outline is a useful accessibility aid, so think carefully before turning it off; you should at least double up the styles given to the 
+            link hover state on the focus state too.</li>
+    </ul>
 
 
 
