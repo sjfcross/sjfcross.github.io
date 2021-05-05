@@ -273,7 +273,27 @@ Firefox&lt;/a&gt;, &lt;a href="#"&gt;Google Chrome&lt;/a&gt;, and
     <p style="text-align:center;"><a href="/subpages/fontexa/Linktest.html" target=”_blank” style="font-size: 2rem;">Link to the linkz</a></p>
 
 
+    <p>So what did we do here? This certainly looks different to the default styling, but it still provides a familiar enough experience for
+         users to know what's going on:</p>
 
+    <ul>
+     <li>The first two rules are not that interesting to this discussion.</li>
+     <li>The third rule uses the <code>a</code> selector to get rid of the default text underline and focus outline (which varies across browsers anyway), and adds a 
+        tiny amount of padding to each link — all of this will become clear later on.</li>
+     <li>Next, we use the <code>a:link</code> and <code>a:visited</code> selectors to set a couple of color variations on unvisited and visited links, so they are distinct.</li>
+     <li>The next two rules use <code>a:focus</code> and <code>a:hover</code> to set focused and hovered links to have different background colors, 
+        plus an underline to make the link stand out even more. Two points to note here are:
+      <ul>
+       <li>The underline has been created using <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/border-bottom"><code>border-bottom</code></a>, 
+        not <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration"><code>text-decoration</code></a> — some people prefer this because 
+        the former has better styling options than the latter, and is drawn a bit lower, so doesn't cut across the descenders of the word being underlined 
+        (e.g. the tails on g and y).</li>
+       <li>The <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/border-bottom"><code>border-bottom</code></a> value has been set as <code>1px solid</code>, 
+        with no color specified. Doing this makes the border adopt the same color as the element's text, which is useful in cases like this where the text is a
+         different color in each case.</li>
+      </ul>
+     </li>
+     <li>Finally, <code>a:active</code> is used to give the links an inverted color scheme while they are being activated, to make it clear something important is happening!</li>
 
 
 
