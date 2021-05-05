@@ -16,7 +16,14 @@
  border: solid black 1px;
  padding: 10px;
 }
-
+.notebox {
+  margin: auto;
+  width: 50%;
+  border: 3px solid green;
+  padding: 10px;
+background-color: rgb(180, 199, 166);
+border-radius: 5px;
+}
 code {
     background-color: rgb(205, 221, 194);   
     font-size: 1.2em;
@@ -547,12 +554,39 @@ paragraph for reference, paragraph for reference, paragraph for reference.</p>
 
    <img src="/images/reversedcount.PNG" alt="sizing" class="center"></p>
 
+   <h2>value</h2>
+
+   <p>The value attribute allows you to set your list items to specific numerical values. The following example:
+</p>
 
 
 
 
+<div class="codebox">
+    <p>
+    <pre>
+    <code>
+        &lt;ol&gt;
+        &lt;li value="2"&gt;Toast pita, leave to cool, then slice down the edge.&lt;/li&gt;
+        &lt;li value="4"&gt;Fry the halloumi in a shallow, non-stick pan, until browned on both sides.&lt;/li&gt;
+        &lt;li value="6"&gt;Wash and chop the salad.&lt;/li&gt;
+        &lt;li value="8"&gt;Fill pita with salad, hummus, and fried halloumi.&lt;/li&gt;
+        &lt;/ol&gt; 
+    </code>
+    </pre>
+    </p>
+    </div> 
+    
 
+<p>Gives you this output:</p>
 
+<img src="/images/valuecounter.PNG" alt="sizing" class="center"></p>
+
+<div class="notebox">
+<p>
+<strong> Note:</strong> Even if you are using a non-number list-style-type, you still need to use the equivalent numerical values in the value attribute.
+</p>
+</div>
 
 
 
