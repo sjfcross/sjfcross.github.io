@@ -375,6 +375,32 @@ a[href*="http"] &#123;
 
 
 
+<p>So what's going on here? We'll skip over most of the CSS, as it's just the same information you've looked at before. The last rule however 
+  is interesting — here we are inserting a custom background image on external links in a similar manner to how we handled
+  <a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/Styling_text/Styling_lists#using_a_custom_bullet_image">custom bullets on list items</a> 
+  in the last article — this time however we are using <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/background"><code>background</code></a> 
+  shorthand instead of the individual properties. We set the path to the image we want to insert, specify <code>no-repeat</code> 
+  so we only get one copy inserted, and then specify the position as 100% of the way over to the right of the text&nbsp;content, 
+  and 0 pixels from the top.
+</p>
+
+<p>We also use <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/background-size"><code>background-size</code></a> to specify the size we want
+   the background image to be shown at — it is useful to have a larger icon and then resize it like this as needed for responsive web design purposes. 
+   This does however only work with IE 9 and later, so if you need to support those older browsers, you'll just have to resize the image and insert it as is.</p>
+
+<p>Finally, we set some <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/padding-right"><code>padding-right</code></a> on the links to make space
+   for the background image to appear in, so we aren't overlapping it with the text.</p>
+
+<p>A final word — how did we select just external links? Well, if you are writing your 
+  <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Creating_hyperlinks">HTML links</a> properly, you should only be using 
+  absolute URLs for external links — it is more efficient to use relative links to link to other parts of your own site (as with the first link). 
+  The text "http" should therefore only appear in external links (like the second and third ones), and we can select this with an 
+  <a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors#attribute_selectors">attribute selector</a>: <code>a[href*="http"]</code> 
+  selects <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a"><code>&lt;a&gt;</code></a> elements, but only if they have an
+   <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-href"><code>href</code></a> attribute with a value that&nbsp;contains 
+   "http" somewhere inside it.</p>
+
+
 
 
 
