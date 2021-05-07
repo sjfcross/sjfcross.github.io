@@ -401,11 +401,80 @@ a[href*="http"] &#123;
    "http" somewhere inside it.</p>
 
 
+   <h3>Styling links as buttons</h3>
 
+   <p>The tools you've explored so far in this article can also be used in other ways. For example, states like hover can be used to style many different elements, not just links — you might want to style the hover state of paragraphs, list items, or other things.
+  </p>
 
+  <p> In addition, links are quite commonly styled to look and behave like buttons in certain circumstances — a website navigation menu is usually marked up as a list containing links, and this can be easily styled to look like a set of control buttons or tabs that provide the user with access to other parts of the site. Let's explore how.
+</p>
+<p>   First, some HTML:</p>
 
+<div class="codebox">
+  <p>
+  <pre>
+  <code>
+    &lt;ul&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Home&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="#"&gt;Pizza&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="#"&gt;Music&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="#"&gt;Wombats&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="#"&gt;Finland&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+  </code>
+  </pre>
+  </p>
+  </div> 
+  
+ <p> And now our CSS:</p>
 
-
+  <div class="codebox">
+    <p>
+    <pre>
+    <code>
+      body,html &#123;
+      margin: 0;
+      font-family: sans-serif;
+    &#125;
+    
+    ul &#123;
+      padding: 0;
+      width: 100%;
+    &#125;
+    
+    li &#123;
+      display: inline;
+    &#125;
+    
+    a &#123;
+      outline: none;
+      text-decoration: none;
+      display: inline-block;
+      width: 19.5%;
+      margin-right: 0.625%;
+      text-align: center;
+      line-height: 3;
+      color: black;
+    &#125;
+    
+    li:last-child a &#123;
+      margin-right: 0;
+    &#125;
+    
+    a:link, a:visited, a:focus &#123;
+      background: yellow;
+    &#125;
+    
+    a:hover &#123;
+      background: orange;
+    &#125;
+    
+    a:active &#123;
+      background: red;
+      color: white;
+    &#125;
+    </code>
+    </pre>
+    </p>
+    </div> 
+    
+    <p style="text-align:center;"><a href="/subpages/fontexa/Linktest2.html" target=”_blank” style="font-size: 2rem;">Links as Buttons</a></p>
 
 
 
