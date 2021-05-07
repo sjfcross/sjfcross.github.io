@@ -479,10 +479,37 @@ a[href*="http"] &#123;
     <p style="text-align:center;"><a href="/subpages/fontexa/Linktest3.html" target=”_blank” style="font-size: 2rem;">Links as Buttons</a></p>
 
 
+    <p>Let's explain what's going on here, focusing on the most interesting parts:</p>
 
-
-
-
+    <ul>
+     <li>Our second rule removes the default <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/padding"><code>padding</code></a> from the
+      <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul"><code>&lt;ul&gt;</code></a> element, and sets its width to 
+      span 100% of the outer container (the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/body"><code>&lt;body&gt;</code></a>, in this case).</li>
+     <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li"><code>&lt;li&gt;</code></a> elements are normally block by default 
+      (see <a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/The_box_model#types_of_css_boxes">types of CSS boxes</a> for a refresher),
+       meaning that they will sit on their own lines. In this case, we are creating a horizontal list of links, so in the third rule we set the
+        <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/display"><code>display</code></a> property to inline, which causes the list items to sit on the same 
+        line as one another — they now behave like inline elements.</li>
+     <li>The fourth rule — which styles the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a"><code>&lt;a&gt;</code></a> element — 
+      is the most complicated here; let's go through it step by step:
+      <ul>
+       <li>As in previous examples, we start by turning off the default <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration"><code>text-decoration</code></a> 
+        and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/outline"><code>outline</code></a> — we don't want those spoiling our look.</li>
+       <li>Next, we set the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/display"><code>display</code></a> to <code>inline-block</code> — 
+        <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a"><code>&lt;a&gt;</code></a> elements are inline by default and, while we don't want them to 
+        spill onto their own lines like a value of <code>block</code> would achieve, we do want to be able to size them. <code>inline-block</code> allows us to do this.</li>
+       <li>Now onto the sizing! We want to fill up the whole width of the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul"><code>&lt;ul&gt;</code></a>, 
+        leave a little margin between each button (but not a gap at the right hand edge), and we have 5 buttons to accommodate that should all be the same size. 
+        To do this, we set the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/width"><code>width</code></a> to 19.5%, and the 
+        <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/margin-right"><code>margin-right</code></a> to 0.625%. You'll notice that all this width 
+        adds up to 100.625%, which would make the last button overflow the <code>&lt;ul&gt;</code> and fall down to the next line. However, we take it 
+        back down to 100% using the next rule, which selects only the last <code>&lt;a&gt;</code> in the list, and removes the margin from it. Done!</li>
+       <li>The last three declarations are pretty simple and are mainly just for cosmetic purposes. We center the text inside each link, 
+         set the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/line-height"><code>line-height</code></a> to 3 to give the buttons some 
+         height (which also has the advantage of centering the text vertically), and set the text color to black.</li>
+      </ul>
+     </li>
+    </ul>
 
 
 
