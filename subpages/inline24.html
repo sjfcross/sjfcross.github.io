@@ -7,6 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 
+code {
+    background-color: rgb(205, 221, 194);   
+    font-size: 1.2em;
+}
 .codebox {
   background-color: rgb(205, 221, 194);
   font-weight: bold;
@@ -216,10 +220,10 @@ to investigate and manipulate the fonts in use on your page, whether they are we
 
   <p>Web services for font generation typically limit file sizes. In such a case, consider using tools such as:</p>
 <ol>
-  <li><a href="https://github.com/bramstein/sfnt2woff-zopfli" class="external" rel=" noopener">sfnt2woff-zopfli</a> for converting ttf to woff</li>
-  <li><a href="https://fontforge.org/" class="external" rel=" noopener">fontforge</a> for converting from ttf to svg</li>
-  <li><a href="https://people.apache.org/~clay/batik/ttf2svg.html" class="external" rel=" noopener">batik ttf2svf</a> for converting from ttf to svg</li>
-  <li><a href="https://github.com/google/woff2" class="external" rel=" noopener">woff2</a> for converting from ttf to woff2</li>
+  <li><a href="https://github.com/bramstein/sfnt2woff-zopfli">sfnt2woff-zopfli</a> for converting ttf to woff</li>
+  <li><a href="https://fontforge.org/">fontforge</a> for converting from ttf to svg</li>
+  <li><a href="https://people.apache.org/~clay/batik/ttf2svg.html">batik ttf2svf</a> for converting from ttf to svg</li>
+  <li><a href="https://github.com/google/woff2">woff2</a> for converting from ttf to woff2</li>
 </ol>
 
 <h2>Implementing the code in your demo</h2>
@@ -285,6 +289,50 @@ to investigate and manipulate the fonts in use on your page, whether they are we
 </ol>
 
 <p style="text-align:center;"><a href="/subpages/fontmore/web-font-start.html" target=”_blank” style="font-size: 2rem;">Here we still work on that</a></p>
+
+
+<h2>Using an online font service</h2>
+
+<p>Online font services generally&nbsp;store and serve fonts for you, so you don't have to worry about writing the <code>@font-face</code> code, 
+    and generally just need to insert a simple line or two of code into your site to make everything work. Examples include 
+    <a href="https://fonts.adobe.com/">Adobe Fonts</a> and <a href="https://www.typography.com/cloud/welcome/">Cloud.typography</a>.
+     Most of these services are subscription-based, with the notable exception of <a href="https://www.google.com/fonts">Google Fonts</a>, 
+     a useful free service, especially for rapid testing work and writing demos.</p>
+
+<p>Most of these services are easy to use, so we won't cover them in great detail. Let's have a quick look at Google fonts, so you can get the idea.</p>
+  
+
+<ol>
+ <li>Go to <a href="https://www.google.com/fonts">Google Fonts</a>.</li>
+ <li>Use the filters on the left-hand side to display the kinds of fonts you want to choose&nbsp;and choose a couple of fonts you like.</li>
+ <li>To select a font family, press the ⊕ button alongside it.</li>
+ <li>When you've chosen the font families, press the <em>[Number] Families Selected</em>&nbsp;bar at the bottom of the page.</li>
+ <li>In the resulting screen, you first need to copy the line of HTML code shown&nbsp;and paste it into the head of your HTML file.
+      Put it above the existing <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link"><code>&lt;link&gt;</code></a> element, so that the font
+       is imported before you try to use it in your CSS.</li>
+ <li>You then need to copy the CSS declarations listed&nbsp;into your CSS as appropriate, to apply the custom fonts to your HTML.</li>
+</ol>
+
+
+<p style="text-align:center;"><a href="/subpages/fontmost/web-font-start.html" target=”_blank” style="font-size: 2rem;">Here we work on using Google Gonts</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
