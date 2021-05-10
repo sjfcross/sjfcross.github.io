@@ -32,6 +32,10 @@ h2 {
   font-size: 2.4rem;
 }
 
+h1,h2 {
+  font-family: 'vag-handwrittenvaghandwritten', serif;
+}
+
 p {
   font-size: 1.4rem;
   line-height: 1.6;
