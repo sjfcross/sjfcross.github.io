@@ -61,7 +61,7 @@
     <h2>Font families recap</h2>
 
     <p>As we looked at in <a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/Styling_text/Fundamentals">Fundamental text and font styling</a>, the fonts applied to
-             your HTML can be controlled using the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-family"><code>font-family</code></a> property. 
+             your <strong><u>HTML</u></strong> can be controlled using the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-family"><code>font-family</code></a> property. 
              This takes one or more font family names, and the browser travels down the list until it finds a font it has available on the system it is running on:
     </p>
 
@@ -74,10 +74,20 @@
         You can use the font stack to specify preferable fonts, followed by web-safe alternatives, followed by the default system font, but this adds overhead in 
         terms of testing to make sure that your designs look ok with each font.
     </p>
+    <h2>Web Fonts</h2>
+    <p>But there is an alternative, which works very well, right back to IE version 6. Web fonts are a <strong><u> CSS </u></strong> feature that allows you to specify font files to be downloaded 
+        along with your website as it is accessed, meaning that any browser that supports web fonts can have exactly the fonts you specify available to it. Amazing! 
+        The syntax required looks something like this:
+    </p>
 
+    <p>First of all, you have a <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face"><code>@font-face</code></a> block at the start of the CSS,
+             which specifies the font file(s) to download:
+    </p>
 
-
-
+    <code><span class="token atrule"><span class="token rule">@font-face</span></span> <span class="token punctuation">{</span>
+        <span class="token property">font-family</span><span class="token punctuation">:</span> <span class="token string">"myFont"</span><span class="token punctuation">;</span>
+        <span class="token property">src</span><span class="token punctuation">:</span> <span class="token url"><span class="token function">url</span><span class="token punctuation">(</span><span class="token string url">"myFont.woff2"</span><span class="token punctuation">)</span></span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span></code>
 
 
 
