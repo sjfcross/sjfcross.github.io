@@ -7,7 +7,13 @@
        url('fonts/vag-handwritten-webfont.woff') format('woff');
   font-weight: normal;
   font-style: normal;
-
+}
+@font-face {
+  font-family: 'caviar_dreamsregular';
+  src: url('caviardreams-webfont.woff2') format('woff2'),
+       url('caviardreams-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
 
 html {
@@ -40,4 +46,5 @@ p {
   font-size: 1.4rem;
   line-height: 1.6;
   word-spacing: 0.6rem;
+  font-family: 'caviar_dreamsregular';
 }
