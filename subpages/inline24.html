@@ -222,6 +222,60 @@ to investigate and manipulate the fonts in use on your page, whether they are we
   <li><a href="https://github.com/google/woff2" class="external" rel=" noopener">woff2</a>for converting from ttf to woff2</li>
 </ol>
 
+<h2>Implementing the code in your demo</h2>
+
+<p>At this point, unzip the webfont kit you just generated. Inside the unzipped directory you'll see some useful items:</p>
+
+<ul>
+ <li>Two versions of each font: the <code>.woff</code>, <code>.woff2</code> files.</li>
+ <li>A demo HTML file for each font — load these in your browser to see what the font will look like in different usage contexts.</li>
+ <li>A <code>stylesheet.css</code> file, which contains the generated @font-face code you'll need.</li>
+</ul>
+
+<p>To implement these fonts in your demo, follow these steps:</p>
+
+<ol>
+ <li>Rename the unzipped directory to something easy and simple, like <code>fonts</code>.</li>
+ <li>Open up the <code>stylesheet.css</code> file&nbsp;and copy both the <code>@font-face</code> blocks contained inside into your <code>web-font-start.css</code> file — 
+    you need to put them at the very top, before any of your CSS, as the fonts need to be imported before you can use them on your site.
+</li>
+ <li>Each of the <code>url()</code> functions points to a font file that we want to import into our CSS — we need to make sure the paths to the files are correct, 
+    so add <code>fonts/</code> to the start of each path (adjust as necessary).
+</li>
+ <li>Now you can use these fonts in your font stacks, just like any web safe or default system font. For example:
+
+ 
+<div class="codebox">
+    <p>
+    <pre>
+    <code>
+        @font-face &#123;
+        font-family: 'zantrokeregular';
+        src: url('fonts/zantroke-webfont.woff2') format('woff2'),
+             url('fonts/zantroke-webfont.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+    &#125;
+    </code>
+    </pre>
+    </p>
+    </div> 
+    <div class="codebox">
+        <p>
+        <pre>
+        <code>
+            font-family: 'zantrokeregular', serif;
+        </code>
+        </pre>
+        </p>
+        </div> 
+    </li>
+
+</ol>
+
+
+
+
 
 
 </div>
