@@ -1,5 +1,15 @@
 /* General setup */
 
+
+@font-face {
+  font-family: 'vag-handwrittenvaghandwritten';
+  src: url('fonts/vag-handwritten-webfont.woff2') format('woff2'),
+       url('fonts/vag-handwritten-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
 html {
   font-size: 10px;
   margin: 0;
