@@ -52,8 +52,28 @@
     </div>
   <div class="main">
 
+    <H2 style="color:rgb(12, 150, 70); font-size: 200%;">Web Fonts</h2> 
 
+    <p>In this article we will go further, exploring web fonts in detail — these 
+        allow you to download custom fonts along with your web page, to allow for more varied, custom text styling.
+    </p>
 
+    <h2>Font families recap</h2>
+
+    <p>As we looked at in <a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/Styling_text/Fundamentals">Fundamental text and font styling</a>, the fonts applied to
+             your HTML can be controlled using the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-family"><code>font-family</code></a> property. 
+             This takes one or more font family names, and the browser travels down the list until it finds a font it has available on the system it is running on:
+    </p>
+
+        <pre class="brush: css notranslate"><code><span class="token selector">p</span> <span class="token punctuation">{</span>
+          <span class="token property">font-family</span><span class="token punctuation">:</span> Helvetica<span class="token punctuation">,</span> <span class="token string">"Trebuchet MS"</span><span class="token punctuation">,</span> Verdana<span class="token punctuation">,</span> sans-serif<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span></code></pre>
+        
+    <p>This system works well, but traditionally web developers'&nbsp;font choices were limited. There are only a handful of fonts that you can guarantee to be available 
+        across all common systems — the so-called <a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/Styling_text/Fundamentals#web_safe_fonts">Web-safe fonts</a>. 
+        You can use the font stack to specify preferable fonts, followed by web-safe alternatives, followed by the default system font, but this adds overhead in 
+        terms of testing to make sure that your designs look ok with each font.
+    </p>
 
 
 
