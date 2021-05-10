@@ -5,7 +5,18 @@
 <link href="styles/style.css" rel="stylesheet">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.codebox {
+  background-color: rgb(205, 221, 194);
+  font-weight: bold;
+}
 
+
+
+
+
+
+</style>
 
 </head>
 <body>
@@ -65,10 +76,18 @@
              This takes one or more font family names, and the browser travels down the list until it finds a font it has available on the system it is running on:
     </p>
 
-        <pre class="brush: css notranslate"><code><span class="token selector">p</span> <span class="token punctuation">{</span>
-          <span class="token property">font-family</span><span class="token punctuation">:</span> Helvetica<span class="token punctuation">,</span> <span class="token string">"Trebuchet MS"</span><span class="token punctuation">,</span> Verdana<span class="token punctuation">,</span> sans-serif<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span></code></pre>
-        
+    <div class="codebox">
+        <p>
+        <pre>
+        <code>
+            p &#123;
+                font-family: Helvetica, "Trebuchet MS", Verdana, sans-serif;
+                &#125;
+        </code>
+        </pre>
+        </p>
+        </div> 
+
     <p>This system works well, but traditionally web developers'&nbsp;font choices were limited. There are only a handful of fonts that you can guarantee to be available 
         across all common systems — the so-called <a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/Styling_text/Fundamentals#web_safe_fonts">Web-safe fonts</a>. 
         You can use the font stack to specify preferable fonts, followed by web-safe alternatives, followed by the default system font, but this adds overhead in 
@@ -84,19 +103,60 @@
              which specifies the font file(s) to download:
     </p>
 
-    <code><span class="token atrule"><span class="token rule">@font-face</span></span> <span class="token punctuation">{</span>
-        <span class="token property">font-family</span><span class="token punctuation">:</span> <span class="token string">"myFont"</span><span class="token punctuation">;</span>
-        <span class="token property">src</span><span class="token punctuation">:</span> <span class="token url"><span class="token function">url</span><span class="token punctuation">(</span><span class="token string url">"myFont.woff2"</span><span class="token punctuation">)</span></span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span></code>
+    <div class="codebox">
+        <p>
+        <pre>
+        <code>
+            @font-face &#123;
+                font-family: "myFont";
+                src: url("myFont.woff2");
+                &#125;
+        </code>
+        </pre>
+        </p>
+        </div> 
 
 
+        <p>Below this you can then use the font family name specified inside @font-face to apply your custom font to anything you like, as normal:
+        </p>
+
+        <div class="codebox">
+            <p>
+            <pre>
+            <code>
+                html &#123;
+                    font-family: "myFont", "Bitstream Vera Serif", serif;
+                    &#125;
+            </code>
+            </pre>
+            </p>
+            </div> 
+    
+    <p>The syntax does get a bit more complex than this; we'll go into more detail below.
+    </p>
+    <p>Here are some important things to bear in mind about web fonts:
+    </p>
 
 
+    <ol>
+       <li>Fonts generally aren't free to use. You have to pay for them, and/or follow other license conditions such as crediting the font creator in the code (or on your site). 
+            You shouldn't steal fonts and use them without giving proper credit.</li>
+       <li>All major browsers support WOFF/WOFF2 (Web Open Font Format versions 1 and 2). Even older browsers such as IE9 (released in 2011) support the WOFF format.</li>
+       <li>WOFF2 supports the entirety of the TrueType and OpenType specifications, including variable fonts, chromatic fonts, and font collections.
+        </li>
+        <li>The order in which you list font files is important. If you provide the browser with a list of multiple font files to download, the browser 
+            will choose the first font file it’s able to use. That's why the format you list first should be the best, preferred format — that is, 
+            WOFF2 — with the older formats listed after that. Browsers that don't understand one format will then fall back to the next format in the list.</li>
+        <li>If you need to work with legacy browsers, you should provide EOT (Embedded Open Type), TTF (TrueType Font), and SVG web fonts for download. 
+            This article explains how to use the Fontsquirrel Webfont Generator to generate the required files.</li>
+    </ol>
 
+<p>You can use the <a href="https://developer.mozilla.org/en-US/docs/Tools/Page_Inspector/How_to/Edit_fonts">Firefox Font Editor</a> 
+to investigate and manipulate the fonts in use on your page, whether they are web fonts or not. This video provides a nice walkthrough:
+</p>
 
-
-
-
+<p><iframe src="https://www.youtube-nocookie.com/embed/UazfLa1O94M" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" loading="lazy" width="560" height="315"></iframe></p>
+   
 
 
 
