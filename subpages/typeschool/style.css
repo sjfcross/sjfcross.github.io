@@ -48,7 +48,9 @@
     font-family: 'Jim Nightshade', cursive;
   }
 
-
+h1 {
+    text-align: center;
+}
   body {
   font-family: 'Marcellus SC', serif;
   font-size: 10px;
