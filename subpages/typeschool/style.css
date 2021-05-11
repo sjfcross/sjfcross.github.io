@@ -104,3 +104,10 @@ a[href*="http"] {
     background-size: 16px 16px;
     padding-right: 19px;
   }
+
+
+  /*Lists*/
+  
+  ul li {
+    list-style-type: circle;
+  }
