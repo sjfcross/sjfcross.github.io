@@ -120,10 +120,10 @@ a[href*="http"] {
 
 nav li a {
     
-        outline: solid #a66;
+        outline: 1px #a66;
         text-decoration: none;
         display: inline-block;
-        width: 7em;
+        width: 8em;
         height: 3em;
         text-align: center;
         line-height: 2;
