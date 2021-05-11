@@ -317,7 +317,50 @@ to investigate and manipulate the fonts in use on your page, whether they are we
 <p style="text-align:center;"><a href="/subpages/fontmost/web-font-start.html" target=”_blank” style="font-size: 2rem;">Here we work on using Google Fonts</a></p>
 
 
+<h2>@font-face in more detail</h2>
 
+<p>Let's explore that @font-face syntax generated for you by fontsquirrel. This is what one of the blocks looks like:
+</p>
+
+
+<div class="codebox">
+  <p>
+  <pre>
+  <code>
+    @font-face &#123;
+    font-family: 'zantrokeregular';
+    src: url('fonts/zantroke-webfont.woff2') format('woff2'),
+         url('fonts/zantroke-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+&#125;
+  </code>
+  </pre>
+  </p>
+  </div> 
+  
+  
+<p>Let's go through it to see what it does:</p>
+
+<ul>
+ <li><code>font-family</code>: This line specifies the name you want to refer to the font as. You can put this as anything you like, as long as you use it consistently 
+  throughout your CSS.
+</li>
+ <li><code>src</code>: These lines specify the paths to the font files to be imported into your CSS (the <code>url</code> part), and the format of each font file
+   (the <code>format</code> part). The latter part in each case is optional, but it is useful to declare it because it allows browsers to find a font they 
+   can use faster. Multiple declarations can be listed, separated by commas. As the browser will search through them and use the first one it can find that 
+   it understands, it is best to put newer, better formats like WOFF2 earlier on.
+  </li>
+ <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight"><code>font-weight</code></a>/<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-style"><code>font-style</code></a>: These lines 
+  specify what weight the font has, and whether it is italic or not. If you are importing multiple weights of the same font, you can specify what their 
+  weight/style is and then use different values of 
+  <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight"><code>font-weight</code></a>/<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-style"><code>font-style</code></a> 
+  to choose between them, rather than having to call all the different members of the font family different names.
+  <a href="https://www.456bereastreet.com/archive/201012/font-face_tip_define_font-weight_and_font-style_to_keep_your_css_simple/">@font-face tip: define font-weight and 
+    font-style to keep your CSS simple</a> by Roger Johansson shows what to do in more detail.
+  </li>
+</ul>
+  
 
 
 
