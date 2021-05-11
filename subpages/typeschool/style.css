@@ -92,5 +92,5 @@ a:hover {
 }
 
 a:active {
-
+outline: rgb(128, 102, 170), dotted;
 }
