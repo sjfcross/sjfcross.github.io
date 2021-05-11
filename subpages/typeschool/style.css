@@ -136,12 +136,14 @@ nav li:last-child a {
       }
 
 nav a:link, a:visited, a:focus {
-        background: yellow;
+        
+        color:  rgb(152, 170, 102);
       }
 nav  a:hover {
-        background: orange;
+        color: rgb(250, 250, 250);
+        background: #a66;
       }
 nav a:active {
-        background: red;
+        background: #a66;
         color: white;
       }
