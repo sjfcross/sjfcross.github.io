@@ -118,7 +118,7 @@ a[href*="http"] {
 
 /*Now the nav*/
 
-nav ul li {
+nav ul {
 list-style-type: none;
 }
 
