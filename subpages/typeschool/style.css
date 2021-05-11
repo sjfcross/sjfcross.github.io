@@ -67,3 +67,30 @@ h1 {
   section h2 + p {
     text-indent: 20px;
   }
+
+  /*links*/
+
+  a {
+
+}
+
+a:link {
+    color: solid #a66;
+}
+
+a:visited {
+    color: solid #a66;
+}
+
+a:focus {
+    outline: none;
+    color: solid #a66;
+}
+
+a:hover {
+    color: solid #a66;
+}
+
+a:active {
+
+}
