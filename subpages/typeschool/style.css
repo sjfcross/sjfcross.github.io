@@ -118,6 +118,11 @@ a[href*="http"] {
 
 /*Now the nav*/
 
+nav li {
+list-style-type: none;
+}
+
+
 nav li a {
         border: 1px solid black;
         outline-style: solid;
