@@ -123,6 +123,8 @@ nav li a {
         outline: none;
         text-decoration: none;
         display: inline-block;
+        width: 6em;
+        height: 3em;
         text-align: center;
         line-height: 3;
         color: black;
