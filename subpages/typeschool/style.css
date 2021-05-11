@@ -118,10 +118,12 @@ a[href*="http"] {
 
 /*Now the nav*/
 
-nav ul {
+nav ul li{
 list-style-type: none;
 }
-
+nav ul>li:nth-child(odd) {
+    list-style-type: none;
+    }
 
 nav li a {
         border: 1px solid black;
