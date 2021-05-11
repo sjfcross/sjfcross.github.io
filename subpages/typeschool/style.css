@@ -115,3 +115,32 @@ a[href*="http"] {
   ul>li:nth-child(odd) {
     list-style-type: square;
 }
+
+/*Now the nav*/
+
+nav li a {
+    
+        outline: none;
+        text-decoration: none;
+        display: inline-block;
+        width: 19.5%;
+        margin-right: 0.625%;
+        text-align: center;
+        line-height: 3;
+        color: black;
+      }
+      
+nav li:last-child a {
+        margin-right: 0;
+      }
+
+nav a:link, a:visited, a:focus {
+        background: yellow;
+      }
+nav  a:hover {
+        background: orange;
+      }
+nav a:active {
+        background: red;
+        color: white;
+      }
