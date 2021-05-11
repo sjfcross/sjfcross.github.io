@@ -107,7 +107,11 @@ a[href*="http"] {
 
 
   /*Lists*/
-  
+
   ul li {
     list-style-type: circle;
   }
+ 
+  ul>li:nth-child(odd) {
+    list-style-type: square;
+}
