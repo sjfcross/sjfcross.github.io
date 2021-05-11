@@ -15,6 +15,14 @@ code {
   background-color: rgb(205, 221, 194);
   font-weight: bold;
 }
+.notebox {
+  margin: auto;
+  width: 50%;
+  border: 3px solid green;
+  padding: 10px;
+background-color: rgb(180, 199, 166);
+border-radius: 5px;
+}
 .center {
   display: block;
   margin-left: auto;
@@ -361,6 +369,14 @@ to investigate and manipulate the fonts in use on your page, whether they are we
   </li>
 </ul>
   
+<div class="notebox">
+  <strong>Note</strong>: You can also specify particular <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant"><code>font-variant</code></a> and
+   <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-stretch"><code>font-stretch</code></a> values for your web fonts. In newer browsers, you can also specify 
+   a <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/unicode-range"><code>unicode-range</code></a> value, which is a specific range of characters you 
+   want to use out of the web font — in supporting browsers, only the specified characters will be downloaded, saving unnecessary downloading. 
+   <a href="https://24ways.org/2011/creating-custom-font-stacks-with-unicode-range/">Creating Custom Font Stacks with Unicode-Range</a> 
+   by Drew McLellan provides some useful ideas on how to make use of this.
+</div>
 
 
 
