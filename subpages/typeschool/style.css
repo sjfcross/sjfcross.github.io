@@ -98,3 +98,9 @@ a:active {
 outline: rgb(128, 102, 170), dotted;
 border-bottom: 1px solid;
 }
+
+a[href*="http"] {
+    background: url('/images/external-link-52.png') no-repeat 100% 0;
+    background-size: 16px 16px;
+    padding-right: 19px;
+  }
