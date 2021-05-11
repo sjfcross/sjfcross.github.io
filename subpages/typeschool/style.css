@@ -71,7 +71,7 @@ h1 {
   /*links*/
 
 a {
-    color: rgb(204, 75, 75);
+    color: #a66;
 }
 
 a:link {
@@ -79,16 +79,19 @@ a:link {
 }
 
 a:visited {
-    color:  #a66;
+    color:  rgb(152, 170, 102);
 }
 
 a:focus {
     outline: none;
     color:  #a66;
+    text-decoration: none;
 }
 
 a:hover {
-    color: s #a66;
+    color: rgb(19, 17, 17);
+    background: #a66;
+    text-decoration: none;
 }
 
 a:active {
