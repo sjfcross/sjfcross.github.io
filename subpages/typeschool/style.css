@@ -90,7 +90,7 @@ a:focus {
 
 a:hover {
     color: rgb(19, 17, 17);
-    background: #a66;
+    background: rgba(170, 102, 102, 0.377);
     text-decoration: none;
 }
 
