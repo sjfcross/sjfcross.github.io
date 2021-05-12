@@ -355,6 +355,96 @@ spaces. This article&nbsp;explains all the fundamentals.</p>
 </div>
 
 
+<h2>Flexible sizing of flex items</h2>
+
+<p>Let's now return to our <a href="/subpages/fontexa/flexbox.html">first example</a>, and look at how we can control what proportion of space flex 
+  items take up compared to the other flex items. 
+</p>
+
+
+<p>First, we  add the following rule to the bottom of your CSS:</p>
+
+<div class="codebox">
+  <p>
+  <pre>
+  <code>
+    article &#123;
+      flex: 1;
+    &#125;
+  </code>
+  </pre>
+  </p>
+  </div> 
+
+
+  <p>This is a unitless proportion value that dictates how much of the available space along the main axis each flex item will take up compared to other 
+    flex items. In this case, we are giving each <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/article"><code>&lt;article&gt;</code></a> 
+    element the same value (a value of 1), which means they will all take up an equal amount of the spare space left after things like padding and margin 
+    have been set. It is relative to other flex items, meaning that giving each flex item a value of 400000 would have exactly the same effect.</p>
+
+  <p>Now add the following rule below the previous one:</p>
+
+  <div class="codebox">
+    <p>
+    <pre>
+    <code>
+
+      article:nth-of-type(3) &#123;
+        flex: 2;
+       &#125;
+
+    </code>
+    </pre>
+    </p>
+    </div> 
+
+    <p>Now when you refresh, you'll see that the third <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/article"><code>&lt;article&gt;</code></a> 
+      takes up twice as much of the available width as the other two. There are now four proportion units available in total (since 1 + 1 + 2 = 4). 
+      The first two flex items have one unit each, so they take 1/4 of the available space each. The third one has two units, so it takes up 2/4 of the 
+      available space (or one-half).</p>
+
+    <p>You can also specify a minimum size value inside the flex value. Try updating your existing article rules like so:</p>
+
+
+    <div class="codebox">
+      <p>
+      <pre>
+      <code>
+
+        article &#123;
+          flex: 1 200px;
+          &#125;
+        
+        article:nth-of-type(3) &#123;
+          flex: 2 200px;
+          &#125;
+
+      </code>
+      </pre>
+      </p>
+      </div> 
+
+      <p>This basically states "Each flex item will first be given 200px of the available space. After that, the rest of the available space will be shared 
+        out according to the proportion units." Try refreshing and you'll see a difference in how the space is shared.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
