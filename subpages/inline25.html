@@ -91,9 +91,76 @@ border-radius: 5px;
         </ul>
     </div>
 
-    
+
 <p>Each technique has its uses, advantages, and disadvantages, and no technique is designed to be used in isolation. By understanding what each method is 
     designed for you will be in a good place to understand which is the best layout tool for each task.</p>
+
+<h2>Normal Flow</h2>
+
+
+<p>Before digging deeper into different layout methods, it is worth revisiting some of the things you will have studied in previous modules with regard to normal document flow.</p>
+
+
+<h2>How are elements laid out by default?</h2>
+
+<p>First of all, individual element boxes are laid out by taking the elements' content, then adding any padding, border and margin around them — it's that&nbsp;box model&nbsp;thing again, 
+    which we've looked at earlier.</p>
+
+<p>By default, a <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Block-level_elements">block level element</a>'s content fills the available inline space 
+    of the parent element containing it, and grows in the block dimension to accommodate its content.
+     <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Inline_elements">Inline elements</a> are the size of their content. You can't set width or height on 
+     inline elements — they just sit inside the content of block level elements. If you want to control the size of an inline element in this manner, you need to set 
+     it to behave like a block level element with&nbsp;<code>display: block;</code>&nbsp;(or even,<code>display: inline-block;</code> which mixes characteristics 
+     from&nbsp;both.)</p>
+
+<p>That explains individual elements, but what about how elements interact with one another? The&nbsp;normal layout flow&nbsp;(mentioned in the layout introduction article) 
+    is the system by which elements are placed inside the browser's viewport. By default, block-level elements are laid out in the <em>block flow direction</em>, based on
+    the parent's&nbsp;<a href="/en-US/docs/Web/CSS/writing-mode">writing mode</a>&nbsp;(<em>initial</em>: horizontal-tb) — each one will appear on a new line below the last 
+    one, and they will be separated by any margin that is set on them. In English therefore, or any other horizontal, top to bottom writing mode, block-level elements are 
+    laid out vertically.</p>
+
+<p>Inline elements behave differently — they don't appear on new lines; instead, they sit on the same line as one another and any adjacent (or wrapped) text content, as 
+    long as there is space for them to do so inside the width of the parent block level element. If there isn't space, then the overflowing text or elements will move 
+    down to a new line.</p>
+
+<p>If two adjacent elements both have the margin set on them and the two margins touch, the larger of the two remains, and the smaller one disappears — this is 
+    called&nbsp;margin collapsing, and we have met this before too.</p>
+
+<p>Let's look at a simple example that explains all of <a href="/subpages/fontexa/normflow.html">this</a>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   </div>
 </div>
