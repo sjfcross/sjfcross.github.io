@@ -129,16 +129,29 @@ border-radius: 5px;
 <p>Let's look at a simple example that explains all of <a href="/subpages/fontexa/normflow.html">this</a>.</p>
 
 
+<div class="codebox">
+<p>
+<pre>
+<code>
 
+&lt;h1&gt;Basic document flow&lt;/h1&gt;
 
+&lt;p&gt;I am a basic block level element. My adjacent block level elements sit on new lines below me.&lt;/p&gt;
 
+&lt;p&gt;By default we span 100% of the width of our parent element, and we are as tall as our child content. Our total width and height is our content + padding + border 
+width/height.&lt;/p&gt;
 
+&lt;p&gt;We are separated by our margins. Because of margin collapsing, we are separated by the width of one of our margins, not both.&lt;/p&gt;
 
+&lt;p&gt;inline elements &lt;span&gt;like this one&lt;/span&gt; and &lt;span&gt;this one&lt;/span&gt; sit on the same line as one another, 
+and adjacent text nodes, if there is space on the same line. Overflowing inline elements will &lt;span&gt;wrap onto a new line if possible 
+(like this one containing text)&lt;/span&gt;, or just go on to a new line if not, much like this image will
+ do: &lt;img src="https://mdn.mozillademos.org/files/13360/long.jpg"&gt;&lt;/p&gt;
 
-
-
-
-
+</code>
+</pre>
+</p>
+</div> 
 
 
 
