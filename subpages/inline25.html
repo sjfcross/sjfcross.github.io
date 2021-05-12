@@ -283,13 +283,25 @@ spaces. This article&nbsp;explains all the fundamentals.</p>
 
  <p>Bear this terminology in mind as you go through subsequent sections. You can always refer back to it if you get confused about any of the terms being used.</p>
 
+ <h2>Columns or rows</h2>
 
+ <p>Flexbox provides a property called <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/flex-direction"><code>flex-direction</code></a> that specifies 
+  what direction the main axis runs in (what direction the flexbox children are laid out in) — by default&nbsp;this is set to <code>row</code>, which 
+  causes them to be laid out in a row in the direction your browser's default language works in (left to right, in the case of an English browser).</p>
 
+<p>Try adding the following declaration to your <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/section"><code>&lt;section&gt;</code></a> rule:</p>
 
+<div class="codebox">
+  <p>
+  <pre>
+  <code>
+    flex-direction: column;
+  </code>
+  </pre>
+  </p>
+  </div> 
 
-
-
-
+  <p>You'll see that this puts the items back in a column layout, much like they were before we added any CSS. </p>
 
 
 
