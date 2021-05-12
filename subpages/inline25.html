@@ -246,9 +246,17 @@ spaces. This article&nbsp;explains all the fundamentals.</p>
         </div> 
 
 
+        <img src="/images/flexbox-example2.png" alt="Malinka" class="center">  
 
+        <p>So, this single declaration gives us everything we need — incredible, right? We have our multiple column layout with equal-sized columns, 
+          and the columns are all the same height. This is because the default values given to flex items (the children of the flex container) are 
+          set up to solve common problems such as this.</p>
 
-
+        <p>To be clear, let's reiterate what is happening here. The element we've given a &nbsp; 
+          <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/display"><code>display</code></a> value of <code>flex</code> to is acting like 
+          a block-level element in terms of how it interacts with the rest of the page, but its children are being laid out as flex items. 
+          The next section will explain in more detail what this means. Note also that you can use a <code>display</code> value of <code>inline-flex</code>
+           if you wish to lay out an element's children as flex items, but have that element behave like an inline element.</p>
 
 
 
