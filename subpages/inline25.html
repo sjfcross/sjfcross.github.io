@@ -432,8 +432,17 @@ spaces. This article&nbsp;explains all the fundamentals.</p>
         <p>The real value of flexbox can be seen in its flexibility/responsiveness — if you resize the browser window, or add another 
           <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/article"><code>&lt;article&gt;</code></a> element, the layout continues to work just fine.</p>
 
+<h2>flex: shorthand versus longhand</h2>
 
-
+<ul>
+  <li>The unitless proportion value we discussed above. This can be specified individually using the 
+    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/flex-grow"><code>flex-grow</code></a> longhand property.</li>
+  <li>A second unitless proportion value — <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/flex-shrink"><code>flex-shrink</code></a> — that comes into 
+    play when the flex items are overflowing their container. This specifies how much of the overflowing amount is taken away from each flex item's size, to 
+    stop them overflowing their container. This is quite an advanced flexbox feature, and we won't be covering it any further in this article.</li>
+  <li>The minimum size value we discussed above. This can be specified individually using the 
+    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/flex-basis"><code>flex-basis</code></a> longhand value.</li>
+ </ul>
 
 
 
