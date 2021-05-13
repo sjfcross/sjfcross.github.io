@@ -582,6 +582,59 @@ spaces. This article&nbsp;explains all the fundamentals.</p>
 
 
 
+<h2>Nested flex boxes</h2>
+
+<p>It is possible to create some pretty complex layouts with flexbox. It is perfectly ok to set a flex item to also be a flex container, so that its children 
+  are also laid out like flexible boxes. Have a look at 
+  <a href="/subpages/fontexa/complex-flexbox.html"><strong>complex-flexbox.html</strong></a> 
+</p>
+
+<p>The HTML for this is fairly simple. We've got a <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/section"><code>&lt;section&gt;</code></a> element 
+  containing three <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/article"><code>&lt;article&gt;</code></a>s.
+  The third <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/article"><code>&lt;article&gt;</code></a> contains three 
+  <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div"><code>&lt;div&gt;</code></a>s. :</p>
+
+  <div class="codebox">
+    <p>
+    <pre>
+    <code>
+      section - article
+                article
+                article - div - button
+                          div   button
+                          div   button
+                                button
+                                button
+    </code>
+    </pre>
+    </p>
+    </div> 
+
+    <p>Let's look at the code we've used for the layout.</p>
+
+    <p>First of all, we set the children of the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/section"><code>&lt;section&gt;</code></a> 
+      to be laid out as flexible boxes.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
