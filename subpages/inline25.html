@@ -630,9 +630,34 @@ spaces. This article&nbsp;explains all the fundamentals.</p>
         </p>
         </div> 
 
+        <p>Next, we set some flex values on the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/article"><code>&lt;article&gt;</code></a>s themselves. 
+          Take special note of the 2nd rule here — we are setting the third 
+          <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/article"><code>&lt;article&gt;</code></a> to have its children laid out like flex items too, 
+          but this time we are laying them out like a column.</p>
 
 
+          <div class="codebox">
+            <p>
+            <pre>
+            <code>
+    
+              article                  &#123;
+            
+                flex: 1 200px;
 
+                &#125;
+              
+              article:nth-of-type(3)   &#123;
+                flex: 3 200px;
+                display: flex;
+                flex-flow: column;
+
+                &#125;
+                    
+            </code>
+            </pre>
+            </p>
+            </div> 
 
 
 
