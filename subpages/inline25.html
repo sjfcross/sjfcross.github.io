@@ -659,13 +659,51 @@ spaces. This article&nbsp;explains all the fundamentals.</p>
             </p>
             </div> 
 
+            <p>Next, we select the first <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div"><code>&lt;div&gt;</code></a>. We first use <code>flex:1 100px;</code> 
+              to effectively give it a minimum height of 100px, then we set its children (the 
+              <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button"><code>&lt;button&gt;</code></a> elements) to also be laid out like flex items. 
+              Here we lay them out in a wrapping row, and align them in the center of the available space, as we did in the individual button example we saw earlier.</p>
 
+              <div class="codebox">
+                <p>
+                <pre>
+                <code>
+        
+                  article:nth-of-type(3) div:first-child  &#123;
+                    flex:1 100px;
+                    display: flex;
+                    flex-flow: row wrap;
+                    align-items: center;
+                    justify-content: space-around;
 
+                          &#125;
+          
+                </code>
+                </pre>
+                </p>
+                </div> 
 
+                <p>Finally, we set some sizing on the button, but more interestingly we give it a flex value of 1 auto. This has a very interesting effect, which you'll see if 
+                  you try resizing your browser window width. The buttons will take up as much space as they can, and sit as many on the same line as they can, 
+                  but when they can no longer fit comfortably on the same line, they'll drop down to create new lines.</p>
 
+                  <div class="codebox">
+                    <p>
+                    <pre>
+                    <code>
+            
+                      button  &#123;
+                        flex: 1 auto;
+                        margin: 5px;
+                        font-size: 18px;
+                        line-height: 1.5;
 
-
-
+                              &#125;
+              
+                    </code>
+                    </pre>
+                    </p>
+                    </div> 
 
 
 
