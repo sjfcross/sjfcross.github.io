@@ -14,6 +14,23 @@
 /*  width: 50%;*/
 }
 
+code {
+    background-color: rgb(205, 221, 194);   
+    font-size: 1.2em;
+}
+.codebox {
+  background-color: rgb(205, 221, 194);
+  font-weight: bold;
+}
+
+.notebox {
+  margin: auto;
+  width: 50%;
+  border: 3px solid green;
+  padding: 10px;
+background-color: rgb(180, 199, 166);
+border-radius: 5px;
+}
 
 
 
@@ -90,6 +107,46 @@
 <p>As a starting point, we use <a href="/subpages/fontexa/gridtest.html"><strong>this file</strong></a>.  You will see an example with a container, which has some 
     child items. By default these display in normal flow so the boxes display one below the other. We will be working with this file for the first part of 
     this lesson, making changes to see how grid behaves.</p>
+
+    <p>To define a grid we use the <code>grid</code> value of the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/display"><code>display</code></a> property. 
+        As with Flexbox, this switches on Grid Layout, and all of the direct children of the container become grid items. Add this to the CSS inside your file:</p>
+
+        <div class="codebox">
+            <p>
+            <pre>
+            <code>
+
+                .container &#123;
+                display: grid;
+            &#125;
+            
+            </code>
+            </pre>
+            </p>
+            </div> 
+            
+
+<p>Unlike flexbox, the items will not immediately look any different. Declaring <code>display: grid</code> gives you a one column grid, so your items will continue 
+    to display one below the other as they do in normal flow.</p>
+
+<p>To see something that looks more grid-like, we will need to add some columns to the grid. Let's add three 200-pixel columns here. You can use any length 
+    unit, or percentages to create these column tracks.</p>
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   </div>
