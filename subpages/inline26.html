@@ -408,7 +408,67 @@ border-radius: 5px;
 <p><a href="/subpages/fontexa/linebasegrid.html" class="external" rel=" noopener"><strong>We are working on this file now.</strong></a>&nbsp; 
   It has a grid defined already, and a simple article outlined. You can see that auto-placement is placing items one into each cell of the grid that we have created.</p>
 
-<p>We will instead place all of the elements for our site on the grid, using the grid lines. Add the following rules to the bottom of your CSS:</p>
+<p>We will instead place all of the elements for our site on the grid, using the grid lines. Adding the following rules to the bottom of our CSS:</p>
+
+<div class="codebox">
+  <p>
+  <pre>
+  <code>
+
+    header &#123;
+    grid-column: 1 / 3;
+    grid-row: 1;
+  &#125;
+  
+  article &#123;
+    grid-column: 2;
+    grid-row: 2;
+  &#125;
+  
+  aside &#123;
+    grid-column: 1;
+    grid-row: 2;
+  &#125;
+  
+  footer &#123;
+    grid-column: 1 / 3;
+    grid-row: 3;
+  &#125;
+    
+  </code>
+  </pre>
+  </p>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
