@@ -207,6 +207,61 @@ border-radius: 5px;
 <img src="/images/fr.PNG" alt="grid" class="center">
 </p>
 
+<h2>Gaps between tracks</h2>
+
+<p>To create gaps between tracks we use the properties <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/column-gap"><code>column-gap</code></a> 
+  for gaps between columns, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/row-gap"><code>row-gap</code></a> for gaps between rows, 
+  and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/gap"><code>gap</code></a> to set both at once.</p>
+
+  <div class="codebox">
+    <p>
+    <pre>
+    <code>
+  
+        .container &#123;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 20px;
+            &#125;
+    
+    </code>
+    </pre>
+    </p>
+    </div>
+
+    <p>
+      <img src="/images/gaps.PNG" alt="grid" class="center">
+    </p>
+
+    <div class=notebox>
+      <p><strong>Note</strong>: The <code>*gap</code> properties used to be prefixed by <code>grid-</code>, but this has been changed in the spec, 
+        as the intention is to make them usable in multiple layout methods. The prefixed versions will be maintained as an alias so will be safe
+         to use for some time. To be on the safe side, you could double up and add both properties to make your code more bulletproof.</p>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   </div>
