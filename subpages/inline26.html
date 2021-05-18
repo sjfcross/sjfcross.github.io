@@ -449,15 +449,63 @@ border-radius: 5px;
 </div>
 
 
+<h1>Positioning with grid-template-areas</h1>
+
+<p>An alternative way to place items on your grid is to use the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-areas"><code>grid-template-areas</code></a> 
+  property and giving the various elements of your design a name.</p>
 
 
+<p>The following code results in the same look as the above.</p>
+
+  <div class="codebox">
+    <p>
+    <pre>
+    <code>
+
+      .container &#123;
+      display: grid;
+      grid-template-areas:
+          "header header"
+          "sidebar content"
+          "footer footer";
+      grid-template-columns: 1fr 3fr;
+      gap: 20px;
+    &#125;
+    
+    header &#123;
+      grid-area: header;
+    &#125;
+    
+    article &#123;
+      grid-area: content;
+    &#125;
+    
+    aside &#123;
+      grid-area: sidebar;
+    &#125;
+    
+    footer &#123;
+      grid-area: footer;
+    &#125;
+      
+    </code>
+    </pre>
+    </p>
+    </div>
 
 
+    <p>The rules for <code>grid-template-areas</code> are as follows:</p>
 
-
-
-
-
+    <ul>
+     <li>You need to have every cell of the grid filled.</li>
+     <li>To span across two cells, repeat the name.</li>
+     <li>To leave a cell empty, use a <code>.</code> (period).</li>
+     <li>Areas must be rectangular — you can’t have an L-shaped area for example.</li>
+     <li>Areas can't be repeated in different locations.</li>
+    </ul>
+    
+    <p>You can play around with our layout, changing the footer to only sit underneath the content and the sidebar to span all the way down for example. 
+      This is a very nice way to describe a layout as it is obvious from the CSS exactly what is happening.</p>
 
 
 
