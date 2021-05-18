@@ -381,8 +381,34 @@ border-radius: 5px;
     <img src="/images/grid22.PNG" alt="grid" class="center">
 </p>
 
+<h1>Line-based placement</h1>
 
+<p>We now move on from creating a grid, to placing things on the grid. Our grid always has lines, which lines start at 1 and relate to the Writing Mode of the document. 
+  Therefore in English, column line 1 is on the left hand side of the grid and row line 1 at the top. In Arabic column line 1 would be on the right hand side, 
+  as Arabic is written right to left.</p>
 
+<p>We can place things according to these lines by specifying the start and end line. We do this using the following properties:</p>
+
+<ul>
+ <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-start"><code>grid-column-start</code></a></li>
+ <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column-end"><code>grid-column-end</code></a></li>
+ <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-start"><code>grid-row-start</code></a></li>
+ <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row-end"><code>grid-row-end</code></a></li>
+</ul>
+
+<p>These properties can all have a line number as the value. You can also use the shorthand properties:</p>
+
+<ul>
+ <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-column"><code>grid-column</code></a></li>
+ <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid-row"><code>grid-row</code></a></li>
+</ul>
+
+<p>These let you specify the start and end lines at once, separated by a <code>/</code> — a forward slash character.</p>
+
+<p><a href="/subpages/fontexa/linebasegrid.html" class="external" rel=" noopener"><strong>We are working on this file now.</strong>></a>&nbsp; 
+  It has a grid defined already, and a simple article outlined. You can see that auto-placement is placing items one into each cell of the grid that we have created.</p>
+
+<p>We will instead place all of the elements for our site on the grid, using the grid lines. Add the following rules to the bottom of your CSS:</p>
 
 
 
