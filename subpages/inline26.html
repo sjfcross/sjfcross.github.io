@@ -152,15 +152,59 @@ border-radius: 5px;
 
 <img src="/images/grid2.PNG" alt="grid" class="center">
 
+<h2>Flexible grids with the fr unit</h2>
+
+<p>In addition to creating grids using lengths and percentages, we can use the <code>fr</code> unit to flexibly size grid rows and columns. 
+  This unit represents one fraction of the available space in the grid container.</p>
+
+<p>Change your track listing to the following definition, creating three <code>1fr</code> tracks.</p>
+
+<div class="codebox">
+  <p>
+  <pre>
+  <code>
+
+      .container &#123;
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr;
+          &#125;
+  
+  </code>
+  </pre>
+  </p>
+  </div>
+
+  <p>You should now see that you have flexible tracks. The <code>fr</code> unit distributes space in proportion, therefore you can give 
+    different positive values to your tracks, for example if you change the definition like so:</p>
+
+    <div class="codebox">
+      <p>
+      <pre>
+      <code>
+    
+          .container &#123;
+              display: grid;
+              grid-template-columns: 2fr 1fr 1fr;
+              &#125;
+      
+      </code>
+      </pre>
+      </p>
+      </div>
+
+
+    <p>The first track now gets <code>2fr</code> of the available space and the other two tracks get <code>1fr</code>, making the first track larger.
+       You can mix <code>fr</code> units and fixed length tracks — in such a case the space needed for the fixed tracks is taken away before the 
+       space is distributed to the other tracks.</p>
 
 
 
+<div class=notebox>
+  <p><strong>Note</strong>: The <code>fr</code> unit distributes <em>available</em> space, not <em>all</em> space. 
+    Therefore if one of your tracks has something large inside it there will be less free space to share out.</p>
+</div>
 
-
-
-
-
-
+<img src="/images/fr.PNG" alt="grid" class="center">
 
 
 
