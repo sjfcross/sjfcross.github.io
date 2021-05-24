@@ -254,10 +254,37 @@ padding: 1em;
 
 
     <p>And remove the original <code>.cleared</code> class</p>.
-    <p>Yousee that, just like in the example where we put a background color on the paragraph, the background color runs behind the float.</p>
+    <p>You see that, just like in the example where we put a background color on the paragraph, the background color runs behind the float.</p>
 
     <img src="/images/float4.PNG" alt="grid" class="center">   
 
+    <p>Once again, this is because the float has been taken out of normal flow. Clearing the following element doesn't help with this box clearing problem, 
+      where you want the bottom of the box to wrap the floated item and wrapping content even if the content is shorter. There are three potential ways to
+       deal with this, two of which work in all browsers — yet are slightly hacky — and a third&nbsp;new way that deals with this situation properly.</p>
+
+  <h2>The clearfix hack</h2>
+
+  <p>The way that this situation has traditionally been dealt with is to use something known as a "clearfix hack". This involves inserting some generated 
+    content after the box which contains the float and wrapping content, and setting that to clear both.</p>
+
+<p>We add the following CSS to our example:</p>
+
+
+<div class="codebox">
+  <p>
+  <pre>
+  <code>  
+
+.wrapper::after  &#123;
+  content: "";
+  clear: both;
+  display: block;
+&#125;
+  
+  </code>
+  </pre>
+  </p>
+  </div> 
 
 
 
@@ -266,10 +293,7 @@ padding: 1em;
 
 
 
-
-
-
-
+  
 
   </div>
 </div>
