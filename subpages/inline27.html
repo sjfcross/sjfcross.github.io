@@ -14,6 +14,24 @@
 /*  width: 50%;*/
 }
 
+code {
+    background-color: rgb(205, 221, 194);   
+    font-size: 1.2em;
+}
+.codebox {
+  background-color: rgb(205, 221, 194);
+  font-weight: bold;
+}
+
+.notebox {
+  margin: auto;
+  width: 50%;
+  border: 3px solid green;
+  padding: 10px;
+background-color: rgb(180, 199, 166);
+border-radius: 5px;
+}
+
 
 
 
@@ -87,11 +105,65 @@
     <p>In this article we'll just concentrate on the proper uses of floats.</p>
 
 
+<h2>A simple float example</h2>
+
+Lets work on <a href="/subpages/fontexa/floats1.html"><code><strong>this</strong></code></a>
+
+<p>Now we apply the following CSS to your HTML (using a <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/style"><code>&lt;style&gt;</code></a> element or
+   a <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link"><code>&lt;link&gt;</code></a> to a separate <code>.css</code> file — your choice):</p>
 
 
+   <div class="codebox">
+      <p>
+      <pre>
+      <code>
+   
+body &#123;
+width: 90%;
+max-width: 900px;
+margin: 0 auto;
+font: .9em/1.2 Arial, Helvetica, sans-serif
+&#125;
 
-
-
+.box &#123;
+width: 150px;
+height: 100px;
+border-radius: 5px;
+background-color: rgb(207,232,220);
+padding: 1em;
+&#125;
+     
+      </code>
+      </pre>
+      </p>
+      </div> 
+      
+<p>To float the text around it add the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/float"><code>float</code></a>
+   and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/margin-right"><code>margin-right</code></a> properties to the <code>.box</code> rule:</p>   
+      
+    <div class="codebox">
+      <p>
+      <pre>
+      <code>
+      
+.box &#123;
+float: left;
+margin-right: 15px;
+width: 150px;
+height: 100px;
+border-radius: 5px;
+background-color: rgb(207,232,220);
+padding: 1em;
+&#125;
+      
+      </code>
+      </pre>
+      </p>
+      </div> 
+      
+      
+      
+      
 
 
 
