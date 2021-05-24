@@ -312,6 +312,16 @@ overflow: auto;
   </p>
   </div>
 
+  <p>This example works by creating what is known as a <strong>block formatting context</strong> (BFC). This is like a mini layout inside your page, inside which 
+    everything is contained, therefore our floated element is contained inside the BFC and the background runs behind both items. This will usually work, however, 
+    in certain cases you might find unwanted scrollbars or clipped shadows due to unintended consequences of using overflow.</p>
+
+    <h2>display: flow-root</h2>
+
+    <p>The modern way of solving this problem is to use the value <code>flow-root</code> of the <code>display</code> property. This exists only to create a BFC without using 
+      hacks — there will be no unintended consequences when you use it. Remove <code>overflow: auto</code> from your <code>.wrapper</code> rule and 
+      add <code>display: flow-root</code>. Assuming you have a <a href="https://developer.mozilla.orgen-US/en-US/docs/Web/CSS/display#browser_compatibility">supporting browser</a>, 
+      the box will clear.</p>
 
 
 
@@ -330,9 +340,6 @@ overflow: auto;
 
 
 
-
-
-    
 
 
   </div>
