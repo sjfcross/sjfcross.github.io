@@ -161,10 +161,44 @@ padding: 1em;
       </p>
       </div> 
       
-      
-      
-      
+      <img src="/images/float1.PNG" alt="grid" class="center">   
 
+      <p>So let's think about how the float works — the element with the float set on it (the 
+        <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div"><code>&lt;div&gt;</code></a> element in this case) is taken out of the normal layout 
+        flow of the document and stuck to the left-hand side of its parent container 
+        (<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/body"><code>&lt;body&gt;</code></a>, in this case). Any content that comes below the 
+        floated element in the normal layout flow will now wrap around it, filling up the space to the right-hand side of it as far up as the top of the floated 
+        element. There, it will stop.</p>
+
+      <p>Floating the content to the right has exactly the same effect, but in reverse — the floated element will stick to the right, and the content will wrap around 
+        it to the left. Try changing the float value to <code>right</code> and replace <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/margin-right"><code>margin-right</code></a> 
+        with <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/margin-left"><code>margin-left</code></a> in the last ruleset to see what the result is.</p>
+      
+      <p>While we can add a margin to the float to push the text away, we can't add a margin to the text to move it away from the float. This is because a floated element 
+        is taken out of normal flow, and the boxes of the following items actually run behind the float. You can demonstrate this by making some changes to your example.</p>
+      
+      <p>Add a class of <code>special</code> to the first paragraph of text, the one immediately following the floated box, then in your CSS add the following rules. 
+        These will give our following paragraph a background color.</p>
+
+
+        <div class="codebox">
+          <p>
+          <pre>
+          <code>
+          
+.special &#123;
+  background-color: rgb(79,185,227);
+  padding: 10px;
+  color: #fff;
+    &#125;
+          
+          </code>
+          </pre>
+          </p>
+          </div> 
+      
+          <p>To make the effect easier to see, change the <code>margin-right</code> on your float to <code>margin</code>, so you get space all around the float. You will be
+            able to see the background on the paragraph running right underneath the floated box, as in the example below.</p>
 
 
 
