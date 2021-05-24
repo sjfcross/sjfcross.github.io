@@ -202,11 +202,29 @@ padding: 1em;
 
             <img src="/images/float2.PNG" alt="grid" class="center">   
 
+            <p>The <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Visual_formatting_model#line_boxes">line boxes</a> of our following element have been shortened 
+              so the text runs around the float, but due to the float being removed from normal flow the box around the paragraph still remains full width.</p>
 
+   <H2>Clearing floats</H2>
 
+  <p>We have seen that the float is removed from normal flow and that other elements will display beside it, therefore if we want to stop the following element from 
+    oving up we need to clear it; this is achieved with the <a href="https://developer.mozilla.orgen-US/docs/Web/CSS/clear"><code>clear</code></a> property.</p>
 
+  <p>In your HTML from the previous example, add a class of <code>cleared</code> to the second paragraph below the floated item. Then add the following to your CSS:</p>         
 
-
+  <div class="codebox">
+    <p>
+    <pre>
+    <code>  
+      
+.cleared &#123;
+ clear: left;
+&#125;
+    
+    </code>
+    </pre>
+    </p>
+    </div> 
 
 
 
