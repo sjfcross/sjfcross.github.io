@@ -424,6 +424,115 @@ border-radius: 5px;
             <p>    <img src="/images/relpos5.PNG" alt="grid" class="center">   </p>
 
 
+<h1>Sticky positioning</h1>
+
+<p>There is another position value available called <code>position: sticky</code>, which is somewhat newer than the others. This is basically a hybrid between 
+  relative and fixed position, which allows a positioned element to act like it is relatively positioned until it is scrolled to a certain threshold point 
+  (e.g. 10px from the top of the viewport), after which it becomes fixed. This can be used to for example cause a navigation bar to scroll with the page 
+  until a certain point, and then stick to the top of the page.&nbsp;</p>
+
+
+  <div class="codebox">
+    <p>
+    <pre>
+    <code>
+  
+.positioned  &#123;
+  position: sticky;
+  top: 30px;
+  left: 30px;
+  &#125;
+
+    </code>
+    </pre>
+    </p>
+    </div> 
+
+    <p>An interesting and common use of <code>position: sticky</code> is to create a scrolling index page where different headings stick to the top of the page as 
+      they reach it. The markup for such an example might look like so:</p>
+
+
+      <div class="codebox">
+        <p>
+        <pre>
+        <code>
+
+          &lt;h1&gt;Sticky positioning&lt;/h1&gt;
+
+          &lt;dl&gt;
+              &lt;dt&gt;A&lt;/dt&gt;
+              &lt;dd&gt;Apple&lt;/dd&gt;
+              &lt;dd&gt;Ant&lt;/dd&gt;
+              &lt;dd&gt;Altimeter&lt;/dd&gt;
+              &lt;dd&gt;Airplane&lt;/dd&gt;
+              &lt;dt&gt;B&lt;/dt&gt;
+              &lt;dd&gt;Bird&lt;/dd&gt;
+              &lt;dd&gt;Buzzard&lt;/dd&gt;
+              &lt;dd&gt;Bee&lt;/dd&gt;
+              &lt;dd&gt;Banana&lt;/dd&gt;
+              &lt;dd&gt;Beanstalk&lt;/dd&gt;
+              &lt;dt&gt;C&lt;/dt&gt;
+              &lt;dd&gt;Calculator&lt;/dd&gt;
+              &lt;dd&gt;Cane&lt;/dd&gt;
+              &lt;dd&gt;Camera&lt;/dd&gt;
+              &lt;dd&gt;Camel&lt;/dd&gt;
+              &lt;dt&gt;D&lt;/dt&gt;
+              &lt;dd&gt;Duck&lt;/dd&gt;
+              &lt;dd&gt;Dime&lt;/dd&gt;
+              &lt;dd&gt;Dipstick&lt;/dd&gt;
+              &lt;dd&gt;Drone&lt;/dd&gt;
+              &lt;dt&gt;E&lt;/dt&gt;
+              &lt;dd&gt;Egg&lt;/dd&gt;
+              &lt;dd&gt;Elephant&lt;/dd&gt;
+              &lt;dd&gt;Egret&lt;/dd&gt;
+          &lt;/dl&gt;
+            
+        </code>
+        </pre>
+        </p>
+        </div> 
+
+        <p>The CSS might look as follows. In normal flow the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dt"><code>&lt;dt&gt;</code></a> 
+          elements will scroll with the content. When we add <code>position: sticky</code> to the
+           <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dt"><code>&lt;dt&gt;</code></a> element, along with a 
+           <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/top"><code>top</code></a> value of 0, supporting browsers will stick the headings to the top 
+           of the viewport as they reach that position. Each subsequent header will then replace the previous one as it scrolls up to that position.</p>
+          
+          
+           <div class="codebox">
+            <p>
+            <pre>
+            <code>
+
+              dt  &#123;
+                background-color: black;
+                color: white;
+                padding: 10px;
+                position: sticky;
+                top: 0;
+                left: 0;
+                margin: 1em 0;
+                &#125;
+              
+            </code>
+            </pre>
+            </p>
+            </div> 
+
+            <p>Sticky elements are "sticky" relative to the nearest ancestor with a "scrolling mechanism", which is determined by its ancestors' 
+              <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position">position</a> property.</p>
+
+
+           <div class="notebox">
+            <p><strong>Note</strong>: You can see this example live at <code>
+              <a href="https://mdn.github.io/learning-area/css/css-layout/positioning/7_sticky-positioning.html">7_sticky-positioning.html</a></code> 
+              (<a href="https://github.com/mdn/learning-area/blob/master/css/css-layout/positioning/7_sticky-positioning.html">see source code</a>).</p>
+            </div>
+
+
+
+
+
 
 
 
