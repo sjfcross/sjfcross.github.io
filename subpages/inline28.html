@@ -84,13 +84,40 @@
 
 <p>We work on <a href="/subpages/fontexa/0_basic-flow.html">this file</a></p>
 
+<h2>Static positioning</h2>
+
+<p>Static positioning is the default that every element gets — it just means "put the element into its normal position in the document layout flow — nothing special 
+  to see here."</p>
+
+<p>To demonstrate this, and get your example set up for future sections, first add a <code>class</code> of <code>positioned</code> to the 
+  second <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p"><code>&lt;p&gt;</code></a> in the HTML:</p>
 
 
 
+  <div class="codebox">
+    <p>
+    <pre>
+    <code>
+      &lt;p class="positioned"&gt; ... &lt;/p&gt;
+    </code>
+    </pre>
+    </p>
+    </div> 
 
-
-
-
+    <div class="codebox">
+      <p>
+      <pre>
+      <code>
+        .positioned &#123;
+          position: static;
+          background: yellow;
+          &#125;
+      </code>
+      </pre>
+      </p>
+      </div> 
+  
+  
 
 
 
