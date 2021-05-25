@@ -117,6 +117,62 @@ border-radius: 5px;
         </div> 
 
 
+<h1>Styling the columns</h1>
+
+<p>The columns created by multicol cannot be styled individually. There is no way to make one column bigger than other columns, or to change the background or text color of a single column. You have two opportunities to change the way that columns display:</p>
+
+<ul>
+ <li>Changing the size of the gap between columns using the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/column-gap"><code>column-gap</code></a>.</li>
+ <li>Adding a rule between columns with <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/column-rule"><code>column-rule</code></a>.</li>
+</ul>
+
+<p>Using your example above, change the size of the gap by adding a <code>column-gap</code> property:</p>
+
+<div class="codebox">
+  <p>
+  <pre>
+  <code>
+
+    .container &#123;
+    column-width: 200px;
+    column-gap: 20px;
+      &#125;
+      
+  </code>
+  </pre>
+  </p>
+  </div> 
+
+  <p>You can play around with different values — the property accepts any length unit. Now add a rule between the columns, with <code>column-rule</code>. 
+    In a similar way to the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/border"><code>border</code></a> property that you encountered in previous lessons, 
+    <code>column-rule</code> is a shorthand for <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/column-rule-color"><code>column-rule-color</code></a>,
+     <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/column-rule-style"><code>column-rule-style</code></a>, 
+     and <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/column-rule-width"><code>column-rule-width</code></a>, and accepts the same values as <code>border</code>.
+     
+ <div class="codebox">
+<p>
+<pre>
+<code>
+    
+        .container &#123;
+        column-count: 3;
+        column-gap: 20px;
+        column-rule: 4px dotted rgb(79, 185, 227);
+          &#125;
+          
+</code>
+</pre>
+</p>
+</div> 
+
+<p>Something to take note of is that the rule does not take up any width of its own. It lies across the gap you created with <code>column-gap</code>.
+   To make more space either side of the rule you will need to increase the <code>column-gap</code> size.</p>
+
+
+
+
+
+
 
 
 
