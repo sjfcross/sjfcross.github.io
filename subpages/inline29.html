@@ -14,6 +14,25 @@
 /*  width: 50%;*/
 }
 
+code {
+    background-color: rgb(205, 221, 194);   
+    font-size: 1.2em;
+}
+.codebox {
+  background-color: rgb(205, 221, 194);
+  font-weight: bold;
+}
+
+.notebox {
+  margin: auto;
+  width: 50%;
+  border: 3px solid green;
+  padding: 10px;
+background-color: rgb(180, 199, 166);
+border-radius: 5px;
+}
+
+
 
 
 
@@ -64,8 +83,38 @@
     </div>
   <div class="main">
 
+    <H1 style="color:rgb(12, 150, 70); font-size: 200%;">Multiple-column layout</h1> 
+
+        <p>The multiple-column layout specification gives you a method of laying content out in columns, as you might see in a newspaper. 
+            This article explains how to use this feature.</p>
 
     
+<h1>A basic example</h1>
+
+<p>We will now explore how to use multiple-column layout, often referred to as <em>multicol</em>. 
+    Here <a href="/subpages/fontexa/0-starting-point.html"><strong>is our working page</strong></a></p>
+
+    Our starting point contains some very simple HTML; a wrapper with a class of <code>container</code> inside which is a heading and some paragraphs.</p>
+
+<p>The <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div"><code>&lt;div&gt;</code></a> with a class of container will become our 
+    multicol container. We switch on multicol by using one of two properties <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/column-count"><code>column-count</code></a>
+     or <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/column-width"><code>column-width</code></a>. The <code>column-count</code> property will create 
+     as many columns as the value you give it, so if you add the following CSS to your stylesheet and reload the page, you will get three columns:</p>
+
+
+     <div class="codebox">
+        <p>
+        <pre>
+        <code>
+
+          .container &#123;
+            column-count: 3;
+            &#125;
+            
+        </code>
+        </pre>
+        </p>
+        </div> 
 
 
 
@@ -85,10 +134,6 @@
 
 
 
-
-
-
-    
   </div>
 </div>
 
