@@ -336,6 +336,73 @@ border-radius: 5px;
 
     <p>    <img src="/images/relpos4.PNG" alt="grid" class="center">   </p>
 
+    <p>Note that <code>z-index</code> only accepts unitless index values; you can't specify that you want one element to be 23 pixels up the Z-axis — it doesn't 
+      work like that. Higher values will go above lower values, and it is up to you what values you use. Using 2 and 3 would give the same effect as 300 and 40000.</p>
+
+
+<h1>Fixed positioning</h1>
+
+<p>Let's now look at fixed positioning. This works in exactly the same way as absolute&nbsp;positioning, with one key difference: whereas absolute positioning fixes an 
+  element in place relative to its nearest positioned ancestor (the initial containing block if there isn't one),<strong> fixed positioning</strong> <em>usually</em> 
+  fixes an element in place relative to the visible portion of the viewport, except if one of its ancestors is a fixed containing block due to its 
+  <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transform">transform property</a> being different from none. This means that you can create useful UI 
+  items that are fixed in place, like persisting navigation menus that are always visible no matter how much the page scrolls.</p>
+
+<p>Let's put together a simple example to show what we mean. First of all, delete the existing <code>p:nth-of-type(1)</code> and <code>.positioned</code> rules from 
+  your CSS.</p>
+
+<p>Now, update the <code>body</code> rule to remove the <code>position: relative;</code> declaration and add a fixed height, like so:</p>
+
+<div class="codebox">
+  <p>
+  <pre>
+  <code>
+    body &#123;
+      width: 500px;
+      height: 1400px;
+      margin: 0 auto;
+      &#125;
+  </code>
+  </pre>
+  </p>
+  </div> 
+
+  <p>Now we're going to give the <code>&lt;h1&gt;</code></a> element <code>position: fixed;</code>, and get it to sit at the top of the viewport.
+     Add the following rule to your CSS:</p>
+
+
+     <div class="codebox">
+      <p>
+      <pre>
+      <code>
+         
+        h1 &#123;
+          position: fixed;
+          top: 0;
+          width: 500px;
+          margin-top: 0;
+          background: white;
+          padding: 10px;
+          &#125;
+
+      </code>
+      </pre>
+      </p>
+      </div> 
+
+
+      <p>The <code>top: 0;</code> is required to make it stick to the top of the screen. We give the heading the same width as the content column and then give it a white 
+        background and some padding and margin, so the content won't be visible underneath it.</p>
+
+      <p>If you save and refresh now, you'll see a fun little effect whereby the heading stays fixed, and the content appears to scroll up and disappear underneath it. 
+        But we could improve this more — at the moment some of the content starts off underneath the heading. This is because the positioned heading no longer appears 
+        in the document flow, so the rest of the content moves up to the top. We need to move it all down a bit; we can do this by setting some top margin on the first
+         paragraph. Add this now:</p>
+
+
+
+
+
 
 
 
