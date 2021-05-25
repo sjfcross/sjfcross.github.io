@@ -185,6 +185,14 @@ border-radius: 5px;
       </a> you'd logically expect — pixels, mm, rems, %, etc.</p>
     </div>
 
+    <img src="/images/relpos.PNG" alt="grid" class="center">   
+
+
+    <p>Cool, huh? Ok, so this probably wasn't what you were expecting — why has it moved to the bottom and right if we specified top and left? Illogical as it
+      may initially sound, this is just the way that relative positioning works — you need to think of an invisible force that pushes the specified side of the 
+      positioned box, moving it in the opposite direction. So for example, if you specify <code>top: 30px;</code>, a force pushes the top of the box, causing 
+      it to move downwards by 30px.</p>
+
 
 
 
