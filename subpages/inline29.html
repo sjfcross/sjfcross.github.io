@@ -185,6 +185,163 @@ border-radius: 5px;
 
 
 
+<h1>Columns and fragmentation</h1>
+
+<p>
+
+The content of a multi-column layout is fragmented. It essentially behaves the same way as content behaves in paged media — such as when you print a webpage. When you turn your 
+content into a multicol container it is fragmented into columns, and the content breaks to allow this to happen.
+
+Sometimes, this breaking will happen in places that lead to a poor reading experience. In the live example below, I have used multicol to lay out a series of boxes, 
+each of which have a heading and some text inside. The heading becomes separated from the text if the columns fragment between the two.
+</p>
+
+<div class="codebox">
+  <p>
+  <pre>
+  <code>
+
+    &lt;div class="container"&gt;
+    &lt;div class="card"&gt;
+      &lt;h2&gt;I am the heading&lt;/h2&gt;
+      &lt;p&gt; Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla luctus aliquam dolor, eu lacinia lorem placerat
+                vulputate. Duis felis orci, pulvinar id metus ut, rutrum luctus orci. Cras porttitor imperdiet nunc, at ultricies
+                tellus laoreet sit amet. Sed auctor cursus massa at porta. Integer ligula ipsum, tristique sit amet orci
+                vel, viverra egestas ligula.&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;div class="card"&gt;
+      &lt;h2&gt;I am the heading&lt;/h2&gt;
+      &lt;p&gt; Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla luctus aliquam dolor, eu lacinia lorem placerat
+                vulputate. Duis felis orci, pulvinar id metus ut, rutrum luctus orci. Cras porttitor imperdiet nunc, at ultricies
+                tellus laoreet sit amet. Sed auctor cursus massa at porta. Integer ligula ipsum, tristique sit amet orci
+                vel, viverra egestas ligula.&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;div class="card"&gt;
+      &lt;h2&gt;I am the heading&lt;/h2&gt;
+      &lt;p&gt; Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla luctus aliquam dolor, eu lacinia lorem placerat
+                vulputate. Duis felis orci, pulvinar id metus ut, rutrum luctus orci. Cras porttitor imperdiet nunc, at ultricies
+                tellus laoreet sit amet. Sed auctor cursus massa at porta. Integer ligula ipsum, tristique sit amet orci
+                vel, viverra egestas ligula.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class="card"&gt;
+      &lt;h2&gt;I am the heading&lt;/h2&gt;
+      &lt;p&gt; Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla luctus aliquam dolor, eu lacinia lorem placerat
+                vulputate. Duis felis orci, pulvinar id metus ut, rutrum luctus orci. Cras porttitor imperdiet nunc, at ultricies
+                tellus laoreet sit amet. Sed auctor cursus massa at porta. Integer ligula ipsum, tristique sit amet orci
+                vel, viverra egestas ligula.&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;div class="card"&gt;
+      &lt;h2&gt;I am the heading&lt;/h2&gt;
+      &lt;p&gt; Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla luctus aliquam dolor, eu lacinia lorem placerat
+                vulputate. Duis felis orci, pulvinar id metus ut, rutrum luctus orci. Cras porttitor imperdiet nunc, at ultricies
+                tellus laoreet sit amet. Sed auctor cursus massa at porta. Integer ligula ipsum, tristique sit amet orci
+                vel, viverra egestas ligula.&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;div class="card"&gt;
+      &lt;h2&gt;I am the heading&lt;/h2&gt;
+      &lt;p&gt; Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla luctus aliquam dolor, eu lacinia lorem placerat
+                vulputate. Duis felis orci, pulvinar id metus ut, rutrum luctus orci. Cras porttitor imperdiet nunc, at ultricies
+                tellus laoreet sit amet. Sed auctor cursus massa at porta. Integer ligula ipsum, tristique sit amet orci
+                vel, viverra egestas ligula.&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;div class="card"&gt;
+      &lt;h2&gt;I am the heading&lt;/h2&gt;
+      &lt;p&gt; Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla luctus aliquam dolor, eu lacinia lorem placerat
+                vulputate. Duis felis orci, pulvinar id metus ut, rutrum luctus orci. Cras porttitor imperdiet nunc, at ultricies
+                tellus laoreet sit amet. Sed auctor cursus massa at porta. Integer ligula ipsum, tristique sit amet orci
+                vel, viverra egestas ligula.&lt;/p&gt;
+    &lt;/div&gt;
+
+&lt;
+
+<div class="codebox">
+  <p>
+  <pre>
+  <code>
+
+    .container &#123;
+    column-width: 250px;
+    column-gap: 20px;
+  &#125;
+  
+  .card &#123;
+    background-color: rgb(207, 232, 220);
+    border: 2px solid rgb(79, 185, 227);
+    padding: 10px;
+    margin: 0 0 1em 0;
+  &#125;
+          
+  </code>
+  </pre>
+  </p>
+  </div> 
+
+
+  <p>    <img src="/images/fragcol.PNG" alt="grid" class="center">   </p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </code>
+  </pre>
+  </p>
+  </div> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
