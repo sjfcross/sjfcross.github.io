@@ -290,6 +290,17 @@ each of which have a heading and some text inside. The heading becomes separated
 
   <p>    <img src="/images/fragcol.PNG" alt="grid" class="center">   </p>
 
+  <p>To control this behavior we can use properties from the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Fragmentation">CSS Fragmentation</a> specification. 
+    This specification gives us properties to control breaking of content in multicol and in paged media. For example, add the property
+     <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/break-inside"><code>break-inside</code></a> with a value of <code>avoid</code> to the rules 
+     for <code>.card</code>. This is the container of the heading and text, and therefore we do not want to fragment this box.</p>
+
+  <p>At the present time it is also worth adding the older property <code>page-break-inside: avoid</code> for best browser support.</p>
+
+  <p>    <img src="/images/nofrag.PNG" alt="grid" class="center">   </p>
+
+  <p>And it should look like this:</p>
+  <p>    <img src="/images//nofrag1.PNG" alt="grid" class="center">   </p>
 
 
 
@@ -303,28 +314,6 @@ each of which have a heading and some text inside. The heading becomes separated
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  </code>
-  </pre>
-  </p>
-  </div> 
 
 
 
