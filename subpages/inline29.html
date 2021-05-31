@@ -171,9 +171,17 @@ border-radius: 5px;
    To make more space either side of the rule you will need to increase the <code>column-gap</code> size.</p>
 
 
+<h1>Spanning columns</h1>
+<p>You can cause an element to span across all of the columns. In this case the content breaks when the spanning element is introduced and continues below creating a 
+  new set of column boxes. To cause an element to span all of the columns use the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/column-span"><code>column-span</code></a> 
+  property set to <code>all</code>.</p>
 
+  <div class="notebox">
+    <p>Note that it isn't possible to cause an element to span some columns. The property can only have the value of <code>none</code> (which is the default) 
+      or <code>all</code>.</p>
+  </div>
 
-
+  <p>    <img src="/images/spancol.PNG" alt="grid" class="center">   </p>
 
 
 
