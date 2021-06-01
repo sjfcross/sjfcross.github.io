@@ -193,29 +193,47 @@ border-radius: 5px;
 
 
 
-     <p>For example, if our target column size is 60 pixels, and the context (or container) it is in is 960 pixels, we divide 60 by 960 to get a value we can use in our 
+<p>For example, if our target column size is 60 pixels, and the context (or container) it is in is 960 pixels, we divide 60 by 960 to get a value we can use in our 
          CSS, after moving the decimal point two places to the right.</p>
 
 
 
-         <p>    <img src="/images/flexgrid1.PNG" alt="grid" class="center">   </p>
+<p>    <img src="/images/flexgrid1.PNG" alt="grid" class="center">   </p>
 
 
 
-         <p>This approach will be found in many places across the web today, and it is documented here in the layout section of our
+<p>This approach will be found in many places across the web today, and it is documented here in the layout section of our
               <a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Legacy_Layout_Methods">Legacy layout methods</a> article. It is likely that you will 
               come across websites using this approach in your work, so it is worth understanding it, even though you would not build a modern site using a 
               float-based flexible grid.</p>
 
-         <p>The following example demonstrates a simple responsive design using Media Queries and a flexible grid. On narrow screens the layout displays the boxes 
+<p>The following example demonstrates a simple responsive design using Media Queries and a flexible grid. On narrow screens the layout displays the boxes 
              stacked on top of one another:</p>
 
 
              <a href="https://mdn.github.io/css-examples/learn/rwd/float-based-rwd.html"><strong>Responsive !</strong></a></p>
 
-             <p>On wider screens they move to two columns!</p>
+<p>On wider screens they move to two columns!</p>
+
+<h2>Modern layout technologies</h2>
+
+<p>Modern layout methods such as <a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Multiple-column_Layout">Multiple-column layout</a>, 
+    <a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox">Flexbox</a>, 
+    and <a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Grids">Grid</a> are responsive by default. They all assume that you are trying to 
+    create a flexible grid and give you easier ways to do so.</p>
 
 
+<h2>Multicol</h2>
+<p>The oldest of these layout methods is multicol — when you specify a <code>column-count</code>, this indicates how many columns you want your content 
+    to be split into. The browser then works out the size of these, a size that will change according to the screen size.</p>
+    <p>    <img src="/images/multicol222.PNG" alt="grid" class="center">   </p>
+
+    <p>If you instead specify a column-width, you are specifying a minimum width. The browser will create as many columns of that width as will comfortably fit into 
+        the container, then share out the remaining space between all the columns. Therefore the number of columns will change according to how much space there is.</p>
+
+        <p>    <img src="/images//multicol223.PNG" alt="grid" class="center">   </p>
+
+        
 
 
 
