@@ -332,6 +332,31 @@ border-radius: 5px;
     to make it more usable or attractive at alternate screen sizes.</p>
 
 
+<h3>Using viewport units for responsive typography</h3>
+
+<p>An interesting approach is to use the viewport unit <code>vw</code> to enable responsive typography. <code>1vw</code> is equal to one percent of the viewport width,
+     meaning that if you set your font size using <code>vw</code>, it will always relate to the size of the viewport.</p>
+
+     <p>    <img src="/images/resptyp1.PNG" alt="grid" class="center">   </p>
+
+<p>The problem with doing the above is that the user loses the ability to zoom any text set using the <code>vw</code> unit, as that text is always related to the size 
+    of the viewport. <strong>Therefore you should never set text using viewport units alone</strong>.</p>
+
+<p>There is a solution, and it involves using <code><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/calc()">calc()</a></code>. If you add the <code>vw</code> unit to 
+    a value set using a fixed size such as <code>em</code>s or <code>rem</code>s then the text will still be zoomable. Essentially, the <code>vw</code> unit adds on top of that 
+    zoomed value:</p>
+     
+    <p>    <img src="/images/resptyp2.PNG" alt="grid" class="center">   </p>
+
+<p>This means that we only need to specify the font size for the heading once, rather than set it up for mobile and redefine it in the media queries. The font then gradually 
+    increases as you increase the size of the viewport.</p>
+
+
+
+    <div class="codebox">
+        <p>See an example of this in action: <a href="https://mdn.github.io/css-examples/learn/rwd/type-vw.html">example</a>,
+             <a href="https://github.com/mdn/css-examples/blob/master/learn/rwd/type-vw.html">source code</a>.</p>
+        </div>
 
 
 
@@ -344,14 +369,6 @@ border-radius: 5px;
 
 
 
-
-
-
-
-
-
-
-    
   </div>
 </div>
 
