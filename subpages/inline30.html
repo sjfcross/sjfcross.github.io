@@ -266,11 +266,66 @@ border-radius: 5px;
         <a href="https://github.com/mdn/css-examples/blob/master/learn/rwd/grid-based-rwd.html">source code</a>.</p>
 </div>
 
+<h2>Responsive images</h2>
+<p>The simplest approach to responsive images was as described in Marcotte's early articles on responsive design. Basically, you would take an image that was at the 
+    largest size that might be needed, and scale it down. This is still an approach used today, and in most stylesheets, you will find the following CSS somewhere:</p>
+    
+    <div class="codebox">
+        <p>
+        <pre>
+        <code>
+            
+
+                img                &#123;
+                    max-width: 100%;
+                    &#125;
+        
+                  
+        </code>
+        </pre>
+        </p>
+        </div> 
+         
+        <p>There are obvious downsides to this approach. The image might be displayed a lot smaller than its intrinsic size, which is a waste of bandwidth — a 
+            mobile user may be downloading an image several times the size of what they actually see in the browser window. In addition, you may not want the 
+            same image aspect ratio on mobile as on desktop. For example, it might be nice to have a square image for mobile, but show the same scene as a 
+            landscape image on desktop. Or, acknowledging the smaller size of an image on mobile you might want to show a different image altogether, one 
+            which is more easily understood at a small screen size. These things can't be achieved by scaling down an image.</p>
+
+        <p>Responsive Images, using the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/picture"><code>&lt;picture&gt;</code></a> element and 
+            the <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img"><code>&lt;img&gt;</code></a> <code>srcset</code> and <code>sizes</code> attributes 
+            solve both of these problems. You can provide multiple sizes along with "hints" (meta data that describes the screen size and resolution the image is
+            best suited for), and the browser will choose the most appropriate image for each device, ensuring that a user will download an image size appropriate
+             for the device they are using.</p>
+        
+        <p>You can also <em>art direct</em> images used at different sizes, thus providing a different crop or completely different image to different screen sizes.</p>
+        
+        <p>You can find a detailed <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images">guide to Responsive Images 
+            in the Learn HTML section</a> here on MDN.</p>
+
+<h2>Responsive typography</h2>
+
+<p>An element of responsive design not covered in earlier work was the idea of responsive typography. Essentially, this describes changing font sizes within media
+     queries to reflect lesser or greater amounts of screen real estate.</p>
+
+<p>In this example, we want to set our level 1 heading to be <code>4rem</code>, meaning it will be four times our base font size. That's a really large heading! 
+    We only want this jumbo heading on larger screen sizes, therefore we first create a smaller heading then use media queries to overwrite it with the larger 
+    size if we know that the user has a screen size of at least <code>1200px</code>.</p>
+
+
+    <p>    <img src="/images/resptyp.PNG" alt="grid" class="center">   </p>
+
+    <p>We have edited our responsive grid example above to also include responsive type using the method outlined. You can see how the heading switches sizes as the layout 
+        goes to the two column version.</p>
+
+    <p>On mobile the heading is smaller:</p>
 
 
 
-
-
+<div class="codebox">
+    <strong>Note</strong>: See this example in action: <a href="https://mdn.github.io/css-examples/learn/rwd/type-rwd.html">example</a>, 
+    <a href="https://github.com/mdn/css-examples/blob/master/learn/rwd/type-rwd.html" >source code</a>.
+</div>
 
 
 
