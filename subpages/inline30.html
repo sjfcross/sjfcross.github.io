@@ -128,6 +128,48 @@ border-radius: 5px;
 
 <h2>Responsive design</h2>
 
+><p>The term responsive design was <a href="https://alistapart.com/article/responsive-web-design/">coined by Ethan Marcotte in 2010</a>&nbsp;and described the use of 
+    three techniques in combination.</p>
+
+<ol>
+ <li>The first was the idea of fluid grids, something which was already being explored by Gillenwater, and can be read up on in Marcotte's article, 
+     <a href="https://alistapart.com/article/fluidgrids/">Fluid Grids</a> (published in 2009 on A List Apart).</li>
+ <li>The second technique was the idea of <a href="https://unstoppablerobotninja.com/entry/fluid-images">fluid images</a>. Using a very simple technique of setting the 
+    <code>max-width</code> property to <code>100%</code>, images would scale down smaller if their containing column became narrower than the image's intrinsic size, 
+    but never grow larger. This enables an image to scale down to fit in a flexibly-sized column, rather than overflow it, but not grow larger and become pixelated 
+    if the column becomes wider than the image.</li>
+ <li>The third key component was the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries">media query</a>. Media Queries enable the type of layout 
+    switch that Cameron Adams had previously explored using JavaScript, using only CSS. Rather than having one layout for all screen sizes, the layout could be changed. 
+    Sidebars could be repositioned for the smaller screen, or alternate navigation could be displayed.</li>
+</ol>
+
+<p>It is important to understand that <strong>responsive web design isn't a separate technology</strong> — it is a term used to describe an approach to web design or a 
+    set of best practices, used to create a layout that can <em>respond</em> to the device being used to view the content. In Marcotte's original exploration this meant 
+    flexible grids (using floats) and media queries, however in the almost 10 years since that article was written, working responsively has become the default. Modern CSS
+     layout methods are inherently responsive, and we have new things built into the web platform to make designing responsive sites easier.</p>
+
+<p>The rest of this article will point you to the various web platform features you might want to use when creating a responsive site.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
