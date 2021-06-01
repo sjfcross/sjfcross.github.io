@@ -154,10 +154,24 @@ border-radius: 5px;
 <h2>Media Queries</h2>
 
 
+<p>Responsive design was only able to emerge due to the media query. The Media Queries Level 3 specification became a Candidate Recommendation in 2009, meaning that it was 
+    deemed ready for implementation in browsers. Media Queries allow us to run a series of tests (e.g. whether the user's screen is greater than a certain width, or a 
+    certain resolution) and apply CSS selectively to style the page appropriately for the user's needs.</p>
+
+<p>For example, the following media query tests to see if the current web page is being displayed as screen media (therefore not a printed document) and the viewport is at 
+    least 800 pixels wide. The CSS for the <code>.container</code> selector will only be applied if these two things are true.</p>
+
+    <p>    <img src="/images/medscreen.PNG" alt="grid" class="center">   </p>
 
 
+    <p>You can add multiple media queries within a stylesheet, tweaking your whole layout or parts of it to best suit the various screen sizes. The points at which a 
+        media query is introduced, and the layout changed, are known as <em>breakpoints</em>.</p>
 
-
+    <p>A common approach when using Media Queries is to create a simple single-column layout for narrow-screen devices (e.g mobile phones), then check for larger 
+        screens and implement a multiple-column layout when you know that you have enough screen width to handle it. This is often
+        described as <strong>mobile first</strong> design.</p>
+    
+    <p>Find out more in the MDN documentation for <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries">Media Queries</a>.</p>
 
 
 
