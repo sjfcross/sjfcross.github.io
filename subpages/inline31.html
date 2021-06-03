@@ -179,9 +179,26 @@ border-radius: 5px;
 <p>A standard desktop view has a landscape orientation, and a design that works well in this orientation may not work as well when viewed on a phone or tablet 
     in portrait mode. Testing for orientation can help you to create a layout which is optimised for devices in portrait mode.</p>
 
+<h3>Use of pointing devices</h3>
 
+<p>As part of the Level 4 specification, the <code>hover</code> media feature was introduced. This feature means you can test if the user has the ability 
+    to hover over an element, which essentially means they are using some kind of pointing device; touchscreen&nbsp;and keyboard navigation does not hover.</p>
 
+    <p>    <img src="/images/medque5.PNG" alt="grid" class="center">   </p>
 
+    <p><a href="https://mdn.github.io/css-examples/learn/media-queries/hover.html">Open this example</a> in the browser,
+        or <a href="https://github.com/mdn/css-examples/blob/master/learn/media-queries/hover.html">view the source</a>.</p>
+
+<p>If we know the user cannot hover, we could display some interactive features by default. For users who can hover, we might choose to make them available 
+    when a link is hovered over.</p>
+
+<p>Also in Level 4 is the <code>pointer</code> media feature. This takes three possible values, <code>none</code>, <code>fine</code> and <code>coarse</code>. 
+    A <code>fine</code> pointer is something like a mouse&nbsp;or trackpad. It enables the user to precisely target a small area. 
+    A <code>coarse</code> pointer is your finger on a touchscreen. The value <code>none</code> means the user has no pointing device; perhaps they are navigating 
+    with the keyboard only or with voice commands.</p>
+
+<p>Using <code>pointer</code> can help you to design better interfaces that respond to the type of interaction a user is having with a screen.
+     For example, you could create larger hit areas if you know that the user is interacting with the device as a touchscreen.</p>
 
 
 
