@@ -366,7 +366,35 @@ border-radius: 5px;
 
     <p>    <img src="/images/vwmeta.PNG" alt="grid" class="center">   </p>
 
-    
+<p>This meta tag tells mobile browsers that they should set the width of the viewport to the device width, and scale the document to 100% of its intended size, which 
+    shows the document at the mobile-optimized size that you intended.</p>
+
+<p>Why is this needed? Because mobile browsers tend to lie about their viewport width.</p>
+
+<p>This meta tag exists because when the original iPhone launched and people started to view websites on a small phone screen, most sites were not mobile optimized. 
+    The mobile browser would, therefore, set the viewport width to 960 pixels, render the page at that width, and show the result as a zoomed-out version of the 
+    desktop layout. Other mobile browsers (e.g. on Google Android) did the same thing. Users could zoom in and pan around the website to view the bits they were interested 
+    in, but it looked bad. You will still see this today if you have the misfortune to come across a site that does not have a responsive design.</p>
+
+<p>The trouble is that your responsive design with breakpoints and media queries won't work as intended on mobile browsers. If you've got a narrow screen layout that 
+    kicks in at 480px viewport width or less, and the viewport is set at 960px, you'll never see your narrow screen layout on mobile. 
+    By setting <code>width=device-width</code> you are overriding Apple's default <code>width=960px</code> with the actual width of the device, so your media 
+    queries will work as intended.</p>
+
+<p><strong>So you should <em>always</em> include the above line of HTML in the head of your documents.</strong></p>
+
+<p>There are other settings you can use with the viewport meta tag, however in general the above line is what you will want to use.</p>
+
+<ul>
+ <li><code>initial-scale</code>: Sets the initial zoom of the page, which we set to 1.</li>
+ <li><code>height</code>: Sets a specific height for the viewport.</li>
+ <li><code>minimum-scale</code>:&nbsp;Sets the minimum zoom level.</li>
+ <li><code>maximum-scale</code>:&nbsp;Sets the maximum zoom level.</li>
+ <li><code>user-scalable</code>: Prevents zooming if set to <code>no</code>.</li>
+</ul>
+
+<p>You should&nbsp;avoid using <code>minimum-scale</code>, <code>maximum-scale</code>, and in particular setting <code>user-scalable</code> to 
+    <code>no</code>. Users should be allowed to zoom as much or as little as they need to; preventing this causes accessibility problems.</p>
 
 
 
