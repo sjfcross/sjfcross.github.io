@@ -102,6 +102,63 @@ border-radius: 5px;
  <li>A set of CSS rules that will be applied if the test passes and the media type is correct.</li>
 </ul>
 
+<h2>Media types</h2>
+
+<p>The possible types of media you can specify are:</p>
+
+<ul>
+ <li><code>all</code></li>
+ <li><code>print</code></li>
+ <li><code>screen</code></li>
+ <li><code>speech</code></li>
+</ul>
+
+<p>The following media query will only set the body to 12pt if the page is printed. It will not apply when the page is loaded in a browser.</p>
+
+<p>    <img src="/images/medque1.PNG" alt="grid" class="center">   </p>
+
+
+<div class="notebox">
+    <p><strong>Note</strong>: the media type here is different from the so-called <a href="https://developer.mozilla.org/en-US/docs/Glossary/MIME_type">MIME type</a>.</p>
+</div>
+
+<div class="notebox">
+    <p><strong>Note</strong>: there were a number of other media types defined in the Level 3 Media Queries specification; these have been deprecated and should be avoided.</p>   
+</div>
+
+<div class="notebox">
+    <p><strong>Note</strong>: Media types are optional; if you do not indicate a media type in your media query then the media query will default to being for all media types.</p> 
+</div>
+
+
+<h2>Media feature rules</h2>
+
+<p>After specifying the type, you can then target a media feature with a rule.</p>
+
+<h3>Width and height</h3>
+
+<p>The feature we tend to detect most often in order to create responsive designs (and that has widespread browser support) is viewport width, and we can apply 
+    CSS if the viewport is above or below a certain width — or an exact width — using the <code>min-width</code>, <code>max-width</code>, and <code>width</code> media 
+    features.</p>
+
+<p>These features are used to create layouts that respond to different screen sizes. For example, to change the body text color to red if the viewport is exactly 600 
+    pixels, you would use the following media query.</p>
+
+    <p>    <img src="/images/medque2.PNG" alt="grid" class="center">   </p>
+
+    <p><a href="https://mdn.github.io/css-examples/learn/media-queries/width.html">Open this example</a> in the browser, 
+        or <a href="https://github.com/mdn/css-examples/blob/master/learn/media-queries/width.html">view the source</a>.</p>
+
+
+
+
+
+
+
+
+
+
+
 
     
 
