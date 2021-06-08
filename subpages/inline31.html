@@ -432,11 +432,42 @@ border-radius: 5px;
  <p>This CSS gives us a two-column layout inside the article, of the article content and related information in the aside element. We have also used flexbox to put
     the navigation into a row.</p>
 
-<p><a href="https://mdn.github.io/css-examples/learn/media-queries/step2.html">Open step 2</a> in the browser, or <a href="https://github.com/mdn/css-examples/blob/master/learn/media-queries/step2.html">view the source</a>.</p>
+<p><a href="https://mdn.github.io/css-examples/learn/media-queries/step2.html">Open step 2</a> in the browser, 
+  or <a href="https://github.com/mdn/css-examples/blob/master/learn/media-queries/step2.html">view the source</a>.</p>
+
+  <p>Lets continue to expand the width until we feel there is enough room for the sidebar to also form a new column. Inside a media query we'll make the main element
+    into a two column grid. We then need to remove the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/margin-bottom"><code>margin-bottom</code></a> on the 
+    article in order that the two sidebars align with each other, and we'll add a <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/border"><code>border</code></a> 
+    to the top of the footer. Typically these small tweaks are the kind of thing you will do to make the design look good at each breakpoint.</p>
 
 
+<h3>Again we add the following:</h3>
 
+<div class="codebox">
+  <p>
+  <pre>
+  <code>
+    @media screen and (min-width: 70em) &#123;
+    main &#123;
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+        column-gap: 20px;
+    &#125;
 
+    article &#123;
+        margin-bottom: 0;
+    &#125;
+
+    footer &#123;
+        border-top: 1px solid #ccc;
+        margin-top: 2em;
+    &#125;
+&#125;
+         
+  </code>
+  </pre>
+  </p>
+  </div> 
 
 
 
