@@ -496,10 +496,29 @@ border-radius: 5px;
   see <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Viewport_meta_tag">Using the viewport meta tag to control layout on mobile
      browsers</a> for more details.</p>
 
+<h2>Do you really need a media query?</h2>
 
+<p>Flexbox, Grid, and multi-column layout all give you ways to create flexible and even responsive components without the need for a media query. It's always worth 
+  considering whether these layout methods can achieve what you want without adding media queries. For example, you might want a set of cards that are at 
+  least 200 pixels wide, with as many of these 200 pixels as will fit into the main article. This can be achieved with grid layout, using no media queries at all.</p>
 
+<p>This could be achieved using the following:</p>
 
+<p>    <img src="/images/nomedq.PNG" alt="grid" class="center">   </p>
 
+<p><a href="https://mdn.github.io/css-examples/learn/media-queries/grid.html">Open the grid layout example</a> in the browser, or 
+  <a href="https://github.com/mdn/css-examples/blob/master/learn/media-queries/grid.html">view the source</a>.</p>
+
+  <p>With the example open in your browser,&nbsp;make the screen wider and narrower to see the number of column tracks change. The nice thing about this method 
+    is that grid is not looking at the viewport width, but the width it has available for this component. It might seem strange to wrap up a section about 
+    media queries with a suggestion that you might not need one at all!&nbsp;However, in practice you will find that good use of modern layout methods, 
+    enhanced with media queries, will give the best results.</p>
+
+    <p>Here <h2><a href="/subpages/fontexa/testrespo.html">is a Test/Training page</a></h2>to get there :</p>
+
+    <p>    <img src="/images/rwd-task.png" alt="grid" class="center"> </p>
+
+    
 
 
 
