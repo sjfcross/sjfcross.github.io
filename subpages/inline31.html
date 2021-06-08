@@ -267,6 +267,137 @@ border-radius: 5px;
 
   <p>Our <h2><a href="/subpages/fontexa/step1.html">starting point is an HTML document with some CSS applied</a></h2>to add background colors to the various parts of the layout.</p>
 
+  <div class="codebox">
+    <p>
+    <pre>
+    <code>
+      * &#123;
+      box-sizing: border-box;
+  &#125;
+  
+  body &#123;
+      width: 90%;
+      margin: 2em auto;
+      font: 1em/1.3 Arial, Helvetica, sans-serif;
+  &#125;
+  
+  a:link,
+  a:visited &#123;
+      color: #333;
+  &#125;
+  
+  nav ul,
+  aside ul &#123;
+      list-style: none;
+      padding: 0;
+  &#125;
+  
+  nav a:link,
+  nav a:visited &#123;
+      background-color: rgba(207, 232, 220, 0.2);
+      border: 2px solid rgb(79, 185, 227);
+      text-decoration: none;
+      display: block;
+      padding: 10px;
+      color: #333;
+      font-weight: bold;
+  &#125;
+  
+  nav a:hover &#123;
+      background-color: rgba(207, 232, 220, 0.7);
+  &#125;
+  
+  .related &#123;
+      background-color: rgba(79, 185, 227, 0.3);
+      border: 1px solid rgb(79, 185, 227);
+      padding: 10px;
+  &#125;
+  
+  .sidebar &#123;
+      background-color: rgba(207, 232, 220, 0.5);
+      padding: 10px;
+  &#125;
+  
+  article &#123;
+      margin-bottom: 1em;
+  &#125;
+  
+  
+   &#125;
+        
+    </code>
+    </pre>
+    </p>
+    </div> 
+
+    <p>We've made no layout changes, however the source of the document is ordered in a way that makes the content readable. This is an important first step and 
+      one which ensures that if the content were to be read out by a screen reader, it would be understandable.</p>
+
+
+      <div class="codebox">
+        <p>
+        <pre>
+        <code>
+
+          &lt;body&gt;
+          &lt;div class="wrapper"&gt;
+            &lt;header&gt;
+              &lt;nav&gt;
+                &lt;ul&gt;
+                  &lt;li&gt;&lt;a href=""&gt;About&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href=""&gt;Contact&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href=""&gt;Meet the team&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href=""&gt;Blog&lt;/a&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/nav&gt;
+            &lt;/header&gt;
+            &lt;main&gt;
+              &lt;article&gt;
+                &lt;div class="content"&gt;
+                  &lt;h1&gt;Veggies!&lt;/h1&gt;
+                  &lt;p&gt;
+                    ...
+                  &lt;/p&gt;
+                &lt;/div&gt;
+                &lt;aside class="related"&gt;
+                  &lt;p&gt;
+                    ...
+                  &lt;/p&gt;
+                &lt;/aside&gt;
+              &lt;/article&gt;
+      
+              &lt;aside class="sidebar"&gt;
+                &lt;h2&gt;External vegetable-based links&lt;/h2&gt;
+                &lt;ul&gt;
+                  &lt;li&gt;
+                    ...
+                  &lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/aside&gt;
+            &lt;/main&gt;
+      
+            &lt;footer&gt;&lt;p&gt;&copy;2019&lt;/p&gt;&lt;/footer&gt;
+          &lt;/div&gt;
+        &lt;/body&gt;
+                
+        </code>
+        </pre>
+        </p>
+        </div> 
+
+
+        <p>This simple layout also works well on mobile. If we view the layout in Responsive Design Mode in DevTools we can see that it works pretty well as a 
+          straightforward mobile view of the site.</p>
+
+        <p><a href="https://mdn.github.io/css-examples/learn/media-queries/step1.html">Open step 1</a> in the browser, 
+          or <a href="https://github.com/mdn/css-examples/blob/master/learn/media-queries/step1.html">view the source</a>.</p>
+
+  
+
+
+
+
+
 
 
 
