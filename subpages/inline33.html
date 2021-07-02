@@ -347,6 +347,14 @@ kbd {
 
       <img src="/images/numgame11.PNG" alt="Malinka" class="center">  
 
+      <p>Here we are adding an event listener to the <code>guessSubmit</code> button. This is a method that takes two input values (called <em>arguments</em>) — the type of event 
+        we are listening out for (in this case <code>click</code>) as a string, and the code we want to run when the event occurs 
+        (in this case the <code>checkGuess()</code> function). Note that we don't need to specify the parentheses when writing it 
+        inside <a href="https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener" title="addEventListener()"><code>addEventListener()</code></a>.</p>
+
+      <p>Try saving and refreshing your code now, and your example should work — to a point. The only problem now is that if you guess the correct answer or run out of guesses,
+         the game will break because we've not yet defined the <code>setGameOver()</code> function that is supposed to be run once the game is over. Let's add our missing 
+         code now and complete the example functionality.</p></div>
 
 
 
