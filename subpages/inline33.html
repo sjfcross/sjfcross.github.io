@@ -449,9 +449,19 @@ kbd {
 
   <img src="/images/numgame17.PNG" alt="Malinka" class="center"> 
 
+ <p> To get this reference, we used the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector" title="querySelector()"><code>querySelector()</code></a>
+   method of the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document"><code>document</code></a> object. <code>querySelector()</code> takes one piece of 
+   information — a <a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors">CSS selector</a> that selects the element you want a reference to.</p>
 
+  <p>Because <code>guessField</code> now contains a reference to an <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input"><code>&lt;input&gt;</code></a> element,
+     it now has access to a number of properties (basically variables stored inside objects, some of which can't have their values changed) and methods 
+     (basically functions stored inside objects). One method available to input elements is <code>focus()</code>, so we can now use this line to focus the text input:</p>
 
+     <img src="/images/numgame16.PNG" alt="Malinka" class="center"> 
 
+  <p>Variables that don't contain references to form elements won't have <code>focus()</code> available to them. For example, the <code>guesses</code> constant contains 
+    a reference to a <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p"><code>&lt;p&gt;</code></a> element, and the <code>guessCount</code> variable 
+    contains a number.</p>    
 
 
 
