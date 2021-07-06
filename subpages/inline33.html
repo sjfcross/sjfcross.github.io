@@ -374,8 +374,21 @@ kbd {
 
  <img src="/images/numgame13.PNG" alt="Malinka" class="center">  
 
+ <p>This rather long block of code completely resets everything to how it was at the start of the game, so the player can have another go. It:</p>
+
+ <ul>
+  <li>Puts the <code>guessCount</code> back down to 1.</li>
+  <li>Empties all the text out of the information paragraphs. We select all paragraphs inside <code>&lt;div class="resultParas"&gt;&lt;/div&gt;</code>, then loop through each one, setting their <code>textContent</code> to <code>''</code> (an empty string).</li>
+  <li>Removes the reset button from our code.</li>
+  <li>Enables the form elements, and empties and focuses the text field, ready for a new guess to be entered.</li>
+  <li>Removes the background color from the <code>lastResult</code> paragraph.</li>
+  <li>Generates a new random number so that you are not just guessing the same number again!</li>
+ </ul>
+ 
+ <p><strong>At this point you should have a fully working (simple) game — congratulations!</strong></p>
 
 
+ <h1><a href="/subpages/fontexa/number-guessing-game-start.html">Here be Dragons</a></h1>
 
 
       <img src="/images/" alt="Malinka" class="center">      
