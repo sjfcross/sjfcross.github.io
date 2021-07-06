@@ -413,9 +413,14 @@ kbd {
     When <code>i</code> reaches 21, the loop will&nbsp;no longer run.</li>
    <li><strong>An incrementor</strong>: We have specified <code>i++</code>, which means "add 1 to i". The loop will run once for every value 
     of <code>i</code>, until <code>i</code> reaches a value of 21 (as discussed above). In this case, we are printing the value of <code>i</code> out to the console on 
-    every iteration using <a href="/en-US/docs/Web/API/Console/log" title="console.log()"><code>console.log()</code></a>.</li>
+    every iteration using <a href="https://developer.mozilla.org/en-US/docs/Web/API/Console/log" title="console.log()"><code>console.log()</code></a>.</li>
   </ol>
 
+  <p>Now let's look at the loop in our number guessing game — the following can be found inside the <code>resetGame()</code> function:</p>
+
+  <p>This code creates a variable containing a list of all the paragraphs inside <code>&lt;div class="resultParas"&gt;</code> using 
+    the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll" title="querySelectorAll()"><code>querySelectorAll()</code></a> method, then it loops through each
+     one, removing the text content of each.</p>
 
       <img src="/images/" alt="Malinka" class="center">      
       <img src="/images/" alt="Malinka" class="center">
