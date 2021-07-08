@@ -101,8 +101,37 @@
 
 <p>At this point, let's consult the developer console to see if it reports any syntax errors, then try to fix them. You'll learn how below.</p>
 
+<h2>Fixing syntax errors</h2>
 
+<ol>
+  <li>Go to the tab that you've got <code>number-game-errors.html</code> open in, and open your JavaScript console. You should see an error message along the following lines:
+    
+  <img alt="" src="/images/not-a-function.png" style="display: block; margin: 0 auto;" loading="lazy" width="700" height="583"></li>
 
+  <li>This is a pretty easy error to track down, and the browser gives you several useful bits of information to help you out (the screenshot above is from Firefox, 
+    but other browsers provide similar information). From left to right, we've got:
+
+   <ul>
+    <li>A red "x" to indicate that this is an error.</li>
+    <li>An error message to indicate what's gone wrong: "TypeError: guessSubmit.addeventListener is not a function"</li>
+    <li>A "Learn More" link that links through to an MDN page that explains what this error means in greater detail.</li>
+    <li>The name of the JavaScript file, which links through to the Debugger tab of the developer tools. If you follow this link, you'll see the exact 
+      line where the error is highlighted.</li>
+    <li>The line number where the error is, and the character number in that line where the error is first seen. In this case, we've got line 86, character number 3.</li>
+   </ul>
+  </li>
+  <li>If we look at line 86 in our code editor, we'll find this line:
+
+    <img src="/images/numgame18.PNG" alt="Malinka" class="center">      
+
+  </li>
+  <li>The error message says "guessSubmit.addeventListener is not a function", which means that the function we're calling is not recognized by the JavaScript interpreter. 
+    Often, this error message actually means that we've spelled something wrong. If you are not sure of the correct spelling of a piece of syntax, it is often good to look 
+    up the feature on MDN. The best way to do this currently is to search for "mdn <em>name-of-feature</em>" with your favorite search engine. Here's a shortcut to save 
+    you some time in this instance: <code><a href="https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener">addEventListener()</a></code>.</li>
+  <li>So, looking at this page, the error appears to be that we've spelled the function name wrong! Remember that JavaScript is case sensitive, so any slight difference 
+    in spelling or casing will cause an error. Changing <code>addeventListener</code> to <code>addEventListener</code> should fix this. Do this now.</li>
+ </ol>
 
 
 
