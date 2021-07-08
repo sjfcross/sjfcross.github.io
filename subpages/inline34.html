@@ -159,7 +159,10 @@ border-radius: 5px;
   <li>Save your page and refresh, and you should see the error has gone.</li>
 
   <li>Now if you try to enter a guess and press the Submit guess button, you'll see ... another error!
-    <img alt="" src="/images/numgame18.PNG" style="display: block; margin: 0 auto;" loading="lazy" width="700" height="583"></li>
+
+    <img src="/images/numgame19.PNG" alt="Malinka" class="center">      
+
+
 
   <li>This time the error being reported is "TypeError: lowOrHi is null", on line 78.
 
@@ -172,7 +175,7 @@ border-radius: 5px;
     code inside functions runs in a separate scope than code outside functions. In this case, the code was not run and the error was not thrown until 
     the <code>checkGuess()</code> function was run by line 86.</div>
   </li>
-  
+
   <li>Have a look at line 78, and you'll see the following code:
    <div class="code-example"><pre class="brush: js notranslate"><code>lowOrHi<span class="token punctuation">.</span>textContent <span class="token operator">=</span> <span class="token string">'Last guess was too high!'</span><span class="token punctuation">;</span></code></pre><button aria-hidden="false" type="button" class="copy-icon"><span class="visually-hidden">Copy to Clipboard</span></button></div>
   </li>
