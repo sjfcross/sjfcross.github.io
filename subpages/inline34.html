@@ -15,6 +15,25 @@
 }
 
 
+code {
+    background-color: rgb(205, 221, 194);   
+    font-size: 1.2em;
+}
+.codebox {
+  background-color: rgb(205, 221, 194);
+  font-weight: bold;
+}
+
+.notebox {
+  margin: auto;
+  width: 50%;
+  border: 3px solid green;
+  padding: 10px;
+background-color: rgb(180, 199, 166);
+border-radius: 5px;
+}
+
+
 
 
 </style>
@@ -134,8 +153,46 @@
  </ol>
 
 
+<h2>Syntax errors round two</h2>
 
+<ol>
+  <li>Save your page and refresh, and you should see the error has gone.</li>
 
+  <li>Now if you try to enter a guess and press the Submit guess button, you'll see ... another error!
+    <img alt="" src="/images/numgame18.PNG" style="display: block; margin: 0 auto;" loading="lazy" width="700" height="583"></li>
+
+  <li>This time the error being reported is "TypeError: lowOrHi is null", on line 78.
+
+   <div class="notebox"><strong>Note</strong>: <code><a href="https://developer.mozilla.org/en-US/docs/Glossary/Null">Null</a></code> is a special value that 
+    means "nothing", or "no value". So <code>lowOrHi</code> has been declared and initialised, but not with any meaningful value — it has no type or value.</div>
+ 
+   <div class="notebox"><strong>Note</strong>: This error didn't come up as soon as the page was loaded because this error occurred inside a function 
+    (inside the <code>checkGuess() { ... }</code> block). As you'll learn in more detail in our 
+    later <a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Functions">functions article</a>, 
+    code inside functions runs in a separate scope than code outside functions. In this case, the code was not run and the error was not thrown until 
+    the <code>checkGuess()</code> function was run by line 86.</div>
+  </li>
+  
+  <li>Have a look at line 78, and you'll see the following code:
+   <div class="code-example"><pre class="brush: js notranslate"><code>lowOrHi<span class="token punctuation">.</span>textContent <span class="token operator">=</span> <span class="token string">'Last guess was too high!'</span><span class="token punctuation">;</span></code></pre><button aria-hidden="false" type="button" class="copy-icon"><span class="visually-hidden">Copy to Clipboard</span></button></div>
+  </li>
+  <li>This line is trying to set the <code>textContent</code> property of the <code>lowOrHi</code> constant to a text string, but it's not working because <code>lowOrHi</code> does not contain what it's supposed to. Let's see why this is — try searching for other instances of <code>lowOrHi</code> in the code. The earliest instance you'll find in the JavaScript is on line 48:
+   <div class="code-example"><pre class="brush: js notranslate"><code><span class="token keyword">const</span> lowOrHi <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'lowOrHi'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre><button aria-hidden="false" type="button" class="copy-icon"><span class="visually-hidden">Copy to Clipboard</span></button></div>
+  </li>
+  <li>At this point we are trying to make the variable contain a reference to an element in the document's HTML. Let's check whether the value is <code>null</code> after this line has been run. Add the following code on line 49:
+   <div class="code-example"><pre class="brush: js notranslate"><code>console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>lowOrHi<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre><button aria-hidden="false" type="button" class="copy-icon"><span class="visually-hidden">Copy to Clipboard</span></button></div>
+ 
+   <div class="note notecard">
+   <p><strong>Note</strong>: <code><a href="/en-US/docs/Web/API/Console/log">console.log()</a></code> is a really useful debugging function that prints a value to the console. So it will print the value of <code>lowOrHi</code> to the console as soon as we have tried to set it in line 48.</p>
+   </div>
+  </li>
+  <li>Save and refresh, and you should now see the <code>console.log()</code> result in your console. <img alt="" src="/en-US/docs/Learn/JavaScript/First_steps/What_went_wrong/console-log-output.png" style="display: block; margin: 0 auto;" loading="lazy" width="700" height="583"> Sure enough, <code>lowOrHi</code>'s value is <code>null</code> at this point, so there is definitely a problem with line 48.</li>
+  <li>Let's think about what the problem could be. Line 48 is using a <code><a href="/en-US/docs/Web/API/Document/querySelector">document.querySelector()</a></code> method to get a reference to an element by selecting it with a CSS selector. Looking further up our file, we can find the paragraph in question:
+   <div class="code-example"><pre class="brush: js notranslate"><code><span class="token operator">&lt;</span>p <span class="token keyword">class</span><span class="token operator">=</span><span class="token string">"lowOrHi"</span><span class="token operator">&gt;</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">&gt;</span></code></pre><button aria-hidden="false" type="button" class="copy-icon"><span class="visually-hidden">Copy to Clipboard</span></button></div>
+  </li>
+  <li>So we need a class selector here, which begins with a dot (<code>.</code>), but the selector being passed into the <code>querySelector()</code> method in line 48 has no dot. This could be the problem! Try changing <code>lowOrHi</code> to <code>.lowOrHi</code> in line 48.</li>
+  <li>Try saving and refreshing again, and your <code>console.log()</code> statement should return the <code>&lt;p&gt;</code> element we want. Phew! Another error fixed! You can delete your <code>console.log()</code> line now, or keep it to reference later on — your choice.</li>
+ </ol>
 
 
 
