@@ -181,9 +181,13 @@ border-radius: 5px;
   <li>Have a look at line 78, and you'll see the following code:
    <div class="codebox"><code>lowOrHi = 'Last guess was too high!'</code></div>
   </li>
-  <li>This line is trying to set the <code>textContent</code> property of the <code>lowOrHi</code> constant to a text string, but it's not working because <code>lowOrHi</code> does not contain what it's supposed to. Let's see why this is — try searching for other instances of <code>lowOrHi</code> in the code. The earliest instance you'll find in the JavaScript is on line 48:
-   <div class="code-example"><pre class="brush: js notranslate"><code><span class="token keyword">const</span> lowOrHi <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'lowOrHi'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre><button aria-hidden="false" type="button" class="copy-icon"><span class="visually-hidden">Copy to Clipboard</span></button></div>
+  <li>This line is trying to set the <code>textContent</code> property of the <code>lowOrHi</code> constant to a text string, but it's not working 
+    because <code>lowOrHi</code> does not contain what it's supposed to. Let's see why this is — try searching for other instances of <code>lowOrHi</code> in
+     the code. The earliest instance you'll find in the JavaScript is on line 48:
+
+   <div class="codebox"> const lowOrHi = document.querySelector('lowOrHi')
   </li>
+  
   <li>At this point we are trying to make the variable contain a reference to an element in the document's HTML. Let's check whether the value is <code>null</code> after this line has been run. Add the following code on line 49:
    <div class="code-example"><pre class="brush: js notranslate"><code>console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>lowOrHi<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre><button aria-hidden="false" type="button" class="copy-icon"><span class="visually-hidden">Copy to Clipboard</span></button></div>
  
