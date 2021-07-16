@@ -222,7 +222,16 @@ border-radius: 5px;
  </div>
 
 
+ <h2>Syntax errors round three</h2>
 
+ <ol>
+  <li>Now if you try playing the game through again, you should get more success — the game should play through absolutely fine, until you end the game, either by guessing 
+    the right number, or by running out of guesses.</li>
+  <li>At that point, the game fails again, and the same error is spat out that we got at the beginning — "TypeError: resetButton.addeventListener is not a function"!
+     However, this time it's listed as coming from line 94.</li>
+  <li>Looking at line number 94, it is easy to see that we've made the same mistake here. We again just need to change <code>addeventListener</code> 
+    to <code>.addEventListener</code>. Do this now.</li>
+ </ol>
 
 
 
