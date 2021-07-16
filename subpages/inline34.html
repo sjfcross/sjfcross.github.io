@@ -234,6 +234,25 @@ border-radius: 5px;
  </ol>
 
 
+ <h1>A logic error</h1>
+
+ <ol>
+  <li>Search for the <code>randomNumber</code> variable, and the lines where the random number is first set. The instance that stores the random number that we want to guess at 
+    the start of the game should be around line number 44:
+   <div class="codebox">let randomNumber = Math.floor(Math.random()) + 1;</div>
+  </li>
+  <li>And the one that generates the random number before each subsequent game is around line 113:
+   <div class="codebox">randomNumber = Math.floor(Math.random()) + 1;</div>
+   </li>
+  <li>To check whether these lines are indeed the problem, let's turn to our friend <code>console.log()</code> again — insert the following line directly below each of the 
+    above two lines:
+   <div class="codebox">console.log(randomNumber);</div>
+      </li>
+      
+  <li>Save and refresh, then play a few games — you'll see that <code>randomNumber</code> is equal to 1 at each point where it is logged to the console.</li>
+ </ol>
+
+
 
 
 
