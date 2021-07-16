@@ -209,8 +209,13 @@ border-radius: 5px;
     selecting it with a CSS selector. Looking further up our file, we can find the paragraph in question:
    <div class="codebox">&lt;p class="lowOrHi"&gt;&lt;/p&gt;</div>
   </li>
-  <li>So we need a class selector here, which begins with a dot (<code>.</code>), but the selector being passed into the <code>querySelector()</code> method in line 48 has no dot. This could be the problem! Try changing <code>lowOrHi</code> to <code>.lowOrHi</code> in line 48.</li>
-  <li>Try saving and refreshing again, and your <code>console.log()</code> statement should return the <code>&lt;p&gt;</code> element we want. Phew! Another error fixed! You can delete your <code>console.log()</code> line now, or keep it to reference later on — your choice.</li>
+  <li>So we need a class selector here, which begins with a dot (<code>.</code>), but the selector being passed into the <code>querySelector()</code> method in 
+    line 48 has no dot. This could be the problem! Try changing <code>lowOrHi</code> to <code>.lowOrHi</code> in line 48.
+  </li>
+
+  <li>Try saving and refreshing again, and your <code>console.log()</code> statement should return the <code>&lt;p&gt;</code> element we want.
+    Phew! Another error fixed! You can delete your <code>console.log()</code> line now, or keep it to reference later on — your choice.
+  </li>
  </ol>
 
 
