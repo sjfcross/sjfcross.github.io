@@ -252,13 +252,34 @@ border-radius: 5px;
   <li>Save and refresh, then play a few games — you'll see that <code>randomNumber</code> is equal to 1 at each point where it is logged to the console.</li>
  </ol>
 
+<h2>Working through the logic</h2>
+
+<p>To fix this, let's consider how this line is working. First, we invoke <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random">Math.random()</a></code>, which generates a random decimal number between 0 
+  and 1, e.g. 0.5675493843.</p>
+
+<div class="codebox">Math.random() </div>
 
 
+<p>Next, we pass the result of invoking <code>Math.random()</code> through 
+  <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/floor">Math.floor()</a></code>, which rounds the number passed 
+  to it down to the nearest whole number. We then add 1 to that result:</p>
 
 
+  <div class="codebox">Math.floor(Math.random()) + 1 </div>
+
+  
+
+  <p>Rounding a random decimal number between 0 and 1 down will always return 0, so adding 1 to it will always return 1.&nbsp; We need to multiply the random number 
+    by 100 before we round it down. The following would give us a random number between 0 and 99:</p>
 
 
+  <div class="codebox">Math.floor(Math.random()*100);</div>
 
+  <p>Hence us wanting to add 1, to give us a random number between 1 and 100:</p>
+
+  <div class="codebox">Math.floor(Math.random()*100) + 1;</div>
+
+  <p>Try updating both lines like this, then save and refresh — the game should now play like we are intending it to!</p>
 
 
 
