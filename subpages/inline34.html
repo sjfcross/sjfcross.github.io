@@ -300,18 +300,55 @@ border-radius: 5px;
       <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Missing_semicolon_before_statement">SyntaxError: missing ; 
         before statement</a> reference page for more details about this error.</p>
         </div>
-        
+      
+      <h3>The program always says you've won, regardless of the guess you enter</h3>
+
+      <p>This could be another symptom of mixing up the assignment and strict equality operators. For example, if we were to change this line inside <code>checkGuess()</code>:</p>
 
 
+      <img src="/images/numgame22.PNG" alt="Malinka" class="center">      
+
+      <p>the test would always return <code>true</code>, causing the program to report that the game has been won. Be careful!</p>
 
 
+<div class="notebox">
+      <p><strong>Note</strong>: See our
+         <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Missing_parenthesis_after_argument_list">SyntaxError: missing ) after argument
+           list</a> reference page for more details about this error.</p>
+</div>
 
+<h3>SyntaxError: missing : after property id</h3>
+<p>This error usually relates to an incorrectly formed JavaScript object, but in this case we managed to get it by changing</p>
 
+<img src="/images/numgame23.PNG" alt="Malinka" class="center">      
 
+<p>This has caused the browser to think that we are trying to pass the contents of the function into the function as an argument. Be careful with those parentheses!</p>
 
+<h3>SyntaxError: missing } after function body</h3>
+<p>This is easy — it generally means that you've missed one of your curly braces from a function or conditional structure. We got this error by 
+  deleting one of the closing curly braces near the bottom of the <code>checkGuess()</code> function.</p>
 
+<h3>SyntaxError: expected expression, got 'string' or SyntaxError: unterminated string literal</h3>
 
+<p>These errors generally mean that you've left off a string value's opening or closing quote mark. In the first error above, <em>string</em> would be replaced with the 
+  unexpected character(s) that the browser found instead of a quote mark at the start of a string. The second error means that the string has not been 
+  ended with a quote mark.</p>
 
+<p>For all of these errors, think about how we tackled the examples we looked at in the walkthrough. When an error arises, look at the line number you are given, 
+  go to that line and see if you can spot what's wrong. Bear in mind that the error is not necessarily going to be on that line, and also that the error might 
+  not be caused by the exact same problem we cited above!</p>
+
+  <div class="notebox">
+  <p><strong>Note</strong>: See our <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Unexpected_token">SyntaxError: Unexpected token</a> 
+    and <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Unterminated_string_literal">SyntaxError: unterminated string 
+      literal</a> reference pages for more details about these errors.</p>
+  </div>
+
+<h3>Summary</h3>
+
+<p>So there we have it, the basics of figuring out errors in simple JavaScript programs. It won't always be that simple to work out what's wrong in your code, 
+  but at least this will save you a few hours of sleep and allow you to progress a bit faster when things don't turn out right, especially in the earlier stages 
+  of your learning journey.</p>
 
 
 
