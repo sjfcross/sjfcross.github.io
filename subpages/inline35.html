@@ -170,11 +170,29 @@ border-radius: 5px;
 <p>This is probably what you'll do most of the time, as it is quicker than doing the two actions on two separate lines.</p>
 
 
+<h2>The difference between var and let</h2>
+
+<p>At this point you may be thinking "why do we need two keywords for defining variables?? Why have <code>var</code> <em>and</em> <code>let</code>?".</p>
+
+<p>The reasons are somewhat historical. Back when JavaScript was first created, there was only <code>var</code>. This works basically fine in most cases, but it has 
+  some issues in the way it works — its design can sometimes be confusing or downright annoying. So,&nbsp;<code>let</code> was created in modern versions of JavaScript, 
+  a new keyword for creating variables that works somewhat differently to <code>var</code>, fixing its issues in the process.</p>
+
+<p>A couple of simple differences are explained below. We won't go into all the differences now, but you'll start to discover them as you learn more about JavaScript 
+  (if you really want to read about them now, feel free to check out our <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let">let reference
+     page</a>).</p>
+
+<p>For a start, if you write a multiline JavaScript program that declares and initializes a variable, you can actually declare a variable with <code>var</code> after you 
+  initialize it and it will still work. For example:</p>
 
 
 
+<img src="/images/var5.PNG" alt="Malinka" class="center">  
 
 
+  <div class="notebox">
+  <p><strong>Note</strong>: This won't work when typing individual lines into a JavaScript console, just when running multiple lines of JavaScript in a web document.</p>
+  </div>
 
 
 
