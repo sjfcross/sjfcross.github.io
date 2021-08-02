@@ -194,10 +194,33 @@ border-radius: 5px;
   <p><strong>Note</strong>: This won't work when typing individual lines into a JavaScript console, just when running multiple lines of JavaScript in a web document.</p>
   </div>
 
+  <p>This works because of <strong>hoisting</strong> — read <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/var#var_hoisting">var
+     hoisting</a> for more detail on the subject.</p>
+
+  <p>Hoisting no longer works with <code>let</code>. If we changed <code>var</code> to <code>let</code> in the above example, it would fail with an error. 
+    This is a good thing — declaring a variable after you initialize it results in confusing, harder to understand code.</p>
+  
+  <p>Secondly, when you use <code>var</code>, you can declare the same variable as many times as you like, but with <code>let</code> you can't. 
+    The following would work:</p>
+
+    <img src="/images/var6.PNG" alt="Malinka" class="center">
+
+    <p>But the following would throw an error on the second line:</p>
+
+    <img src="/images/var7.PNG" alt="Malinka" class="center">
+
+    
 
 
 
 
+
+    <p>Again, this is a sensible language decision. There is no reason to redeclare variables — it just makes things more confusing.</p>
+
+
+    <p>For these reasons and more, we recommend that you use <code>let</code> as much as possible in your code, rather than <code>var</code>. 
+      There is no reason to use <code>var</code>, unless you need to support old versions of Internet Explorer with your code (it doesn't support <code>let</code> until version
+       11; the modern Microsoft Edge browser supports <code>let</code> just fine).</p>
 
 
 
