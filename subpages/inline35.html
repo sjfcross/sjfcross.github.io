@@ -226,15 +226,34 @@ border-radius: 5px;
 <h2>Variable types</h2>
 
 <h3>Numbers</h3>
+
 <p>You can store numbers in variables, either&nbsp;whole numbers like 30 (also called integers) or decimal numbers like 2.456 (also called floats or floating point numbers). 
   You don't need to declare variable types in JavaScript, unlike some other programming languages. When you give a variable a number value, you don't include quotes:</p>
 
   <code><span class="token keyword">let</span> myAge <span class="token operator">=</span> <span class="token number">17</span><span class="token punctuation">;</span></code>
 
   <h3>Strings</h3>
+
   <p>Strings are pieces of text. When you give a variable a string value, you need to wrap it in single or double quote marks; otherwise, JavaScript tries to interpret it as another variable name.</p>
 
   <code><span class="token keyword">let</span> dolphinGoodbye <span class="token operator">=</span> <span class="token string">'So long and thanks for all the fish'</span><span class="token punctuation">;</span></code>
+  
+  
+  <h3>Booleans</h3>
+
+  <p>Booleans are true/false values — they can have two values, <code>true</code> or <code>false</code>. These are generally used to test a condition, after which code is run as appropriate. So for example, a simple case would be:</p>
+  <code><span class="token keyword">let</span> iAmAlive <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span></code>
+  <p>Whereas in reality it would be used more like this:</p>
+  <code><span class="token keyword">let</span> test <span class="token operator">=</span> <span class="token number">6</span> <span class="token operator">&lt;</span> <span class="token number">3</span><span class="token punctuation">;</span></code>
+  <p>This is using the "less than" operator (<code>&lt;</code>) to test whether 6 is less than 3. As you might expect, it returns <code>false</code>, because 6 is not
+     less than 3! You will learn a lot more about such operators later on in the course.</p>
+
+  <h3>Arrays</h3>
+
+  <p>An array is a single object that contains multiple values enclosed in square brackets and separated by commas. Try entering the following lines into your console:</p>
+
+  <code><span class="token keyword">let</span> myNameArray <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'Chris'</span><span class="token punctuation">,</span> <span class="token string">'Bob'</span><span class="token punctuation">,</span> <span class="token string">'Jim'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> myNumberArray <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">15</span><span class="token punctuation">,</span> <span class="token number">40</span><span class="token punctuation">]</span><span class="token punctuation">;</span></code>
 
 
 
