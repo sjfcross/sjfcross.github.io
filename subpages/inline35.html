@@ -310,12 +310,22 @@ border-radius: 5px;
 
 
 
+  <h3>Constants in JavaScript</h3>
 
 
+  <p>Many programming languages have the concept of a <em>constant</em> — a value that once declared can't be changed. There are many reasons why you'd want to do this, 
+    from security (if a third party script changed such values it could cause problems) to debugging and code comprehension (it is harder to accidentally change values 
+    that shouldn't be changed and mess things up).</p>
 
+  <p>In the early days of JavaScript, constants didn't exist. In modern JavaScript, we have the keyword <code>const</code>, which lets us store values that can never
+     be changed:</p>
 
+     <img src="/images/var12.PNG" alt="Malinka" class="center">
 
+     <p><code>const</code> works in exactly the same way as <code>let</code>, except that you can't give a <code>const</code> a new value. In the following example, the second
+       line would throw an error:</p>
 
+     <img src="/images/var13.PNG" alt="Malinka" class="center">
 
 
 
