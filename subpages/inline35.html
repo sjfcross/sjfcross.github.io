@@ -284,12 +284,26 @@ border-radius: 5px;
 
 
 
+<h3>Dynamic typing</h3>
 
 
+<p>JavaScript is a "dynamically typed language", which means that, unlike some other languages, you don't need to specify what data type a variable will contain 
+  (numbers, strings, arrays, etc).</p>
+
+<p>For example, if you declare a variable and give it a value enclosed in quotes, the browser treats the variable as a string:</p>
 
 
+<img src="/images/var11.PNG" alt="Malinka" class="center">
+
+<p>Even if the value contains numbers, it is still a string, so be careful:</p>
+
+<img src="/images/var12.PNG" alt="Malinka" class="center">
 
 
+<p>Try entering the four lines above into your console one by one, and see what the results are. You'll notice that we are using a special operator 
+  called <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof">typeof</a></code> — this returns the data type of the variable you type after it. 
+  The first time it is called, it should return <code>string</code>, as at that point the <code>myNumber</code> variable contains a string, <code>'500'</code>.&nbsp;Have 
+  a look and see what it returns the second time you call it.</p>
 
 
 
