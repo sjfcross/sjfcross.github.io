@@ -10,7 +10,7 @@ if (i ===5 || i === 3) {
 
     console.log("i");
 
-if(i === 7){
+if(i === 7) {
 
     break;
    }
