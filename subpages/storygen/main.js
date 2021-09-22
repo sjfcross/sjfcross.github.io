@@ -1,5 +1,5 @@
 
-
+document.querySelector('html').style.backgroundColor = 'red';
 
 
 const customName = document.getElementById('customname');
