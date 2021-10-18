@@ -151,13 +151,24 @@ border-radius: 5px;
       </p>
       </div> 
 
+      <p>However, you need to be careful here — in this case, the second block of code is not controlled by the conditional statement, so it <strong>always</strong> runs, regardless of whether the condition returns <code>true</code> or <code>false</code>. This is not necessarily a bad thing, but it might not be what you want — often you want to run one block of code <em>or</em> the other, not both.</p>
+      <p>As a final point, you may sometimes see <code>if...else</code> statements written without the curly braces, in the following shorthand style:</p>
 
 
+      <div class="codebox">
+        <p>
+        <pre>
+        <code>
 
+          if (condition) code to run if condition is true
+          else run some other code instead
+        </code>
+      </pre>
+      </p>
+      </div> 
 
-
-
-
+      <p>This is perfectly valid code, but using it is not recommended — it is much easier to read the code and work out what is going on if you use the curly braces 
+        to delimit the blocks of code, and use multiple lines and indentation.</p>
 
 
 
