@@ -345,20 +345,50 @@ border-radius: 5px;
             else {
               console.log('Probably should just stay in then.');
             }
+                   
+          </code>
+        </pre>
+        </p>
+        </div>  
+
+        <p>The last type of logical operator, NOT, expressed by the <code>!</code> operator, can be used to negate an expression. 
+          Let's combine it with OR in the above example:</p>
+
+
+        <div class="codebox">
+          <p>
+          <pre>
+          <code>
+
+            if (!(iceCreamVanOutside || houseStatus === 'on fire')) {
+              console.log('Probably should just stay in then.');
+            } else {
+              console.log('You should leave the house quickly.');
+            }
             
-            
-                      
+                   
           </code>
         </pre>
         </p>
         </div>  
 
 
+        <p>In this snippet, if the OR statement returns <code>true</code>, the NOT operator will negate it so that the overall expression returns <code>false</code>.</p>
+
+        <p>You can combine as many logical statements together as you want, in whatever structure. The following example executes the code inside only 
+          if both OR statements return true, meaning that the overall AND statement will return true:</p>
+
+
+
+          <img src="/images/xor1.PNG" alt="Edna">
 
 
 
 
+<p>A common mistake when using the logical OR operator in conditional statements is to try to state the variable whose value you are checking once, and then 
+  give a list of values it could be to return true, separated by <code>||</code> (OR) operators. For example:</p>
 
+  <img src="/images/xor2.PNG" alt="Edna"><img src="/images/xor3.PNG" alt="Edna">
 
 
   </div>
