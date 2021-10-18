@@ -262,7 +262,32 @@ border-radius: 5px;
    <img src="/images/child1.PNG" alt="Malinka" class="center">  
 
 
+   <H3 style="color:rgb(12, 150, 70); font-size: 200%;">Nesting if ... else</h3> 
 
+
+    <p>It is perfectly OK to put one <code>if...else</code> statement inside another one — to nest them. For example, we could update our weather forecast 
+      application to show a further set of choices depending on what the temperature is:</p>
+
+      <div class="codebox">
+        <p>
+        <pre>
+        <code>
+
+          if (choice === 'sunny' && temperature < 86) {
+            para.textContent = 'It is ' + temperature + ' 
+            degrees outside — nice and sunny. Let\'s go 
+            out to the beach, or the park, and get an 
+            ice cream.';
+          } else if (choice === 'sunny' && temperature >= 86) {
+            para.textContent = 'It is ' + temperature + ' 
+            degrees outside — REALLY HOT! If you want to go 
+            outside, make sure to put some sunscreen on.';
+          }
+          
+        </code>
+      </pre>
+      </p>
+      </div>  
 
 
 
