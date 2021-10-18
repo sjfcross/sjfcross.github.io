@@ -503,7 +503,26 @@ switch (expression) {
 <p>Here we have a variable called <code>isBirthday</code> — if this is <code>true</code>, we give our guest a happy birthday message; if not,
    we give her the standard daily greeting.</p>
 
+<h2>Ternary operator example</h2>
 
+<p>The ternary operator is not just for setting variable values; you can also run functions, or lines of code — anything you like.
+   The following live example shows a simple theme chooser where the styling for the site is applied using a ternary operator.</p>
+
+   <img src="/images/site1.PNG" alt="Edna" class="center">
+   <img src="/images/site2.PNG" alt="Edna" class="center">
+
+
+<p>Here we've got a <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select"><code>&lt;select&gt;</code></a> element to choose a theme 
+    (black or white), plus a simple <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements"><code>&lt;h1&gt;</code></a> to 
+    display a website title. We also have a function called <code>update()</code>, which takes two colors as parameters (inputs). The website's 
+    background color is set to the first provided color, and its text color is set to the second provided color.</p>
+<p>Finally, we've also got an <a href="https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onchange">onchange</a> event listener 
+  that serves to run a function containing a ternary operator. It starts with a test condition — <code>select.value === 'black'</code>. 
+  If this returns <code>true</code>, we run the <code>update()</code> function with parameters of black and white, meaning that we end up with 
+  background color of black and text color of white. If it returns <code>false</code>, we run the <code>update()</code> function with parameters 
+  of white and black, meaning that the site color are inverted.</p>
+
+  <h2><a href="/subpages/javatest/blacknwhite.html">BlacknWhity </a></h2>
 
   </div>
 </div>
