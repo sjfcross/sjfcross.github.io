@@ -277,18 +277,53 @@ border-radius: 5px;
             para.textContent = 'It is ' + temperature + ' 
             degrees outside — nice and sunny. Let\'s go 
             out to the beach, or the park, and get an 
-            ice cream.'; } 
+            ice cream.'; 
+          } 
             else if (choice === 'sunny' && temperature >= 86) {
             para.textContent = 'It is ' + temperature + ' 
             degrees outside — REALLY HOT! If you want to go 
-            outside, make sure to put some sunscreen on.'; }
-          
+            outside, make sure to put some sunscreen on.'; 
+          }
+                    
         </code>
       </pre>
       </p>
       </div>  
 
+      <p>Even though the code all works together, each <code>if...else</code> statement works completely independently of the other one.</p>
 
+      <H3 style="color:rgb(12, 150, 70); font-size: 200%;"Logical operators: AND, OR and NOT </H3> 
+
+        <p>If you want to test multiple conditions without writing nested <code>if...else</code> statements, 
+          <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators">logical operators</a> can help you. When used in conditions, the first two 
+          do the following:</p>
+        <ul>
+          <li><code>&amp;&amp;</code> — AND; allows you to chain together two or more expressions so that all of them have to individually 
+            evaluate to <code>true</code> for the whole expression to return <code>true</code>.</li>
+          <li><code>||</code> — OR; allows you to chain together two or more expressions so that one or more of them have to individually 
+            evaluate to <code>true</code> for the whole expression to return <code>true</code>.</li>
+        </ul>
+        <p>To give you an AND example, the previous example snippet can be rewritten to this:</p>
+
+        <div class="codebox">
+          <p>
+          <pre>
+          <code>
+  
+            if (choice === 'sunny' && temperature < 86) {
+              para.textContent = 'It is ' + temperature + ' degrees outside — nice and sunny. 
+              Let\'s go out to the beach, or the park, and get an ice cream.';
+            } 
+            else if (choice === 'sunny' && temperature >= 86) {
+              para.textContent = 'It is ' + temperature + ' degrees outside — REALLY HOT! 
+              If you want to go outside, make sure to put some sunscreen on.';
+            }
+            
+                      
+          </code>
+        </pre>
+        </p>
+        </div>     
 
   </div>
 </div>
