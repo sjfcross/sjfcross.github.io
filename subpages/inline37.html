@@ -603,8 +603,45 @@ switch (expression) {
         <p>If you make a mistake, you can always reset the example with the "Reset" button. If you get really stuck, press "Show solution" to see a solution.</p>
 
 
-
-
+        <div class="codebox">
+          <p>
+          <pre>
+          <code>
+  
+            const select = document.querySelector('select');
+            const html = document.querySelector('.output');
+            
+            select.onchange = function() {
+             const choice = select.value;
+            
+             switch(choice) {
+             case 'black':
+             update('black','white');
+             break;
+             case 'white':
+             update('white','black');
+             break;
+             case 'purple':
+             update('purple','white');
+             break;
+             case 'yellow':
+             update('yellow','darkgray');
+             break;
+             case 'psychedelic':
+             update('lime','purple');
+             break;
+             }
+            }
+            
+            function update(bgColor, textColor) {
+             html.style.backgroundColor = bgColor;
+             html.style.color = textColor;
+            }
+                   
+          </code>
+        </pre>
+        </p>
+        </div>  
 
 
 
