@@ -1,139 +1,178 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<title>SJ's learning pages</title>
-<link href="styles/style.css" rel="stylesheet">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
+  <head>
+    <title>SJ's learning pages</title>
+    <link href="styles/style.css" rel="stylesheet" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        /*  width: 50%;*/
+      }
 
-.center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-/*  width: 50%;*/
-}
+      code {
+        background-color: rgb(205, 221, 194);
+        font-size: 1.2em;
+      }
+      .codebox {
+        background-color: rgb(205, 221, 194);
+        font-weight: bold;
+        margin: auto;
+        width: 50%;
+      }
 
-code {
-    background-color: rgb(205, 221, 194);   
-    font-size: 1.2em;
-}
-.codebox {
-  background-color: rgb(205, 221, 194);
-  font-weight: bold;
-  margin: auto;
-  width: 50%;
-}
-
-.notebox {
-  margin: auto;
-  width: 50%;
-  border: 3px solid green;
-  padding: 10px;
-background-color: rgb(180, 199, 166);
-border-radius: 5px;
-}
-
-
-
-</style>
-
-</head>
-<body>
-
-<div class="header">
-  <h1>SJ's coding adventures</h1>
-  <p><strong>A <b>responsive</b> website to experiment with and document all the things I am learning</strong></p>
-</div>
-
-<div class="navbar">
-  <a href="../sjfcross.github.io/index.html" >Home</a>
-  <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Creating_hyperlinks" >Link</a>
-  <a href="/subpages/">Space</a>
-  <a href="https://www.reddit.com/" class="right">Reddit !</a>
-</div>
-
-<div class="row">
-  <div class="side">
-    <h2>The path to enlightenment (part 5)</h2>
-    <h3>If necessary links do open a new tab:</h3>
-    <ol start="41">
-      <li><a href="/subpages/inline35.html">Storing the information you need — Variables</a></li>
-      <li><a href="/subpages/inline36.html">Basic math in JavaScript — numbers and operators</a></li>     
-      <li><a href="/subpages/inline37.html">c</a></li>
-      <li><a href="/subpages/inline38.html">d</a></li>
-      <li><a href="/subpages/inline39.html">e</a></li>
-      <li><a href="/subpages/inline40.html">f</a></li>
-      <li><a href="/subpages/inline41.html">g</a></li>
-      <li><a href="/subpages/inline42.html">h</a></li>
-      <li><a href="/subpages/inline43.html">i</a></li>
-      <li><a href="/subpages/inline44.html">j</a></li>
-      </ol>
-    <hr>
-
-    <h2><a href="/index.html">  Index 1-10</a></h2>
-    <h2><a href="/index2.html">Index 11-20</a></h2>
-    <h2><a href="/index3.html">Index 21-30</a></h2>
-    <h2><a href="/index4.html">Index 31-40</a></h2>
-    <h2><a href="/index5.html">Index 41-50</a></h2>
-
-    <img src="/images/Edna_Krabappel.webp" alt="Edna"><br>
-    <img src="https://sjfcross.github.io/images/Homer_Simpson.webp" alt="Homer"><br>
-    <img src="https://sjfcross.github.io/images/lizard.png" alt="Pranks">
-  
+      .notebox {
+        margin: auto;
+        width: 50%;
+        border: 3px solid green;
+        padding: 10px;
+        background-color: rgb(180, 199, 166);
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>SJ's coding adventures</h1>
+      <p>
+        <strong
+          >A <b>responsive</b> website to experiment with and document all the
+          things I am learning</strong
+        >
+      </p>
     </div>
-  <div class="main">
 
-    <H1 style="color:rgb(12, 150, 70); font-size: 200%;">Basic math in JavaScript — numbers and operators</h1> 
+    <div class="navbar">
+      <a href="../sjfcross.github.io/index.html">Home</a>
+      <a
+        href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Creating_hyperlinks"
+        >Link</a
+      >
+      <a href="/subpages/">Space</a>
+      <a href="https://www.reddit.com/" class="right">Reddit !</a>
+    </div>
+
+    <div class="row">
+      <div class="side">
+        <h2>The path to enlightenment (part 5)</h2>
+        <h3>If necessary links do open a new tab:</h3>
+        <ol start="41">
+          <li>
+            <a href="/subpages/inline35.html"
+              >Storing the information you need — Variables</a
+            >
+          </li>
+          <li>
+            <a href="/subpages/inline36.html"
+              >Basic math in JavaScript — numbers and operators</a
+            >
+          </li>
+          <li><a href="/subpages/inline37.html">c</a></li>
+          <li><a href="/subpages/inline38.html">d</a></li>
+          <li><a href="/subpages/inline39.html">e</a></li>
+          <li><a href="/subpages/inline40.html">f</a></li>
+          <li><a href="/subpages/inline41.html">g</a></li>
+          <li><a href="/subpages/inline42.html">h</a></li>
+          <li><a href="/subpages/inline43.html">i</a></li>
+          <li><a href="/subpages/inline44.html">j</a></li>
+        </ol>
+        <hr />
+
+        <h2><a href="/index.html"> Index 1-10</a></h2>
+        <h2><a href="/index2.html">Index 11-20</a></h2>
+        <h2><a href="/index3.html">Index 21-30</a></h2>
+        <h2><a href="/index4.html">Index 31-40</a></h2>
+        <h2><a href="/index5.html">Index 41-50</a></h2>
+
+        <img src="/images/Edna_Krabappel.webp" alt="Edna" /><br />
+        <img
+          src="https://sjfcross.github.io/images/Homer_Simpson.webp"
+          alt="Homer"
+        /><br />
+        <img src="https://sjfcross.github.io/images/lizard.png" alt="Pranks" />
+      </div>
+      <div class="main">
+        <h1 style="color: rgb(12, 150, 70); font-size: 200%">
+          Basic math in JavaScript — numbers and operators
+        </h1>
 
         <h2>Types of numbers</h2>
 
+        <p>
+          In programming, even the humble decimal number system that we all know
+          so well is more complicated than you might think. We use different
+          terms to describe different types of decimal numbers, for example:
+        </p>
 
-
-        <p>In programming, even the humble decimal number system that we all know so well is more complicated than you might think. We use different terms to describe different 
-            types of decimal numbers, for example:</p>
-    
         <ul>
-            <li><strong>Integers</strong> are whole numbers, e.g. 10, 400, or -5.</li>
-            <li><strong>Floating point numbers</strong> (floats) have decimal points and decimal places, for example 12.5, and 56.7786543.</li>
-            <li><strong>Doubles</strong> are a specific type of floating point number that have greater precision than standard floating point numbers (meaning that they are accurate to a greater number of decimal places).</li>
-           </ul>
-           
-           <p>We even have different types of number systems! Decimal is base 10 (meaning it uses 0–9 in each column), but we also have things like:</p>
-           
-           <ul>
-            <li><strong>Binary</strong> — The lowest level language of computers; 0s and 1s.</li>
-            <li><strong>Octal</strong> — Base 8, uses 0–7 in each column.</li>
-            <li><strong>Hexadecimal</strong> — Base 16, uses 0–9 and then a–f in each column. You may have encountered these numbers before when setting <a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Values_and_units#hexadecimal_values">colors in CSS</a>.</li>
-           </ul>
+          <li>
+            <strong>Integers</strong> are whole numbers, e.g. 10, 400, or -5.
+          </li>
+          <li>
+            <strong>Floating point numbers</strong> (floats) have decimal points
+            and decimal places, for example 12.5, and 56.7786543.
+          </li>
+          <li>
+            <strong>Doubles</strong> are a specific type of floating point
+            number that have greater precision than standard floating point
+            numbers (meaning that they are accurate to a greater number of
+            decimal places).
+          </li>
+        </ul>
 
+        <p>
+          We even have different types of number systems! Decimal is base 10
+          (meaning it uses 0–9 in each column), but we also have things like:
+        </p>
 
+        <ul>
+          <li>
+            <strong>Binary</strong> — The lowest level language of computers; 0s
+            and 1s.
+          </li>
+          <li><strong>Octal</strong> — Base 8, uses 0–7 in each column.</li>
+          <li>
+            <strong>Hexadecimal</strong> — Base 16, uses 0–9 and then a–f in
+            each column. You may have encountered these numbers before when
+            setting
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Values_and_units#hexadecimal_values"
+              >colors in CSS</a
+            >.
+          </li>
+        </ul>
 
-<h2><a href="https://codepen.io/sjfcross/pen/MWmZWxo">All the testing</a></h2>
+        <h2>
+          <a href="https://codepen.io/sjfcross/pen/MWmZWxo">All the testing</a>
+        </h2>
 
+        <h2>
+          <a href="/subpages/javatest/index.html"
+            >Here is some stuff on Loops :</a
+          >
+        </h2>
 
+        <h2>
+          <a href="/subpages/javatest/index2.html"
+            >continue and break loops :</a
+          >
+        </h2>
 
-<h2><a href="/subpages/javatest/index.html">Here is some stuff on Loops :</a></h2>
+        <h2>
+          <a href="/subpages\storygen\index.html">Silly story generator :</a>
+        </h2>
 
-<h2><a href="/subpages/javatest/index2.html">continue and break loops :</a></h2>
+        <img src="/images/seeds.png" alt="Malinka" class="center" />
+        <img src="/images/seeds2.jpg" alt="Malinka" class="center" />
+        <img src="/images/seeds3.jpg" alt="Malinka" class="center" />
+      </div>
+    </div>
 
-
-<h2><a href="/subpages\storygen\index.html">Silly story generator :</a></h2>
-
-
-
-
-        <img src="/images/seeds.png" alt="Malinka" class="center">      
-        <img src="/images/seeds2.jpg" alt="Malinka" class="center">
-        <img src="/images/seeds3.jpg" alt="Malinka" class="center">
-    
-
-  </div>
-</div>
-
-<div class="footer">
-  <h2>mailto: sjssha.jehsdss@gmail.com</h2>
-</div>
-
-</body>
+    <div class="footer">
+      <h2>mailto: sjssha.jehsdss@gmail.com</h2>
+    </div>
+  </body>
 </html>
