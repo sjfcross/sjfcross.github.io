@@ -1,5 +1,13 @@
+H1 {
+  color: crimson;
+  text-align: center;
+}
 
-
-H1 {color:crimson}
-h2 {color: darkkhaki;}
-body {background-color: cornflowerblue;}
+p {
+}
+h2 {
+  color: rgb(68, 129, 119);
+}
+body {
+  background-color: cornflowerblue;
+}
