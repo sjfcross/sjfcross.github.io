@@ -2,12 +2,23 @@ H1 {
   color: crimson;
   text-align: center;
   font-weight: 400;
+  text-decoration: green underline wavy;
+  letter-spacing: 10px;
+  font-size: 100px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif
+}
+
+a {
+  text-decoration: none;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 p {
+  line-height: 2;
+font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 h2 {
-  color: rgb(68, 129, 119);
+  color: rgb(68, 129, 119);w
 }
 body {
   background-color: cornflowerblue;
