@@ -59,11 +59,12 @@ a[href*="google"]{
 
 .post a:hover {
     text-decoration: underline;
+    background-color: burlywood;
 }
 
 
 .post button:active {
-    background-color: #02c39a;
+    background-color: #03b18b;
 }
 
 .post:nth-of-type(2n){
@@ -82,15 +83,15 @@ p::selection {
     background-color: #fcbf49;
 }
 
-.post button:hover {
+/* .post button:hover {
     background-color: #e63946;
     color: #f1faee;
-}
+} */
 
-button:hover {
+/* button:hover {
     background-color: olive;
-}
+} */
 
-button {
+/* button {
     background-color: magenta !important;
-}
+} */
