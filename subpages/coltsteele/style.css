@@ -19,6 +19,10 @@ font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 h2 {
   color: rgb(68, 129, 119);
+  text-align: center;
+  letter-spacing: 10px;
+  font-size: 100px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif
 }
 body {
   background-color: #c6cfdf;;
