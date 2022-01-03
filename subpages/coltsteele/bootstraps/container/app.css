@@ -1,0 +1,8 @@
+.buttons-1 {
+    display: flex;
+    justify-content: center;
+  margin: auto;
+  width: 50%;
+  border: 1px dotted green;
+  padding: 10px;
+}
