@@ -5,6 +5,7 @@ H1 {
   letter-spacing: 10px;
   font-size: 80px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin-bottom: 5rem;
 }
 
 a {
@@ -21,12 +22,13 @@ h2 {
   color: rgb(68, 129, 119);
   text-align: center;
   letter-spacing: 10px;
-  font-size: 2em;
+  font-size: 3em;
+  margin-bottom: 2rem;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
+  }
 body {
   background-color: #c6cfdf;
-}
+ }
 li {
   text-align: center;
 }
@@ -39,3 +41,4 @@ li:hover {
   transform: scale(1.2);
   padding: 5px;
 }
+
