@@ -12,11 +12,14 @@ a {
   text-decoration: none;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   transition: 200ms ease-in-out;
+  color: rgb(3, 64, 121);
+  font-size: larger;
 }
 
 p {
   line-height: 2;
   font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  color: rgb(210, 212, 214);
 }
 h2 {
   color: rgb(68, 129, 119);
@@ -41,4 +44,7 @@ li:hover {
   transform: scale(1.2);
   padding: 5px;
 }
-
+/* 
+.bgg {
+  background-image: url(../../images/john33.png);
+} */
