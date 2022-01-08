@@ -1,10 +1,11 @@
 H1 {
-  color: rgb(240, 233, 235);
+  color: rgb(255, 255, 255);
   text-align: center;
   font-weight: 400;
   letter-spacing: 10px;
   font-size: 80px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-shadow: 6px 6px 0px rgba(0, 0, 0, 0.507);
   margin-bottom: 5rem;
 }
 
@@ -12,7 +13,8 @@ a {
   text-decoration: none;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   transition: 200ms ease-in-out;
-  color: rgb(3, 64, 121);
+  color: rgb(2, 50, 95);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.377);
   font-size: larger;
 }
 
@@ -22,33 +24,35 @@ p {
   color: rgb(210, 212, 214);
 }
 h2 {
-  color: rgb(209, 245, 239);
+  color: rgb(237, 250, 248);
   text-align: center;
   letter-spacing: 10px;
   font-size: 2.5em;
   margin-bottom: 2rem;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  }
+
+  text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.377);
+}
 body {
   background-color: #c6cfdf;
   background-image: url(https://images.unsplash.com/photo-1517757910079-f57fd7f49a91?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2068&q=80);
   height: 100vh;
- }
+}
 li {
   text-align: center;
 }
 
 a:hover {
-  background-color: rgb(183, 153, 212);
+  background-color: rgba(249, 242, 255, 0.637);
 }
 
 li:hover {
   transform: scale(1.2);
-  padding: 5px;
+  /* padding: 5px; */
 }
 
 .opg {
-  background-color: rgba(218, 218, 219, 0.534);;
+  background-color: rgba(218, 218, 219, 0.534);
 }
 
 /* .bgg {
