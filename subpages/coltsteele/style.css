@@ -1,5 +1,5 @@
 H1 {
-  color: crimson;
+  color: rgb(240, 233, 235);
   text-align: center;
   font-weight: 400;
   letter-spacing: 10px;
@@ -22,7 +22,7 @@ p {
   color: rgb(210, 212, 214);
 }
 h2 {
-  color: rgb(68, 129, 119);
+  color: rgb(209, 245, 239);
   text-align: center;
   letter-spacing: 10px;
   font-size: 2.5em;
@@ -31,7 +31,7 @@ h2 {
   }
 body {
   background-color: #c6cfdf;
-  background-image: url(https://images.unsplash.com/photo-1619252584172-a83a949b6efd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80);
+  background-image: url(https://images.unsplash.com/photo-1517757910079-f57fd7f49a91?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2068&q=80);
   height: 100vh;
  }
 li {
@@ -45,6 +45,10 @@ a:hover {
 li:hover {
   transform: scale(1.2);
   padding: 5px;
+}
+
+.opg {
+  background-color: rgba(218, 218, 219, 0.534);;
 }
 
 /* .bgg {
