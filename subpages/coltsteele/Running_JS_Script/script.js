@@ -14,7 +14,7 @@ let random = Math.random();
 if (random < 0.5) {
   console.log("Your number is less then 0.5!!!");
 } else {
-    console.log("Your number is greater (or equal) then 0.5!!!!")
+  console.log("Your number is greater (or equal) then 0.5!!!!");
 }
 console.log(random);
 
@@ -35,7 +35,7 @@ console.log(random);
 //     console.log("Meh")
 // }
 
-  //  else if (dayOfWeek === "Tuesday") {
+//  else if (dayOfWeek === "Tuesday") {
 //   console.log("Meh");
 // } else if (dayOfWeek === "Wednesday") {
 //   console.log("Meh");
@@ -44,9 +44,6 @@ console.log(random);
 // } else if (dayOfWeek === "Sunday") {
 //   console.log("Meh");
 // }
-
-
-
 
 // 0-5 - FREE
 // 5-10 CHILD $10
@@ -63,3 +60,55 @@ console.log(random);
 // } else if (age >= 65) {
 //   console.log("You are a senior. $10 is enough for u!");
 // }
+
+// const password = prompt("Please enter password");
+
+//Password must be 6+ Characters
+
+// if(password.length >= 6) {
+//   console.log("Long enough password.")
+// } else {
+//   console.log("Password too short, 6+ Characters required!")
+// }
+// //Password  cannot include space
+
+// if (password.indexOf(' ') === -1) {
+//   console.log("Great, password has no space !")
+// } else {
+//   console.log("Password cannot contain spaces.")
+// }
+
+//Password must be 6+ Characters
+//Password  cannot include space
+
+// if (password.length >= 6) {
+//   if (password.indexOf(" ") === -1) {
+//     console.log("Valid Password");
+//   } else {
+//     console.log("Password cannot contain spaces !");
+//   }
+// } else {
+//   console.log("Password too short, 6+ Characters required!");
+// }
+
+// Change the value of num, so that "YOU GOT ME!" prints out
+const num = prompt("Please enter a number!"); // THIS IS THE ONLY LINE YOU SHOULD CHANGE :)
+
+// DO NOT TOUCH ANYTHING BELOW (please)
+if (num <= 100) {
+  if (num >= 50) {
+    console.log("U think under 100 makes sense ?");
+  } else {
+    console.log("At least try over 50, maybe ?");
+  }
+} else {
+  if (num < 103) {
+    if (num % 2 === 0) {
+      console.log("YOU GOT ME!");
+    } else {
+      console.log("Not far, but still wrong :D");
+    }
+  } else {
+    console.log("Way above 100 u sucker !");
+  }
+}
