@@ -333,9 +333,10 @@ const animals = [
 //     console.log(animals[i])
 // }
 
-const people = ["Scooby", "Velma", "Daphne", "Shaggy", "Fred"]; //DONT TOUCH THIS LINE!
+// const people = ["Scooby", "Velma", "Daphne", "Shaggy", "Fred"]; //DONT TOUCH THIS LINE!
 
-// WRITE YOUR LOOP BELOW THIS LINE:
-for (let i = 0; i <= 4; i++) {
-    console.log(people[i].toUpperCase())
-}
+// // WRITE YOUR LOOP BELOW THIS LINE:
+// for (let i = 0; i <= 4; i++) {
+//     console.log(people[i].toUpperCase())
+// }
+
