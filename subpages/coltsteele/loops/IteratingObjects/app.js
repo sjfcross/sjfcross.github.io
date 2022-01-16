@@ -30,3 +30,4 @@ for (let score of scores) {
 }
 console.log(total / scores.length)
 
+// for (let bums in testScores) { console.log(`${bums} scored ${testScores[bums]}`) }

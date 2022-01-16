@@ -44,10 +44,6 @@
 //     if (i === 789) break;
 // }
 
-
-
-
-
 let maximum = parseInt(prompt("Insert you max Number!"));
 
 while (!maximum) {
@@ -61,10 +57,9 @@ console.log(targetNum);
 let guess = parseInt(prompt("Enter your first guess!"));
 let attempt = 1;
 
-
 while (parseInt(guess) !== targetNum) {
-    if (guess === "q") break; 
-    attempt++;
+  if (guess === "q") break;
+  attempt++;
   if (guess > targetNum) {
     guess = prompt("Too high ! Enter a new guess:");
   } else {
@@ -72,11 +67,10 @@ while (parseInt(guess) !== targetNum) {
   }
 }
 if (guess === "q") {
-    console.log("Quitter !!!!")
+  console.log("Quitter !!!!");
 } else {
-console.log(`YOU GOT IT !!! It took you ${attempt} guesses.`);
+  console.log(`YOU GOT IT !!! It took you ${attempt} guesses.`);
 }
-
 
 // let maximum = parseInt(prompt("Enter the maximum number!"));
 // while (!maximum) {
