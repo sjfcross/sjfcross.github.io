@@ -36,14 +36,27 @@
     <!-- CSS Files -->
     <link id="pagestyle" href="../assets/css/material-kit.css?v=3.0.0" rel="stylesheet" />
     <link rel="stylesheet" href="../app.css">
-
     <style>
-        .box {
+        .wrapper {
             border: 5px solid black;
             padding: 1em;
-            height: 200px;
-            width: 300px;
-            overflow: auto;
+            height: 250px;
+            width: 350px;
+        }
+
+        .wrapper2 {
+            width: 400px;
+            height: 350px;
+            border: 2px solid black;
+        }
+
+        .box {
+            border: 2px solid black;
+            padding: 1em;
+            height: 60px;
+            width: 120px;
+            overflow: hidden;
+            color: black;
         }
 
         .box1 {
@@ -52,8 +65,224 @@
             width: 300px;
             overflow: hidden;
         }
-    </style>
 
+        .box4 {
+            background-image: url(/images/balloons.jpg);
+            background-size: contain;
+            border: 2px solid black;
+            height: 390px;
+            width: 600px;
+            overflow: hidden;
+
+        }
+
+        .box5 {
+            border: 2px solid black;
+            height: 300px;
+            width: 400px;
+            background-image: url(../images/star.png);
+            background-repeat: no-repeat;
+            background-position: right 40px;
+        }
+
+        .box6 {
+            width: 400px;
+            padding: 1em;
+            border-radius: .5em;
+            border: 5px solid rebeccapurple;
+            background-color: lightblue;
+        }
+
+        .box6::after {
+            content: "This is a string. I know because it is quoted in the CSS."
+        }
+
+
+        .box7 {
+            width: calc(20% + 100px);
+            height: 300px;
+            border: 5px solid rgb(60, 15, 221);
+        }
+
+
+
+        .image {
+            background-image: url(../images/star.png);
+        }
+
+        .gradient {
+            background-image: linear-gradient(90deg, rgba(119, 0, 255, 1) 39%, rgba(0, 212, 255, 1) 100%);
+        }
+
+
+        #box2 {
+            border: 5px solid black;
+            height: 480px;
+            width: 800px;
+            overflow: hidden;
+        }
+
+        #box2 #box3 {
+
+            position: relative;
+            width: 50%;
+            height: 50%;
+            margin: auto;
+            margin-top: 25%;
+
+
+        }
+
+        #box3 {
+            color: black;
+            font-weight: 400;
+            font-size: 20px;
+            border: 5px solid black;
+            background-color: coral;
+            opacity: 0.3;
+        }
+
+
+
+        #first {
+            width: 100px;
+            height: 100px;
+            background: red;
+            overflow: hidden;
+        }
+
+        #first #second {
+            position: relative;
+            width: 50%;
+            height: 50%;
+            margin: auto;
+            margin-top: 25%;
+            background: green;
+        }
+
+        table.blueTable {
+            border: 1px solid #1C6EA4;
+            background-color: #EEEEEE;
+            width: 100%;
+            text-align: left;
+            border-collapse: collapse;
+        }
+
+        table.blueTable td,
+        table.blueTable th {
+            border: 1px solid #AAAAAA;
+            padding: 3px 2px;
+        }
+
+        table.blueTable tbody td {
+            font-size: 13px;
+        }
+
+        table.blueTable tr:nth-child(even) {
+            background: #D0E4F5;
+        }
+
+        table.blueTable thead {
+            background: #1C6EA4;
+            background: linear-gradient(to bottom, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+            border-bottom: 2px solid #444444;
+        }
+
+        table.blueTable thead th {
+            font-size: 15px;
+            font-weight: bold;
+            color: #5d3e96;
+            border-left: 2px solid #135ea0;
+        }
+
+        table.blueTable thead th:first-child {
+            border-left: none;
+        }
+
+        table.blueTable tfoot {
+            font-size: 14px;
+            font-weight: bold;
+            color: #FFFFFF;
+            background: #D0E4F5;
+            background: linear-gradient(to bottom, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+            border-top: 2px solid #444444;
+        }
+
+        table.blueTable tfoot td {
+            font-size: 14px;
+        }
+
+        table.blueTable tfoot .links {
+            text-align: right;
+        }
+
+        table.blueTable tfoot .links a {
+            display: inline-block;
+            background: #1C6EA4;
+            color: #FFFFFF;
+            padding: 2px 8px;
+            border-radius: 5px;
+        }
+
+        .ems li {
+            font-size: 1.3em;
+        }
+
+        .rems li {
+            font-size: 1.3rem;
+        }
+
+        .one {
+            background-color: #02798b;
+        }
+
+        .two {
+            background-color: #c55da1;
+        }
+
+        .three {
+            background-color: #128a7d;
+        }
+
+        .four {
+            background-color: rgba(2, 121, 139, .3);
+            width: 450px;
+            height: 130px;
+        }
+
+        .five {
+            background-color: rgba(197, 93, 161, .7);
+            width: 450px;
+            height: 130px;
+        }
+
+        .six {
+            background-color: rgba(18, 138, 125, .9);
+            width: 450px;
+            height: 130px;
+        }
+
+        .seven {
+            background-color: hsla(188, 97%, 28%, .3);
+            width: 450px;
+            height: 130px;
+            border-radius: 20px;
+        }
+
+        .eight {
+            background-color: hsla(321, 47%, 57%, .7);
+            width: 450px;
+            height: 130px;
+            border-radius: 20px;
+        }
+
+        .nine {
+            background-color: hsla(174, 77%, 31%, .9);
+            width: 450px;
+            height: 130px;
+            border-radius: 20px;
+        }
+    </style>
 </head>
 
 
@@ -580,7 +809,7 @@
     <!-- -------- END HEADER 7 w/ text and video ------- -->
     <div class="card card-body shadow-xl mx-3 mx-md-4 mt-n6">
 
-        <!-- <iframe src="https://sjfcross.github.io/subpages/repairedmdn/index.html" width="auto" height="800"></iframe> -->
+        <!-- <iframe src="https://sjfcross.github.io/firstpage/indexf.html" width="auto" height="800"></iframe> -->
 
         <!-- Section with four info areas left & one card right with image and waves -->
         <section class="py-7">
@@ -852,49 +1081,165 @@
                     </div>
                     <div class="col-lg-7 ms-auto mt-lg-0 mt-4">
                         <div class="card">
+
                             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                                <!-- <a class="d-block blur-shadow-image"> -->
 
                                 <h2 style="color:rgb(12, 150, 70);"><i
-                                        class="material-icons text-3xl text-gradient text-info mb-3 pe-3">article</i>Test
-                                    your skills: Overflow</h2>
+                                        class="material-icons text-3xl text-gradient text-info mb-3 pe-3">article</i>CSS
+                                    values and units</h2>
 
-                                <h5>The aim of these tasks is to help you check your understanding of overflow in
-                                    CSS.</h5>
 
+                                <h3>What is a CSS value?</h3>
+
+                                <p>In CSS specifications and on the property pages here on MDN you will be able to spot
+                                    value types as they will be
+                                    surrounded by angle brackets, such as &lt;color&gt; or &lt;length&gt;. When you see
+                                    the value type &lt;color&gt; as valid for a particular property,
+                                    that means you can use any valid color as a value for that property, as listed on
+                                    the &lt;color&gt; reference page.
+                                </p>
                                 <p>
-                                <div class="box">
-                                    <p>Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh
-                                        onion daikon amaranth tatsoi tomatillo melon azuki bean garlic.</p>
-
-                                    <p>Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette
-                                        tatsoi pea sprouts fava bean collard greens dandelion okra wakame
-                                        tomato. Dandelion cucumber earthnut pea peanut soko zucchini.</p>
-                                    <p>(overflow: auto)</p>
-                                </div>
+                                    A value type in CSS is a way to define a collection of allowable values. This means
+                                    that if you see &lt;color&gt; as valid you don't
+                                    need to wonder which of the different types of color value can be used — keywords,
+                                    hex values, rgb() functions, etc. You can
+                                    use any available &lt;color&gt; values, assuming they are supported by your browser.
                                 </p>
 
-                                <p>
-                                <div class="box1">
-                                    <img src="../images/flowers.jpg" alt="flowers">
-                                </div>
+                                <h3>Numbers, lengths, and percentages</h3>
+
+                                <p>There are various numeric value types that you might find yourself using in CSS. The
+                                    following are all classed as numeric:
                                 </p>
+
+                                <table class="blueTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Data Type</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="2">
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        <tr>
+                                            <td>&lt;integer&gt;</td>
+                                            <td>An &lt;integer&gt; is a whole number such as 1024 or -55.</td>
+                                        </tr>
+                                        <tr>
+                                            <td> &lt;number &gt;</td>
+                                            <td>A &lt;number &gt; represents a decimal number — it may or may not have a
+                                                decimal point with a fractional component. For example, 0.255, 128, or
+                                                -1.2.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&gt;dimension&gt;</td>
+                                            <td>A &lt;dimension&gt; is a &lt;number&gt; with a unit attached to it. For
+                                                example, 45deg, 5s, or 10px. &lt;dimension&gt; is an umbrella category
+                                                that includes the &lt;length&gt;, &lt;angle&gt;, &lt;time&gt;, and
+                                                &lt;resolution&gt; types.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&lt;percentage&gt;</td>
+                                            <td>A &lt;percentage&gt; represents a fraction of some other value. For
+                                                example, 50%. Percentage values are always relative to another quantity.
+                                                For example, an element's length is relative to its parent element's
+                                                length.</td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+
+                                <h3>Lengths</h3>
+
+                                <p>The numeric type you will come across most frequently is <length>. For example 10px
+                                        (pixels) or 30em. There are two types of lengths used in CSS — relative and
+                                        absolute. It's important to know the difference in order to understand how big
+                                        things will become.
+                                </p>
+                                <h3>Absolute length units</h3>
+
+                                <p>The following are all absolute length units — they are not relative to anything else,
+                                    and are generally considered to always be the same size.
+                                </p>
+                                <p>
+                                    <img class="img-fluid" src="../images/absolutelengthunits.PNG" alt="Length Units">
+                                </p>
+
+                                <h3>ems and rems</h3>
+
+                                <p>em and rem are the two relative lengths you are likely to encounter most frequently
+                                    when sizing anything from boxes to text.
+                                </p>
+                                <p>To recap, the em unit means "my parent element's font-size" in the case of
+                                    typography.
+                                    The &lt;li&gt; elements inside the &lt;ul&gt; with a class of ems take their sizing
+                                    from their parent. So each successive level of nesting gets progressively larger,
+                                    as each has its font size set to 1.3em — 1.3 times its parent's font size.
+                                </p>
+                                <p>To recap, the rem unit means "The root element's font-size". (rem stands for "root
+                                    em".)
+                                    The &lt;li&gt; elements inside the &lt;ul&gt; with a class of rems take their sizing
+                                    from the root element (&lt;html&gt;). This means that each successive level of
+                                    nesting does not keep getting larger.
+                                </p>
+
+
+                                <ul class="ems">
+                                    <li>One</li>
+                                    <li>Two</li>
+                                    <li>Three
+                                        <ul>
+                                            <li>Three A</li>
+                                            <li>Three B
+                                                <ul>
+                                                    <li>Three B 2</li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+
+                                <ul class="rems">
+                                    <li>One</li>
+                                    <li>Two</li>
+                                    <li>Three
+                                        <ul>
+                                            <li>Three A</li>
+                                            <li>Three B
+                                                <ul>
+                                                    <li>Three B 2</li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+
+
                             </div>
+
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+    </div>
+    </section>
 
-        <!-- -------- START Content Presentation Docs ------- -->
-        <div class="container mt-sm-5">
-            <div class="page-header py-6 py-md-5 my-sm-3 mb-3 border-radius-xl"
-                style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/desktop.jpg');"
-                loading="lazy">
-                <span class="mask bg-gradient-primary opacity-2"></span>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-6 ms-lg-5">
-                            <!-- <h4 class="text-white">Built by developers</h4>
+    <!-- -------- START Content Presentation Docs ------- -->
+    <div class="container mt-sm-5">
+        <div class="page-header py-6 py-md-5 my-sm-3 mb-3 border-radius-xl"
+            style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/desktop.jpg');"
+            loading="lazy">
+            <span class="mask bg-gradient-primary opacity-2"></span>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 ms-lg-5">
+                        <!-- <h4 class="text-white">Built by developers</h4>
                 <h1 class="text-white">Complex Documentation</h1>
                 <p class="lead text-white opacity-8">From colors, cards, typography to complex elements, you
                   will find the full documentation. Play with the utility classes and you will create
@@ -904,13 +1249,210 @@
                   Read docs
                   <i class="fas fa-arrow-right text-sm ms-1"></i>
                 </a> -->
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- <div class="row justify-content-start mt-4">
+
+    <!-- <section class="py-7">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <div class="row justify-content-start">
+                            <div class="col-md-6">
+                                <div class="info">
+                                    <i class="material-icons text-3xl text-gradient text-info mb-3">public</i>
+                                    <h5>Access Sites 1 - 50</h5>
+
+                                    <div class="dropdown">
+                                        <button class="btn btn-lg btn-primary dropdown-toggle" type="button"
+                                            id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Index 01-10
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/firstpage/indexf.html">1. Chaotic
+                                                    first page</a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/subpages/inline1.html">2. Detailing
+                                                    & Hummus </a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/subpages/inline2.html">3. Basic
+                                                    HTML-animals</a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/firstpage/indexf.html">4. Chaotic
+                                                    first page</a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/subpages/inline1.html">5. Detailing
+                                                    & Hummus </a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/subpages/inline2.html">6. Basic
+                                                    HTML-animals</a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/firstpage/indexf.html">7. Chaotic
+                                                    first page</a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/subpages/inline1.html">8. Detailing
+                                                    & Hummus </a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/subpages/inline2.html">9. Basic
+                                                    HTML-animals</a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/subpages/inline2.html">10. Basic
+                                                    HTML-animals</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="dropdown">
+                                        <button class="btn btn-lg btn-primary dropdown-toggle" type="button"
+                                            id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Index 11-20
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/firstpage/indexf.html">Chaotic
+                                                    first page</a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/subpages/inline1.html">Detailing &
+                                                    Hummus </a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/subpages/inline2.html">Basic
+                                                    HTML-animals</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="dropdown">
+                                        <button class="btn btn-lg btn-primary dropdown-toggle" type="button"
+                                            id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Index 21-30
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/firstpage/indexf.html">1. Chaotic
+                                                    first page</a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/subpages/inline1.html">2. Detailing
+                                                    & Hummus </a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/subpages/inline2.html">3. Basic
+                                                    HTML-animals</a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/firstpage/indexf.html">4. Chaotic
+                                                    first page</a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/subpages/inline1.html">5. Detailing
+                                                    & Hummus </a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/subpages/inline2.html">6. Basic
+                                                    HTML-animals</a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/firstpage/indexf.html">7. Chaotic
+                                                    first page</a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/subpages/inline1.html">8. Detailing
+                                                    & Hummus </a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/subpages/inline2.html">9. Basic
+                                                    HTML-animals</a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/subpages/inline2.html">10. Basic
+                                                    HTML-animals</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="dropdown">
+                                        <button class="btn btn-lg btn-primary dropdown-toggle" type="button"
+                                            id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Index 31-40
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/firstpage/indexf.html">1. Chaotic
+                                                    first page</a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/subpages/inline1.html">2. Detailing
+                                                    & Hummus </a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/subpages/inline2.html">3. Basic
+                                                    HTML-animals</a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/firstpage/indexf.html">4. Chaotic
+                                                    first page</a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/subpages/inline1.html">5. Detailing
+                                                    & Hummus </a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/subpages/inline2.html">6. Basic
+                                                    HTML-animals</a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/firstpage/indexf.html">7. Chaotic
+                                                    first page</a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/subpages/inline1.html">8. Detailing
+                                                    & Hummus </a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/subpages/inline2.html">9. Basic
+                                                    HTML-animals</a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/subpages/inline2.html">10. Basic
+                                                    HTML-animals</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="dropdown">
+                                        <button class="btn btn-lg btn-primary dropdown-toggle" type="button"
+                                            id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Index 41-50
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/firstpage/indexf.html">1. Chaotic
+                                                    first page</a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/subpages/inline1.html">2. Detailing
+                                                    & Hummus </a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/subpages/inline2.html">3. Basic
+                                                    HTML-animals</a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/firstpage/indexf.html">4. Chaotic
+                                                    first page</a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/subpages/inline1.html">5. Detailing
+                                                    & Hummus </a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/subpages/inline2.html">6. Basic
+                                                    HTML-animals</a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/firstpage/indexf.html">7. Chaotic
+                                                    first page</a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/subpages/inline1.html">8. Detailing
+                                                    & Hummus </a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/subpages/inline2.html">9. Basic
+                                                    HTML-animals</a></li>
+                                            <li><a class="dropdown-item"
+                                                    href="https://sjfcross.github.io/subpages/inline2.html">10. Basic
+                                                    HTML-animals</a></li>
+                                        </ul>
+                                    </div>
+
+
+                                    <p>We get insulted by others, lose trust for those We get back freezes</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info">
+                                    <i class="material-icons text-3xl text-gradient text-info mb-3">payments</i>
+                                    <h5>Payments functionality</h5>
+                                    <p>We get insulted by others, lose trust for those We get back freezes</p>
+                                </div>
+                            </div>
+                        </div> -->
+    <!-- <div class="row justify-content-start mt-4">
                         <div class="col-md-6">
                             <div class="info">
                                 <i class="material-icons text-3xl text-gradient text-info mb-3">apps</i>
@@ -1121,7 +1663,216 @@
       </div>
     </section> -->
     <!-- -------- END PRE-FOOTER 1 w/ SUBSCRIBE BUTTON AND IMAGE ------- -->
+    <div class="container">
+        <div class="col-lg-12 ms-auto mt-lg-6 mt-4 justify-content-center align-items-center text-start">
 
+            <div class="p-0 position-relative mt-4 mx-3 ">
+                <!-- <a class="d-block blur-shadow-image"> -->
+                <h2 style="color:rgb(12, 150, 70);"><i
+                        class="material-icons text-3xl text-gradient text-info mb-3 pe-3">article</i>More on CSS -
+                    Values</h2>
+
+                <h3>Percentages</h3>
+
+                <p>In a lot of cases, a percentage is treated in the same way as a length. The thing with percentages is
+                    that they are always set relative to some other value.
+                    For example, if you set an element's font-size as a percentage it will be a percentage of the
+                    font-size of the element's parent.
+                    If you use a percentage for a width value, it will be a percentage of the width of the parent.
+                </p>
+
+
+                <h3>Numbers</h3>
+
+                <p>Some value types accept numbers, without any unit added to them. An example of a property which
+                    accepts a unitless number is the opacity property,
+                    which controls the opacity of an element (how transparent it is). This property accepts a number
+                    between 0 (fully transparent) and 1 (fully opaque).
+                </p>
+
+
+                <div id="box2">
+                    <!--First section-->
+                    <div style="background-image: url('../images/controller.jpg');
+                    background-size: cover; height:480px; padding-top:80px;">
+                        <p>
+                        <div id="box3">I am a box with opacity</div>
+                        </p>
+                    </div>
+                </div>
+
+                <h3>Color</h3>
+
+                <p>There are many ways to specify color in CSS, some of which are more recently implemented than others.
+                    The same color values can be used everywhere in CSS, whether you are specifying text color,
+                    background color, or whatever else.
+                </p>
+                <p>
+                    The standard color system available in modern computers is 24 bit, which allows the display of about
+                    16.7 million distinct colors
+                    via a combination of different red, green and blue channels with 256 different values per channel
+                    (256 x 256 x 256 = 16,777,216.)
+                </p>
+
+                <h4>Color keywords</h4>
+
+                <p>Quite often in examples here in the learn section or elsewhere on MDN you will see the color keywords
+                    used, as they are a simple and understandable way
+                    of specifying color. There are a number of these keywords, some of which have fairly entertaining
+                    names! You can see a full list on the page for the &lt;color&gt;
+                    value type.
+                </p>
+
+                <h4>Hexadecimal RGB values</h4>
+
+                <p>The next type of color value you are likely to encounter is hexadecimal codes. Each hex value
+                    consists of a hash/pound symbol (#) followed by six hexadecimal numbers,
+                    each of which can take one of 16 values between 0 and f (which represents 15) — so 0123456789abcdef.
+                    Each pair of values represents one of the channels — red,
+                    green and blue — and allows us to specify any of the 256 available values for each (16 x 16 = 256.)
+                </p>
+                <p>
+                    These values are a bit more complex and less easy to understand, but they are a lot more versatile
+                    than keywords — you can use hex values to represent any
+                    color you want to use in your color scheme.
+                </p>
+
+                <div class="wrapper">
+                    <div class="box one">#02798b</div>
+                    <div class="box two">#c55da1</div>
+                    <div class="box three">128a7d</div>
+                </div>
+
+                <p>
+                    You can also use RGBA colors — these work in exactly the same way as RGB colors, and so you can use
+                    any RGB values.
+                    However, there is a fourth value that represents the alpha channel of the color, which controls
+                    opacity.
+                    If you set this value to 0 it will make the color fully transparent, whereas 1 will make it fully
+                    opaque.
+                    Values in between give you different levels of transparency.
+                </p>
+
+
+                <div class="box4">
+                    <div class="box four">rgba(2, 121, 139, .3)</div>
+                    <div class="box five">rgba(197, 93, 161, .7)</div>
+                    <div class="box six">rgba(18, 138, 125, .9)</div>
+                </div>
+
+                <h4>HSL and HSLA values</h4>
+
+                <p>Slightly less well-supported than RGB is the HSL color model (not supported on old versions of IE),
+                    which was implemented after much interest from designers.
+                    Instead of red, green, and blue values, the hsl() function accepts hue, saturation, and lightness
+                    values, which are used to distinguish between the 16.7 million colors,
+                    but in a different way:
+                </p>
+                <p>
+                <ul>
+                    <li>Hue: The base shade of the color. This takes a value between 0 and 360, representing the angles
+                        around a color wheel.</li>
+                    <li>Saturation: How saturated is the color? This takes a value from 0–100%, where 0 is no color (it
+                        will appear as a shade of grey), and 100% is full color saturation</li>
+                    <li>Lightness: How light or bright is the color? This takes a value from 0–100%, where 0 is no light
+                        (it will appear completely black) and 100% is full light (it will appear completely white)</li>
+                </ul>
+                </p>
+
+
+                <div class="box4">
+                    <div class="box seven">hsla(188, 97%, 28%, .3)</div>
+                    <div class="box eight">hsla(321, 47%, 57%, .7)</div>
+                    <div class="box nine">hsla(174, 77%, 31%, .9)</div>
+                </div>
+
+                <h4>Images</h4>
+
+                <p>The &lt;image&gt; value type is used wherever an image is a valid value. This can be an actual image
+                    file pointed to via a url() function, or a gradient.
+                </p>
+                <p>
+                    In the example below, we have demonstrated an image and a gradient in use as a value for the CSS
+                    background-image property.
+                </p>
+
+                <div class="box image"></div>
+                <div class="box gradient"></div>
+
+                <h4>Position</h4>
+
+                <p>The &lt;position&gt; value type represents a set of 2D coordinates, used to position an item such as
+                    a background image (via background-position).
+                    It can take keywords such as top, left, bottom, right, and center to align items with specific
+                    bounds of a 2D box, along with lengths, which represent offsets
+                    from the top and left-hand edges of the box.
+                </p>
+                <p>
+                    A typical position value consists of two values — the first sets the position horizontally, the
+                    second vertically. If you only specify values
+                    for one axis the other will default to center.
+                </p>
+                <p>
+                    In the following example we have positioned a background image 40px from the top and to the right of
+                    the container using a keyword.
+                </p>
+
+                <div class="box5"></div>
+
+                <h4>Strings and identifiers</h4>
+
+                <p>Throughout the examples above, we've seen places where keywords are used as a value (for example
+                    &lt;color&gt; keywords like red, black, rebeccapurple, and goldenrod).
+                    These keywords are more accurately described as identifiers, a special value that CSS understands.
+                    As such they are not quoted — they are not treated as strings.
+                </p>
+                <p>
+                    There are places where you use strings in CSS. For example when specifying generated content.
+                    In this case, the value is quoted to demonstrate that it is a string. In the below example we use
+                    unquoted color keywords along with a quoted generated content string.
+                </p>
+
+                <div class="box6"></div>
+
+
+                <h4>Functions</h4>
+
+                <p>The final type of value we will take a look at is the group of values known as functions. In
+                    programming, a function is a reusable section of code that
+                    can be run multiple times to complete a repetitive task with minimum effort on the part of both the
+                    developer and the computer. Functions are usually associated
+                    with languages like JavaScript, Python, or C++, but they do exist in CSS too, as property values.
+                    We've already seen functions in action in the Colors section — rgb(), hsl(), etc.
+                    The value used to return an image from a file — url() — is also a function.
+                </p>
+                <p>
+                    A value that behaves more like something you might find in a traditional programming language is the
+                    calc() CSS function. This function gives you the ability to do simple
+                    calculations inside your CSS. It's particularly useful if you want to work out values that you can't
+                    define when writing the CSS for your project, and need the browser to work
+                    out for you at runtime.
+                </p>
+                <p>
+                    For example, below we are using calc() to make the box 20% + 100px wide. The 20% is calculated from
+                    the width of the parent container .wrapper and so will change if
+                    that width changes. We can't do this calculation beforehand because we don't know what 20% of the
+                    parent will be, so we use calc() to tell the browser to do it for us.
+                </p>
+
+
+
+
+                <div class="wrapper2">
+                    <div class="box7">My width is calculated.</div>
+                </div>
+
+
+
+
+            </div>
+
+        </div>
+    </div>
 
 </body>
 <footer class="footer pt-5 mt-5 bg-gray-400">
