@@ -36,52 +36,24 @@
     <!-- CSS Files -->
     <link id="pagestyle" href="../assets/css/material-kit.css?v=3.0.0" rel="stylesheet" />
     <link rel="stylesheet" href="../app.css">
+
     <style>
-        .horizontal {
-            border: 5px solid rgb(34, 204, 77);
-            writing-mode: horizontal-tb;
-        }
-
-        .vertical {
-            border: 5px solid rgb(172, 20, 20);
-            writing-mode: vertical-rl;
-        }
-
-        .wrapper {
+        .box {
             border: 5px solid black;
-            margin-right: auto;
-            /* 1 */
-            margin-left: auto;
-            /* 1 */
-
-            max-width: 960px;
-            /* 2 */
-
-            padding-right: 10px;
-            /* 3 */
-            padding-left: 10px;
-            /* 3 */
+            padding: 1em;
+            height: 200px;
+            width: 300px;
+            overflow: auto;
         }
 
-        .boxa {
-            width: 150px;
-        }
-
-        .horizontala {
-            border: 5px solid rgb(34, 204, 77);
-            writing-mode: horizontal-tb;
-        }
-
-        .verticala {
-            border: 5px solid rgb(172, 20, 20);
-            writing-mode: vertical-rl;
-        }
-
-        .boxb {
-            inline-size: 200px;
-            writing-mode: horizontal-tb;
+        .box1 {
+            border: 5px solid black;
+            height: 200px;
+            width: 300px;
+            overflow: hidden;
         }
     </style>
+
 </head>
 
 
@@ -608,7 +580,7 @@
     <!-- -------- END HEADER 7 w/ text and video ------- -->
     <div class="card card-body shadow-xl mx-3 mx-md-4 mt-n6">
 
-        <!-- <iframe src="https://sjfcross.github.io/firstpage/indexf.html" width="auto" height="800"></iframe> -->
+        <!-- <iframe src="https://sjfcross.github.io/subpages/repairedmdn/index.html" width="auto" height="800"></iframe> -->
 
         <!-- Section with four info areas left & one card right with image and waves -->
         <section class="py-7">
@@ -685,8 +657,8 @@
                                                         <li><a class="dropdown-item"
                                                                 href="../pages/mdn13.html">Backgrounds & Borders</a>
                                                         </li>
-                                                        <li><a class="dropdown-item"
-                                                                href="../pages/mdn14.html">Text directions</a></li>
+                                                        <li><a class="dropdown-item" href="../pages/mdn14.html">Text
+                                                                directions</a></li>
                                                         <li><a class="dropdown-item"
                                                                 href="../pages/mdn15.html">Overflow</a></li>
                                                         <li><a class="dropdown-item"
@@ -881,62 +853,49 @@
                     </div>
                     <div class="col-lg-7 ms-auto mt-lg-0 mt-4">
                         <div class="card">
-
                             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                                <!-- <a class="d-block blur-shadow-image"> -->
 
                                 <h2 style="color:rgb(12, 150, 70);"><i
-                                        class="material-icons text-3xl text-gradient text-info mb-3 pe-3">article</i>Text directions</h2>
+                                        class="material-icons text-3xl text-gradient text-info mb-3 pe-3">article</i>Test
+                                    your skills: Overflow</h2>
 
-                                                                <h3>What are writing modes?</h3>
-                                        
-                                        <p>A writing mode in CSS refers to whether the text is running horizontally or vertically.
-                                            The writing-mode property lets us switch from one writing mode to another. You don't need to be working in a 
-                                            language which uses a vertical writing mode to want to do this — you could also change the writing mode 
-                                            of parts of your layout for creative purposes.
-                                        </p>
-                                        <p>In the example below we have a heading displayed using writing-mode: vertical-rl. The text now runs vertically. 
-                                            Vertical text is common in graphic design, and can be a way to add a more interesting look and feel to your web design.
-                                        </p>
-                                        
-                                        <h1 style="writing-mode: vertical-rl;">Play with writing modes</h1>
-                                        
-                                        
-                                        <p>The three possible values for the writing-mode property are:</p>
-                                        <p>
-                                            <ul>
-                                        <li>horizontal-tb: Top-to-bottom block flow direction. Sentences run horizontally.</li>
-                                        <li>vertical-rl: Right-to-left block flow direction. Sentences run vertically.</li>
-                                        <li>vertical-lr: Left-to-right block flow direction. Sentences run vertically.</li>
-                                            </ul>
-                                        </p>
-                                        <p>So the writing-mode property is in reality setting the direction in which block-level elements are displayed on the 
-                                            page — either from top-to-bottom, right-to-left, or left-to-right. This then dictates the direction text flows in sentences.
-                                        </p>
-                                        
+                                <h5>The aim of these tasks is to help you check your understanding of overflow in
+                                    CSS.</h5>
 
+                                <p>
+                                <div class="box">
+                                    <p>Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh
+                                        onion daikon amaranth tatsoi tomatillo melon azuki bean garlic.</p>
 
+                                    <p>Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette
+                                        tatsoi pea sprouts fava bean collard greens dandelion okra wakame
+                                        tomato. Dandelion cucumber earthnut pea peanut soko zucchini.</p>
+                                    <p>(overflow: auto)</p>
+                                </div>
+                                </p>
 
-
+                                <p>
+                                <div class="box1">
+                                    <img src="../images/flowers.jpg" alt="flowers">
+                                </div>
+                                </p>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
-    </div>
-    </section>
+        </section>
 
-    <!-- -------- START Content Presentation Docs ------- -->
-    <div class="container mt-sm-5">
-        <div class="page-header py-6 py-md-5 my-sm-3 mb-3 border-radius-xl"
-            style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/desktop.jpg');"
-            loading="lazy">
-            <span class="mask bg-gradient-primary opacity-2"></span>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 ms-lg-5">
-                        <!-- <h4 class="text-white">Built by developers</h4>
+        <!-- -------- START Content Presentation Docs ------- -->
+        <div class="container mt-sm-5">
+            <div class="page-header py-6 py-md-5 my-sm-3 mb-3 border-radius-xl"
+                style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/desktop.jpg');"
+                loading="lazy">
+                <span class="mask bg-gradient-primary opacity-2"></span>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 ms-lg-5">
+                            <!-- <h4 class="text-white">Built by developers</h4>
                 <h1 class="text-white">Complex Documentation</h1>
                 <p class="lead text-white opacity-8">From colors, cards, typography to complex elements, you
                   will find the full documentation. Play with the utility classes and you will create
@@ -946,210 +905,13 @@
                   Read docs
                   <i class="fas fa-arrow-right text-sm ms-1"></i>
                 </a> -->
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-
-    <!-- <section class="py-7">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-6">
-                        <div class="row justify-content-start">
-                            <div class="col-md-6">
-                                <div class="info">
-                                    <i class="material-icons text-3xl text-gradient text-info mb-3">public</i>
-                                    <h5>Access Sites 1 - 50</h5>
-
-                                    <div class="dropdown">
-                                        <button class="btn btn-lg btn-primary dropdown-toggle" type="button"
-                                            id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Index 01-10
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/firstpage/indexf.html">1. Chaotic
-                                                    first page</a></li>
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/subpages/inline1.html">2. Detailing
-                                                    & Hummus </a></li>
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/subpages/inline2.html">3. Basic
-                                                    HTML-animals</a></li>
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/firstpage/indexf.html">4. Chaotic
-                                                    first page</a></li>
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/subpages/inline1.html">5. Detailing
-                                                    & Hummus </a></li>
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/subpages/inline2.html">6. Basic
-                                                    HTML-animals</a></li>
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/firstpage/indexf.html">7. Chaotic
-                                                    first page</a></li>
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/subpages/inline1.html">8. Detailing
-                                                    & Hummus </a></li>
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/subpages/inline2.html">9. Basic
-                                                    HTML-animals</a></li>
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/subpages/inline2.html">10. Basic
-                                                    HTML-animals</a></li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="dropdown">
-                                        <button class="btn btn-lg btn-primary dropdown-toggle" type="button"
-                                            id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Index 11-20
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/firstpage/indexf.html">Chaotic
-                                                    first page</a></li>
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/subpages/inline1.html">Detailing &
-                                                    Hummus </a></li>
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/subpages/inline2.html">Basic
-                                                    HTML-animals</a></li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="dropdown">
-                                        <button class="btn btn-lg btn-primary dropdown-toggle" type="button"
-                                            id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Index 21-30
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/firstpage/indexf.html">1. Chaotic
-                                                    first page</a></li>
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/subpages/inline1.html">2. Detailing
-                                                    & Hummus </a></li>
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/subpages/inline2.html">3. Basic
-                                                    HTML-animals</a></li>
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/firstpage/indexf.html">4. Chaotic
-                                                    first page</a></li>
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/subpages/inline1.html">5. Detailing
-                                                    & Hummus </a></li>
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/subpages/inline2.html">6. Basic
-                                                    HTML-animals</a></li>
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/firstpage/indexf.html">7. Chaotic
-                                                    first page</a></li>
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/subpages/inline1.html">8. Detailing
-                                                    & Hummus </a></li>
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/subpages/inline2.html">9. Basic
-                                                    HTML-animals</a></li>
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/subpages/inline2.html">10. Basic
-                                                    HTML-animals</a></li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="dropdown">
-                                        <button class="btn btn-lg btn-primary dropdown-toggle" type="button"
-                                            id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Index 31-40
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/firstpage/indexf.html">1. Chaotic
-                                                    first page</a></li>
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/subpages/inline1.html">2. Detailing
-                                                    & Hummus </a></li>
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/subpages/inline2.html">3. Basic
-                                                    HTML-animals</a></li>
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/firstpage/indexf.html">4. Chaotic
-                                                    first page</a></li>
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/subpages/inline1.html">5. Detailing
-                                                    & Hummus </a></li>
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/subpages/inline2.html">6. Basic
-                                                    HTML-animals</a></li>
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/firstpage/indexf.html">7. Chaotic
-                                                    first page</a></li>
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/subpages/inline1.html">8. Detailing
-                                                    & Hummus </a></li>
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/subpages/inline2.html">9. Basic
-                                                    HTML-animals</a></li>
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/subpages/inline2.html">10. Basic
-                                                    HTML-animals</a></li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="dropdown">
-                                        <button class="btn btn-lg btn-primary dropdown-toggle" type="button"
-                                            id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Index 41-50
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/firstpage/indexf.html">1. Chaotic
-                                                    first page</a></li>
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/subpages/inline1.html">2. Detailing
-                                                    & Hummus </a></li>
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/subpages/inline2.html">3. Basic
-                                                    HTML-animals</a></li>
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/firstpage/indexf.html">4. Chaotic
-                                                    first page</a></li>
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/subpages/inline1.html">5. Detailing
-                                                    & Hummus </a></li>
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/subpages/inline2.html">6. Basic
-                                                    HTML-animals</a></li>
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/firstpage/indexf.html">7. Chaotic
-                                                    first page</a></li>
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/subpages/inline1.html">8. Detailing
-                                                    & Hummus </a></li>
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/subpages/inline2.html">9. Basic
-                                                    HTML-animals</a></li>
-                                            <li><a class="dropdown-item"
-                                                    href="https://sjfcross.github.io/subpages/inline2.html">10. Basic
-                                                    HTML-animals</a></li>
-                                        </ul>
-                                    </div>
-
-
-                                    <p>We get insulted by others, lose trust for those We get back freezes</p>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="info">
-                                    <i class="material-icons text-3xl text-gradient text-info mb-3">payments</i>
-                                    <h5>Payments functionality</h5>
-                                    <p>We get insulted by others, lose trust for those We get back freezes</p>
-                                </div>
-                            </div>
-                        </div> -->
-    <!-- <div class="row justify-content-start mt-4">
+        <!-- <div class="row justify-content-start mt-4">
                         <div class="col-md-6">
                             <div class="info">
                                 <i class="material-icons text-3xl text-gradient text-info mb-3">apps</i>
@@ -1360,139 +1122,7 @@
       </div>
     </section> -->
     <!-- -------- END PRE-FOOTER 1 w/ SUBSCRIBE BUTTON AND IMAGE ------- -->
-    <div class="container">
-        <div class="col-lg-12 ms-auto mt-lg-6 mt-4 justify-content-center align-items-center text-start">
 
-            <div class="p-0 position-relative mt-4 mx-3 ">
-                <!-- <a class="d-block blur-shadow-image"> -->
-                <h2 style="color:rgb(12, 150, 70);"><i
-                        class="material-icons text-3xl text-gradient text-info mb-3 pe-3">article</i>Writing modes, block and inline layout</h2>
-
-
-                        <p>We have already discussed block and inline layout, and the fact that some things display as block elements and others 
-                        as inline elements. As we have seen described above, block and inline is tied to the writing mode of the document, 
-                        and not the physical screen. Blocks are only displayed from the top to the bottom of the page if you are using a writing mode 
-                        that displays text horizontally, such as English.
-                        </p>
-                        <p>
-                        If we look at an example this will become clearer. In this next example I have two boxes that contain a heading and a paragraph. 
-                        The first uses writing-mode: horizontal-tb, a writing mode that is written horizontally and from the top of the page to the bottom. 
-                        The second uses writing-mode: vertical-rl; this is a writing mode that is written vertically and from right to left.
-                        </p>
-                        
-                        <div class="wrapper">
-                          <div class="box horizontal">
-                            <h2>Heading</h2>
-                            <p>A paragraph. Demonstrating Writing Modes in CSS.</p>
-                          </div>
-                          <div class="box vertical">
-                            <h2>Heading</h2>
-                            <p>A paragraph. Demonstrating Writing Modes in CSS.</p>
-                          </div>
-                        </div>
-                        
-                        <p>What we really want in this scenario, is to essentially swap height and width along with the writing mode. When we're in a vertical writing 
-                          mode we want the box to expand in the block dimension just like it does in the horizontal mode.
-                        </p>
-                        <p>
-                        To make this easier, CSS has recently developed a set of mapped properties. These essentially replace physical properties — things 
-                        like width and height — with logical, or flow relative versions.
-                        </p>
-                        <p>
-                        The property mapped to width when in a horizontal writing mode is called <strong>inline-size</strong>— it refers to the size in the inline dimension. 
-                        The property for height is named <strong>block-size</strong> and is the size in the block dimension. You can see how this works in the example below 
-                        where we have replaced width with inline-size.
-                        </p>
-                        
-                        <div class="wrapper">
-                          <div class="boxa horizontala">
-                            <h2>Heading</h2>
-                            <p>A paragraph. Demonstrating Writing Modes in CSS.</p>
-                            <p>These boxes have a width.</p>
-                          </div>
-                          <div class="boxa verticala">
-                            <h2>Heading</h2>
-                            <p>A paragraph. Demonstrating Writing Modes in CSS.</p>
-                            <p>These boxes have a width.</p>
-                          </div>
-                        </div>
-                            
-                        <h3>Logical margin, border, and padding properties</h3>
-                        
-                        <p>In the last two lessons we have learned about the CSS box model, and CSS borders. In the margin, border, and padding properties you will find many 
-                          instances of physical properties, for example margin-top, padding-left, and border-bottom. In the same way that we have mappings for width and 
-                          height there are mappings for these properties.
-                        </p>
-                        <p>
-                        The margin-top property is mapped to margin-block-start — this will always refer to the margin at the start of the block dimension.
-                        </p>
-                        <p>
-                        The padding-left property maps to padding-inline-start, the padding that is applied to the start of the inline direction. 
-                        This will be where sentences start in that writing mode. The border-bottom property maps to border-block-end, which is the border at the end of the block dimension.
-                        </p>
-                        
-                        <pre><code><strong>
-                        
-                          .logical &#123;
-                          margin-block-start: 20px;
-                          padding-inline-end: 2em;
-                          padding-block-start: 2px;
-                          border-block-start: 5px solid pink;
-                          border-inline-end: 10px dotted rebeccapurple;
-                          border-block-end: 1em double orange;
-                          border-inline-start: 1px solid black;
-                        &#125;
-                        
-                        .physical &#123;
-                          margin-top: 20px;
-                          padding-right: 2em;
-                          padding-top: 2px;
-                          border-top: 5px solid pink;
-                          border-right: 10px dotted rebeccapurple;
-                          border-bottom: 1em double orange;
-                          border-left: 1px solid black;
-                        &#125;
-                        
-                        h2 &#123;
-                          border-block-end: 5px solid black;
-                        &#125;
-                        
-                        
-                        
-                        </strong></code></pre>
-                        
-                        
-                        <h3>Logical values</h3>
-                        
-                        <p>We have so far looked at logical property names. There are also some properties that take physical values of top, right, bottom, and left. 
-                          These values also have mappings, to logical values — block-start, inline-end, block-end, and inline-start.
-                        </p>
-                        <p>
-                        For example, you can float an image left to cause text to wrap round the image. You could replace left with inline-start as shown in the example below.
-                        </p>
-                        <p>
-                        Change the writing mode on this example to vertical-rl to see what happens to the image. Change inline-start to inline-end to change the float.
-                        </p>
-                        
-                        
-                        <div class="wrapper">
-                          <div class="boxb logicalb">
-                        
-                            <img src="../images/big-star.png" alt="star" style="float: inline-start; margin-inline-end: 10px; margin-block-end: 10px;">
-                        
-                            <p>This box uses logical properties. The star image has been floated inline-start, it also has a margin on the inline-end and block-end.</p>
-                        
-                          </div>
-                        </div>
-                        
-
-
-
-
-            </div>
-
-        </div>
-    </div>
 
 </body>
 <footer class="footer pt-5 mt-5 bg-gray-400">
