@@ -36,6 +36,31 @@
     <!-- CSS Files -->
     <link id="pagestyle" href="../assets/css/material-kit.css?v=3.0.0" rel="stylesheet" />
     <link rel="stylesheet" href="../app.css">
+
+    <style>
+        .codebox {
+            background-color: rgb(214, 202, 191);
+        }
+
+        code {
+            font-size: 1.2em;
+
+        }
+
+        .interbox {
+            margin: auto;
+            width: 50%;
+            border: 3px solid green;
+            padding: 10px;
+            background-color: rgb(180, 199, 166);
+            border-radius: 5px;
+        }
+    </style>
+
+
+
+
+
 </head>
 
 
@@ -560,8 +585,7 @@
 
 
     <!-- -------- END HEADER 7 w/ text and video ------- -->
-    <div class="card card-body shadow-xl mx-3 mx-md-4 mt-n6"
-        style="background-image: url(../assets/img/bgwht.jpg); background-position: 50% 49%;">
+    <div class="card card-body shadow-xl mx-3 mx-md-4 mt-n6">
 
         <!-- <iframe src="https://sjfcross.github.io/firstpage/indexf.html" width="auto" height="800"></iframe> -->
 
@@ -573,7 +597,6 @@
                         <div class="row justify-content-start">
                             <div class="col-md-8">
                                 <div class="info">
-
                                     <h2> <i
                                             class="material-icons text-3xl text-gradient text-info mb-3 pe-3">segment</i>Html
                                         5</h2>
@@ -784,13 +807,17 @@
                                                                 href="https://sjfcross.github.io/subpages/inline2.html">Basic
                                                                 HTML-animals</a></li>
                                                         <li><a class="dropdown-item"
+                                                                href="https://sjfcross.github.io/firstpage/indexf.html">Chaotic
+                                                                first page</a></li>
+                                                        <li><a class="dropdown-item"
                                                                 href="https://sjfcross.github.io/subpages/inline1.html">Detailing
                                                                 & Hummus </a></li>
                                                         <li><a class="dropdown-item"
                                                                 href="https://sjfcross.github.io/subpages/inline2.html">Basic
                                                                 HTML-animals</a></li>
-                                                        <li><a class="dropdown-item" href="../pages/vidbas1.html">Other
-                                                                - WDS - CSS-Img-Animation</a></li>
+                                                        <li><a class="dropdown-item"
+                                                                href="https://sjfcross.github.io/subpages/inline2.html">Basic
+                                                                HTML-animals</a></li>
                                                     </ol>
                                                 </div>
                                             </div>
@@ -828,30 +855,296 @@
                     </div>
                     <div class="col-lg-7 ms-auto mt-lg-0 mt-4">
                         <div class="card">
-                            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                                <a class="d-block blur-shadow-image">
-                                    <h2><i
-                                            class="material-icons text-3xl text-gradient text-info mb-3 pe-3">article</i>External
-                                        Webpage</h2>
-                                    <img src="../assets/img/chaosfirstrhumb.jpg" alt="img-colored-shadow"
-                                        class="img-fluid border-radius-lg">
-                                </a>
-                            </div>
-                            <div class="card-body text-center">
-                                <h5 class="font-weight-normal">
-                                    <a href="javascript:;">Very first crazy Testpage</a>
-                                </h5>
-                                <p class="mb-0">
-                                    Just messing around !
-                                </p>
-                                <a href="https://sjfcross.github.io/firstpage/indexf.html"
-                                    class="btn bg-gradient-info btn-sm mb-0 mt-3" role="button">Visit !</a>
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                                <!-- <a class="d-block blur-shadow-image"> -->
+
+                                <h2 style="color:rgb(12, 150, 70);"><i
+                                        class="material-icons text-3xl text-gradient text-info mb-3 pe-3">article</i>Organizing
+                                    your CSS</h2>
+
+
+                                <h3>Tips to keep your CSS tidy</h3>
+
+
+                                <h2>Does your project have a coding style guide?</h2>
+
+                                <p>If you are working with a team on an existing project, the first thing to check is
+                                    whether the project has an existing style guide for CSS.
+                                    The team style guide should always win over your own personal preferences. There
+                                    often isn't a right or wrong way to do things, but consistency is important.
+                                </p>
+
+                                <h2>Keep it consistent</h2>
+
+                                <p>If you get to set the rules for the project or are working alone, then the most
+                                    important thing to do is to keep things consistent.
+                                    Consistency can be applied in all sorts of ways, such as using the same naming
+                                    conventions for classes, choosing one method of describing color,
+                                    or maintaining consistent formatting (for example will you use tabs or spaces to
+                                    indent your code? If spaces, how many spaces?)
+                                </p>
+                                <p>Having a set of rules you always follow reduces the amount of mental overhead needed
+                                    when writing CSS, as some of the decisions are already made.
+                                </p>
+
+                                <h2>Formatting readable CSS</h2>
+
+                                <p>There are a couple of ways you will see CSS formatted. Some developers put all of the
+                                    rules onto a single line, like so:
+                                </p>
+                                <div class="codebox">
+                                    <p>
+                                    <pre>
+                                    <code>
+                            
+                                        .box &#123; background-color: #567895; &#125;
+                                        h2 &#123; background-color: black; color: white; &#125;
+                              
+                                    </code>
+                                </pre>
+                                    </p>
+                                </div>
+
+                                <p>Other developers prefer to break everything onto a new line:</p>
+
+                                <div class="codebox">
+                                    <p>
+                                    <pre>
+                                    <code>
+                                        
+                                        .box &#123;
+                                        background-color: #567895;
+                                      &#125;
+                                      
+                                      h2 &#123;
+                                        background-color: black;
+                                        color: white;
+                                      &#125;
+                                      
+                                      
+                              
+                                    </code>
+                                </pre>
+                                    </p>
+                                </div>
+
+                                <h2>Comment your CSS</h2>
+
+                                <p>Adding comments to your CSS will help any future developer work with your CSS file,
+                                    but will also help you when you come back to the project after a break.
+                                </p>
+
+                                <p>A good tip is to add a block of comments between logical sections in your stylesheet
+                                    too, to help locate different sections quickly when scanning through,
+                                    or even give you something to search for to jump right into that part of the CSS. If
+                                    you use a string which won't appear in the code you can jump from
+                                    section to section by searching for it — below we have used ||.</p>
+
+
+                                <div class="codebox">
+                                    <p>
+                                    <pre>
+                                      <code>
+                            
+                                        /* || General styles */
+                            
+                                        ...
+                                        
+                                        /* || Typography */
+                                        
+                                        ...
+                                        
+                                        /* || Header and Main Navigation */
+                                        
+                                        ...
+                                        
+                                      </code>
+                                  </pre>
+                                    </p>
+                                </div>
+
+                                <h2>Create logical sections in your stylesheet</h2>
+
+                                <p>It is a good idea to have all of the common styling first in the stylesheet. This
+                                    means all of the styles which will generally apply unless you do something
+                                    special with that element. You will typically have rules set up for:
+                                </p>
+                                <ul>
+                                    <li>body</li>
+                                    <li>p</li>
+                                    <li>h1, h2, h3, h4, h5</li>
+                                    <li>ul and ol</li>
+                                    <li>The table properties</li>
+                                    <li>Links</li>
+                                </ul>
+
+
+                                <p>So we start with this section of the stylesheet for providing default styling for the
+                                    type on the site, setting up a default style for data tables and lists and so on.
+                                </p>
+
+                                <div class="codebox">
+                                    <p>
+                                    <pre>
+                            <code>
+                            
+                            /* || GENERAL STYLES */
+                            
+                            body &#123; ... &#125;
+                            
+                            h1, h2, h3, h4 &#123; ... &#125;
+                            
+                            ul &#123; ... &#125;
+                            
+                            blockquote &#123; ... &#125;
+                            
+                            </code>
+                            </pre>
+                                    </p>
+                                </div>
+
+
+                                <p>After this section we could define a few utility classes, for example a class that
+                                    removes the default list style for lists we're going to display as flex
+                                    items or in some other way. If you have a few things you know you will want to apply
+                                    to lots of different elements, they can come in this section.
+                                </p>
+
+
+
+                                <div class="codebox">
+                                    <p>
+                                    <pre>
+                              <code>
+                              
+                                /* || UTILITIES */
+                            
+                                .nobullets &#123;
+                                  list-style: none;
+                                  margin: 0;
+                                  padding: 0;
+                                &#125;
+                                
+                                ...
+                                
+                              </code>
+                              </pre>
+                                    </p>
+                                </div>
+
+
+                                <p>Then we can add everything that is used sitewide. That might be things like the basic
+                                    page layout, the header, navigation styling, and so on.
+                                </p>
+
+                                <div class="codebox">
+                                    <p>
+                                    <pre>
+                                <code>
+                                
+                            /* || SITEWIDE */
+                            
+                            .main-nav &#123; ... &#125;
+                            
+                            .logo &#123; ... &#125;
+                            
+                                  
+                                </code>
+                                </pre>
+                                    </p>
+                                </div>
+
+                                <p>Finally we will include CSS for specific things, broken down by the context, page or
+                                    even component in which they are used.
+                                </p>
+
+
+                                <div class="codebox">
+                                    <p>
+                                    <pre>
+                              <code>
+                              
+                                /* || STORE PAGES */
+                            
+                                .product-listing &#123; ... &#125;
+                                
+                                .product-box &#123; ... &#125;
+                            
+                                
+                              </code>
+                              </pre>
+                                    </p>
+                                </div>
+
+                                <p>By ordering things in this way, we at least have an idea in which part of the
+                                    stylesheet we will be looking for something that we want to change.</p>
+
+                                <h3>Avoid overly-specific selectors</h3>
+
+                                <p>If you create very specific selectors you will often find that you need to duplicate
+                                    chunks of your CSS to apply the same rules to another element.
+                                    For example, you might have something like the below selector, which applies the
+                                    rule to a &lt;p&gt; with a class of box inside an &lt;article&gt; with a class of
+                                    main.
+                                </p>>
+
+
+                                <div class="codebox">
+                                    <p>
+                                    <pre>
+                            <code>
+                            article.main p.box &#123
+                              border: 1px solid #ccc;
+                              &#125
+                            </code>
+                            </pre>
+                                    </p>
+                                </div>
+                                <p>If you then wanted to apply the same rules to something outside of main, or to
+                                    something other than a &lt;p&lt;, you would have to add another selector to
+                                    these rules or create a whole new ruleset. Instead, you could use the selector .box
+                                    to apply your rule to any element that has the class box:
+                                </p>
+                                <div class="codebox">
+                                    <p>
+                                    <pre>
+                              <code>
+                                .box &#123
+                                  border: 1px solid #ccc;
+                                  &#125
+                              </code>
+                              </pre>
+                                    </p>
+                                </div>
+
+
+                                <p>There will be times when making something more specific makes sense, however this
+                                    will generally be an exception rather than usual practice.</p>
+
+                                <h3>Break large stylesheets into multiple smaller ones</h3>
+
+                                <p>In particular in cases where you have very different styles for distinct parts of the
+                                    site, you might want to have a stylesheet that includes all the global
+                                    rules and then smaller ones that include the specific rules needed for those
+                                    sections. You can link to multiple stylesheets from one page, and the normal
+                                    rules of the cascade apply, with rules in stylesheets linked later coming after
+                                    rules in stylesheets linked earlier.
+                                </p>
+
+                                <p>For example, we might have an online store as part of the site, with a lot of CSS
+                                    used only for styling the product listings and forms needed for the store.
+                                    It would make sense to have those things in a different stylesheet, only linked to
+                                    on store pages.
+                                </p>
+
+                                <p>This can make it easier to keep your CSS organized, and also means that if multiple
+                                    people are working on the CSS you will have fewer situations where two
+                                    people need to work on the same stylesheet at once, leading to conflicts in source
+                                    control.
+                                </p>
+
+
         </section>
 
         <!-- -------- START Content Presentation Docs ------- -->
@@ -1287,265 +1580,518 @@
       </div>
     </section> -->
     <!-- -------- END PRE-FOOTER 1 w/ SUBSCRIBE BUTTON AND IMAGE ------- -->
+    <div class="container">
+        <div class="col-lg-12 ms-auto mt-lg-6 mt-4 justify-content-center align-items-center text-start">
+
+            <div class="p-0 position-relative mt-4 mx-3 ">
+                <!-- <a class="d-block blur-shadow-image"> -->
+                <h2 style="color:rgb(12, 150, 70);"><i
+                        class="material-icons text-3xl text-gradient text-info mb-3 pe-3">article</i>Other tools that
+                    can help</h2>
+
+
+
+                <p>CSS itself doesn't have much in the way of in-built organization, therefore you need to do the work
+                    to create consistency and rules around how you write CSS.
+                    The web community has also developed various tools and approaches that can help you to manage larger
+                    CSS projects. As they may be helpful for you to investigate,
+                    and you are likely to come across these things when working with other people, we've included a
+                    short guide to some of these.
+                </p>
+
+
+                <h2>CSS methodologies</h2>
+
+                <p>Instead of needing to come up with your own rules for writing CSS, you may benefit from adopting one
+                    of the approaches already designed by the community and tested
+                    across many projects. These methodologies are essentially CSS coding guides that take a very
+                    structured approach to writing and organizing CSS. Typically they tend to
+                    result in more verbose use of CSS than you might have if you wrote and optimised every selector to a
+                    custom set of rules for that project.
+                </p>
+
+                <p>However, you do gain a lot of structure by adopting one and, as many of these systems are very widely
+                    used, other developers are more likely to understand the approach you
+                    are using and be able to write their CSS in the same way, rather than having to work out your own
+                    personal methodology from scratch.
+                </p>
+
+                <h3>OOCSS</h3>
+
+                <p>Most of the approaches that you will encounter owe something to the concept of Object Oriented CSS
+                    (OOCSS), an approach made popular by
+                    <a href="https://github.com/stubbornella/oocss/wiki">the work of Nicole Sullivan</a>.
+                    The basic idea of OOCSS is to separate your CSS into reusable objects, which can be used anywhere
+                    you need on your site. The standard example of OOCSS is the pattern
+                    described as <a
+                        href="http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/">The
+                        Media Object</a>. This is a pattern with a fixed size image, video or other element on one side,
+                    and flexible content on the other. It's a pattern we see all
+                    over websites for comments, listings, and so on.
+                </p>
+
+                <h3>BEM</h3>
+
+                <p>BEM stands for Block Element Modifier. In BEM a block is a stand-alone entity such as a button, menu,
+                    or logo. An element is something like a list item or a title
+                    that is tied to the block it is in. A modifier is a flag on a block or element that changes the
+                    styling or behavior. You will be able to recognize code that uses
+                    BEM due to the extensive use of dashes and underscores in the CSS classes. For example, look at the
+                    classes applied to this HTML from the page about
+                    <a href="http://getbem.com/naming/"> BEM Naming conventions:</a>
+                </p>
+
+                <div class="codebox">
+                    <p>
+                    <pre>
+                              <code>
+                                &lt;form class="form form--theme-xmas form--simple"&gt;
+                                &lt;input class="form__input" type="text" /&gt;
+                                &lt;input
+                                  class="form__submit form__submit--disabled"
+                                  type="submit" /&gt;
+                              &lt;/form&gt;
+                              </code>
+                              </pre>
+                    </p>
+                </div>
+
+
+
+                <p>The additional classes are similar to those used in the OOCSS example, however they use the strict
+                    naming conventions of BEM.
+                </p>
+                <p>BEM is widely used in larger web projects and many people write their CSS in this way. It is likely
+                    that you will come across examples, even in tutorials, that use BEM syntax, without mentioning why
+                    the CSS is structured in such a way.
+                </p>
+                <p>To read more about the system read <a href="https://css-tricks.com/bem-101/">BEM 101</a> on CSS
+                    Tricks.
+                </p>
+
+                <h3>Other common systems</h3>
+
+                <p>There are a large number of these systems in use. Other popular approaches include <a
+                        href="http://smacss.com/book/categorizing">Scalable and Modular Architecture for CSS
+                        (SMACSS)</a>,
+                    created by Jonathan Snook, <a href="https://itcss.io/">ITCSS</a> from Harry Roberts, and <a
+                        href="https://acss.io/">Atomic CSS (ACSS)</a>, originally created by Yahoo!. If you come across
+                    a project that uses one
+                    of these approaches then the advantage is that you will be able to search and find many articles and
+                    guides to help you understand how to code in the same style.
+                </p>
+
+                <p>The disadvantage of using such a system is that they can seem overly complex, especially for smaller
+                    projects.</p>
+
+                <h3>Build systems for CSS (eg SASS)</h3>
+
+                <p>Another way to organize CSS is to take advantage of some of the tooling that is available for
+                    front-end developers, which allows you to take a slightly more programmatic
+                    approach to writing CSS. There are a number of tools which we refer to as
+                    <strong>pre-processors</strong> and <strong>post-processors</strong>. A pre-processor runs over your
+                    raw files and turns them into a
+                    stylesheet, whereas a post-processor takes your finished stylesheet and does something to it —
+                    perhaps to optimize it in order that it will load faster.
+                </p>
+
+                <p>Using any of these tools will require that your development environment can run the scripts that do
+                    the pre and post-processing. Many code editors can do this for you,
+                    or you can install command line tools to help.
+                </p>
+                <p>The most popular pre-processor is <a href="https://sass-lang.com/">Sass</a>. This is not a Sass
+                    tutorial, so I will briefly explain a couple of the things that Sass can do,
+                    which are really helpful in terms of organization, even if you don't use any of the other Sass
+                    features. If you want to learn a lot more about Sass, start with the
+                    <a href="https://sass-lang.com/guide">Sass basics</a>,then move on to their other documentation.
+                </p>
+
+                <h3>Defining variables</h3>
+
+                <p>CSS now has native <a
+                        href="https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties">custom
+                        properties</a>, making this feature increasingly less important, however one of the
+                    reasons you might use Sass is to be able to define all of the colors and fonts used in a project as
+                    settings, then use that variable around the project.
+                    This means that if you realize you have used the wrong shade of blue, you only need change it in one
+                    place.
+                </p>
+                <p>If we created a variable called $base-color as in the first line below, we could then use it through
+                    the stylesheet anywhere that required that color.
+                </p>
+
+                <div class="codebox">
+                    <p>
+                    <pre>
+                              <code>
+                                $base-color: #c6538c;
+                            
+                                .alert &#123;
+                                  border: 1px solid $base-color;
+                                &#125;
+                                
+                              </code>
+                              </pre>
+                    </p>
+                </div>
+
+                <div class="codebox">
+                    <p>
+                    <pre>
+                                <code>
+                                  .alert &#123;
+                                    border: 1px solid #c6538c;
+                                    &#125;
+                                </code>
+                                </pre>
+                    </p>
+                </div>
+
+                <h3>Compiling component stylesheets</h3>
+
+                <p>I mentioned above that one way to organize CSS is to break down stylesheets into smaller stylesheets.
+                    When using Sass you can take this to another level and have lots
+                    of very small stylesheets — even going as far as having a separate stylesheet for each component. By
+                    using the include functionality in Sass (partials) these can then all
+                    be compiled together into one, or a small number of stylesheets to actually link into your website.
+                </p>
+                <p>So for example, with <a
+                        href="https://sass-lang.com/documentation/at-rules/use#partials">partials</a>, you could have
+                    several style files inside a directory, say foundation/_code.scss, foundation/_lists.scss,
+                    foundation/_footer.scss,
+                    foundation/_links.scss, etc., then use the Sass @use role to load them into other stylesheets:
+                </p>
+
+                <div class="codebox">
+                    <p>
+                    <pre>
+                              <code>
+                            // foundation/_index.sass
+                            @use 'code'
+                            @use 'lists'
+                            @use 'footer'
+                            @use 'links'
+                            </code>
+                            </pre>
+                    </p>
+                </div>
+
+                <p>If the partials are all loaded into an index file, as implied above, you can then load that entire
+                    directory into another stylesheet in one go:
+                </p>
+
+
+                <div class="codebox">
+                    <p>
+                    <pre>
+                              <code>
+                            
+                            // style.sass
+                            @use 'foundation'
+                            
+                            </code>
+                            </pre>
+                    </p>
+                </div>
+
+                <div class="interbox">
+                    <p>
+
+                        <strong>Note:</strong> A simple way to try out Sass is to use CodePen — you can enable Sass for
+                        your CSS in the Settings for a Pen, and CodePen will then run the Sass parser for you,
+                        in order that you can see the resulting webpage with regular CSS applied. Sometimes you will
+                        find that CSS tutorials have used Sass rather than plain CSS in their
+                        CodePen demos, so it is handy to know a little bit about it.
+
+                    </p>
+                </div>
+
+
+
+                <h3>Post-processing for optimization</h3>
+
+                <p>If you are concerned about adding size to your stylesheets by adding a lot of additional comments and
+                    whitespace for example, then a post-processing step could
+                    be to optimize the CSS by stripping out anything unnecessary in the production version. An example
+                    of a post-processor solution for doing this would
+                    be <a href="https://cssnano.co/">cssnano</a>.
+                </p>
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+        </div>
+
+
+
 
     </div>
 
-    <footer class="footer pt-5 mt-5 bg-gray-400">
-        <div class="container">
-            <div class=" row">
-                <div class="col-md-3 mb-4 ms-auto">
-                    <div>
-                        <a href="https://www.creative-tim.com/product/material-kit">
-                            <img src="../assets/img/logo-ct-dark.png" class="mb-3 footer-logo" alt="main_logo">
-                        </a>
-                        <h6 class="font-weight-bolder mb-4">Material Kit 2</h6>
-                    </div>
-                    <div>
-                        <ul class="d-flex flex-row ms-n3 nav">
-                            <li class="nav-item">
-                                <a class="nav-link pe-1" href="https://www.facebook.com/CreativeTim" target="_blank">
-                                    <i class="fab fa-facebook text-lg opacity-8"></i>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link pe-1" href="https://twitter.com/creativetim" target="_blank">
-                                    <i class="fab fa-twitter text-lg opacity-8"></i>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link pe-1" href="https://dribbble.com/creativetim" target="_blank">
-                                    <i class="fab fa-dribbble text-lg opacity-8"></i>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link pe-1" href="https://github.com/creativetimofficial" target="_blank">
-                                    <i class="fab fa-github text-lg opacity-8"></i>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link pe-1" href="https://www.youtube.com/channel/UCVyTG4sCw-rOvB9oHkzZD1w"
-                                    target="_blank">
-                                    <i class="fab fa-youtube text-lg opacity-8"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+    </div>
+    </div>
+
+</body>
+<footer class="footer pt-5 mt-5 bg-gray-400">
+    <div class="container">
+        <div class=" row">
+            <div class="col-md-3 mb-4 ms-auto">
+                <div>
+                    <a href="https://www.creative-tim.com/product/material-kit">
+                        <img src="../assets/img/logo-ct-dark.png" class="mb-3 footer-logo" alt="main_logo">
+                    </a>
+                    <h6 class="font-weight-bolder mb-4">Material Kit 2</h6>
                 </div>
-                <div class="col-md-2 col-sm-6 col-6 mb-4">
-                    <div>
-                        <h6 class="text-sm">Company</h6>
-                        <ul class="flex-column ms-n3 nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/presentation" target="_blank">
-                                    About Us
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/templates/free" target="_blank">
-                                    Freebies
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/templates/premium"
-                                    target="_blank">
-                                    Premium Tools
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/blog" target="_blank">
-                                    Blog
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                <div>
+                    <ul class="d-flex flex-row ms-n3 nav">
+                        <li class="nav-item">
+                            <a class="nav-link pe-1" href="https://www.facebook.com/CreativeTim" target="_blank">
+                                <i class="fab fa-facebook text-lg opacity-8"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link pe-1" href="https://twitter.com/creativetim" target="_blank">
+                                <i class="fab fa-twitter text-lg opacity-8"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link pe-1" href="https://dribbble.com/creativetim" target="_blank">
+                                <i class="fab fa-dribbble text-lg opacity-8"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link pe-1" href="https://github.com/creativetimofficial" target="_blank">
+                                <i class="fab fa-github text-lg opacity-8"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link pe-1" href="https://www.youtube.com/channel/UCVyTG4sCw-rOvB9oHkzZD1w"
+                                target="_blank">
+                                <i class="fab fa-youtube text-lg opacity-8"></i>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-                <div class="col-md-2 col-sm-6 col-6 mb-4">
-                    <div>
-                        <h6 class="text-sm">Resources</h6>
-                        <ul class="flex-column ms-n3 nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://iradesign.io/" target="_blank">
-                                    Illustrations
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/bits" target="_blank">
-                                    Bits & Snippets
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/affiliates/new" target="_blank">
-                                    Affiliate Program
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+            </div>
+            <div class="col-md-2 col-sm-6 col-6 mb-4">
+                <div>
+                    <h6 class="text-sm">Company</h6>
+                    <ul class="flex-column ms-n3 nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.creative-tim.com/presentation" target="_blank">
+                                About Us
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.creative-tim.com/templates/free" target="_blank">
+                                Freebies
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.creative-tim.com/templates/premium" target="_blank">
+                                Premium Tools
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.creative-tim.com/blog" target="_blank">
+                                Blog
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-                <div class="col-md-2 col-sm-6 col-6 mb-4">
-                    <div>
-                        <h6 class="text-sm">Help & Support</h6>
-                        <ul class="flex-column ms-n3 nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/contact-us" target="_blank">
-                                    Contact Us
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/knowledge-center"
-                                    target="_blank">
-                                    Knowledge Center
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://services.creative-tim.com/?ref=ct-mk2-footer"
-                                    target="_blank">
-                                    Custom Development
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/sponsorships" target="_blank">
-                                    Sponsorships
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+            </div>
+            <div class="col-md-2 col-sm-6 col-6 mb-4">
+                <div>
+                    <h6 class="text-sm">Resources</h6>
+                    <ul class="flex-column ms-n3 nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://iradesign.io/" target="_blank">
+                                Illustrations
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.creative-tim.com/bits" target="_blank">
+                                Bits & Snippets
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.creative-tim.com/affiliates/new" target="_blank">
+                                Affiliate Program
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-                <div class="col-md-2 col-sm-6 col-6 mb-4 me-auto">
-                    <div>
-                        <h6 class="text-sm">Legal</h6>
-                        <ul class="flex-column ms-n3 nav">
-                            <li class="nav-item">
-                                <a class="nav-link"
-                                    href="https://www.creative-tim.com/knowledge-center/terms-of-service"
-                                    target="_blank">
-                                    Terms & Conditions
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/knowledge-center/privacy-policy"
-                                    target="_blank">
-                                    Privacy Policy
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/license" target="_blank">
-                                    Licenses (EULA)
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+            </div>
+            <div class="col-md-2 col-sm-6 col-6 mb-4">
+                <div>
+                    <h6 class="text-sm">Help & Support</h6>
+                    <ul class="flex-column ms-n3 nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.creative-tim.com/contact-us" target="_blank">
+                                Contact Us
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.creative-tim.com/knowledge-center" target="_blank">
+                                Knowledge Center
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://services.creative-tim.com/?ref=ct-mk2-footer"
+                                target="_blank">
+                                Custom Development
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.creative-tim.com/sponsorships" target="_blank">
+                                Sponsorships
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-                <div class="col-12">
-                    <div class="text-center">
-                        <p class="text-dark my-4 text-sm font-weight-normal">
-                            All rights reserved. Copyright ©
-                            <script>
-                                document.write(new Date().getFullYear())
-                            </script> Material Kit by <a href="https://www.creative-tim.com" target="_blank">Creative
-                                Tim</a>.
-                        </p>
-                    </div>
+            </div>
+            <div class="col-md-2 col-sm-6 col-6 mb-4 me-auto">
+                <div>
+                    <h6 class="text-sm">Legal</h6>
+                    <ul class="flex-column ms-n3 nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.creative-tim.com/knowledge-center/terms-of-service"
+                                target="_blank">
+                                Terms & Conditions
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.creative-tim.com/knowledge-center/privacy-policy"
+                                target="_blank">
+                                Privacy Policy
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.creative-tim.com/license" target="_blank">
+                                Licenses (EULA)
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="text-center">
+                    <p class="text-dark my-4 text-sm font-weight-normal">
+                        All rights reserved. Copyright ©
+                        <script>
+                            document.write(new Date().getFullYear())
+                        </script> Material Kit by <a href="https://www.creative-tim.com" target="_blank">Creative
+                            Tim</a>.
+                    </p>
                 </div>
             </div>
         </div>
-    </footer>
-    <!--   Core JS Files   -->
-    <script src="../assets/js/core/popper.min.js" type="text/javascript"></script>
-    <script src="../assets/js/core/bootstrap.min.js" type="text/javascript"></script>
-    <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
-    <!--  Plugin for TypedJS, full documentation here: https://github.com/inorganik/CountUp.js -->
-    <script src="../assets/js/plugins/countup.min.js"></script>
-    <!--  Plugin for Parallax, full documentation here: https://github.com/wagerfield/parallax  -->
-    <script src="../assets/js/plugins/parallax.min.js"></script>
-    <!-- Control Center for Material UI Kit: parallax effects, scripts for the example pages etc -->
-    <!--  Google Maps Plugin    -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTTfWur0PDbZWPr7Pmq8K3jiDp0_xUziI"></script>
-    <script src="../assets/js/material-kit.min.js?v=3.0.0" type="text/javascript"></script>
-    <script>
-        // get the element to animate
-        var element = document.getElementById('count-stats');
-        var elementHeight = element.clientHeight;
+    </div>
+</footer>
+<!--   Core JS Files   -->
+<script src="../assets/js/core/popper.min.js" type="text/javascript"></script>
+<script src="../assets/js/core/bootstrap.min.js" type="text/javascript"></script>
+<script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
+<!--  Plugin for TypedJS, full documentation here: https://github.com/inorganik/CountUp.js -->
+<script src="../assets/js/plugins/countup.min.js"></script>
+<!--  Plugin for Parallax, full documentation here: https://github.com/wagerfield/parallax  -->
+<script src="../assets/js/plugins/parallax.min.js"></script>
+<!-- Control Center for Material UI Kit: parallax effects, scripts for the example pages etc -->
+<!--  Google Maps Plugin    -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTTfWur0PDbZWPr7Pmq8K3jiDp0_xUziI"></script>
+<script src="../assets/js/material-kit.min.js?v=3.0.0" type="text/javascript"></script>
+<script>
+    // get the element to animate
+    var element = document.getElementById('count-stats');
+    var elementHeight = element.clientHeight;
 
-        // listen for scroll event and call animate function
+    // listen for scroll event and call animate function
 
-        document.addEventListener('scroll', animate);
+    document.addEventListener('scroll', animate);
 
-        // check if element is in view
-        function inView() {
-            // get window height
-            var windowHeight = window.innerHeight;
-            // get number of pixels that the document is scrolled
-            var scrollY = window.scrollY || window.pageYOffset;
-            // get current scroll position (distance from the top of the page to the bottom of the current viewport)
-            var scrollPosition = scrollY + windowHeight;
-            // get element position (distance from the top of the page to the bottom of the element)
-            var elementPosition = element.getBoundingClientRect().top + scrollY + elementHeight;
+    // check if element is in view
+    function inView() {
+        // get window height
+        var windowHeight = window.innerHeight;
+        // get number of pixels that the document is scrolled
+        var scrollY = window.scrollY || window.pageYOffset;
+        // get current scroll position (distance from the top of the page to the bottom of the current viewport)
+        var scrollPosition = scrollY + windowHeight;
+        // get element position (distance from the top of the page to the bottom of the element)
+        var elementPosition = element.getBoundingClientRect().top + scrollY + elementHeight;
 
-            // is scroll position greater than element position? (is element in view?)
-            if (scrollPosition > elementPosition) {
-                return true;
-            }
-
-            return false;
+        // is scroll position greater than element position? (is element in view?)
+        if (scrollPosition > elementPosition) {
+            return true;
         }
 
-        var animateComplete = true;
-        // animate element when it is in view
-        function animate() {
+        return false;
+    }
 
-            // is element in view?
-            if (inView()) {
-                if (animateComplete) {
-                    if (document.getElementById('state1')) {
-                        const countUp = new CountUp('state1', document.getElementById("state1").getAttribute("countTo"));
-                        if (!countUp.error) {
-                            countUp.start();
-                        } else {
-                            console.error(countUp.error);
-                        }
+    var animateComplete = true;
+    // animate element when it is in view
+    function animate() {
+
+        // is element in view?
+        if (inView()) {
+            if (animateComplete) {
+                if (document.getElementById('state1')) {
+                    const countUp = new CountUp('state1', document.getElementById("state1").getAttribute("countTo"));
+                    if (!countUp.error) {
+                        countUp.start();
+                    } else {
+                        console.error(countUp.error);
                     }
-                    if (document.getElementById('state2')) {
-                        const countUp1 = new CountUp('state2', document.getElementById("state2").getAttribute("countTo"));
-                        if (!countUp1.error) {
-                            countUp1.start();
-                        } else {
-                            console.error(countUp1.error);
-                        }
-                    }
-                    if (document.getElementById('state3')) {
-                        const countUp2 = new CountUp('state3', document.getElementById("state3").getAttribute("countTo"));
-                        if (!countUp2.error) {
-                            countUp2.start();
-                        } else {
-                            console.error(countUp2.error);
-                        };
-                    }
-                    animateComplete = false;
                 }
+                if (document.getElementById('state2')) {
+                    const countUp1 = new CountUp('state2', document.getElementById("state2").getAttribute("countTo"));
+                    if (!countUp1.error) {
+                        countUp1.start();
+                    } else {
+                        console.error(countUp1.error);
+                    }
+                }
+                if (document.getElementById('state3')) {
+                    const countUp2 = new CountUp('state3', document.getElementById("state3").getAttribute("countTo"));
+                    if (!countUp2.error) {
+                        countUp2.start();
+                    } else {
+                        console.error(countUp2.error);
+                    };
+                }
+                animateComplete = false;
             }
         }
+    }
 
-        if (document.getElementById('typed')) {
-            var typed = new Typed("#typed", {
-                stringsElement: '#typed-strings',
-                typeSpeed: 90,
-                backSpeed: 90,
-                backDelay: 200,
-                startDelay: 500,
-                loop: true
-            });
-        }
-    </script>
-    <script>
-        if (document.getElementsByClassName('page-header')) {
-            window.onscroll = debounce(function () {
-                var scrollPosition = window.pageYOffset;
-                var bgParallax = document.querySelector('.page-header');
-                var oVal = (window.scrollY / 3);
-                bgParallax.style.transform = 'translate3d(0,' + oVal + 'px,0)';
-            }, 6);
-        }
-    </script>
+    if (document.getElementById('typed')) {
+        var typed = new Typed("#typed", {
+            stringsElement: '#typed-strings',
+            typeSpeed: 90,
+            backSpeed: 90,
+            backDelay: 200,
+            startDelay: 500,
+            loop: true
+        });
+    }
+</script>
+<script>
+    if (document.getElementsByClassName('page-header')) {
+        window.onscroll = debounce(function () {
+            var scrollPosition = window.pageYOffset;
+            var bgParallax = document.querySelector('.page-header');
+            var oVal = (window.scrollY / 3);
+            bgParallax.style.transform = 'translate3d(0,' + oVal + 'px,0)';
+        }, 6);
+    }
+</script>
 </body>
 
 </html>
