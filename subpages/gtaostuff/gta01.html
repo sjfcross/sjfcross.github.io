@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Yellowtail&display=swap" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+
+
+    <style>
+        #myImg {
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        #myImg:hover {
+            opacity: 0.7;
+        }
+
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            padding-top: 100px;
+            /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.9);
+            /* Black w/ opacity */
+        }
+
+        .modal-content {
+            border-radius: 10px;
+            margin: auto;
+            display: block;
+            width: 90%;
+            max-width: 1200px;
+        }
+
+        #caption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: #ccc;
+            padding: 10px 0;
+            height: 150px;
+            font-size: 30px;
+        }
+
+        .modal-content,
+        #caption {
+            animation-name: zoom;
+            animation-duration: 0.6s;
+        }
+
+        @keyframes zoom {
+            from {
+                transform: scale(0)
+            }
+
+            to {
+                transform: scale(1)
+            }
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        @media only screen and (max-width: 1000px) {
+            .modal-content {
+                width: 100%;
+            }
+        }
+
+        /* Trying some flexbox now */
+
+        body {
+            background-color: black;
+            /* font-family: 'Roboto', serif; */
+            font-family: 'Yellowtail', cursive;
+
+        }
+
+        h1 {
+            color: blanchedalmond;
+        }
+
+        .row {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            width: 100%;
+            margin: 50px;
+        }
+
+        .column {
+            display: flex;
+            flex-direction: column;
+            flex-basis: 100%;
+            flex: 1;
+            margin: 50px;
+        }
+
+        .orange-column {
+            /* background-color: white; */
+            height: 100px;
+            text-align: center;
+            margin: 50px;
+        }
+
+        .blue-column {
+            /* background-color: white; */
+            height: 100px;
+            text-align: center;
+            margin: 50px;
+        }
+
+        .green-column {
+            /* background-color: white; */
+            height: 100px;
+            text-align: center;
+            margin: 50px;
+        }
+
+        .btwn {
+            height: 50px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <H1>All them cars</H1>
+
+
+    <form>
+        <input type="text" id="search" />
+        <button id="go"> Search</button>
+    </form>
+
+
+
+
+
+    <option value="Ubermacht">Ubermacht</option>
+    <option value="Sport">Sport</option>
+    <option value="Maseratti">Maseratti</option>
+    <option value="Helicopter">Helicopter</option>
+
+
+
+
+
+
+    <div class='some-page-wrapper'>
+
+
+
+
+
+        <div class='row'>
+
+            <div class='column'>
+                <div class='green-column'>
+
+                    <p>
+                        <img class="myImages" id="myImg" src="../../images/sparrow.jpg"
+                            alt="Sparrow, Helicopter [Kosatka]" width="400" height="225">
+                    </p>
+                </div>
+            </div>
+
+            <div class='column'>
+                <div class='blue-column'>
+                    <p>
+                        <img class="myImages" id="myImg" src="../../images/lampadati.jpg"
+                            alt="Lampadati Felon, Coupe [Del Perro Heights]" width="400" height="225">
+                    </p>
+                </div>
+            </div>
+
+            <div class='column'>
+                <div class='orange-column'>
+                    <p>
+                        <img class="myImages" id="myImg" src="../../images/pr4.jpg"
+                            alt="Progen PR4, Open Wheel [Del Perro Heights]" width="400" height="225">
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class='row btwn'>
+
+            <div class='column'>
+                <div class='green-column'>
+
+                </div>
+            </div>
+
+            <div class='column'>
+                <div class='blue-column'>
+                    <h1>Sport Cars</h1>
+                </div>
+            </div>
+
+            <div class='column'>
+                <div class='orange-column'>
+
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+
+        <div class='row'>
+
+            <div class='column'>
+                <div class='green-column'>
+                    <p>
+                        <img class="myImages" id="myImg" src="../../images/fusilade.jpg"
+                            alt="Schyster Fusilade, Sport [Del Perro Heights]" width="400" height="225">
+                    </p>
+                </div>
+            </div>
+
+            <div class='column'>
+                <div class='blue-column'>
+                    <p>
+                        <img class="myImages" id="myImg" src="../../images/rh8.jpg"
+                            alt="Anis Elegy RH8, Sport [Del Perro Heights]" width="400" height="225">
+                    </p>
+                </div>
+            </div>
+
+            <div class='column'>
+                <div class='orange-column'>
+                    <p>
+                        <img class="myImages" id="myImg" src="../../images/imorgon.jpg" alt="Overflod Imorgon, Sport [Del Perro Heights]"
+                            width="400" height="225">
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class='row'>
+
+            <div class='column'>
+                <div class='green-column'>
+                    <p>
+                        <img class="myImages" id="myImg" src="../../images/kuruma.jpg" alt="Karin Kuruma (Armored), Sport [Del Perro Heights]" width="400"
+                            height="225">
+                    </p>
+                </div>
+            </div>
+
+            <div class='column'>
+                <div class='blue-column'>
+                    <p>
+                        <img class="myImages" id="myImg" src="../../images/kosatka.jpg" alt="RUNE Kosatka, Boat [Base, Sea]" width="400"
+                            height="225">
+                    </p>
+                </div>
+            </div>
+
+            <div class='column'>
+                <div class='orange-column'>
+                    <p>
+                        <img class="myImages" id="myImg" src="../../images/minivan.jpg" alt="Vapid Minivan, Vans [Nightclub Level 1]"
+                            width="400" height="225">
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <div class='row'>
+
+            <div class='column'>
+                <div class='green-column'>
+                    <p>
+                        <img class="myImages" id="myImg" src="../../images/sabre.jpg" alt="Declasse Sabre Turbo, Muscle Car [Nightclub Level 2]" width="400"
+                            height="225">
+                    </p>
+                </div>
+            </div>
+
+            <div class='column'>
+                <div class='blue-column'>
+                    <p>
+                        <img class="myImages" id="myImg" src="../../images/scramjet.jpg" alt="Declasse Scramjet, Super Car [Nightclub Level 2]" width="400"
+                            height="225">
+                    </p>
+                </div>
+            </div>
+
+            <div class='column'>
+                <div class='orange-column'>
+                    <p>
+                        <img class="myImages" id="myImg" src="../../images/5.jpg." alt="Truck, Mobile Center"
+                            width="400" height="225">
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+    <div id="myModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="img01">
+        <div id="caption"></div>
+    </div>
+
+
+
+    <script>
+
+
+
+
+
+
+        // Search inpage in alt
+
+        $('form').submit(function (e) {
+            e.preventDefault();
+            $('p img').hide();
+            $('p img[alt*="' + $('#search').val() + '"]').show();
+        });
+
+
+        // create references to the modal...
+        var modal = document.getElementById('myModal');
+        // to all images -- note I'm using a class!
+        var images = document.getElementsByClassName('myImages');
+        // the image in the modal
+        var modalImg = document.getElementById("img01");
+        // and the caption in the modal
+        var captionText = document.getElementById("caption");
+
+        // Go through all of the images with our custom class
+        for (var i = 0; i < images.length; i++) {
+            var img = images[i];
+            // and attach our click listener for this image.
+            img.onclick = function (evt) {
+                console.log(evt);
+                modal.style.display = "block";
+                modalImg.src = this.src;
+                captionText.innerHTML = this.alt;
+            }
+        }
+
+        var span = document.getElementsByClassName("close")[0];
+
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+    </script>
+</body>
+
+</html>
