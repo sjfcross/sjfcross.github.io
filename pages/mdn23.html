@@ -36,6 +36,36 @@
     <!-- CSS Files -->
     <link id="pagestyle" href="../assets/css/material-kit.css?v=3.0.0" rel="stylesheet" />
     <link rel="stylesheet" href="../app.css">
+
+    <style>
+        .codebox {
+            background-color: rgb(205, 221, 194);
+            font-weight: bold;
+        }
+
+        .notebox {
+            margin: auto;
+            width: 50%;
+            border: 3px solid green;
+            padding: 10px;
+            background-color: rgb(180, 199, 166);
+            border-radius: 5px;
+        }
+
+        code {
+            background-color: rgb(205, 221, 194);
+            font-size: 1.2em;
+        }
+
+        ul {
+            line-height: 2.0;
+        }
+    </style>
+
+
+
+
+
 </head>
 
 
@@ -560,8 +590,7 @@
 
 
     <!-- -------- END HEADER 7 w/ text and video ------- -->
-    <div class="card card-body shadow-xl mx-3 mx-md-4 mt-n6"
-        style="background-image: url(../assets/img/bgwht.jpg); background-position: 50% 49%;">
+    <div class="card card-body shadow-xl mx-3 mx-md-4 mt-n6">
 
         <!-- <iframe src="https://sjfcross.github.io/firstpage/indexf.html" width="auto" height="800"></iframe> -->
 
@@ -573,7 +602,6 @@
                         <div class="row justify-content-start">
                             <div class="col-md-8">
                                 <div class="info">
-
                                     <h2> <i
                                             class="material-icons text-3xl text-gradient text-info mb-3 pe-3">segment</i>Html
                                         5</h2>
@@ -781,13 +809,17 @@
                                                                 href="https://sjfcross.github.io/subpages/inline2.html">Basic
                                                                 HTML-animals</a></li>
                                                         <li><a class="dropdown-item"
+                                                                href="https://sjfcross.github.io/firstpage/indexf.html">Chaotic
+                                                                first page</a></li>
+                                                        <li><a class="dropdown-item"
                                                                 href="https://sjfcross.github.io/subpages/inline1.html">Detailing
                                                                 & Hummus </a></li>
                                                         <li><a class="dropdown-item"
                                                                 href="https://sjfcross.github.io/subpages/inline2.html">Basic
                                                                 HTML-animals</a></li>
-                                                        <li><a class="dropdown-item" href="../pages/vidbas1.html">Other
-                                                                - WDS - CSS-Img-Animation</a></li>
+                                                        <li><a class="dropdown-item"
+                                                                href="https://sjfcross.github.io/subpages/inline2.html">Basic
+                                                                HTML-animals</a></li>
                                                     </ol>
                                                 </div>
                                             </div>
@@ -825,30 +857,307 @@
                     </div>
                     <div class="col-lg-7 ms-auto mt-lg-0 mt-4">
                         <div class="card">
-                            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                                <a class="d-block blur-shadow-image">
-                                    <h2><i
-                                            class="material-icons text-3xl text-gradient text-info mb-3 pe-3">article</i>External
-                                        Webpage</h2>
-                                    <img src="../assets/img/chaosfirstrhumb.jpg" alt="img-colored-shadow"
-                                        class="img-fluid border-radius-lg">
-                                </a>
-                            </div>
-                            <div class="card-body text-center">
-                                <h5 class="font-weight-normal">
-                                    <a href="javascript:;">Very first crazy Testpage</a>
-                                </h5>
-                                <p class="mb-0">
-                                    Just messing around !
-                                </p>
-                                <a href="https://sjfcross.github.io/firstpage/indexf.html"
-                                    class="btn bg-gradient-info btn-sm mb-0 mt-3" role="button">Visit !</a>
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                                <!-- <a class="d-block blur-shadow-image"> -->
+
+                                <h2 style="color:rgb(12, 150, 70);"><i
+                                        class="material-icons text-3xl text-gradient text-info mb-3 pe-3">article</i>Styling
+                                    Links</h2>
+
+
+
+                                <h2>Let's look at some links</h2>
+                                <p>We looked at how links are implemented in your HTML according to best practices in
+                                    <a
+                                        href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Creating_hyperlinks">Creating
+                                        hyperlinks</a>.
+                                    In this article we'll build on this knowledge, showing you best practices for
+                                    styling links.
+                                </p>
+
+                                <h3>Link states</h3>
+
+                                <p>The first thing to understand is the concept of link states — different states that
+                                    links can exist in, which can be styled using different
+                                    <a
+                                        href="https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors#pseudo-classes">pseudo-classes</a>:
+                                </p>
+
+                                <ul>
+                                    <li><strong>Link</strong>: A link which has a destination (i.e. not just a named
+                                        anchor), styled using the
+                                        <a
+                                            href="https://developer.mozilla.org/en-US/docs/Web/CSS/:link"><code>:link</code></a>
+                                        pseudo class.
+                                    </li>
+                                    <li><strong>Visited</strong>: A link when it has already been visited (exists in the
+                                        browser's history),
+                                        styled using the <a
+                                            href="https://developer.mozilla.org/en-US/docs/Web/CSS/:visited"><code>:visited</code></a>
+                                        pseudo class.</li>
+                                    <li><strong>Hover</strong>: A link when it is being hovered over by a user's mouse
+                                        pointer, styled using the
+                                        <a
+                                            href="https://developer.mozilla.org/en-US/docs/Web/CSS/:hover"><code>:hover</code></a>
+                                        pseudo class.
+                                    </li>
+                                    <li><strong>Focus</strong>: A link when it has been focused (for example moved to by
+                                        a keyboard user using the <kbd>Tab</kbd> key or similar,
+                                        or programmatically focused using <a
+                                            href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLOrForeignElement/focus"
+                                            title="HTMLElement.focus()"><code>HTMLElement.focus()</code></a>)
+                                        — this is styled using the <a
+                                            href="https://developer.mozilla.org/en-US/docs/Web/CSS/:focus"><code>:focus</code></a>
+                                        pseudo class.</li>
+                                    <li><strong>Active</strong>: A link when it is being activated (e.g. clicked on),
+                                        styled using the
+                                        <a
+                                            href="https://developer.mozilla.org/en-US/docs/Web/CSS/:active"><code>:active</code></a>
+                                        pseudo class.
+                                    </li>
+                                </ul>
+
+
+                                <h3>Default styles</h3>
+
+                                <p>The following example illustrates what a link will behave like by default (the CSS is
+                                    enlarging and centering the text to make it stand out more.)
+                                </p>
+
+                                <p style="text-align:center;"><a href="#" style="font-size: 2rem;">A simple link</a></p>
+
+
+                                <p>You'll notice a few things as you explore the default styles:</p>
+
+                                <ul>
+                                    <li>Links are underlined.</li>
+                                    <li>Unvisited links are blue.</li>
+                                    <li>Visited links are purple.</li>
+                                    <li>Hovering a link makes the mouse pointer change to a little hand icon.</li>
+                                    <li>Focused links have an outline around them — you should be able to focus on the
+                                        links on this page with the keyboard by pressing the tab key (On Mac, you'll
+                                        need to
+                                        use <kbd>option</kbd> + <kbd>tab</kbd>, or&nbsp;enable the
+                                        <a
+                                            href="https://support.apple.com/guide/mac-help/use-your-keyboard-like-a-mouse-mchlp1399/">
+                                            Full Keyboard Access: All controls</a> option by pressing <kbd>Ctrl</kbd> +
+                                        <kbd>F7</kbd>.)
+                                    </li>
+                                    <li>Active links are red (Try holding down the mouse button on the link as you click
+                                        it.)</li>
+                                </ul>
+
+                                <p>Interestingly enough, these default styles are nearly the same as they were back in
+                                    the early days of browsers in the mid-1990s.
+                                    This is because users know and have come to expect this behavior — if links were
+                                    styled differently, it would confuse a
+                                    lot of people. This doesn't mean that you shouldn't style links at all, just that
+                                    you should not stray too far from the expected behavior.
+                                    You should at least:</p>
+
+                                <ul>
+                                    <li>Use underlining for links, but not for other things. If you don't want to
+                                        underline links, at least highlight them in some other way.</li>
+                                    <li>Make them react in some way when hovered/focused, and in a slightly different
+                                        way when activated.</li>
+                                </ul>
+
+                                <p>The default styles can be turned off/changed using the following CSS properties:</p>
+
+                                <ul>
+                                    <li><a
+                                            href="https://developer.mozilla.org/en-US/docs/Web/CSS/color"><code>color</code></a>
+                                        for the text color.</li>
+                                    <li><a
+                                            href="https://developer.mozilla.org/en-US/docs/Web/CSS/cursor"><code>cursor</code></a>
+                                        for the mouse pointer style — you shouldn't turn this
+                                        off unless you've got a very good reason.</li>
+                                    <li><a
+                                            href="https://developer.mozilla.org/en-US/docs/Web/CSS/outline"><code>outline</code></a>
+                                        for the text outline (an outline is similar to a border,
+                                        the only difference being that border takes up space in the box and an outline
+                                        doesn't; it just sits over the top of the background).
+                                        The outline is a useful accessibility aid, so think carefully before turning it
+                                        off; you should at least double up the styles given to the
+                                        link hover state on the focus state too.</li>
+                                </ul>
+
+                                <h3>Styling some links</h3>
+
+                                <p>Now we've looked at the default states in some detail, let's look at a typical set of
+                                    link styles.
+                                </p>
+
+                                <p>To start off with, we'll write out our empty rulesets:</p>
+
+
+
+                                <div class="codebox">
+                                    <p>
+                                    <pre>
+                                        <code>
+                                        
+                                            a &#123;
+                                        
+                                            &#125;
+                                            
+                                            a:link &#123;
+                                            
+                                            &#125;
+                                            
+                                            a:visited &#123;
+                                            
+                                            &#125;
+                                            
+                                            a:focus &#123;
+                                            
+                                            &#125;
+                                            
+                                            a:hover &#123;
+                                            
+                                            &#125;
+                                            
+                                            a:active &#123;
+                                            
+                                            &#125;
+                                               
+                                        </code>
+                                        </pre>
+                                    </p>
+                                </div>
+
+                                <p>This order is important because the link styles build on one another, for example the
+                                    styles in the first rule will apply to all the subsequent ones,
+                                    and when a link is being activated, it is usually also being hovered over. If you
+                                    put these in the wrong order, and you're changing the same properties
+                                    in each ruleset, things won't work as you expect. To remember the order, you could
+                                    try using a mnemonic like
+                                    <strong>L</strong>o<strong>V</strong>e <strong>F</strong>ears <strong>HA</strong>te.
+                                </p>
+
+                                <p>Now let's add some more information to get this styled properly:</p>
+
+
+                                <div class="codebox">
+                                    <p>
+                                    <pre>
+                                        <code>
+                                              
+                                        body &#123;
+                                        width: 300px;
+                                        margin: 0 auto;
+                                        font-size: 1.2rem;
+                                        font-family: sans-serif;
+                                        &#125;
+                                        
+                                        p &#123;
+                                        line-height: 1.4;
+                                        &#125;
+                                        
+                                        a &#123;
+                                        outline: none;
+                                        text-decoration: none;
+                                        padding: 2px 1px 0;
+                                        &#125;
+                                        
+                                        a:link &#123;
+                                        color: #265301;
+                                        &#125;
+                                        
+                                        a:visited &#123;
+                                        color: #437A16;
+                                        &#125;
+                                        
+                                        a:focus &#123;
+                                        border-bottom: 1px solid;
+                                        background: #BAE498;
+                                        &#125;
+                                        
+                                        a:hover &#123;
+                                        border-bottom: 1px solid;
+                                        background: #CDFEAA;
+                                        &#125;
+                                        
+                                        a:active &#123;
+                                        background: #265301;
+                                        color: #CDFEAA;
+                                        &#125;
+                                        
+                                        </code>
+                                        </pre>
+                                    </p>
+                                </div>
+
+                                <p>We'll also provide some sample HTML to apply the CSS to:</p>
+
+
+                                <div class="codebox">
+                                    <p>
+                                    <pre>
+                                            <code>
+                                            
+        &lt;p&gt;There are several browsers available, such as &lt;a href="#"&gt;Mozilla
+        Firefox&lt;/a&gt;, &lt;a href="#"&gt;Google Chrome&lt;/a&gt;, and
+        &lt;a href="#"&gt;Microsoft Edge&lt;/a&gt;.&lt;/p&gt;
+                                            
+                                            </code>
+                                            </pre>
+                                    </p>
+                                </div>
+
+                                <p>Putting the two together gives us this result:</p>
+
+
+
+                                <p style="text-align:center;"><a href="../subpages/fontexa/Linktest.html"
+                                        target=”_blank” style="font-size: 2rem;">Link to the linkz</a></p>
+
+
+                                <p>So what did we do here? This certainly looks different to the default styling, but it
+                                    still provides a familiar enough experience for
+                                    users to know what's going on:</p>
+
+                                <ul>
+                                    <li>The first two rules are not that interesting to this discussion.</li>
+                                    <li>The third rule uses the <code>a</code> selector to get rid of the default text
+                                        underline and focus outline (which varies across browsers anyway), and adds a
+                                        tiny amount of padding to each link — all of this will become clear later on.
+                                    </li>
+                                    <li>Next, we use the <code>a:link</code> and <code>a:visited</code> selectors to set
+                                        a couple of color variations on unvisited and visited links, so they are
+                                        distinct.</li>
+                                    <li>The next two rules use <code>a:focus</code> and <code>a:hover</code> to set
+                                        focused and hovered links to have different background colors,
+                                        plus an underline to make the link stand out even more. Two points to note here
+                                        are:
+                                        <ul>
+                                            <li>The underline has been created using <a
+                                                    href="https://developer.mozilla.org/en-US/docs/Web/CSS/border-bottom"><code>border-bottom</code></a>,
+                                                not <a
+                                                    href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration"><code>text-decoration</code></a>
+                                                — some people prefer this because
+                                                the former has better styling options than the latter, and is drawn a
+                                                bit lower, so doesn't cut across the descenders of the word being
+                                                underlined
+                                                (e.g. the tails on g and y).</li>
+                                            <li>The <a
+                                                    href="https://developer.mozilla.org/en-US/docs/Web/CSS/border-bottom"><code>border-bottom</code></a>
+                                                value has been set as <code>1px solid</code>,
+                                                with no color specified. Doing this makes the border adopt the same
+                                                color as the element's text, which is useful in cases like this where
+                                                the text is a
+                                                different color in each case.</li>
+                                        </ul>
+                                    </li>
+                                    <li>Finally, <code>a:active</code> is used to give the links an inverted color
+                                        scheme while they are being activated, to make it clear something important is
+                                        happening!</li>
+                                </ul>
+
+
+
+
         </section>
 
         <!-- -------- START Content Presentation Docs ------- -->
@@ -1284,265 +1593,605 @@
       </div>
     </section> -->
     <!-- -------- END PRE-FOOTER 1 w/ SUBSCRIBE BUTTON AND IMAGE ------- -->
+    <div class="container">
+        <div class="col-lg-12 ms-auto mt-lg-6 mt-4 justify-content-center align-items-center text-start">
+
+            <div class="p-0 position-relative mt-4 mx-3 ">
+                <!-- <a class="d-block blur-shadow-image"> -->
+                <h2 style="color:rgb(12, 150, 70);"><i
+                        class="material-icons text-3xl text-gradient text-info mb-3 pe-3">article</i>More on Styling
+                    Links</h2>
+
+                <h3>Including icons on links</h3>
+
+                <p>A common practice is to include icons on links to provide more of an indicator as to what kind of
+                    content the link points to.
+                    Let's look at a really simple example that adds an icon to external links (links that lead to other
+                    sites.) Such an icon usually
+                    looks like a little arrow pointing out of a box — for this example, we'll use <a
+                        href="https://icons8.com/web-app/741/external-link">this great example from icons8.com</a>.
+                </p>
+
+                <p> Let's look at some HTML and CSS that will give us the effect we want. First, some simple HTML to
+                    style:
+                </p>
+
+
+
+                <div class="codebox">
+                    <p>
+                    <pre>
+      <code>
+        &lt;p&gt;For more information on the weather, visit our &lt;a href="#"&gt;weather page&lt;/a&gt;,
+        look at &lt;a href="http://#"&gt;weather on Wikipedia&lt;/a&gt;, or check
+        out &lt;a href="http://#"&gt;weather on Extreme Science&lt;/a&gt;.&lt;/p&gt;
+      </code>
+      </pre>
+                    </p>
+                </div>
+
+                <p>Next, the CSS:</p>
+
+                <div class="codebox">
+                    <p>
+                    <pre>
+<code>
+
+
+               body &#123;
+         width: 300px;
+         margin: 0 auto;
+         font-family: sans-serif;
+       &#125;
+
+       p &#123;
+         line-height: 1.4;
+       &#125;
+
+       a &#123;
+         outline: none;
+         text-decoration: none;
+         padding: 2px 1px 0;
+       &#125;
+
+       a:link &#123;
+         color: blue;
+       &#125;
+
+       a:visited &#123;
+         color: purple;
+       &#125;
+
+       a:focus, a:hover &#123;
+         border-bottom: 1px solid;
+       &#125;
+
+       a:active &#123;
+  color: red;
+       &#125;
+
+       a[href*="http"] &#123;
+         background: url('https://mdn.mozillademos.org/files/12982/external-link-52.png') no-repeat 100% 0;
+         background-size: 16px 16px;
+         padding-right: 19px;
+       &#125;
+
+</code>
+</pre>
+                    </p>
+                </div>
+
+                <p style="text-align:center;"><a href="../subpages/fontexa/Linktest2.html" target=”_blank”
+                        style="font-size: 2rem;">Links with Pix</a></p>
+
+
+
+                <p>So what's going on here? We'll skip over most of the CSS, as it's just the same information you've
+                    looked at before. The last rule however
+                    is interesting — here we are inserting a custom background image on external links in a similar
+                    manner to how we handled
+                    <a
+                        href="https://developer.mozilla.org/en-US/docs/Learn/CSS/Styling_text/Styling_lists#using_a_custom_bullet_image">custom
+                        bullets on list items</a>
+                    in the last article — this time however we are using <a
+                        href="https://developer.mozilla.org/en-US/docs/Web/CSS/background"><code>background</code></a>
+                    shorthand instead of the individual properties. We set the path to the image we want to insert,
+                    specify <code>no-repeat</code>
+                    so we only get one copy inserted, and then specify the position as 100% of the way over to the right
+                    of the text&nbsp;content,
+                    and 0 pixels from the top.
+                </p>
+
+                <p>We also use <a
+                        href="https://developer.mozilla.org/en-US/docs/Web/CSS/background-size"><code>background-size</code></a>
+                    to specify the size we want
+                    the background image to be shown at — it is useful to have a larger icon and then resize it like
+                    this as needed for responsive web design purposes.
+                    This does however only work with IE 9 and later, so if you need to support those older browsers,
+                    you'll just have to resize the image and insert it as is.</p>
+
+                <p>Finally, we set some <a
+                        href="https://developer.mozilla.org/en-US/docs/Web/CSS/padding-right"><code>padding-right</code></a>
+                    on the links to make space
+                    for the background image to appear in, so we aren't overlapping it with the text.</p>
+
+                <p>A final word — how did we select just external links? Well, if you are writing your
+                    <a
+                        href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Creating_hyperlinks">HTML
+                        links</a> properly, you should only be using
+                    absolute URLs for external links — it is more efficient to use relative links to link to other parts
+                    of your own site (as with the first link).
+                    The text "http" should therefore only appear in external links (like the second and third ones), and
+                    we can select this with an
+                    <a
+                        href="https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors#attribute_selectors">attribute
+                        selector</a>: <code>a[href*="http"]</code>
+                    selects <a
+                        href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a"><code>&lt;a&gt;</code></a>
+                    elements, but only if they have an
+                    <a
+                        href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-href"><code>href</code></a>
+                    attribute with a value that&nbsp;contains
+                    "http" somewhere inside it.
+                </p>
+
+
+                <h3>Styling links as buttons</h3>
+
+                <p>The tools you've explored so far in this article can also be used in other ways. For example, states
+                    like hover can be used to style many different elements, not just links — you might want to style
+                    the hover state of paragraphs, list items, or other things.
+                </p>
+
+                <p> In addition, links are quite commonly styled to look and behave like buttons in certain
+                    circumstances — a website navigation menu is usually marked up as a list containing links, and this
+                    can be easily styled to look like a set of control buttons or tabs that provide the user with access
+                    to other parts of the site. Let's explore how.
+                </p>
+                <p> First, some HTML:</p>
+
+                <div class="codebox">
+                    <p>
+                    <pre>
+  <code>
+    &lt;ul&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Home&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="#"&gt;Pizza&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Music&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href="#"&gt;Wombats&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Finland&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+  </code>
+  </pre>
+                    </p>
+                </div>
+
+                <p> And now our CSS:</p>
+
+                <div class="codebox">
+                    <p>
+                    <pre>
+    <code>
+      body,html &#123;
+      margin: 0;
+      font-family: sans-serif;
+    &#125;
+    
+    ul &#123;
+      padding: 0;
+      width: 100%;
+    &#125;
+    
+    li &#123;
+      display: inline;
+    &#125;
+    
+    a &#123;
+      outline: none;
+      text-decoration: none;
+      display: inline-block;
+      width: 19.5%;
+      margin-right: 0.625%;
+      text-align: center;
+      line-height: 3;
+      color: black;
+    &#125;
+    
+    li:last-child a &#123;
+      margin-right: 0;
+    &#125;
+    
+    a:link, a:visited, a:focus &#123;
+      background: yellow;
+    &#125;
+    
+    a:hover &#123;
+      background: orange;
+    &#125;
+    
+    a:active &#123;
+      background: red;
+      color: white;
+    &#125;
+    </code>
+    </pre>
+                    </p>
+                </div>
+
+                <p style="text-align:center;"><a href="../subpages/fontexa/Linktest3.html" target=”_blank”
+                        style="font-size: 2rem;">Links as Buttons</a></p>
+
+
+                <p>Let's explain what's going on here, focusing on the most interesting parts:</p>
+
+                <ul>
+                    <li>Our second rule removes the default <a
+                            href="https://developer.mozilla.org/en-US/docs/Web/CSS/padding"><code>padding</code></a>
+                        from the
+                        <a
+                            href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul"><code>&lt;ul&gt;</code></a>
+                        element, and sets its width to
+                        span 100% of the outer container (the <a
+                            href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/body"><code>&lt;body&gt;</code></a>,
+                        in this case).
+                    </li>
+                    <li><a
+                            href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/li"><code>&lt;li&gt;</code></a>
+                        elements are normally block by default
+                        (see <a
+                            href="https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/The_box_model#types_of_css_boxes">types
+                            of CSS boxes</a> for a refresher),
+                        meaning that they will sit on their own lines. In this case, we are creating a horizontal list
+                        of links, so in the third rule we set the
+                        <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/display"><code>display</code></a>
+                        property to inline, which causes the list items to sit on the same
+                        line as one another — they now behave like inline elements.
+                    </li>
+                    <li>The fourth rule — which styles the <a
+                            href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a"><code>&lt;a&gt;</code></a>
+                        element —
+                        is the most complicated here; let's go through it step by step:
+                        <ul>
+                            <li>As in previous examples, we start by turning off the default <a
+                                    href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration"><code>text-decoration</code></a>
+                                and <a
+                                    href="https://developer.mozilla.org/en-US/docs/Web/CSS/outline"><code>outline</code></a>
+                                — we don't want those spoiling our look.</li>
+                            <li>Next, we set the <a
+                                    href="https://developer.mozilla.org/en-US/docs/Web/CSS/display"><code>display</code></a>
+                                to <code>inline-block</code> —
+                                <a
+                                    href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a"><code>&lt;a&gt;</code></a>
+                                elements are inline by default and, while we don't want them to
+                                spill onto their own lines like a value of <code>block</code> would achieve, we do want
+                                to be able to size them. <code>inline-block</code> allows us to do this.
+                            </li>
+                            <li>Now onto the sizing! We want to fill up the whole width of the <a
+                                    href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul"><code>&lt;ul&gt;</code></a>,
+                                leave a little margin between each button (but not a gap at the right hand edge), and we
+                                have 5 buttons to accommodate that should all be the same size.
+                                To do this, we set the <a
+                                    href="https://developer.mozilla.org/en-US/docs/Web/CSS/width"><code>width</code></a>
+                                to 19.5%, and the
+                                <a
+                                    href="https://developer.mozilla.org/en-US/docs/Web/CSS/margin-right"><code>margin-right</code></a>
+                                to 0.625%. You'll notice that all this width
+                                adds up to 100.625%, which would make the last button overflow the
+                                <code>&lt;ul&gt;</code> and fall down to the next line. However, we take it
+                                back down to 100% using the next rule, which selects only the last
+                                <code>&lt;a&gt;</code> in the list, and removes the margin from it. Done!
+                            </li>
+                            <li>The last three declarations are pretty simple and are mainly just for cosmetic purposes.
+                                We center the text inside each link,
+                                set the <a
+                                    href="https://developer.mozilla.org/en-US/docs/Web/CSS/line-height"><code>line-height</code></a>
+                                to 3 to give the buttons some
+                                height (which also has the advantage of centering the text vertically), and set the text
+                                color to black.</li>
+                        </ul>
+                    </li>
+                </ul>
+
+
+
+                <div class="notebox">
+                    <p>
+                        <strong>Note</strong>: You may have noticed that the list items in the HTML are all put on the
+                        same line as each other — this is done because spaces/line
+                        breaks in between inline block elements create spaces on the page, just like the spaces in
+                        between words, and such spaces would break our horizontal
+                        navigation menu layout. So we've removed the spaces. You can find more information about this
+                        problem (and solutions) at
+                        <a href="https://css-tricks.com/fighting-the-space-between-inline-block-elements/">Fighting the
+                            space between inline block elements</a>.
+                    </p>
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+        </div>
+
+
+
 
     </div>
 
-    <footer class="footer pt-5 mt-5 bg-gray-400">
-        <div class="container">
-            <div class=" row">
-                <div class="col-md-3 mb-4 ms-auto">
-                    <div>
-                        <a href="https://www.creative-tim.com/product/material-kit">
-                            <img src="../assets/img/logo-ct-dark.png" class="mb-3 footer-logo" alt="main_logo">
-                        </a>
-                        <h6 class="font-weight-bolder mb-4">Material Kit 2</h6>
-                    </div>
-                    <div>
-                        <ul class="d-flex flex-row ms-n3 nav">
-                            <li class="nav-item">
-                                <a class="nav-link pe-1" href="https://www.facebook.com/CreativeTim" target="_blank">
-                                    <i class="fab fa-facebook text-lg opacity-8"></i>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link pe-1" href="https://twitter.com/creativetim" target="_blank">
-                                    <i class="fab fa-twitter text-lg opacity-8"></i>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link pe-1" href="https://dribbble.com/creativetim" target="_blank">
-                                    <i class="fab fa-dribbble text-lg opacity-8"></i>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link pe-1" href="https://github.com/creativetimofficial" target="_blank">
-                                    <i class="fab fa-github text-lg opacity-8"></i>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link pe-1" href="https://www.youtube.com/channel/UCVyTG4sCw-rOvB9oHkzZD1w"
-                                    target="_blank">
-                                    <i class="fab fa-youtube text-lg opacity-8"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+    </div>
+    </div>
+
+</body>
+<footer class="footer pt-5 mt-5 bg-gray-400">
+    <div class="container">
+        <div class=" row">
+            <div class="col-md-3 mb-4 ms-auto">
+                <div>
+                    <a href="https://www.creative-tim.com/product/material-kit">
+                        <img src="../assets/img/logo-ct-dark.png" class="mb-3 footer-logo" alt="main_logo">
+                    </a>
+                    <h6 class="font-weight-bolder mb-4">Material Kit 2</h6>
                 </div>
-                <div class="col-md-2 col-sm-6 col-6 mb-4">
-                    <div>
-                        <h6 class="text-sm">Company</h6>
-                        <ul class="flex-column ms-n3 nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/presentation" target="_blank">
-                                    About Us
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/templates/free" target="_blank">
-                                    Freebies
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/templates/premium"
-                                    target="_blank">
-                                    Premium Tools
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/blog" target="_blank">
-                                    Blog
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                <div>
+                    <ul class="d-flex flex-row ms-n3 nav">
+                        <li class="nav-item">
+                            <a class="nav-link pe-1" href="https://www.facebook.com/CreativeTim" target="_blank">
+                                <i class="fab fa-facebook text-lg opacity-8"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link pe-1" href="https://twitter.com/creativetim" target="_blank">
+                                <i class="fab fa-twitter text-lg opacity-8"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link pe-1" href="https://dribbble.com/creativetim" target="_blank">
+                                <i class="fab fa-dribbble text-lg opacity-8"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link pe-1" href="https://github.com/creativetimofficial" target="_blank">
+                                <i class="fab fa-github text-lg opacity-8"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link pe-1" href="https://www.youtube.com/channel/UCVyTG4sCw-rOvB9oHkzZD1w"
+                                target="_blank">
+                                <i class="fab fa-youtube text-lg opacity-8"></i>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-                <div class="col-md-2 col-sm-6 col-6 mb-4">
-                    <div>
-                        <h6 class="text-sm">Resources</h6>
-                        <ul class="flex-column ms-n3 nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://iradesign.io/" target="_blank">
-                                    Illustrations
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/bits" target="_blank">
-                                    Bits & Snippets
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/affiliates/new" target="_blank">
-                                    Affiliate Program
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+            </div>
+            <div class="col-md-2 col-sm-6 col-6 mb-4">
+                <div>
+                    <h6 class="text-sm">Company</h6>
+                    <ul class="flex-column ms-n3 nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.creative-tim.com/presentation" target="_blank">
+                                About Us
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.creative-tim.com/templates/free" target="_blank">
+                                Freebies
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.creative-tim.com/templates/premium" target="_blank">
+                                Premium Tools
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.creative-tim.com/blog" target="_blank">
+                                Blog
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-                <div class="col-md-2 col-sm-6 col-6 mb-4">
-                    <div>
-                        <h6 class="text-sm">Help & Support</h6>
-                        <ul class="flex-column ms-n3 nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/contact-us" target="_blank">
-                                    Contact Us
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/knowledge-center"
-                                    target="_blank">
-                                    Knowledge Center
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://services.creative-tim.com/?ref=ct-mk2-footer"
-                                    target="_blank">
-                                    Custom Development
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/sponsorships" target="_blank">
-                                    Sponsorships
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+            </div>
+            <div class="col-md-2 col-sm-6 col-6 mb-4">
+                <div>
+                    <h6 class="text-sm">Resources</h6>
+                    <ul class="flex-column ms-n3 nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://iradesign.io/" target="_blank">
+                                Illustrations
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.creative-tim.com/bits" target="_blank">
+                                Bits & Snippets
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.creative-tim.com/affiliates/new" target="_blank">
+                                Affiliate Program
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-                <div class="col-md-2 col-sm-6 col-6 mb-4 me-auto">
-                    <div>
-                        <h6 class="text-sm">Legal</h6>
-                        <ul class="flex-column ms-n3 nav">
-                            <li class="nav-item">
-                                <a class="nav-link"
-                                    href="https://www.creative-tim.com/knowledge-center/terms-of-service"
-                                    target="_blank">
-                                    Terms & Conditions
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/knowledge-center/privacy-policy"
-                                    target="_blank">
-                                    Privacy Policy
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="https://www.creative-tim.com/license" target="_blank">
-                                    Licenses (EULA)
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+            </div>
+            <div class="col-md-2 col-sm-6 col-6 mb-4">
+                <div>
+                    <h6 class="text-sm">Help & Support</h6>
+                    <ul class="flex-column ms-n3 nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.creative-tim.com/contact-us" target="_blank">
+                                Contact Us
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.creative-tim.com/knowledge-center" target="_blank">
+                                Knowledge Center
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://services.creative-tim.com/?ref=ct-mk2-footer"
+                                target="_blank">
+                                Custom Development
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.creative-tim.com/sponsorships" target="_blank">
+                                Sponsorships
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-                <div class="col-12">
-                    <div class="text-center">
-                        <p class="text-dark my-4 text-sm font-weight-normal">
-                            All rights reserved. Copyright ©
-                            <script>
-                                document.write(new Date().getFullYear())
-                            </script> Material Kit by <a href="https://www.creative-tim.com" target="_blank">Creative
-                                Tim</a>.
-                        </p>
-                    </div>
+            </div>
+            <div class="col-md-2 col-sm-6 col-6 mb-4 me-auto">
+                <div>
+                    <h6 class="text-sm">Legal</h6>
+                    <ul class="flex-column ms-n3 nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.creative-tim.com/knowledge-center/terms-of-service"
+                                target="_blank">
+                                Terms & Conditions
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.creative-tim.com/knowledge-center/privacy-policy"
+                                target="_blank">
+                                Privacy Policy
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.creative-tim.com/license" target="_blank">
+                                Licenses (EULA)
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="text-center">
+                    <p class="text-dark my-4 text-sm font-weight-normal">
+                        All rights reserved. Copyright ©
+                        <script>
+                            document.write(new Date().getFullYear())
+                        </script> Material Kit by <a href="https://www.creative-tim.com" target="_blank">Creative
+                            Tim</a>.
+                    </p>
                 </div>
             </div>
         </div>
-    </footer>
-    <!--   Core JS Files   -->
-    <script src="../assets/js/core/popper.min.js" type="text/javascript"></script>
-    <script src="../assets/js/core/bootstrap.min.js" type="text/javascript"></script>
-    <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
-    <!--  Plugin for TypedJS, full documentation here: https://github.com/inorganik/CountUp.js -->
-    <script src="../assets/js/plugins/countup.min.js"></script>
-    <!--  Plugin for Parallax, full documentation here: https://github.com/wagerfield/parallax  -->
-    <script src="../assets/js/plugins/parallax.min.js"></script>
-    <!-- Control Center for Material UI Kit: parallax effects, scripts for the example pages etc -->
-    <!--  Google Maps Plugin    -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTTfWur0PDbZWPr7Pmq8K3jiDp0_xUziI"></script>
-    <script src="../assets/js/material-kit.min.js?v=3.0.0" type="text/javascript"></script>
-    <script>
-        // get the element to animate
-        var element = document.getElementById('count-stats');
-        var elementHeight = element.clientHeight;
+    </div>
+</footer>
+<!--   Core JS Files   -->
+<script src="../assets/js/core/popper.min.js" type="text/javascript"></script>
+<script src="../assets/js/core/bootstrap.min.js" type="text/javascript"></script>
+<script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
+<!--  Plugin for TypedJS, full documentation here: https://github.com/inorganik/CountUp.js -->
+<script src="../assets/js/plugins/countup.min.js"></script>
+<!--  Plugin for Parallax, full documentation here: https://github.com/wagerfield/parallax  -->
+<script src="../assets/js/plugins/parallax.min.js"></script>
+<!-- Control Center for Material UI Kit: parallax effects, scripts for the example pages etc -->
+<!--  Google Maps Plugin    -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTTfWur0PDbZWPr7Pmq8K3jiDp0_xUziI"></script>
+<script src="../assets/js/material-kit.min.js?v=3.0.0" type="text/javascript"></script>
+<script>
+    // get the element to animate
+    var element = document.getElementById('count-stats');
+    var elementHeight = element.clientHeight;
 
-        // listen for scroll event and call animate function
+    // listen for scroll event and call animate function
 
-        document.addEventListener('scroll', animate);
+    document.addEventListener('scroll', animate);
 
-        // check if element is in view
-        function inView() {
-            // get window height
-            var windowHeight = window.innerHeight;
-            // get number of pixels that the document is scrolled
-            var scrollY = window.scrollY || window.pageYOffset;
-            // get current scroll position (distance from the top of the page to the bottom of the current viewport)
-            var scrollPosition = scrollY + windowHeight;
-            // get element position (distance from the top of the page to the bottom of the element)
-            var elementPosition = element.getBoundingClientRect().top + scrollY + elementHeight;
+    // check if element is in view
+    function inView() {
+        // get window height
+        var windowHeight = window.innerHeight;
+        // get number of pixels that the document is scrolled
+        var scrollY = window.scrollY || window.pageYOffset;
+        // get current scroll position (distance from the top of the page to the bottom of the current viewport)
+        var scrollPosition = scrollY + windowHeight;
+        // get element position (distance from the top of the page to the bottom of the element)
+        var elementPosition = element.getBoundingClientRect().top + scrollY + elementHeight;
 
-            // is scroll position greater than element position? (is element in view?)
-            if (scrollPosition > elementPosition) {
-                return true;
-            }
-
-            return false;
+        // is scroll position greater than element position? (is element in view?)
+        if (scrollPosition > elementPosition) {
+            return true;
         }
 
-        var animateComplete = true;
-        // animate element when it is in view
-        function animate() {
+        return false;
+    }
 
-            // is element in view?
-            if (inView()) {
-                if (animateComplete) {
-                    if (document.getElementById('state1')) {
-                        const countUp = new CountUp('state1', document.getElementById("state1").getAttribute("countTo"));
-                        if (!countUp.error) {
-                            countUp.start();
-                        } else {
-                            console.error(countUp.error);
-                        }
+    var animateComplete = true;
+    // animate element when it is in view
+    function animate() {
+
+        // is element in view?
+        if (inView()) {
+            if (animateComplete) {
+                if (document.getElementById('state1')) {
+                    const countUp = new CountUp('state1', document.getElementById("state1").getAttribute("countTo"));
+                    if (!countUp.error) {
+                        countUp.start();
+                    } else {
+                        console.error(countUp.error);
                     }
-                    if (document.getElementById('state2')) {
-                        const countUp1 = new CountUp('state2', document.getElementById("state2").getAttribute("countTo"));
-                        if (!countUp1.error) {
-                            countUp1.start();
-                        } else {
-                            console.error(countUp1.error);
-                        }
-                    }
-                    if (document.getElementById('state3')) {
-                        const countUp2 = new CountUp('state3', document.getElementById("state3").getAttribute("countTo"));
-                        if (!countUp2.error) {
-                            countUp2.start();
-                        } else {
-                            console.error(countUp2.error);
-                        };
-                    }
-                    animateComplete = false;
                 }
+                if (document.getElementById('state2')) {
+                    const countUp1 = new CountUp('state2', document.getElementById("state2").getAttribute("countTo"));
+                    if (!countUp1.error) {
+                        countUp1.start();
+                    } else {
+                        console.error(countUp1.error);
+                    }
+                }
+                if (document.getElementById('state3')) {
+                    const countUp2 = new CountUp('state3', document.getElementById("state3").getAttribute("countTo"));
+                    if (!countUp2.error) {
+                        countUp2.start();
+                    } else {
+                        console.error(countUp2.error);
+                    };
+                }
+                animateComplete = false;
             }
         }
+    }
 
-        if (document.getElementById('typed')) {
-            var typed = new Typed("#typed", {
-                stringsElement: '#typed-strings',
-                typeSpeed: 90,
-                backSpeed: 90,
-                backDelay: 200,
-                startDelay: 500,
-                loop: true
-            });
-        }
-    </script>
-    <script>
-        if (document.getElementsByClassName('page-header')) {
-            window.onscroll = debounce(function () {
-                var scrollPosition = window.pageYOffset;
-                var bgParallax = document.querySelector('.page-header');
-                var oVal = (window.scrollY / 3);
-                bgParallax.style.transform = 'translate3d(0,' + oVal + 'px,0)';
-            }, 6);
-        }
-    </script>
+    if (document.getElementById('typed')) {
+        var typed = new Typed("#typed", {
+            stringsElement: '#typed-strings',
+            typeSpeed: 90,
+            backSpeed: 90,
+            backDelay: 200,
+            startDelay: 500,
+            loop: true
+        });
+    }
+</script>
+<script>
+    if (document.getElementsByClassName('page-header')) {
+        window.onscroll = debounce(function () {
+            var scrollPosition = window.pageYOffset;
+            var bgParallax = document.querySelector('.page-header');
+            var oVal = (window.scrollY / 3);
+            bgParallax.style.transform = 'translate3d(0,' + oVal + 'px,0)';
+        }, 6);
+    }
+</script>
 </body>
 
 </html>
