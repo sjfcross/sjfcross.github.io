@@ -38,37 +38,25 @@
     <link rel="stylesheet" href="../app.css">
 
     <style>
+        .center {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            /*  width: 50%;*/
+        }
+
+
+        code {
+            background-color: rgb(205, 221, 194);
+            font-size: 1.2em;
+        }
+
         .codebox {
             background-color: rgb(205, 221, 194);
             font-weight: bold;
-            
+            margin: auto;
+            width: 50%;
         }
-
-        .examplebox {
-            border: solid black 1px;
-            padding: 10px;
-        }
-
-        .examplebox h2 {
-            font-size: 2rem;
-        }
-
-        .examplebox ul {
-            background-color: transparent;
-        }
-
-
-
-        .examplebox ul ol dl p {
-            font-size: 1.5rem;
-        }
-
-        .examplebox li p {
-            line-height: 1.5;
-        }
-
-
-
 
         .notebox {
             margin: auto;
@@ -77,28 +65,6 @@
             padding: 10px;
             background-color: rgb(180, 199, 166);
             border-radius: 5px;
-        }
-
-        code {
-            background-color: rgb(205, 221, 194);
-            font-size: 1.2em;
-        }
-
-        .center {
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            /*  width: 50%;*/
-        }
-
-       
-        dd,
-        dt {
-            line-height: 1.5;
-        }
-
-        dt {
-            font-weight: bold;
         }
     </style>
 
@@ -798,6 +764,7 @@
                                             </div>
                                         </div>
 
+
                                     </div>
                                     <p></p>
                                 </div>
@@ -833,237 +800,112 @@
 
                             <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                                 <!-- <a class="d-block blur-shadow-image"> -->
-
                                 <h2 style="color:rgb(12, 150, 70);"><i
-                                        class="material-icons text-3xl text-gradient text-info mb-3 pe-3">article</i>Styling
-                                    Lists</h2>
+                                        class="material-icons text-3xl text-gradient text-info mb-3 pe-3">article</i>What
+                                    went wrong ? Troubleshooting JS</h2>
 
+                                <h1>Types of error</h1>
 
+                                <p>Generally speaking, when you do something wrong in code, there are two main types of
+                                    error that you'll come across:</p>
 
-
-                                <h2>A simple list example</h2>
-
-                                <p>To begin with, let's look at a simple list example. Throughout this article, we'll
-                                    look at unordered, ordered, and description lists — all have styling
-                                    features that are similar, and some that are particular to their type of list.
-                                </p>
-
-                                <div class="codebox">
-                                    <p>
-                                    <pre>
-  <code>
-    &lt;h2&gt;Shopping (unordered) list&lt;/h2&gt;
-
-    &lt;p&gt;Paragraph for reference, paragraph for reference, paragraph for reference,
-    paragraph for reference, paragraph for reference, paragraph for reference.&lt;/p&gt;
-    
-    &lt;ul&gt;
-      &lt;li&gt;Hummus&lt;/li&gt;
-      &lt;li&gt;Pita&lt;/li&gt;
-      &lt;li&gt;Green salad&lt;/li&gt;
-      &lt;li&gt;Halloumi&lt;/li&gt;
-    &lt;/ul&gt;
-    
-    &lt;h2&gt;Recipe (ordered) list&lt;/h2&gt;
-    
-    &lt;p&gt;Paragraph for reference, paragraph for reference, paragraph for reference,
-    paragraph for reference, paragraph for reference, paragraph for reference.&lt;/p&gt;
-    
-    &lt;ol&gt;
-      &lt;li&gt;Toast pita, leave to cool, then slice down the edge.&lt;/li&gt;
-      &lt;li&gt;Fry the halloumi in a shallow, non-stick pan, until browned on both sides.&lt;/li&gt;
-      &lt;li&gt;Wash and chop the salad.&lt;/li&gt;
-      &lt;li&gt;Fill pita with salad, hummus, and fried halloumi.&lt;/li&gt;
-    &lt;/ol&gt;
-    
-    &lt;h2&gt;Ingredient description list&lt;/h2&gt;
-    
-    &lt;p&gt;Paragraph for reference, paragraph for reference, paragraph for reference,
-    paragraph for reference, paragraph for reference, paragraph for reference.&lt;/p&gt;
-    
-    &lt;dl&gt;
-      &lt;dt&gt;Hummus&lt;/dt&gt;
-      &lt;dd&gt;A thick dip/sauce generally made from chick peas blended with tahini, lemon juice, 
-      salt, garlic, and other ingredients.&lt;/dd&gt;
-      &lt;dt&gt;Pita&lt;/dt&gt;
-      &lt;dd&gt;A soft, slightly leavened flatbread.&lt;/dd&gt;
-      &lt;dt&gt;Halloumi&lt;/dt&gt;
-      &lt;dd&gt;A semi-hard, unripened, brined cheese with a higher-than-usual melting point, 
-      usually made from goat/sheep milk.&lt;/dd&gt;
-      &lt;dt&gt;Green salad&lt;/dt&gt;
-      &lt;dd&gt;That green healthy stuff that many of us just use to garnish kebabs.&lt;/dd&gt;
-    &lt;/dl&gt;
-
-</code>
-</pre>
-                                    </p>
-                                </div>
-
-                                <p>If you go to the <a
-                                        href="https://mdn.github.io/learning-area/css/styling-text/styling-lists/"> live
-                                        example</a> now and investigate the list elements using browser developer tools,
-                                    you'll notice a couple of styling defaults:
-                                </p>
                                 <ul>
-                                    The <code>&lt;ul&gt;</code> and <code>&lt;ol&gt;</code> elements have a top and
-                                    bottom margin of 16px (1em) and a <code>padding-left</code> of 40px (2.5em.)
-                                    The list items (<code>&lt;li&gt;</code> elements) have no set defaults for spacing.
-                                    The <code>&lt;dl&gt;</code> element has a top and bottom <code>margin</code> of 16px
-                                    (1em), but no <code>padding</code> set.
-                                    The <code>&lt;dd&gt;</code> elements have <code>margin-left</code> of 40px (2.5em.)
-                                    The <code>&lt;p&gt;</code> elements we've included for reference have a top and
-                                    bottom <code>margin</code> of 16px (1em), the same as the different list types.
+                                    <li><strong>Syntax errors</strong>: These are spelling errors in your code that
+                                        actually cause the program not to run at all, or stop working part way through —
+                                        you
+                                        will usually be provided with some error messages too. These are usually okay to
+                                        fix, as long as you are familiar with the right tools and know what the error
+                                        messages mean!</li>
+                                    <li><strong>Logic errors</strong>: These are errors where the syntax is actually
+                                        correct but the code is not what you intended it to be, meaning that program
+                                        runs
+                                        successfully but gives incorrect results. These are often harder to fix than
+                                        syntax errors, as there usually isn't an error message to direct you to the
+                                        source
+                                        of the error.</li>
                                 </ul>
 
-                                <h2>Handling list spacing</h2>
+                                <p>Okay, so it's not quite <em>that</em> simple — there are some other differentiators
+                                    as you drill down deeper. But the above classifications will do at this early
+                                    stage in your career. We'll look at both of these types going forward.</p>
 
-                                <p>When styling lists, you need to adjust their styles so they keep the same vertical
-                                    spacing as their surrounding elements
-                                    (such as paragraphs and images; sometimes called vertical rhythm), and the same
-                                    horizontal spacing as each other.
-                                </p>
 
-                                <p>The CSS used for the text styling and spacing is as follows:
-                                </p>
+                                <h1>An erroneous example</h1>
 
-                                <div class="codebox">
-                                    <p>
-                                    <pre>
-    <code>
+                                <p>To get started, let's return to our number guessing game — except this time we'll be
+                                    exploring a version that has some deliberate errors introduced.</p>
 
-/* General styles */
 
-html &#123;
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: 10px;
-&#125;
+                                <h1><a href="../subpages/fontexa/number-game-errors.html">Here be buggy Dragons</a></h1>
 
-h2 &#123;
-  font-size: 2rem;
-&#125;
 
-ul,ol,dl,p &#123;
-  font-size: 1.5rem;
-&#125;
+                                <ol>
+                                    <li>To get started, open the local copy inside your favorite text editor, and your
+                                        browser.</li>
+                                    <li>Try playing the game — you'll notice that when you press the "Submit guess"
+                                        button, it doesn't work!</li>
+                                </ol>
 
-li, p &#123;
-  line-height: 1.5;
-&#125;
+                                <p>At this point, let's consult the developer console to see if it reports any syntax
+                                    errors, then try to fix them. You'll learn how below.</p>
 
-/* Description list styles */
+                                <h2>Fixing syntax errors</h2>
 
-dd, dt &#123;
-  line-height: 1.5;
-&#125;
+                                <ol>
+                                    <li>Go to the tab that you've got <code>number-game-errors.html</code> open in, and
+                                        open your JavaScript console. You should see an error message along the
+                                        following lines:
 
-dt &#123;
-  font-weight: bold;
-&#125;
-
-</code>
-</pre>
-                                    </p>
-                                </div>
-
-                                <ul>
-                                    <li>The first rule sets a sitewide font and a baseline font size of 10px. These are
-                                        inherited by everything on the page.</li>
-                                    <li>Rules 2 and 3 set relative font sizes for the headings, different list types
-                                        (the children of the list elements inherit these),
-                                        and paragraphs. This means that each paragraph and list will have the same font
-                                        size and top and bottom spacing, helping
-                                        to keep the vertical rhythm consistent.</li>
-                                    <li>Rule 4 sets the same <a
-                                            href=https://developer.mozilla.org/en-US/docs/Web/CSS/line-height"><code>line-height</code></a>
-                                        on the paragraphs and list items —
-                                        so the paragraphs and each individual list item will have the same spacing
-                                        between lines. This will also help to keep the
-                                        vertical rhythm consistent.</li>
-                                    <li>Rules 5 and 6 apply to the description list — we set the same
-                                        <code>line-height</code> on the description list terms and descriptions as
-                                        we did with the paragraphs and list items. Again, consistency is good! We also
-                                        make the description terms have bold font, so
-                                        they visually stand out easier.
+                                        <img alt="" src="../images/not-a-function.png"
+                                            style="display: block; margin: 0 auto;" loading="lazy" width="700"
+                                            height="583">
                                     </li>
-                                </ul>
+
+                                    <li>This is a pretty easy error to track down, and the browser gives you several
+                                        useful bits of information to help you out (the screenshot above is from
+                                        Firefox,
+                                        but other browsers provide similar information). From left to right, we've got:
+
+                                        <ul>
+                                            <li>A red "x" to indicate that this is an error.</li>
+                                            <li>An error message to indicate what's gone wrong: "TypeError:
+                                                guessSubmit.addeventListener is not a function"</li>
+                                            <li>A "Learn More" link that links through to an MDN page that explains what
+                                                this error means in greater detail.</li>
+                                            <li>The name of the JavaScript file, which links through to the Debugger tab
+                                                of the developer tools. If you follow this link, you'll see the exact
+                                                line where the error is highlighted.</li>
+                                            <li>The line number where the error is, and the character number in that
+                                                line where the error is first seen. In this case, we've got line 86,
+                                                character number 3.</li>
+                                        </ul>
+                                    </li>
+                                    <li>If we look at line 86 in our code editor, we'll find this line:
+
+                                        <img src="../images/numgame18.PNG" alt="Malinka" class="center">
+
+                                    </li>
+                                    <li>The error message says "guessSubmit.addeventListener is not a function", which
+                                        means that the function we're calling is not recognized by the JavaScript
+                                        interpreter.
+                                        Often, this error message actually means that we've spelled something wrong. If
+                                        you are not sure of the correct spelling of a piece of syntax, it is often good
+                                        to look
+                                        up the feature on MDN. The best way to do this currently is to search for "mdn
+                                        <em>name-of-feature</em>" with your favorite search engine. Here's a shortcut to
+                                        save
+                                        you some time in this instance:
+                                        <code><a href="https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener">addEventListener()</a></code>.
+                                    </li>
+                                    <li>So, looking at this page, the error appears to be that we've spelled the
+                                        function name wrong! Remember that JavaScript is case sensitive, so any slight
+                                        difference
+                                        in spelling or casing will cause an error. Changing
+                                        <code>addeventListener</code> to <code>addEventListener</code> should fix this.
+                                        Do this now.</li>
+                                </ol>
 
 
-                                <h2>List-specific styles</h2>
-                                <p>Now we've looked at general spacing techniques for lists, let's explore some
-                                    list-specific properties. There are three properties you
-                                    should know about to start with, which can be set on <a
-                                        href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul"><code>&lt;ul&gt;</code></a>
-                                    or
-                                    <a
-                                        href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol"><code>&lt;ol&gt;</code></a>
-                                    elements:
-                                </p>
-
-                                <ul>
-                                    <li><a
-                                            href="https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-type"><code>list-style-type</code></a>:
-                                        Sets the type of bullets to use for the list, for example, square or circle
-                                        bullets for an unordered list, or numbers, letters or roman numerals for an
-                                        ordered list.</li>
-                                    <li><a
-                                            href="https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-position"><code>list-style-position</code></a>:
-                                        Sets whether the bullets appear inside the list items, or outside them before
-                                        the start of each item.</li>
-                                    <li><a
-                                            href="https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-image"><code>list-style-image</code></a>:
-                                        Allows you to use a custom image for the bullet, rather than a simple square or
-                                        circle.</li>
-                                </ul>
-
-
-                                <H2 style="color:rgb(53, 12, 150); font-size: 200%;">Here be the example</h2>
-
-                                <div class="examplebox">
-
-                                    <h2>Shopping (unordered) list</h2>
-
-                                    <p>Paragraph for reference, paragraph for reference, paragraph for reference,
-                                        paragraph for reference, paragraph for reference, paragraph for reference.</p>
-
-                                    <ul>
-                                        <li>Hummus</li>
-                                        <li>Pita</li>
-                                        <li>Green salad</li>
-                                        <li>Halloumi</li>
-                                    </ul>
-
-                                    <h2>Recipe (ordered) list</h2>
-
-                                    <p>Paragraph for reference, paragraph for reference, paragraph for reference,
-                                        paragraph for reference, paragraph for reference, paragraph for reference.</p>
-
-                                    <ol>
-                                        <li>Toast pita, leave to cool, then slice down the edge.</li>
-                                        <li>Fry the halloumi in a shallow, non-stick pan, until browned on both sides.
-                                        </li>
-                                        <li>Wash and chop the salad.</li>
-                                        <li>Fill pita with salad, hummus, and fried halloumi.</li>
-                                    </ol>
-
-                                    <h2>Ingredient description list</h2>
-
-                                    <p>Paragraph for reference, paragraph for reference, paragraph for reference,
-                                        paragraph for reference, paragraph for reference, paragraph for reference.</p>
-
-                                    <dl>
-                                        <dt>Hummus</dt>
-                                        <dd>A thick dip/sauce generally made from chick peas blended with tahini, lemon
-                                            juice, salt, garlic, and other ingredients.</dd>
-                                        <dt>Pita</dt>
-                                        <dd>A soft, slightly leavened flatbread.</dd>
-                                        <dt>Halloumi</dt>
-                                        <dd>A semi-hard, unripened, brined cheese with a higher-than-usual melting
-                                            point, usually made from goat/sheep milk.</dd>
-                                        <dt>Green salad</dt>
-                                        <dd>That green healthy stuff that many of us just use to garnish kebabs.</dd>
-                                    </dl>
-
-                                </div>
 
 
         </section>
@@ -1502,360 +1344,319 @@ dt &#123;
     </section> -->
     <!-- -------- END PRE-FOOTER 1 w/ SUBSCRIBE BUTTON AND IMAGE ------- -->
     <div class="container">
-        <div class="col-lg-12 ms-auto mt-lg-6 mt-4 justify-content-center align-items-center text-start">
+        <div class="section">
+            <div class="col-lg-12 ms-auto mt-lg-6 mt-4 justify-content-center align-items-center text-start">
 
-            <div class="p-0 position-relative mt-4 mx-3 ">
-                <!-- <a class="d-block blur-shadow-image"> -->
-                <h2 style="color:rgb(12, 150, 70);"><i
-                        class="material-icons text-3xl text-gradient text-info mb-3 pe-3">article</i>More on Styling
-                    Lists</h2>
+                <div class="p-0 position-relative mt-4 mx-3 ">
+                    <!-- <a class="d-block blur-shadow-image"> -->
+                    <h2 style="color:rgb(12, 150, 70);"><i
+                            class="material-icons text-3xl text-gradient text-info mb-3 pe-3">article</i>More Trouble
+                    </h2>
 
-                <h2>Bullet styles</h2>
+                    <h2>Syntax errors round two</h2>
 
-                <p>As mentioned above, the list-style-type property allows you to set what type of bullet to use for the
-                    bullet points. In our example, we've set the ordered list
-                    to use uppercase roman numerals, with:
-                </p>
+                    <ol>
+                        <li>Save your page and refresh, and you should see the error has gone.</li>
+
+                        <li>Now if you try to enter a guess and press the Submit guess button, you'll see ... another
+                            error!
+
+                            <img src="../images/numgame19.PNG" alt="Malinka" class="center">
 
 
-                <div class="codebox">
-                    <p>
-                    <pre>
-                        <code>
-                    
-                    
-                            ol &#123;
-                                list-style-type: upper-roman;
-                              &#125;
-                              
-                        
-                        </code>
-                        </pre>
+
+                        <li>This time the error being reported is "TypeError: lowOrHi is null", on line 78.
+
+                            <div class="notebox"><strong>Note</strong>:
+                                <code><a href="https://developer.mozilla.org/en-US/docs/Glossary/Null">Null</a></code>
+                                is a special value that
+                                means "nothing", or "no value". So <code>lowOrHi</code> has been declared and
+                                initialised, but not with any meaningful value — it has no type or value.</div>
+
+                            <div class="notebox"><strong>Note</strong>: This error didn't come up as soon as the page
+                                was loaded because this error occurred inside a function
+                                (inside the <code>checkGuess() { ... }</code> block). As you'll learn in more detail in
+                                our
+                                later <a
+                                    href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Functions">functions
+                                    article</a>,
+                                code inside functions runs in a separate scope than code outside functions. In this
+                                case, the code was not run and the error was not thrown until
+                                the <code>checkGuess()</code> function was run by line 86.</div>
+                        </li>
+
+                        <li>Have a look at line 78, and you'll see the following code:
+                            <div class="codebox"><code>lowOrHi = 'Last guess was too high!'</code></div>
+                        </li>
+
+                        <li>This line is trying to set the <code>textContent</code> property of the <code>lowOrHi</code>
+                            constant to a text string, but it's not working
+                            because <code>lowOrHi</code> does not contain what it's supposed to. Let's see why this is —
+                            try searching for other instances of <code>lowOrHi</code> in
+                            the code. The earliest instance you'll find in the JavaScript is on line 48:
+
+                            <div class="codebox"> const lowOrHi = document.querySelector('lowOrHi')
+                        </li>
+
+                        <li>At this point we are trying to make the variable contain a reference to an element in the
+                            document's HTML. Let's check whether the value is <code>null</code> after this line has been
+                            run. Add the following code on line 49:
+                            <div class="codebox"><code>console.log(lowOrHi);</code></div>
+                        </li>
+
+
+                        <div class="notebox">
+                            <p><strong>Note</strong>:
+                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/API/Console/log">console.log()</a></code>
+                                is a really useful debugging
+                                function that prints a value to the console. So it will print the value of
+                                <code>lowOrHi</code> to the console as soon as we have tried to set it in line 48.</p>
+                        </div>
+                        </li>
+
+                        <li>Save and refresh, and you should now see the <code>console.log()</code> result in your
+                            console. <img alt="" src="../images/numgame20.PNG" style="display: block; margin: 0 auto;"
+                                loading="lazy" width="700" height="583">
+                            Sure enough, <code>lowOrHi</code>'s value is <code>null</code> at this point, so there is
+                            definitely a problem with line 48.
+                        </li>
+
+                        <li>Let's think about what the problem could be. Line 48 is using a
+                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector">document.querySelector()</a></code>
+                            method to get a reference to an element by
+                            selecting it with a CSS selector. Looking further up our file, we can find the paragraph in
+                            question:
+                            <div class="codebox">&lt;p class="lowOrHi"&gt;&lt;/p&gt;</div>
+                        </li>
+                        <li>So we need a class selector here, which begins with a dot (<code>.</code>), but the selector
+                            being passed into the <code>querySelector()</code> method in
+                            line 48 has no dot. This could be the problem! Try changing <code>lowOrHi</code> to
+                            <code>.lowOrHi</code> in line 48.
+                        </li>
+
+                        <li>Try saving and refreshing again, and your <code>console.log()</code> statement should return
+                            the <code>&lt;p&gt;</code> element we want.
+                            Phew! Another error fixed! You can delete your <code>console.log()</code> line now, or keep
+                            it to reference later on — your choice.
+                        </li>
+                    </ol>
+
+                    <div class="notebox">
+                        <p><strong>Note</strong>: See our <a
+                                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Unexpected_type">TypeError:
+                                "x" is (not) "y"</a> reference page for more details about this error.</p>
+                    </div>
+
+
+                    <h2>Syntax errors round three</h2>
+
+                    <ol>
+                        <li>Now if you try playing the game through again, you should get more success — the game should
+                            play through absolutely fine, until you end the game, either by guessing
+                            the right number, or by running out of guesses.</li>
+                        <li>At that point, the game fails again, and the same error is spat out that we got at the
+                            beginning — "TypeError: resetButton.addeventListener is not a function"!
+                            However, this time it's listed as coming from line 94.</li>
+                        <li>Looking at line number 94, it is easy to see that we've made the same mistake here. We again
+                            just need to change <code>addeventListener</code>
+                            to <code>.addEventListener</code>. Do this now.</li>
+                    </ol>
+
+
+                    <h1>A logic error</h1>
+
+                    <ol>
+                        <li>Search for the <code>randomNumber</code> variable, and the lines where the random number is
+                            first set. The instance that stores the random number that we want to guess at
+                            the start of the game should be around line number 44:
+                            <div class="codebox">let randomNumber = Math.floor(Math.random()) + 1;</div>
+                        </li>
+                        <li>And the one that generates the random number before each subsequent game is around line 113:
+                            <div class="codebox">randomNumber = Math.floor(Math.random()) + 1;</div>
+                        </li>
+                        <li>To check whether these lines are indeed the problem, let's turn to our friend
+                            <code>console.log()</code> again — insert the following line directly below each of the
+                            above two lines:
+                            <div class="codebox">console.log(randomNumber);</div>
+                        </li>
+
+                        <li>Save and refresh, then play a few games — you'll see that <code>randomNumber</code> is equal
+                            to 1 at each point where it is logged to the console.</li>
+                    </ol>
+
+                    <h2>Working through the logic</h2>
+
+                    <p>To fix this, let's consider how this line is working. First, we invoke
+                        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random">Math.random()</a></code>,
+                        which generates a random decimal number between 0
+                        and 1, e.g. 0.5675493843.</p>
+
+                    <div class="codebox">Math.random() </div>
+
+
+                    <p>Next, we pass the result of invoking <code>Math.random()</code> through
+                        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/floor">Math.floor()</a></code>,
+                        which rounds the number passed
+                        to it down to the nearest whole number. We then add 1 to that result:
                     </p>
-                </div>
 
 
-                <p>This gives us the following look:</p>
-
-                <img src="../images/outer-bullets.png" alt="sizing" class="center"></p>
+                    <div class="codebox">Math.floor(Math.random()) + 1 </div>
 
 
-                <p>You can find a lot more options by checking out the <a
-                        href="https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-type"><code>list-style-type</code></a>
-                    reference page.
-                </p>
 
-                <h2>Bullet position</h2>
-
-                <p>The list-style-position property sets whether the bullets appear inside the list items, or outside
-                    them before the start of each item. The default value is outside,
-                    which causes the bullets to sit outside the list items, as seen above.
-                </p>
-
-                <p>If you set the value to inside, the bullets will sit inside the lines:
-                </p>
-
-                <div class="codebox">
-                    <p>
-                    <pre>
-                        <code>
-                        
-                            ol &#123;
-                                list-style-type: upper-roman;
-                                list-style-position: inside;
-                              &#125;
-                              
-                        </code>
-                        </pre>
+                    <p>Rounding a random decimal number between 0 and 1 down will always return 0, so adding 1 to it
+                        will always return 1.&nbsp; We need to multiply the random number
+                        by 100 before we round it down. The following would give us a random number between 0 and 99:
                     </p>
-                </div>
-
-                <img src="../images/inner-bullets.png" alt="sizing" class="center"></p>
-
-                <h2>Using a custom bullet image</h2>
-
-                <p>The list-style-image property allows you to use a custom image for your bullet. The syntax is pretty
-                    simple:
-                </p>
 
 
+                    <div class="codebox">Math.floor(Math.random()*100);</div>
+
+                    <p>Hence us wanting to add 1, to give us a random number between 1 and 100:</p>
+
+                    <div class="codebox">Math.floor(Math.random()*100) + 1;</div>
+
+                    <p>Try updating both lines like this, then save and refresh — the game should now play like we are
+                        intending it to!</p>
+
+                    <h2>Other common errors</h2>
+
+                    <h3>SyntaxError: missing ; before statement</h3>
+
+                    <p>This error generally means that you have missed a semicolon at the end of one of your lines of
+                        code, but it can sometimes be more cryptic. For example,
+                        if we change this line inside the <code>checkGuess()</code> function:</p>
+
+                    <img src="../images/numgame21.PNG" alt="Malinka" class="center">
 
 
-                <div class="codebox">
-                    <p>
-                    <pre>
-                        <code>
-                            ul &#123;
-                                list-style-image: url(star.svg);
-                              &#125; 
-                        </code>
-                        </pre>
-                    </p>
-                </div>
+                    <p>It throws this error because it thinks you are trying to do something different. You should make
+                        sure that you don't mix up the assignment
+                        operator (<code>=</code>) — which sets a variable to be equal to a value — with the strict
+                        equality
+                        operator (<code>===</code>), which tests whether one value is equal to another, and returns a
+                        <code>true</code>/<code>false</code> result.</p>
+
+                    <div class="notebox">
+                        <p><strong>Note</strong>: See our
+                            <a
+                                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Missing_semicolon_before_statement">SyntaxError:
+                                missing ;
+                                before statement</a> reference page for more details about this error.
+                        </p>
+                    </div>
+
+                    <h3>The program always says you've won, regardless of the guess you enter</h3>
+
+                    <p>This could be another symptom of mixing up the assignment and strict equality operators. For
+                        example, if we were to change this line inside <code>checkGuess()</code>:</p>
 
 
-                <p>However, this property is a bit limited in terms of controlling the position, size, etc. of the
-                    bullets.
-                    You are better off using the background family of properties, which you've learned in the
-                    Backgrounds and borders article. For now, here's a taster!
-                </p>
+                    <img src="../images/numgame22.PNG" alt="Malinka" class="center">
 
-                <p>In our <a href="https://mdn.github.io/learning-area/css/styling-text/styling-lists/"> finished
-                        example</a>, we have styled the unordered list like so (on top of what you've already seen
-                    above):
-                </p>
-
-                <div class="codebox">
-                    <p>
-                    <pre>
-                            <code>
-                            
-                        ul &#123;
-                        padding-left: 2rem;
-                        list-style-type: none;
-                      &#125;
-                      
-                      ul li &#123;
-                        padding-left: 2rem;
-                        background-image: url(star.svg);
-                        background-position: 0 0;
-                        background-size: 1.6rem 1.6rem;
-                        background-repeat: no-repeat;
-                      &#125;
-                      
-                      
-                            </code>
-                            </pre>
-                    </p>
-                </div>
+                    <p>the test would always return <code>true</code>, causing the program to report that the game has
+                        been won. Be careful!</p>
 
 
-                <p>Here we've done the following:
-                </p>
-                <ul>
-                    <li>Set the padding-left of the &lt;ul&gt; down from the default 40px to 20px, then set the same
-                        amount on the list items.
-                        This is so that overall the list items are still lined up with the order list items and the
-                        description list descriptions,
-                        but the list items have some padding for the background images to sit inside. If we didn't do
-                        this, the background images
-                        would overlap with the list item text, which would look messy.</li>
-                    <li>Set the list-style-type to none, so that no bullet appears by default. We're going to use
-                        background properties to handle the bullets instead.</li>
-                    <li>Inserted a bullet onto each unordered list item. The relevant properties are as follows:
+                    <div class="notebox">
+                        <p><strong>Note</strong>: See our
+                            <a
+                                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Missing_parenthesis_after_argument_list">SyntaxError:
+                                missing ) after argument
+                                list</a> reference page for more details about this error.
+                        </p>
+                    </div>
+
+                    <h3>SyntaxError: missing : after property id</h3>
+                    <p>This error usually relates to an incorrectly formed JavaScript object, but in this case we
+                        managed to get it by changing</p>
+
+                    <img src="../images/numgame23.PNG" alt="Malinka" class="center">
+
+                    <p>This has caused the browser to think that we are trying to pass the contents of the function into
+                        the function as an argument. Be careful with those parentheses!</p>
+
+                    <h3>SyntaxError: missing } after function body</h3>
+                    <p>This is easy — it generally means that you've missed one of your curly braces from a function or
+                        conditional structure. We got this error by
+                        deleting one of the closing curly braces near the bottom of the <code>checkGuess()</code>
+                        function.</p>
+
+                    <h3>SyntaxError: expected expression, got 'string' or SyntaxError: unterminated string literal</h3>
+
+                    <p>These errors generally mean that you've left off a string value's opening or closing quote mark.
+                        In the first error above, <em>string</em> would be replaced with the
+                        unexpected character(s) that the browser found instead of a quote mark at the start of a string.
+                        The second error means that the string has not been
+                        ended with a quote mark.</p>
+
+                    <p>For all of these errors, think about how we tackled the examples we looked at in the walkthrough.
+                        When an error arises, look at the line number you are given,
+                        go to that line and see if you can spot what's wrong. Bear in mind that the error is not
+                        necessarily going to be on that line, and also that the error might
+                        not be caused by the exact same problem we cited above!</p>
+
+                    <div class="notebox">
+                        <p><strong>Note</strong>: See our <a
+                                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Unexpected_token">SyntaxError:
+                                Unexpected token</a>
+                            and <a
+                                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Unterminated_string_literal">SyntaxError:
+                                unterminated string
+                                literal</a> reference pages for more details about these errors.</p>
+                    </div>
+
+                    <h3>Summary</h3>
+
+                    <p>So there we have it, the basics of figuring out errors in simple JavaScript programs. It won't
+                        always be that simple to work out what's wrong in your code,
+                        but at least this will save you a few hours of sleep and allow you to progress a bit faster when
+                        things don't turn out right, especially in the earlier stages
+                        of your learning journey.</p>
+
+
+
+                    <h2 id="see_also"><a href="#see_also" title="Permalink to See also">See also</a></h2>
+                    <div>
                         <ul>
-                            <li>background-image: This references the path to the image file you want to use as the
-                                bullet.</li>
-                            <li>background-position: This defines where in the background of the selected element the
-                                image will appear —
-                                in this case we are saying 0 0, which means the bullet will appear in the very top left
-                                of each list item.</li>
-                            <li>background-size: This sets the size of the background image. We ideally want the bullets
-                                to be the same size
-                                as the list items (or very slightly smaller or larger). We are using a size of 1.6rem
-                                (16px), which fits
-                                very nicely with the 20px padding we've allowed for the bullet to sit inside — 16px plus
-                                4px of space between
-                                the bullet and the list item text works well.</li>
-                            <li>background-repeat: By default, background images repeat until they fill up the available
-                                background space.
-                                We only want one copy of the image inserted in each case, so we set this to a value of
-                                no-repeat.</li>
+                            <li>There are many other types of errors that aren't listed here; we are compiling a
+                                reference that explains what they mean in detail —
+                                see the <a
+                                    href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors">JavaScript
+                                    error reference</a>.</li>
+                            <li>If you come across any errors in your code that you aren't sure how to fix after reading
+                                this article, you can get help!
+                                Ask for help on the <a href="https://discourse.mozilla.org/c/mdn/learn" class="external"
+                                    rel=" noopener">MDN Discourse forum Learning category</a>, or in
+                                the <a href="https://chat.mozilla.org/#/room/#mdn:mozilla.org" class="external"
+                                    rel=" noopener">MDN Web Docs room</a>
+                                on <a class="external external-icon" href="https://wiki.mozilla.org/Matrix"
+                                    rel=" noopener">Matrix</a>. Tell us what your error is, and we'll try to
+                                help you. A listing of your code would be useful as well.</li>
                         </ul>
-                    </li>
-                </ul>
-                <p> This gives us the following result:</p>
-
-                <img src="../images/list_formatting.png" alt="sizing" class="center"></p>
-
-                <h2>list-style shorthand</h2>
-
-                <p>The three properties mentioned above can all be set using a single shorthand property, list-style.
-                    For example, the following CSS:
-                </p>
+                    </div>
 
 
 
-                <div class="codebox">
-                    <p>
-                    <pre>
-                        <code>
-                                ul &#123;
-                                list-style-type: square;
-                                list-style-image: url(example.png);
-                                list-style-position: inside;
-                              &#125;
-                        </code>
-                        </pre>
-                    </p>
+
+
+
+
+
+
+
+
+
+
+
                 </div>
-
-
-                <p>Could be replaced by this:</p>
-
-                <div class="codebox">
-                    <p>
-                    <pre>
-                        <code>
-                                ul &#123;            
-                                list-style: square url(example.png) inside;
-                            &#125;
-                        </code>
-                        </pre>
-                    </p>
-                </div>
-
-
-                <p>The values can be listed in any order, and you can use one, two or all three (the default values used
-                    for the properties that are not included are
-                    disc, none, and outside). If both a type and an image are specified, the type is used as a fallback
-                    if the image can't be loaded for some reason.
-                </p>
-
-                <h2>Controlling list counting</h2>
-
-                <p>Sometimes you might want to count differently on an ordered list — e.g. starting from a number other
-                    than 1, or counting backwards, or counting
-                    in steps of more than 1. HTML and CSS have some tools to help you here.</p>
-
-                <h2>start</h2>
-
-                <p>The start attribute allows you to start the list counting from a number other than 1. The following
-                    example:</p>
-
-
-                <div class="codebox">
-                    <p>
-                    <pre>
-                        <code>
-                            &lt;ol start="4"&gt;
-                            &lt;li&gt;Toast pita, leave to cool, then slice down the edge.&lt;/li&gt;
-                            &lt;li&gt;Fry the halloumi in a shallow, non-stick pan, until browned on both sides.&lt;/li&gt;
-                            &lt;li&gt;Wash and chop the salad.&lt;/li&gt;
-                            &lt;li&gt;Fill pita with salad, hummus, and fried halloumi.&lt;/li&gt;
-                          &lt;/ol&gt;
-                            </code>
-                        </pre>
-                    </p>
-                </div>
-
-
-
-                <p>Gives you this output:</p>
-
-
-                <img src="../images/startcount.PNG" alt="sizing" class="center"></p>
-
-                <h2>reversed</h2>
-
-                <p>The reversed attribute will start the list counting down instead of up. The following example:</p>
-
-
-                <div class="codebox">
-                    <p>
-                    <pre>
-                        <code>
-                    
-                       &lt;ol start="4" reversed&gt;
-                       &lt;li&gt;Toast pita, leave to cool, then slice down the edge.&lt;/li&gt;
-                       &lt;li&gt;Fry the halloumi in a shallow, non-stick pan, until browned on both sides.&lt;/li&gt;
-                       &lt;li&gt;Wash and chop the salad.&lt;/li&gt;
-                       &lt;li&gt;Fill pita with salad, hummus, and fried halloumi.&lt;/li&gt;
-                     &lt;/ol&gt;
-                        
-                        </code>
-                        </pre>
-                    </p>
-                </div>
-
-
-                <p>Gives you this output:</p>
-
-                <img src="../images/reversedcount.PNG" alt="sizing" class="center"></p>
-
-                <h2>value</h2>
-
-                <p>The value attribute allows you to set your list items to specific numerical values. The following
-                    example:
-                </p>
-
-
-
-
-                <div class="codebox">
-                    <p>
-                    <pre>
-                        <code>
-                            &lt;ol&gt;
-                            &lt;li value="2"&gt;Toast pita, leave to cool, then slice down the edge.&lt;/li&gt;
-                            &lt;li value="4"&gt;Fry the halloumi in a shallow, non-stick pan, until browned on both sides.&lt;/li&gt;
-                            &lt;li value="6"&gt;Wash and chop the salad.&lt;/li&gt;
-                            &lt;li value="8"&gt;Fill pita with salad, hummus, and fried halloumi.&lt;/li&gt;
-                            &lt;/ol&gt; 
-                        </code>
-                        </pre>
-                    </p>
-                </div>
-
-
-                <p>Gives you this output:</p>
-
-                <img src="../images/valuecounter.PNG" alt="sizing" class="center"></p>
-
-                <div class="notebox">
-                    <p>
-                        <strong> Note:</strong> Even if you are using a non-number list-style-type, you still need to
-                        use the equivalent numerical values in the value attribute.
-                    </p>
-                </div>
-
-                <H3 style="color:rgb(12, 150, 70); font-size: 150%;">See also</h3>
-
-
-                <p>CSS counters provide advanced tools for customizing list counting and styling, but they are quite
-                    complex. We recommend looking into these if you want
-                    to stretch yourself. See:
-                </p>
-
-                <ul>
-                    <li><a
-                            href="https://developer.mozilla.org/en-US/docs/Web/CSS/@counter-style"><code>@counter-style</code></a>
-                    </li>
-                    <li><a
-                            href="https://developer.mozilla.org/en-US/docs/Web/CSS/counter-increment"><code>counter-increment</code></a>
-                    </li>
-                    <li><a
-                            href="https://developer.mozilla.org/en-US/docs/Web/CSS/counter-reset"><code>counter-reset</code></a>
-                    </li>
-                </ul>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             </div>
+
+
+
+
         </div>
-
-
-
-
-    </div>
 
     </div>
     </div>

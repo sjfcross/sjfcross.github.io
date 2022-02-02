@@ -38,50 +38,85 @@
     <link rel="stylesheet" href="../app.css">
 
     <style>
-        .codebox {
-            background-color: rgb(205, 221, 194);
-            font-weight: bold;
-            
-        }
-
-        .examplebox {
-            border: solid black 1px;
-            padding: 10px;
-        }
-
-        .examplebox h2 {
-            font-size: 2rem;
-        }
-
-        .examplebox ul {
-            background-color: transparent;
-        }
-
-
-
-        .examplebox ul ol dl p {
-            font-size: 1.5rem;
-        }
-
-        .examplebox li p {
-            line-height: 1.5;
-        }
-
-
-
-
-        .notebox {
-            margin: auto;
-            width: 50%;
-            border: 3px solid green;
-            padding: 10px;
-            background-color: rgb(180, 199, 166);
-            border-radius: 5px;
-        }
-
         code {
             background-color: rgb(205, 221, 194);
             font-size: 1.2em;
+        }
+
+        blockquote {
+            background: #f9f9f9;
+            border-left: 10px solid #ccc;
+            margin: 1.5em 10px;
+            padding: 0.5em 10px;
+            quotes: "\201C""\201D""\2018""\2019";
+        }
+
+        blockquote:before {
+            color: #ccc;
+            content: open-quote;
+            font-size: 4em;
+            line-height: 0.1em;
+            margin-right: 0.25em;
+            vertical-align: -0.4em;
+        }
+
+        blockquote p {
+            display: inline;
+        }
+
+        kbd {
+            margin: 0px 0.1em;
+            padding: 0.1em 0.6em;
+            border-radius: 3px;
+            border: 1px solid rgb(204, 204, 204);
+            color: rgb(51, 51, 51);
+            line-height: 1.4;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 10px;
+            display: inline-block;
+            box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.2), inset 0px 0px 0px 2px #ffffff;
+            background-color: rgb(247, 247, 247);
+            -moz-box-shadow: 0 1px 0px rgba(0, 0, 0, 0.2), 0 0 0 2px #ffffff inset;
+            -webkit-box-shadow: 0 1px 0px rgba(0, 0, 0, 0.2), 0 0 0 2px #ffffff inset;
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px;
+            text-shadow: 0 1px 0 #fff;
+        }
+
+        .table {
+            border-radius: 15px;
+            width: 30%;
+            margin: 10px auto;
+            float: none;
+        }
+
+
+        #standard-table {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #standard-table td,
+        #standard-table th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #standard-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #standard-table tr:hover {
+            background-color: #ddd;
+        }
+
+        #standard-table th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #04AA6D;
+            color: white;
         }
 
         .center {
@@ -91,14 +126,12 @@
             /*  width: 50%;*/
         }
 
-       
-        dd,
-        dt {
-            line-height: 1.5;
+        .card a {
+            text-decoration: underline;
         }
 
-        dt {
-            font-weight: bold;
+        .section a {
+            text-decoration: underline;
         }
     </style>
 
@@ -798,6 +831,7 @@
                                             </div>
                                         </div>
 
+
                                     </div>
                                     <p></p>
                                 </div>
@@ -835,235 +869,118 @@
                                 <!-- <a class="d-block blur-shadow-image"> -->
 
                                 <h2 style="color:rgb(12, 150, 70);"><i
-                                        class="material-icons text-3xl text-gradient text-info mb-3 pe-3">article</i>Styling
-                                    Lists</h2>
+                                        class="material-icons text-3xl text-gradient text-info mb-3 pe-3">article</i>Making
+                                    a JS-Game</h2>
 
+                                <p>Let's imagine your boss has given you the following brief for creating this game:</p>
 
+                                <blockquote>
+                                    <p>I want you to create a simple guess the number type game. It should choose a
+                                        random number between 1 and 100, then challenge the player to guess the number
+                                        in 10 turns.
+                                        After each turn the player should be told if they are right or wrong, and if
+                                        they are wrong, whether the guess was too low or too high. It should also tell
+                                        the player
+                                        what numbers they previously guessed. The game will end once the player guesses
+                                        correctly, or once they run out of turns. When the game ends, the player should
+                                        be
+                                        given an option to start playing again.</p>
+                                </blockquote>
 
+                                <p>Upon looking at this brief, the first thing we can do is to start breaking it down
+                                    into simple actionable tasks, in as much of a programmer mindset as possible:</p>
 
-                                <h2>A simple list example</h2>
-
-                                <p>To begin with, let's look at a simple list example. Throughout this article, we'll
-                                    look at unordered, ordered, and description lists — all have styling
-                                    features that are similar, and some that are particular to their type of list.
-                                </p>
-
-                                <div class="codebox">
-                                    <p>
-                                    <pre>
-  <code>
-    &lt;h2&gt;Shopping (unordered) list&lt;/h2&gt;
-
-    &lt;p&gt;Paragraph for reference, paragraph for reference, paragraph for reference,
-    paragraph for reference, paragraph for reference, paragraph for reference.&lt;/p&gt;
-    
-    &lt;ul&gt;
-      &lt;li&gt;Hummus&lt;/li&gt;
-      &lt;li&gt;Pita&lt;/li&gt;
-      &lt;li&gt;Green salad&lt;/li&gt;
-      &lt;li&gt;Halloumi&lt;/li&gt;
-    &lt;/ul&gt;
-    
-    &lt;h2&gt;Recipe (ordered) list&lt;/h2&gt;
-    
-    &lt;p&gt;Paragraph for reference, paragraph for reference, paragraph for reference,
-    paragraph for reference, paragraph for reference, paragraph for reference.&lt;/p&gt;
-    
-    &lt;ol&gt;
-      &lt;li&gt;Toast pita, leave to cool, then slice down the edge.&lt;/li&gt;
-      &lt;li&gt;Fry the halloumi in a shallow, non-stick pan, until browned on both sides.&lt;/li&gt;
-      &lt;li&gt;Wash and chop the salad.&lt;/li&gt;
-      &lt;li&gt;Fill pita with salad, hummus, and fried halloumi.&lt;/li&gt;
-    &lt;/ol&gt;
-    
-    &lt;h2&gt;Ingredient description list&lt;/h2&gt;
-    
-    &lt;p&gt;Paragraph for reference, paragraph for reference, paragraph for reference,
-    paragraph for reference, paragraph for reference, paragraph for reference.&lt;/p&gt;
-    
-    &lt;dl&gt;
-      &lt;dt&gt;Hummus&lt;/dt&gt;
-      &lt;dd&gt;A thick dip/sauce generally made from chick peas blended with tahini, lemon juice, 
-      salt, garlic, and other ingredients.&lt;/dd&gt;
-      &lt;dt&gt;Pita&lt;/dt&gt;
-      &lt;dd&gt;A soft, slightly leavened flatbread.&lt;/dd&gt;
-      &lt;dt&gt;Halloumi&lt;/dt&gt;
-      &lt;dd&gt;A semi-hard, unripened, brined cheese with a higher-than-usual melting point, 
-      usually made from goat/sheep milk.&lt;/dd&gt;
-      &lt;dt&gt;Green salad&lt;/dt&gt;
-      &lt;dd&gt;That green healthy stuff that many of us just use to garnish kebabs.&lt;/dd&gt;
-    &lt;/dl&gt;
-
-</code>
-</pre>
-                                    </p>
-                                </div>
-
-                                <p>If you go to the <a
-                                        href="https://mdn.github.io/learning-area/css/styling-text/styling-lists/"> live
-                                        example</a> now and investigate the list elements using browser developer tools,
-                                    you'll notice a couple of styling defaults:
-                                </p>
-                                <ul>
-                                    The <code>&lt;ul&gt;</code> and <code>&lt;ol&gt;</code> elements have a top and
-                                    bottom margin of 16px (1em) and a <code>padding-left</code> of 40px (2.5em.)
-                                    The list items (<code>&lt;li&gt;</code> elements) have no set defaults for spacing.
-                                    The <code>&lt;dl&gt;</code> element has a top and bottom <code>margin</code> of 16px
-                                    (1em), but no <code>padding</code> set.
-                                    The <code>&lt;dd&gt;</code> elements have <code>margin-left</code> of 40px (2.5em.)
-                                    The <code>&lt;p&gt;</code> elements we've included for reference have a top and
-                                    bottom <code>margin</code> of 16px (1em), the same as the different list types.
-                                </ul>
-
-                                <h2>Handling list spacing</h2>
-
-                                <p>When styling lists, you need to adjust their styles so they keep the same vertical
-                                    spacing as their surrounding elements
-                                    (such as paragraphs and images; sometimes called vertical rhythm), and the same
-                                    horizontal spacing as each other.
-                                </p>
-
-                                <p>The CSS used for the text styling and spacing is as follows:
-                                </p>
-
-                                <div class="codebox">
-                                    <p>
-                                    <pre>
-    <code>
-
-/* General styles */
-
-html &#123;
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: 10px;
-&#125;
-
-h2 &#123;
-  font-size: 2rem;
-&#125;
-
-ul,ol,dl,p &#123;
-  font-size: 1.5rem;
-&#125;
-
-li, p &#123;
-  line-height: 1.5;
-&#125;
-
-/* Description list styles */
-
-dd, dt &#123;
-  line-height: 1.5;
-&#125;
-
-dt &#123;
-  font-weight: bold;
-&#125;
-
-</code>
-</pre>
-                                    </p>
-                                </div>
-
-                                <ul>
-                                    <li>The first rule sets a sitewide font and a baseline font size of 10px. These are
-                                        inherited by everything on the page.</li>
-                                    <li>Rules 2 and 3 set relative font sizes for the headings, different list types
-                                        (the children of the list elements inherit these),
-                                        and paragraphs. This means that each paragraph and list will have the same font
-                                        size and top and bottom spacing, helping
-                                        to keep the vertical rhythm consistent.</li>
-                                    <li>Rule 4 sets the same <a
-                                            href=https://developer.mozilla.org/en-US/docs/Web/CSS/line-height"><code>line-height</code></a>
-                                        on the paragraphs and list items —
-                                        so the paragraphs and each individual list item will have the same spacing
-                                        between lines. This will also help to keep the
-                                        vertical rhythm consistent.</li>
-                                    <li>Rules 5 and 6 apply to the description list — we set the same
-                                        <code>line-height</code> on the description list terms and descriptions as
-                                        we did with the paragraphs and list items. Again, consistency is good! We also
-                                        make the description terms have bold font, so
-                                        they visually stand out easier.
+                                <ol>
+                                    <li>Generate a random number between 1 and 100.</li>
+                                    <li>Record the turn number the player is on. Start it on 1.</li>
+                                    <li>Provide the player with a way to guess what the number is.</li>
+                                    <li>Once a guess has been submitted first record it somewhere so the user can see
+                                        their previous guesses.</li>
+                                    <li>Next, check whether it is the correct number.</li>
+                                    <li>If it is correct:
+                                        <ol>
+                                            <li>Display congratulations message.</li>
+                                            <li>Stop the player from being able to enter more guesses (this would mess
+                                                the game up).</li>
+                                            <li>Display control allowing the player to restart the game.</li>
+                                        </ol>
                                     </li>
-                                </ul>
+                                    <li>If it is wrong and the player has turns left:
+                                        <ol>
+                                            <li>Tell the player they are wrong and whether their guess was too high or
+                                                too low.</li>
+                                            <li>Allow them to enter another guess.</li>
+                                            <li>Increment the turn number by 1.</li>
+                                        </ol>
+                                    </li>
+                                    <li>If it is wrong and the player has no turns left:
+                                        <ol>
+                                            <li>Tell the player it is game over.</li>
+                                            <li>Stop the player from being able to enter more guesses (this would mess
+                                                the game up).</li>
+                                            <li>Display control allowing the player to restart the game.</li>
+                                        </ol>
+                                    </li>
+                                    <li>Once the game restarts, make sure the game logic and UI are completely reset,
+                                        then go back to step 1.</li>
+                                </ol>
+
+                                <p>Let's now move forward, looking at how we can turn these steps into code, building up
+                                    the example, and exploring JavaScript features as we go.</p>
 
 
-                                <h2>List-specific styles</h2>
-                                <p>Now we've looked at general spacing techniques for lists, let's explore some
-                                    list-specific properties. There are three properties you
-                                    should know about to start with, which can be set on <a
-                                        href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul"><code>&lt;ul&gt;</code></a>
-                                    or
-                                    <a
-                                        href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol"><code>&lt;ol&gt;</code></a>
-                                    elements:
+                                <h1><a href="../subpages/fontexa/number-guessing-game-start.html">Here be Dragons</a>
+                                </h1>
+
+                                <h2>Adding variables to store our data</h2>
+
+                                <p>Let's get started. First of all, add the following lines inside your "script"
+                                    element: </p>
+
+                                <img src="../images/numgame1.PNG" alt="Malinka" class="center">
+
+                                <p>This section of the code sets up the variables and constants we need to store the
+                                    data our program will use. Variables are basically containers for values
+                                    (such as numbers, or strings of text). You create a variable with the keyword
+                                    <code>let</code> (or <code>var</code>) followed by a name for your variable
+                                    (you'll read more about the difference between the keywords in a <a
+                                        href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/Variables#the_difference_between_var_and_let">future
+                                        article</a>). Constants are used to store values that are immutable or can't be
+                                    changed&nbsp;and are created with the keyword <code>const</code>.
+                                    In this case, we are using constants to store references to parts of our user
+                                    interface; the text inside some of them might change, but the HTML elements
+                                    referenced stay the same.
                                 </p>
 
+                                <p>You can assign a value to your variable or constant with an equals sign
+                                    (<code>=</code>) followed by the value you want to give it.</p>
+
+                                <p>In our example:</p>
+
                                 <ul>
-                                    <li><a
-                                            href="https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-type"><code>list-style-type</code></a>:
-                                        Sets the type of bullets to use for the list, for example, square or circle
-                                        bullets for an unordered list, or numbers, letters or roman numerals for an
-                                        ordered list.</li>
-                                    <li><a
-                                            href="https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-position"><code>list-style-position</code></a>:
-                                        Sets whether the bullets appear inside the list items, or outside them before
-                                        the start of each item.</li>
-                                    <li><a
-                                            href="https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-image"><code>list-style-image</code></a>:
-                                        Allows you to use a custom image for the bullet, rather than a simple square or
-                                        circle.</li>
-                                </ul>
+                                    <li>The first variable — <code>randomNumber</code> — is assigned a random number
+                                        between 1 and 100, calculated using a mathematical algorithm.</li>
+                                    <li>The first three constants are each made to store a reference to the results
+                                        paragraphs in our HTML, and are used to insert values into the paragraphs later
+                                        on in the code
+                                        (note how they are inside a <code>&lt;div&gt;</code> element, which is itself
+                                        used to select all three later on for resetting, when we restart the game):
+                                        <img src="../images/numgame2.PNG" alt="Malinka" class="center">
+                                    </li>
+
+                                    <li>The next two constants store references to the form text input and submit button
+                                        and are used to control submitting the guess later on.
+
+                                        <img src="../images/numgame3.PNG" alt="Malinka" class="center">
+                                    </li>
+
+                                    <li>Our final two variables store a guess count of 1 (used to keep track of how many
+                                        guesses the player has had), and a reference to a reset button that doesn't
+                                        exist yet (but will later).</li>
 
 
-                                <H2 style="color:rgb(53, 12, 150); font-size: 200%;">Here be the example</h2>
 
-                                <div class="examplebox">
 
-                                    <h2>Shopping (unordered) list</h2>
-
-                                    <p>Paragraph for reference, paragraph for reference, paragraph for reference,
-                                        paragraph for reference, paragraph for reference, paragraph for reference.</p>
-
-                                    <ul>
-                                        <li>Hummus</li>
-                                        <li>Pita</li>
-                                        <li>Green salad</li>
-                                        <li>Halloumi</li>
-                                    </ul>
-
-                                    <h2>Recipe (ordered) list</h2>
-
-                                    <p>Paragraph for reference, paragraph for reference, paragraph for reference,
-                                        paragraph for reference, paragraph for reference, paragraph for reference.</p>
-
-                                    <ol>
-                                        <li>Toast pita, leave to cool, then slice down the edge.</li>
-                                        <li>Fry the halloumi in a shallow, non-stick pan, until browned on both sides.
-                                        </li>
-                                        <li>Wash and chop the salad.</li>
-                                        <li>Fill pita with salad, hummus, and fried halloumi.</li>
-                                    </ol>
-
-                                    <h2>Ingredient description list</h2>
-
-                                    <p>Paragraph for reference, paragraph for reference, paragraph for reference,
-                                        paragraph for reference, paragraph for reference, paragraph for reference.</p>
-
-                                    <dl>
-                                        <dt>Hummus</dt>
-                                        <dd>A thick dip/sauce generally made from chick peas blended with tahini, lemon
-                                            juice, salt, garlic, and other ingredients.</dd>
-                                        <dt>Pita</dt>
-                                        <dd>A soft, slightly leavened flatbread.</dd>
-                                        <dt>Halloumi</dt>
-                                        <dd>A semi-hard, unripened, brined cheese with a higher-than-usual melting
-                                            point, usually made from goat/sheep milk.</dd>
-                                        <dt>Green salad</dt>
-                                        <dd>That green healthy stuff that many of us just use to garnish kebabs.</dd>
-                                    </dl>
-
-                                </div>
 
 
         </section>
@@ -1502,360 +1419,405 @@ dt &#123;
     </section> -->
     <!-- -------- END PRE-FOOTER 1 w/ SUBSCRIBE BUTTON AND IMAGE ------- -->
     <div class="container">
-        <div class="col-lg-12 ms-auto mt-lg-6 mt-4 justify-content-center align-items-center text-start">
+        <div class="section">
+            <div class="col-lg-12 ms-auto mt-lg-6 mt-4 justify-content-center align-items-center text-start">
 
-            <div class="p-0 position-relative mt-4 mx-3 ">
-                <!-- <a class="d-block blur-shadow-image"> -->
-                <h2 style="color:rgb(12, 150, 70);"><i
-                        class="material-icons text-3xl text-gradient text-info mb-3 pe-3">article</i>More on Styling
-                    Lists</h2>
+                <div class="p-0 position-relative mt-4 mx-3 ">
+                    <!-- <a class="d-block blur-shadow-image"> -->
+                    <h2 style="color:rgb(12, 150, 70);"><i
+                            class="material-icons text-3xl text-gradient text-info mb-3 pe-3">article</i>Working on the
+                        game</h2>
 
-                <h2>Bullet styles</h2>
+                    <h2>Functions</h2>
 
-                <p>As mentioned above, the list-style-type property allows you to set what type of bullet to use for the
-                    bullet points. In our example, we've set the ordered list
-                    to use uppercase roman numerals, with:
-                </p>
+                    <p>Next, add the following below your previous JavaScript:</p>
+
+                    <img src="../images/numgame4.PNG" alt="Malinka" class="center"> </li>
 
 
-                <div class="codebox">
-                    <p>
-                    <pre>
-                        <code>
-                    
-                    
-                            ol &#123;
-                                list-style-type: upper-roman;
-                              &#125;
-                              
-                        
-                        </code>
-                        </pre>
+                    <p>Functions are reusable blocks of code that you can write once and run again and again, saving the
+                        need to keep repeating code all the time. This is really useful.
+                        There are a number of ways to define functions, but for now we'll concentrate on one simple
+                        type. Here we have defined a function by using the
+                        keyword <code>function</code>, followed by a name, with parentheses put after it. After that we
+                        put two curly braces (<code>{ }</code>). Inside the curly
+                        braces goes all the code that we want to run whenever we call the function.</p>
+
+                    <p>When we want to run the code, we type the name of the function followed by the parentheses.</p>
+
+                    <p>Let's try that now. Save your code and refresh the page in your browser.
+                        Then go into the <a
+                            href="https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_are_browser_developer_tools">developer
+                            tools JavaScript console</a>,
+                        and enter the following line:</p>
+
+                    <img src="../images/numgame5.PNG" alt="Malinka" class="center"> </li>
+
+                    <p>After pressing&nbsp;<kbd>Return</kbd>/<kbd>Enter</kbd>, you should see an alert come up that says
+                        <code>I am a placeholder</code>;
+                        we have defined a function in our code that creates an alert whenever we call it.
                     </p>
-                </div>
 
+                    <h2>Operaters</h2>
 
-                <p>This gives us the following look:</p>
+                    <p>JavaScript operators allow us to perform tests, do math, join strings together, and other such
+                        things.</p>
 
-                <img src="../images/outer-bullets.png" alt="sizing" class="center"></p>
-
-
-                <p>You can find a lot more options by checking out the <a
-                        href="https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-type"><code>list-style-type</code></a>
-                    reference page.
-                </p>
-
-                <h2>Bullet position</h2>
-
-                <p>The list-style-position property sets whether the bullets appear inside the list items, or outside
-                    them before the start of each item. The default value is outside,
-                    which causes the bullets to sit outside the list items, as seen above.
-                </p>
-
-                <p>If you set the value to inside, the bullets will sit inside the lines:
-                </p>
-
-                <div class="codebox">
-                    <p>
-                    <pre>
-                        <code>
-                        
-                            ol &#123;
-                                list-style-type: upper-roman;
-                                list-style-position: inside;
-                              &#125;
-                              
-                        </code>
-                        </pre>
+                    <p>If you haven't already done so, save your code, refresh the page in your browser, and open
+                        the <a
+                            href="https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_are_browser_developer_tools">developer
+                            tools JavaScript console</a>.
+                        Then we can try typing in the examples shown below — type in each one from the "Example" columns
+                        exactly as shown,
+                        pressing <kbd>Return</kbd>/<kbd>Enter</kbd> after each one, and see what results they return.
                     </p>
-                </div>
 
-                <img src="../images/inner-bullets.png" alt="sizing" class="center"></p>
+                    <p>First let's look at arithmetic operators, for example:</p>
 
-                <h2>Using a custom bullet image</h2>
+                    <div class="center">
+                        <table class="standard-table center table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Operator</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Example</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>+</code></td>
+                                    <td>Addition</td>
+                                    <td><code>6 + 9</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>-</code></td>
+                                    <td>Subtraction</td>
+                                    <td><code>20 - 15</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>*</code></td>
+                                    <td>Multiplication</td>
+                                    <td><code>3 * 7</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>/</code></td>
+                                    <td>Division</td>
+                                    <td><code>10 / 5</code></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
-                <p>The list-style-image property allows you to use a custom image for your bullet. The syntax is pretty
-                    simple:
-                </p>
 
+                    <p>You can also use the <code>+</code> operator to join text strings together (in programming, this
+                        is called <em>concatenation</em>).
+                        Try entering the following lines, one at a time:</p>
 
+                    <img src="../images/numgame6.PNG" alt="Malinka" class="center">
 
-
-                <div class="codebox">
-                    <p>
-                    <pre>
-                        <code>
-                            ul &#123;
-                                list-style-image: url(star.svg);
-                              &#125; 
-                        </code>
-                        </pre>
+                    <p>There are also some shortcut operators available, called augmented
+                        <a
+                            href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators#assignment_operators">assignment
+                            operators</a>.
+                        For example, if you want to add a new text string to an existing one and return the result, you
+                        could do this:
                     </p>
-                </div>
+
+                    <img src="../images/numgame7.PNG" alt="Malinka" class="center">
+
+                    <p>When we are running true/false tests (for example inside conditionals)
+                        we use <a
+                            href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators">comparison
+                            operators</a>. For example:</p>
+
+                    <img src="../images/numgame8.PNG" alt="Malinka" class="center">
 
 
-                <p>However, this property is a bit limited in terms of controlling the position, size, etc. of the
-                    bullets.
-                    You are better off using the background family of properties, which you've learned in the
-                    Backgrounds and borders article. For now, here's a taster!
-                </p>
+                    <h2>Conditionals</h2>
 
-                <p>In our <a href="https://mdn.github.io/learning-area/css/styling-text/styling-lists/"> finished
-                        example</a>, we have styled the unordered list like so (on top of what you've already seen
-                    above):
-                </p>
+                    <p>Returning to our <code>checkGuess()</code> function, I think it's safe to say that we don't want
+                        it to just spit out a placeholder message. We want it to
+                        check whether a player's guess is correct or not, and respond appropriately.</p>
 
-                <div class="codebox">
-                    <p>
-                    <pre>
-                            <code>
-                            
-                        ul &#123;
-                        padding-left: 2rem;
-                        list-style-type: none;
-                      &#125;
-                      
-                      ul li &#123;
-                        padding-left: 2rem;
-                        background-image: url(star.svg);
-                        background-position: 0 0;
-                        background-size: 1.6rem 1.6rem;
-                        background-repeat: no-repeat;
-                      &#125;
-                      
-                      
-                            </code>
-                            </pre>
+                    <p>At this point, replace your current <code>checkGuess()</code> function with this version instead:
                     </p>
-                </div>
+
+                    <img src="../images/numgame9.PNG" alt="Malinka" class="center">
+
+                    <p>This is a lot of code — phew! Let's go through each section and explain what it does.</p>
+
+                    <ul>
+                        <li>The first line (line 2 above) declares a variable called <code>userGuess</code> and sets its
+                            value to the current value entered inside the text field.
+                            We also run this value through the built-in <code>Number()</code> constructor, just to make
+                            sure the value is definitely a number.</li>
+
+                        <li>Next, we encounter our first conditional code block (lines 3–5 above). A conditional code
+                            block allows you to run code selectively, depending on whether a
+                            certain condition is true or not. It looks a bit like a function, but it isn't. The simplest
+                            form of conditional block starts with the keyword <code>if</code>,
+                            then some parentheses, then some curly braces. Inside the parentheses we include a test. If
+                            the test returns <code>true</code>, we run the code inside the curly
+                            braces. If not, we don't, and move on to the next bit of code. In this case the test is
+                            testing whether the <code>guessCount</code> variable is equal to <code>1</code>
+                            (i.e. whether this is the player's first go or not):
+
+                            <img src="../images/numgame10.PNG" alt="Malinka" class="center">
+
+                            If it is, we make the guesses paragraph's text content equal to
+                            <code>Previous guesses: </code>. If not, we don't.
+                        </li>
+
+                        <li>Line 6 appends the current <code>userGuess</code> value onto the end of the
+                            <code>guesses</code> paragraph, plus a blank space so there will be a space between
+                            each guess shown.
+                        </li>
+                        <li>The next block (lines 8–24 above) does a few checks:
+                            <ul>
+                                <li>The first <code>if(){ }</code> checks whether the user's guess is equal to the
+                                    <code>randomNumber</code> set at the top of our JavaScript. If it is, the player
+                                    has guessed correctly and the game is won, so we show the player a congratulations
+                                    message with a nice green color, clear the contents of the Low/High guess
+                                    information box, and run a function called <code>setGameOver()</code>, which we'll
+                                    discuss later.
+                                </li>
+                                <li>Now we've chained another test onto the end of the last one using an
+                                    <code>else if(){ }</code> structure. This one checks whether this turn is the user's
+                                    last turn.
+                                    If it is, the program does the same thing as in the previous block, except with a
+                                    game over message instead of a congratulations message.
+                                </li>
+                                <li>The final block chained onto the end of this code (the <code>else { }</code>)
+                                    contains code that is only run if neither of the other two tests
+                                    returns true (i.e. the player didn't guess right, but they have more guesses left).
+                                    In this case we tell them they are wrong, then we perform another
+                                    conditional test to check whether the guess was higher or lower than the answer,
+                                    displaying a further message as appropriate to tell them higher or lower.</li>
+                            </ul>
+                        </li>
+                        <li>The last three lines in the function (lines 26–28 above) get us ready for the next guess to
+                            be submitted. We add 1 to the <code>guessCount</code> variable so the player uses up their
+                            turn (<code>++</code> is an incrementation operation — increment by 1), and empty the value
+                            out of the form text field and focus it again, ready for the next guess to be entered.</li>
+                    </ul>
+
+                    <h2>Events</h2>
+
+                    <p>At this point we have a nicely implemented <code>checkGuess()</code> function, but it won't do
+                        anything because we haven't called it yet.
+                        Ideally we want to call it when the "Submit guess" button is pressed, and to do this we need to
+                        use an <strong>event</strong>.
+                        Events are things that happen in the browser — a button being clicked, a page loading, a video
+                        playing, etc. — in response to which we can run blocks of code.
+                        The constructs that listen out for the event happening are called <strong>event
+                            listeners</strong>, and the blocks of code that run in response to the event
+                        firing are called <strong>event handlers</strong>.</p>
+
+                    <p>Add the following line below your <code>checkGuess()</code> function:</p>
+
+                    <img src="../images/numgame11.PNG" alt="Malinka" class="center">
+
+                    <p>Here we are adding an event listener to the <code>guessSubmit</code> button. This is a method
+                        that takes two input values (called <em>arguments</em>) — the type of event
+                        we are listening out for (in this case <code>click</code>) as a string, and the code we want to
+                        run when the event occurs
+                        (in this case the <code>checkGuess()</code> function). Note that we don't need to specify the
+                        parentheses when writing it
+                        inside <a href="https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener"
+                            title="addEventListener()"><code>addEventListener()</code></a>.</p>
+
+                    <p>Try saving and refreshing your code now, and your example should work — to a point. The only
+                        problem now is that if you guess the correct answer or run out of guesses,
+                        the game will break because we've not yet defined the <code>setGameOver()</code> function that
+                        is supposed to be run once the game is over. Let's add our missing
+                        code now and complete the example functionality.</p>
+
+                    <h2>Finishing the game functionality</h2>
+
+                    <p>Let's add that <code>setGameOver()</code> function to the bottom of our code and then walk
+                        through it. Add this now, below the rest of your JavaScript:</p>
 
 
-                <p>Here we've done the following:
-                </p>
-                <ul>
-                    <li>Set the padding-left of the &lt;ul&gt; down from the default 40px to 20px, then set the same
-                        amount on the list items.
-                        This is so that overall the list items are still lined up with the order list items and the
-                        description list descriptions,
-                        but the list items have some padding for the background images to sit inside. If we didn't do
-                        this, the background images
-                        would overlap with the list item text, which would look messy.</li>
-                    <li>Set the list-style-type to none, so that no bullet appears by default. We're going to use
-                        background properties to handle the bullets instead.</li>
-                    <li>Inserted a bullet onto each unordered list item. The relevant properties are as follows:
-                        <ul>
-                            <li>background-image: This references the path to the image file you want to use as the
-                                bullet.</li>
-                            <li>background-position: This defines where in the background of the selected element the
-                                image will appear —
-                                in this case we are saying 0 0, which means the bullet will appear in the very top left
-                                of each list item.</li>
-                            <li>background-size: This sets the size of the background image. We ideally want the bullets
-                                to be the same size
-                                as the list items (or very slightly smaller or larger). We are using a size of 1.6rem
-                                (16px), which fits
-                                very nicely with the 20px padding we've allowed for the bullet to sit inside — 16px plus
-                                4px of space between
-                                the bullet and the list item text works well.</li>
-                            <li>background-repeat: By default, background images repeat until they fill up the available
-                                background space.
-                                We only want one copy of the image inserted in each case, so we set this to a value of
-                                no-repeat.</li>
-                        </ul>
-                    </li>
-                </ul>
-                <p> This gives us the following result:</p>
-
-                <img src="../images/list_formatting.png" alt="sizing" class="center"></p>
-
-                <h2>list-style shorthand</h2>
-
-                <p>The three properties mentioned above can all be set using a single shorthand property, list-style.
-                    For example, the following CSS:
-                </p>
+                    <img src="../images/numgame12.PNG" alt="Malinka" class="center">
 
 
+                    <ul>
+                        <li>The first two lines disable the form text input and button by setting their disabled
+                            properties to <code>true</code>. This is necessary, because if we didn't, the user could
+                            submit more guesses after the game is over, which would mess things up.</li>
+                        <li>The next three lines generate a new <a
+                                href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button"><code>&lt;button&gt;</code></a>
+                            element, set its text label to "Start new game", and add it to the bottom of our existing
+                            HTML.</li>
+                        <li>The final line sets an event listener on our new button so that when it is clicked, a
+                            function called <code>resetGame()</code> is run.</li>
+                    </ul>
 
-                <div class="codebox">
-                    <p>
-                    <pre>
-                        <code>
-                                ul &#123;
-                                list-style-type: square;
-                                list-style-image: url(example.png);
-                                list-style-position: inside;
-                              &#125;
-                        </code>
-                        </pre>
+                    <p>Now we need to define this function too! Add the following code, again to the bottom of your
+                        JavaScript:</p>
+
+                    <img src="../images/numgame13.PNG" alt="Malinka" class="center">
+
+                    <p>This rather long block of code completely resets everything to how it was at the start of the
+                        game, so the player can have another go. It:</p>
+
+                    <ul>
+                        <li>Puts the <code>guessCount</code> back down to 1.</li>
+                        <li>Empties all the text out of the information paragraphs. We select all paragraphs inside
+                            <code>&lt;div class="resultParas"&gt;&lt;/div&gt;</code>, then loop through each one,
+                            setting their <code>textContent</code> to <code>''</code> (an empty string).
+                        </li>
+                        <li>Removes the reset button from our code.</li>
+                        <li>Enables the form elements, and empties and focuses the text field, ready for a new guess to
+                            be entered.</li>
+                        <li>Removes the background color from the <code>lastResult</code> paragraph.</li>
+                        <li>Generates a new random number so that you are not just guessing the same number again!</li>
+                    </ul>
+
+                    <p><strong>At this point you should have a fully working (simple) game — congratulations!</strong>
                     </p>
-                </div>
 
 
-                <p>Could be replaced by this:</p>
+                    <h1><a href="../subpages/fontexa/number-guessing-game-start.html">Here be Dragons</a></h1>
 
-                <div class="codebox">
-                    <p>
-                    <pre>
-                        <code>
-                                ul &#123;            
-                                list-style: square url(example.png) inside;
-                            &#125;
-                        </code>
-                        </pre>
+                    <p>All we have left to do now in this article is talk about a few other important code features that
+                        you've already seen, although you may have not realized it.</p>
+
+                    <h2>Loops</h2>
+
+                    <p>One part of the above code that we need to take a more detailed look at is the
+                        <a
+                            href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for">for</a>
+                        loop. Loops are a very important concept in programming, which allow you to keep running a
+                        piece of code over and over again, until a certain condition is met.
                     </p>
-                </div>
 
+                    <p>To start with, go to your <a
+                            href="https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_are_browser_developer_tools">browser
+                            developer tools JavaScript console</a>
+                        again, and enter the following:</p>
 
-                <p>The values can be listed in any order, and you can use one, two or all three (the default values used
-                    for the properties that are not included are
-                    disc, none, and outside). If both a type and an image are specified, the type is used as a fallback
-                    if the image can't be loaded for some reason.
-                </p>
+                    <img src="../images/numgame14.PNG" alt="Malinka" class="center">
 
-                <h2>Controlling list counting</h2>
+                    <p>What happened? The numbers <code>1</code> to <code>20</code> were printed out in your console.
+                        This is because of the loop. A <code>for</code> loop takes three
+                        input values (arguments):</p>
 
-                <p>Sometimes you might want to count differently on an ordered list — e.g. starting from a number other
-                    than 1, or counting backwards, or counting
-                    in steps of more than 1. HTML and CSS have some tools to help you here.</p>
+                    <ol>
+                        <li><strong>A starting value</strong>: In this case we are starting a count at 1, but this could
+                            be any number you like. You could replace the letter <code>i</code>
+                            with any name you like too, but <code>i</code> is used as a convention because it's short
+                            and easy to remember.</li>
+                        <li><strong>A condition</strong>: Here we have specified <code>i &lt; 21</code> — the loop will
+                            keep going until <code>i</code> is no longer less than 21.
+                            When <code>i</code> reaches 21, the loop will&nbsp;no longer run.</li>
+                        <li><strong>An incrementor</strong>: We have specified <code>i++</code>, which means "add 1 to
+                            i". The loop will run once for every value
+                            of <code>i</code>, until <code>i</code> reaches a value of 21 (as discussed above). In this
+                            case, we are printing the value of <code>i</code> out to the console on
+                            every iteration using <a href="https://developer.mozilla.org/en-US/docs/Web/API/Console/log"
+                                title="console.log()"><code>console.log()</code></a>.</li>
+                    </ol>
 
-                <h2>start</h2>
-
-                <p>The start attribute allows you to start the list counting from a number other than 1. The following
-                    example:</p>
-
-
-                <div class="codebox">
-                    <p>
-                    <pre>
-                        <code>
-                            &lt;ol start="4"&gt;
-                            &lt;li&gt;Toast pita, leave to cool, then slice down the edge.&lt;/li&gt;
-                            &lt;li&gt;Fry the halloumi in a shallow, non-stick pan, until browned on both sides.&lt;/li&gt;
-                            &lt;li&gt;Wash and chop the salad.&lt;/li&gt;
-                            &lt;li&gt;Fill pita with salad, hummus, and fried halloumi.&lt;/li&gt;
-                          &lt;/ol&gt;
-                            </code>
-                        </pre>
+                    <p>Now let's look at the loop in our number guessing game — the following can be found inside the
+                        <code>resetGame()</code> function:
                     </p>
-                </div>
+
+                    <img src="../images/numgame15.PNG" alt="Malinka" class="center">
 
 
-
-                <p>Gives you this output:</p>
-
-
-                <img src="../images/startcount.PNG" alt="sizing" class="center"></p>
-
-                <h2>reversed</h2>
-
-                <p>The reversed attribute will start the list counting down instead of up. The following example:</p>
-
-
-                <div class="codebox">
-                    <p>
-                    <pre>
-                        <code>
-                    
-                       &lt;ol start="4" reversed&gt;
-                       &lt;li&gt;Toast pita, leave to cool, then slice down the edge.&lt;/li&gt;
-                       &lt;li&gt;Fry the halloumi in a shallow, non-stick pan, until browned on both sides.&lt;/li&gt;
-                       &lt;li&gt;Wash and chop the salad.&lt;/li&gt;
-                       &lt;li&gt;Fill pita with salad, hummus, and fried halloumi.&lt;/li&gt;
-                     &lt;/ol&gt;
-                        
-                        </code>
-                        </pre>
+                    <p>This code creates a variable containing a list of all the paragraphs inside
+                        <code>&lt;div class="resultParas"&gt;</code> using
+                        the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll"
+                            title="querySelectorAll()"><code>querySelectorAll()</code></a> method, then it loops through
+                        each
+                        one, removing the text content of each.
                     </p>
-                </div>
-
-
-                <p>Gives you this output:</p>
-
-                <img src="../images/reversedcount.PNG" alt="sizing" class="center"></p>
-
-                <h2>value</h2>
-
-                <p>The value attribute allows you to set your list items to specific numerical values. The following
-                    example:
-                </p>
 
 
 
+                    <h2>A small discussion on objects</h2>
 
-                <div class="codebox">
-                    <p>
-                    <pre>
-                        <code>
-                            &lt;ol&gt;
-                            &lt;li value="2"&gt;Toast pita, leave to cool, then slice down the edge.&lt;/li&gt;
-                            &lt;li value="4"&gt;Fry the halloumi in a shallow, non-stick pan, until browned on both sides.&lt;/li&gt;
-                            &lt;li value="6"&gt;Wash and chop the salad.&lt;/li&gt;
-                            &lt;li value="8"&gt;Fill pita with salad, hummus, and fried halloumi.&lt;/li&gt;
-                            &lt;/ol&gt; 
-                        </code>
-                        </pre>
+                    <p>Let's add one more final improvement before we get to this discussion. Add the following line
+                        just below the <code>let resetButton;</code>
+                        line near the top of your JavaScript, then save your file:</p>
+
+                    <img src="../images/numgame16.PNG" alt="Malinka" class="center">
+
+                    <p>This line uses the <a
+                            href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLOrForeignElement/focus"
+                            title="focus()"><code>focus()</code></a> method to automatically put the text cursor
+                        into the <a
+                            href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input"><code>&lt;input&gt;</code></a>
+                        text field as soon as the page loads, meaning that the user can start
+                        typing their first guess right away, without having to click the form field first. It's only a
+                        small addition, but it improves usability — giving the user a
+                        good visual clue as to what they've got to do to play the game.</p>
+
+                    <p>Let's analyze what's going on here in a bit more detail. In JavaScript, most of the items you
+                        will manipulate in your code are objects.
+                        An object is a collection of related functionality stored in a single grouping. You can create
+                        your own objects, but that is quite advanced and we won't be
+                        covering it until much later in the course. For now, we'll just briefly discuss the built-in
+                        objects that your browser contains, which allow you to do lots
+                        of useful things.</p>
+
+                    <p>In this particular case, we first created a <code>guessField</code> constant that stores a
+                        reference to the text input form field in our HTML — the following
+                        line can be found amongst our declarations near the top of the code:</p>
+
+                    <img src="../images/numgame17.PNG" alt="Malinka" class="center">
+
+                    <p> To get this reference, we used the <a
+                            href="https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector"
+                            title="querySelector()"><code>querySelector()</code></a>
+                        method of the <a
+                            href="https://developer.mozilla.org/en-US/docs/Web/API/Document"><code>document</code></a>
+                        object. <code>querySelector()</code> takes one piece of
+                        information — a <a
+                            href="https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors">CSS
+                            selector</a> that selects the element you want a reference to.</p>
+
+                    <p>Because <code>guessField</code> now contains a reference to an <a
+                            href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input"><code>&lt;input&gt;</code></a>
+                        element,
+                        it now has access to a number of properties (basically variables stored inside objects, some of
+                        which can't have their values changed) and methods
+                        (basically functions stored inside objects). One method available to input elements is
+                        <code>focus()</code>, so we can now use this line to focus the text input:
                     </p>
+
+                    <img src="../images/numgame16.PNG" alt="Malinka" class="center">
+
+                    <p>Variables that don't contain references to form elements won't have <code>focus()</code>
+                        available to them. For example, the <code>guesses</code> constant contains
+                        a reference to a <a
+                            href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p"><code>&lt;p&gt;</code></a>
+                        element, and the <code>guessCount</code> variable
+                        contains a number.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 </div>
-
-
-                <p>Gives you this output:</p>
-
-                <img src="../images/valuecounter.PNG" alt="sizing" class="center"></p>
-
-                <div class="notebox">
-                    <p>
-                        <strong> Note:</strong> Even if you are using a non-number list-style-type, you still need to
-                        use the equivalent numerical values in the value attribute.
-                    </p>
-                </div>
-
-                <H3 style="color:rgb(12, 150, 70); font-size: 150%;">See also</h3>
-
-
-                <p>CSS counters provide advanced tools for customizing list counting and styling, but they are quite
-                    complex. We recommend looking into these if you want
-                    to stretch yourself. See:
-                </p>
-
-                <ul>
-                    <li><a
-                            href="https://developer.mozilla.org/en-US/docs/Web/CSS/@counter-style"><code>@counter-style</code></a>
-                    </li>
-                    <li><a
-                            href="https://developer.mozilla.org/en-US/docs/Web/CSS/counter-increment"><code>counter-increment</code></a>
-                    </li>
-                    <li><a
-                            href="https://developer.mozilla.org/en-US/docs/Web/CSS/counter-reset"><code>counter-reset</code></a>
-                    </li>
-                </ul>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             </div>
+
+
+
+
         </div>
-
-
-
-
-    </div>
 
     </div>
     </div>
