@@ -29,30 +29,69 @@
 
     <style>
 
+.divs {
+  font-family: "Open Sans", sans-serif;
+}
 .divs h1 {
-  background-color: burlywood;
-  border: 1px solid black;
-  width: 300px;
-  padding: 50px;
-  margin: 50px;
+  text-align: center;
+}
+.divs #container {
+  background-color: #003049;
+  width: 90%;
+  /* height: 500px; */
+  margin: 0 auto;
+  border: 5px solid #003049;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  /* align-items: flex-end; */
+  /* flex-wrap: wrap; */
 }
 
-.divs span {
-  background-color: cornflowerblue;
-  border: 1px solid black;
-  width: 500px;
-  padding: 100;
-  margin: 50px;
+.divs #container div {
+  width: 200px;
+  height: 200px;
+  /* max-width: 300px; */
+  text-align: center;
+  flex-basis: 600px;
+  /* flex-grow: 1; */
 }
 
-.divs div {
-    height: 200px;
-    width: 200px;
-    background-color: olivedrab;
-    border: 5px solid black;
-    display: inline-block;
-    margin: 50px;
+.divs div:nth-of-type(1) {
+  flex-grow: 1;
+  flex-shrink: 1;
 }
+
+.divs div:nth-of-type(5) {
+  flex-grow: 2;
+  flex-shrink: 0;
+}
+
+/* 
+    div:nth-of-type(2) {
+    align-self: center;
+}  */
+
+.divs main {
+  width: 80%;
+  margin: 0 auto;
+  border: 5px solid black;
+  height: 500px;
+  display: flex;
+}
+
+.divs main .sidebar {
+  background-color: #6930c3;
+  border: 2px solid white;
+  flex: 1 2 300px;
+}
+.divs main .maincontent {
+  background-color: #80ffdb;
+  flex: 2 1 800px;
+}
+
+
+
 
     </style>
 
@@ -585,39 +624,27 @@
             </div>
 
             <div class="section text-center">
-                <h3>Display</h3>
+                <h3>Flexbox</h3>
             </div>
 
             <div class="divs">
 
-                <div></div>
-                <div></div>
-                <div></div>
 
+                <h1>Let's Play With Flexbox</h1>
 
-                <h1>I am H1</h1>
-                <h1>I am also H1</h1>
-
-                <span>I am Span</span>
-                <span>I am also Span</span>
-
-                <p>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorum quos minima quas omnis, sapiente
-                    tempora
-                    quisquam illum non distinctio ipsum delectus nesciunt dolores rerum earum odio id, aliquid ut nam?
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore rem at saepe eos eaque sint
-                    doloremque magnam
-                    consectetur aliquam dolorum <span>I am Span </span> hic voluptates mollitia aspernatur ex officiis
-                    itaque, veritatis sapiente
-                    architecto.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas quibusdam quod, autem voluptatem
-                    dolorum facilis
-                    sequi vero voluptates eveniet, ab id aliquid nulla sit eos sed quae itaque maiores corporis?Lorem
-                    ipsum dolor
-                    sit amet consectetur adipisicing elit. Corporis eveniet adipisci enim corrupti velit cum accusantium
-                    ex dolore
-                    alias commodi? Officiis quasi vero tempore aperiam aliquid veniam ipsa excepturi culpa?
-                </p>
+                <section id="container">
+                    <div style="background-color: #80ffdb">H</div>
+                    <div style="background-color: #64dfdf">E</div>
+                    <div style="background-color: #48bfe3">L</div>
+                    <div style="background-color: #5390d9">L</div>
+                    <div style="background-color: #6930c3">O</div>
+                </section>
+                <h2>Another Example</h2>
+                <main>
+                    <section class="sidebar"></section>
+                    <section class="maincontent"></section>
+                    <section class="sidebar"></section>
+                </main>
 
 
 

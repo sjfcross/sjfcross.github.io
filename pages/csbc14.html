@@ -28,31 +28,68 @@
 
 
     <style>
-
-.divs h1 {
-  background-color: burlywood;
-  border: 1px solid black;
-  width: 300px;
-  padding: 50px;
-  margin: 50px;
+       
+     .divs  h1 {
+    background-color: #2a9d8f;
+    border: 5px solid #264653;
+    color: #eae2b7;
+    padding: 0.7em;
+    width: 300px;
+    font-size: 1.8em;
+    text-align:center;
+    margin: 20px auto;
+    font-family: Courier New;
+    font-weight: lighter;
 }
 
-.divs span {
-  background-color: cornflowerblue;
-  border: 1px solid black;
-  width: 500px;
-  padding: 100;
-  margin: 50px;
+.divs h1:nth-of-type(2n) {
+    background-color: #e9c46a;
+}
+.divs h1:nth-of-type(3n) {
+    background-color: #f4a261;
+}
+.divs h1:nth-of-type(4n) {
+    background-color: #e76f51;
 }
 
-.divs div {
-    height: 200px;
-    width: 200px;
-    background-color: olivedrab;
-    border: 5px solid black;
-    display: inline-block;
-    margin: 50px;
+.divs section:first-of-type h1:nth-of-type(1) {
+    /* transform-origin: bottom right; */
+    transform: rotate(45deg);
 }
+
+.divs section:first-of-type h1:nth-of-type(2) {
+    transform: scale(0.5);
+}
+
+.divs section:first-of-type h1:nth-of-type(3) {
+    transform: translateX(-200px);
+} 
+
+.divs section:first-of-type h1:nth-of-type(4) {
+    transform: translate(-100px, 50px);
+} 
+
+.divs section:nth-of-type(2) h1:nth-of-type(1) {
+    transform: skew(30deg);
+} 
+
+.divs section:nth-of-type(2) h1:nth-of-type(2) {
+    transform: skew(10deg, 5deg);
+} 
+
+.divs section:nth-of-type(2) h1:nth-of-type(3) {
+    transform: rotate(20deg) scale(1.3);
+} 
+
+.divs section:nth-of-type(2) h1:nth-of-type(4) {
+    transform: translateX(-500px) rotate(180deg) scaley(1.5); 
+} 
+
+.divs section:nth-of-type(2) {
+    transform: scale(0.5); translate: 500px;
+}
+
+
 
     </style>
 
@@ -585,41 +622,24 @@
             </div>
 
             <div class="section text-center">
-                <h3>Display</h3>
+                <h3>...........................Transform !</h3>
             </div>
 
             <div class="divs">
 
-                <div></div>
-                <div></div>
-                <div></div>
 
-
-                <h1>I am H1</h1>
-                <h1>I am also H1</h1>
-
-                <span>I am Span</span>
-                <span>I am also Span</span>
-
-                <p>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorum quos minima quas omnis, sapiente
-                    tempora
-                    quisquam illum non distinctio ipsum delectus nesciunt dolores rerum earum odio id, aliquid ut nam?
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore rem at saepe eos eaque sint
-                    doloremque magnam
-                    consectetur aliquam dolorum <span>I am Span </span> hic voluptates mollitia aspernatur ex officiis
-                    itaque, veritatis sapiente
-                    architecto.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas quibusdam quod, autem voluptatem
-                    dolorum facilis
-                    sequi vero voluptates eveniet, ab id aliquid nulla sit eos sed quae itaque maiores corporis?Lorem
-                    ipsum dolor
-                    sit amet consectetur adipisicing elit. Corporis eveniet adipisci enim corrupti velit cum accusantium
-                    ex dolore
-                    alias commodi? Officiis quasi vero tempore aperiam aliquid veniam ipsa excepturi culpa?
-                </p>
-
-
+                <section>
+                    <h1>Transform me</h1>
+                    <h1>Transform me</h1>
+                    <h1>Transform me</h1>
+                    <h1>Transform me</h1>
+                </section>
+                <section>
+                    <h1>Transform me</h1>
+                    <h1>Transform me</h1>
+                    <h1>Transform me</h1>
+                    <h1>Transform me</h1>
+                </section>
 
             </div>
 

@@ -29,30 +29,48 @@
 
     <style>
 
-.divs h1 {
-  background-color: burlywood;
-  border: 1px solid black;
+.circle {
   width: 300px;
-  padding: 50px;
-  margin: 50px;
+  height: 300px;
+  background-color: tomato;
+  transition: background-color 1s, border-radius 2s;
 }
 
-.divs span {
-  background-color: cornflowerblue;
-  border: 1px solid black;
-  width: 500px;
-  padding: 100;
-  margin: 50px;
+
+.circle:hover {
+  background-color: turquoise;
+  border-radius: 50%;
 }
 
-.divs div {
-    height: 200px;
-    width: 200px;
-    background-color: olivedrab;
-    border: 5px solid black;
-    display: inline-block;
-    margin: 50px;
+.divs section div {
+  height: 100px;
+  width: 100px;
+  background-color: teal;
+  margin: 20px 0;
+  transition: margin-left 3s;
 }
+
+.divs section:hover div {
+  margin-left: 500px;
+}
+
+.divs div:nth-of-type(1) {
+  transition-timing-function: ease-in;
+}
+.divs div:nth-of-type(2) {
+  transition-timing-function: ease-out;
+}
+
+.divs div:nth-of-type(3) {
+  transition-timing-function: cubic-bezier(0.7, 0, 0.84, 0);
+}
+
+.divs div:nth-of-type(4) {
+  transition-timing-function: cubic-bezier(0.85, 0, 0.15, 1);
+}
+.divs div:nth-of-type(5) {
+  transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
 
     </style>
 
@@ -585,42 +603,43 @@
             </div>
 
             <div class="section text-center">
-                <h3>Display</h3>
+                <h3>Transitions</h3>
             </div>
 
             <div class="divs">
 
-                <div></div>
-                <div></div>
-                <div></div>
+                <h1>Transitions</h1>
 
-
-                <h1>I am H1</h1>
-                <h1>I am also H1</h1>
-
-                <span>I am Span</span>
-                <span>I am also Span</span>
-
-                <p>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorum quos minima quas omnis, sapiente
-                    tempora
-                    quisquam illum non distinctio ipsum delectus nesciunt dolores rerum earum odio id, aliquid ut nam?
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore rem at saepe eos eaque sint
-                    doloremque magnam
-                    consectetur aliquam dolorum <span>I am Span </span> hic voluptates mollitia aspernatur ex officiis
-                    itaque, veritatis sapiente
-                    architecto.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas quibusdam quod, autem voluptatem
-                    dolorum facilis
-                    sequi vero voluptates eveniet, ab id aliquid nulla sit eos sed quae itaque maiores corporis?Lorem
-                    ipsum dolor
-                    sit amet consectetur adipisicing elit. Corporis eveniet adipisci enim corrupti velit cum accusantium
-                    ex dolore
-                    alias commodi? Officiis quasi vero tempore aperiam aliquid veniam ipsa excepturi culpa?
+                <p>The <a
+                        href="https://developer.mozilla.org/en-US/docs/Web/CSS/transition"><strong><code>transition</code></strong>
+                    </a>property is a <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Shorthand_properties">shorthand
+                        property</a> for <a
+                        href="https://developer.mozilla.org/en-US/docs/Web/CSS/transition-property"><code>transition-property</code></a>,
+                    <a
+                        href="https://developer.mozilla.org/en-US/docs/Web/CSS/transition-duration"><code>transition-duration</code></a>,
+                    <a
+                        href="https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function"><code>transition-timing-function</code></a>,
+                    and <a
+                        href="https://developer.mozilla.org/en-US/docs/Web/CSS/transition-delay"><code>transition-delay</code></a>.
                 </p>
-
-
-
+            
+            
+            
+                <div class="circle">
+            
+            
+                </div>
+            
+            
+                <section>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+            
+                </section>
+            
             </div>
 
 

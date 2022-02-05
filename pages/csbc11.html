@@ -28,30 +28,66 @@
 
 
     <style>
-
-.divs h1 {
-  background-color: burlywood;
-  border: 1px solid black;
-  width: 300px;
-  padding: 50px;
-  margin: 50px;
+      
+.divs {
+  background-color: #ff758f;
 }
 
-.divs span {
-  background-color: cornflowerblue;
-  border: 1px solid black;
-  width: 500px;
-  padding: 100;
-  margin: 50px;
+.divs section {
+  background-color: #590d22;
+  width: 800px;
+  height: 800px;
 }
 
 .divs div {
-    height: 200px;
-    width: 200px;
-    background-color: olivedrab;
-    border: 5px solid black;
-    display: inline-block;
-    margin: 50px;
+  background-color: #800f2f;
+  width: 50%;
+  height: 50%;
+}
+.divs #ems h1 {
+  font-size: 40px;
+  border: 1px solid #a4133c;
+  line-height: 200%;
+}
+.divs #ems h2 {
+  font-size: 2em;
+  margin-left: 1em;
+}
+
+.divs #ems h3 {
+  font-size: 1.5em;
+}
+.divs #ems button {
+  font-size: 1em;
+  padding: 0 1rem;
+  border-radius: 0.5em;
+  background-color: #c9184a;
+  color: #ff4d6d;
+}
+.divs #ems article {
+  font-size: 20px;
+}
+
+.divs #ems p {
+  font-size: 0.8em;
+}
+.divs #ems ul {
+  font-size: 1.5em;
+}
+
+.divs #rems h2 {
+    font-size: 3rem;
+}
+
+.divs #rems h3 {
+font-size: 2rem;
+}
+
+.divs #rems ul {
+    font-size: 1.5rem;
+} 
+.divs #rems button {
+    font-size: 1.2rem;
 }
 
     </style>
@@ -585,42 +621,79 @@
             </div>
 
             <div class="section text-center">
-                <h3>Display</h3>
+                <h3>Units</h3>
             </div>
 
             <div class="divs">
 
-                <div></div>
-                <div></div>
-                <div></div>
-
-
-                <h1>I am H1</h1>
-                <h1>I am also H1</h1>
-
-                <span>I am Span</span>
-                <span>I am also Span</span>
-
-                <p>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorum quos minima quas omnis, sapiente
-                    tempora
-                    quisquam illum non distinctio ipsum delectus nesciunt dolores rerum earum odio id, aliquid ut nam?
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore rem at saepe eos eaque sint
-                    doloremque magnam
-                    consectetur aliquam dolorum <span>I am Span </span> hic voluptates mollitia aspernatur ex officiis
-                    itaque, veritatis sapiente
-                    architecto.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas quibusdam quod, autem voluptatem
-                    dolorum facilis
-                    sequi vero voluptates eveniet, ab id aliquid nulla sit eos sed quae itaque maiores corporis?Lorem
-                    ipsum dolor
-                    sit amet consectetur adipisicing elit. Corporis eveniet adipisci enim corrupti velit cum accusantium
-                    ex dolore
-                    alias commodi? Officiis quasi vero tempore aperiam aliquid veniam ipsa excepturi culpa?
-                </p>
-
-
-
+                <h1>CSS Units</h1>
+                <article id="ems">
+                    <h2>I am H2<button>Click me!</button></h2>
+                    <h3>I am H3</h3>
+            
+                    <button>Click me!</button>
+            
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae inventore mollitia esse, accusantium
+                        explicabo eveniet officia, id, in distinctio rem eligendi. Nulla hic officiis dolorem blanditiis vel
+                        <button>Click me!</button>
+                        explicabo tenetur eligendi! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos itaque harum sunt,
+                        quia at ducimus expedita incidunt amet iusto velit tenetur dolor neque. Consectetur vitae minima sequi modi
+                        omnis suscipit?
+                    </p>
+                    <ul>
+                        <li>Pasta
+                            <ul>
+                                <li>Ravioli
+                                    <ul>
+                                        <li>Spinach Ricotta</li>
+                                    </ul>
+                                </li>
+                                <li>Penne</li>
+                            </ul>
+                        </li>
+                        <li>Salad</li>
+                        <li>Gelato</li>
+                    </ul>
+                </article>
+            
+                <article id="rems">
+            
+                    <h2>Using rems instead of ems<button>Click me!</button></h2>
+                    <h3>I am H3</h3>
+            
+                    <button>Click me!</button>
+            
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae inventore mollitia esse, accusantium
+                        explicabo eveniet officia, id, in distinctio rem eligendi. Nulla hic officiis dolorem blanditiis vel
+                        <button>Click me!</button>
+                        explicabo tenetur eligendi! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos itaque harum sunt,
+                        quia at ducimus expedita incidunt amet iusto velit tenetur dolor neque. Consectetur vitae minima sequi modi
+                        omnis suscipit?
+                    </p>
+                    <ul>
+                        <li>Pasta
+                            <ul>
+                                <li>Ravioli
+                                    <ul>
+                                        <li>Spinach Ricotta</li>
+                                    </ul>
+                                </li>
+                                <li>Penne</li>
+                            </ul>
+                        </li>
+                        <li>Salad</li>
+                        <li>Gelato</li>
+                    </ul>
+            
+                </article>
+            
+                <section>
+                    <div>
+            
+            
+                    </div>
+                </section>
+            
             </div>
 
 

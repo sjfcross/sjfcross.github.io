@@ -28,32 +28,31 @@
 
 
     <style>
+        .divs {
+            font-family: "Roboto", sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #151b29;
+        }
 
-.divs h1 {
-  background-color: burlywood;
-  border: 1px solid black;
-  width: 300px;
-  padding: 50px;
-  margin: 50px;
-}
+        .divs button {
+            background: none;
+            color: #ffa260;
+            border: 2px solid;
+            padding: 1em 2em;
+            font-size: 1em;
+            transition: color 0.2s, border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+        }
 
-.divs span {
-  background-color: cornflowerblue;
-  border: 1px solid black;
-  width: 500px;
-  padding: 100;
-  margin: 50px;
-}
-
-.divs div {
-    height: 200px;
-    width: 200px;
-    background-color: olivedrab;
-    border: 5px solid black;
-    display: inline-block;
-    margin: 50px;
-}
-
+        .divs button:hover {
+            border-color: #f1ff5c;
+            color: white;
+            box-shadow: 0 0.5em 0.5em -0.4em #f1ff5c;
+            transform: translateY(-0.25em);
+            cursor: pointer;
+        }
     </style>
 
 
@@ -585,39 +584,17 @@
             </div>
 
             <div class="section text-center">
-                <h3>Display</h3>
+                <h3>The Hover Button !</h3>
             </div>
 
             <div class="divs">
 
-                <div></div>
-                <div></div>
-                <div></div>
 
 
-                <h1>I am H1</h1>
-                <h1>I am also H1</h1>
 
-                <span>I am Span</span>
-                <span>I am also Span</span>
+                <button>Hover Me</button>
 
-                <p>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorum quos minima quas omnis, sapiente
-                    tempora
-                    quisquam illum non distinctio ipsum delectus nesciunt dolores rerum earum odio id, aliquid ut nam?
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore rem at saepe eos eaque sint
-                    doloremque magnam
-                    consectetur aliquam dolorum <span>I am Span </span> hic voluptates mollitia aspernatur ex officiis
-                    itaque, veritatis sapiente
-                    architecto.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas quibusdam quod, autem voluptatem
-                    dolorum facilis
-                    sequi vero voluptates eveniet, ab id aliquid nulla sit eos sed quae itaque maiores corporis?Lorem
-                    ipsum dolor
-                    sit amet consectetur adipisicing elit. Corporis eveniet adipisci enim corrupti velit cum accusantium
-                    ex dolore
-                    alias commodi? Officiis quasi vero tempore aperiam aliquid veniam ipsa excepturi culpa?
-                </p>
+
 
 
 
