@@ -1,0 +1,1265 @@
+<!doctype html>
+
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-touch-76x76.png">
+    <link rel="icon" type="image/png" href="../assets/img/favicon-32x32.png">
+
+
+    <title>Sascha Coding Logbook 2.0</title>
+
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+    <!-- Nucleo Icons -->
+    <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <!-- CSS Files -->
+    <link id="pagestyle" href="../assets/css/material-kit.css?v=3.0.0" rel="stylesheet" />
+    <link rel="stylesheet" href="../app.css">
+
+
+    <style>
+        .divs div {
+            width: 100px;
+            height: 100px;
+            background-color: turquoise;
+            border: 2px solid black;
+            margin: 10px;
+            display: inline-block;
+        }
+
+        .divs #middle {
+            background-color: wheat;
+        }
+
+        .divs #static #middle {
+            position: static;
+        }
+
+        .divs #relative #middle {
+            position: relative;
+            top: 50px;
+            left: 50px;
+        }
+
+        .divs #absolute {
+            position: relative;
+        }
+
+        .divs #absolute #middle {
+            position: absolute;
+            top: 1px;
+            left: 1px;
+        }
+
+        .divs #fixed #middle {
+            position: fixed;
+            top: 0;
+            left: 400px;
+        }
+    </style>
+
+
+
+</head>
+
+<body>
+    <!-- Navbar Transparent -->
+    <nav class="navbar navbar-expand-lg position-absolute top-0 z-index-3 w-100 shadow-none my-3 navbar-transparent">
+        <div class="container">
+            <a class="navbar-brand  text-white " href="../index.html" rel="tooltip"
+                title="Designed and Coded by Creative Tim" data-placement="bottom" target="_blank">
+                SJFCROSS-Coding
+            </a>
+            <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon mt-2">
+                    <span class="navbar-toggler-bar bar1"></span>
+                    <span class="navbar-toggler-bar bar2"></span>
+                    <span class="navbar-toggler-bar bar3"></span>
+                </span>
+            </button>
+            <div class="collapse navbar-collapse w-100 pt-3 pb-2 py-lg-0 ms-lg-12 ps-lg-5" id="navigation">
+                <ul class="navbar-nav navbar-nav-hover ms-auto">
+                    <li class="nav-item dropdown dropdown-hover mx-2 ms-lg-6">
+                        <a class="nav-link ps-2 d-flex cursor-pointer align-items-center" id="dropdownMenuPages2"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="material-icons opacity-6 me-2 text-md">dashboard</i>
+                            Pages
+                            <img src="../assets/img/down-arrow-white.svg" alt="down-arrow"
+                                class="arrow ms-auto ms-md-2 d-lg-block d-none">
+                            <img src="../assets/img/down-arrow-dark.svg" alt="down-arrow"
+                                class="arrow ms-auto ms-md-2 d-lg-none d-block">
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-animation ms-n3 dropdown-md p-3 border-radius-xl mt-0 mt-lg-3"
+                            aria-labelledby="dropdownMenuPages">
+                            <div class="d-none d-lg-block">
+                                <h6 class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-1">
+                                    Landing Pages
+                                </h6>
+                                <a href="../pages/about-us.html" class="dropdown-item border-radius-md">
+                                    <span>About Us</span>
+                                </a>
+                                <a href="../pages/contact-us.html" class="dropdown-item border-radius-md">
+                                    <span>Contact Us</span>
+                                </a>
+                                <a href="../pages/author.html" class="dropdown-item border-radius-md">
+                                    <span>Author</span>
+                                </a>
+                                <h6
+                                    class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-1 mt-3">
+                                    Account
+                                </h6>
+                                <a href="../pages/sign-in.html" class="dropdown-item border-radius-md">
+                                    <span>Sign In</span>
+                                </a>
+                            </div>
+                            <div class="d-lg-none">
+                                <h6 class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-1">
+                                    Landing Pages
+                                </h6>
+                                <a href="../pages/about-us.html" class="dropdown-item border-radius-md">
+                                    <span>About Us</span>
+                                </a>
+                                <a href="../pages/contact-us.html" class="dropdown-item border-radius-md">
+                                    <span>Contact Us</span>
+                                </a>
+                                <a href="../pages/author.html" class="dropdown-item border-radius-md">
+                                    <span>Author</span>
+                                </a>
+                                <h6
+                                    class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-1 mt-3">
+                                    Account
+                                </h6>
+                                <a href="../pages/sign-in.html" class="dropdown-item border-radius-md">
+                                    <span>Sign In</span>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown dropdown-hover mx-2">
+                        <a class="nav-link ps-2 d-flex cursor-pointer align-items-center" id="dropdownMenuBlocks"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="material-icons opacity-6 me-2 text-md">view_day</i>
+                            Sections
+                            <img src="../assets/img/down-arrow-white.svg" alt="down-arrow"
+                                class="arrow ms-auto ms-md-2 d-lg-block d-none">
+                            <img src="../assets/img/down-arrow-dark.svg" alt="down-arrow"
+                                class="arrow ms-auto ms-md-2 d-lg-none d-block">
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-animation dropdown-md dropdown-md-responsive p-3 border-radius-lg mt-0 mt-lg-3"
+                            aria-labelledby="dropdownMenuBlocks">
+                            <div class="d-none d-lg-block">
+                                <li class="nav-item dropdown dropdown-hover dropdown-subitem">
+                                    <a class="dropdown-item py-2 ps-3 border-radius-md" href="../presentation.html">
+                                        <div class="w-100 d-flex align-items-center justify-content-between">
+                                            <div>
+                                                <h6
+                                                    class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                    Page Sections</h6>
+                                                <span class="text-sm">See all sections</span>
+                                            </div>
+                                            <img src="../assets/img/down-arrow.svg" alt="down-arrow" class="arrow">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-menu mt-0 py-3 px-2 mt-3">
+                                        <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                            href="../sections/page-sections/hero-sections.html">
+                                            Page Headers
+                                        </a>
+                                        <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                            href="../sections/page-sections/features.html">
+                                            Features
+                                        </a>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown dropdown-hover dropdown-subitem">
+                                    <a class="dropdown-item py-2 ps-3 border-radius-md" href="../presentation.html">
+                                        <div class="w-100 d-flex align-items-center justify-content-between">
+                                            <div>
+                                                <h6
+                                                    class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                    Navigation</h6>
+                                                <span class="text-sm">See all navigations</span>
+                                            </div>
+                                            <img src="../assets/img/down-arrow.svg" alt="down-arrow" class="arrow">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-menu mt-0 py-3 px-2 mt-3">
+                                        <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                            href="../sections/navigation/navbars.html">
+                                            Navbars
+                                        </a>
+                                        <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                            href="../sections/navigation/nav-tabs.html">
+                                            Nav Tabs
+                                        </a>
+                                        <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                            href="../sections/navigation/pagination.html">
+                                            Pagination
+                                        </a>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown dropdown-hover dropdown-subitem">
+                                    <a class="dropdown-item py-2 ps-3 border-radius-md" href="../presentation.html">
+                                        <div class="w-100 d-flex align-items-center justify-content-between">
+                                            <div>
+                                                <h6
+                                                    class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                    Input Areas</h6>
+                                                <span class="text-sm">See all input areas</span>
+                                            </div>
+                                            <img src="../assets/img/down-arrow.svg" alt="down-arrow" class="arrow">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-menu mt-0 py-3 px-2 mt-3">
+                                        <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                            href="../sections/input-areas/inputs.html">
+                                            Inputs
+                                        </a>
+                                        <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                            href="../sections/input-areas/forms.html">
+                                            Forms
+                                        </a>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown dropdown-hover dropdown-subitem">
+                                    <a class="dropdown-item py-2 ps-3 border-radius-md" href="../presentation.html">
+                                        <div class="w-100 d-flex align-items-center justify-content-between">
+                                            <div>
+                                                <h6
+                                                    class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                    Attention Catchers</h6>
+                                                <span class="text-sm">See all examples</span>
+                                            </div>
+                                            <img src="../assets/img/down-arrow.svg" alt="down-arrow" class="arrow">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-menu mt-0 py-3 px-2 mt-3">
+                                        <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                            href="../sections/attention-catchers/alerts.html">
+                                            Alerts
+                                        </a>
+                                        <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                            href="../sections/attention-catchers/modals.html">
+                                            Modals
+                                        </a>
+                                        <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                            href="../sections/attention-catchers/tooltips-popovers.html">
+                                            Tooltips & Popovers
+                                        </a>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown dropdown-hover dropdown-subitem">
+                                    <a class="dropdown-item py-2 ps-3 border-radius-md" href="../presentation.html">
+                                        <div class="w-100 d-flex align-items-center justify-content-between">
+                                            <div>
+                                                <h6
+                                                    class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                    Elements</h6>
+                                                <span class="text-sm">See all elements</span>
+                                            </div>
+                                            <img src="../assets/img/down-arrow.svg" alt="down-arrow" class="arrow">
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-menu mt-0 py-3 px-2 mt-3">
+                                        <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                            href="../sections/elements/avatars.html">
+                                            Avatars
+                                        </a>
+                                        <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                            href="../sections/elements/badges.html">
+                                            Badges
+                                        </a>
+                                        <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                            href="../sections/elements/breadcrumbs.html">
+                                            Breadcrumbs
+                                        </a>
+                                        <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                            href="../sections/elements/buttons.html">
+                                            Buttons
+                                        </a>
+                                        <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                            href="../sections/elements/dropdowns.html">
+                                            Dropdowns
+                                        </a>
+                                        <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                            href="../sections/elements/progress-bars.html">
+                                            Progress Bars
+                                        </a>
+                                        <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                            href="../sections/elements/toggles.html">
+                                            Toggles
+                                        </a>
+                                        <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                            href="../sections/elements/typography.html">
+                                            Typography
+                                        </a>
+                                    </div>
+                                </li>
+                            </div>
+                            <div class="row d-lg-none">
+                                <div class="col-md-12">
+                                    <div class="d-flex mb-2">
+                                        <div class="icon h-10 me-3 d-flex mt-1">
+                                            <i class="ni ni-single-copy-04 text-gradient text-primary"></i>
+                                        </div>
+                                        <div class="w-100 d-flex align-items-center justify-content-between">
+                                            <div>
+                                                <h6
+                                                    class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                    Page Sections</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                        href="../sections/page-sections/hero-sections.html">
+                                        Page Headers
+                                    </a>
+                                    <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                        href="../sections/page-sections/features.html">
+                                        Features
+                                    </a>
+                                    <div class="d-flex mb-2 mt-3">
+                                        <div class="icon h-10 me-3 d-flex mt-1">
+                                            <i class="ni ni-laptop text-gradient text-primary"></i>
+                                        </div>
+                                        <div class="w-100 d-flex align-items-center justify-content-between">
+                                            <div>
+                                                <h6
+                                                    class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                    Navigation</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                        href="../sections/navigation/navbars.html">
+                                        Navbars
+                                    </a>
+                                    <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                        href="../sections/navigation/nav-tabs.html">
+                                        Nav Tabs
+                                    </a>
+                                    <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                        href="../sections/navigation/pagination.html">
+                                        Pagination
+                                    </a>
+                                    <div class="d-flex mb-2 mt-3">
+                                        <div class="icon h-10 me-3 d-flex mt-1">
+                                            <i class="ni ni-badge text-gradient text-primary"></i>
+                                        </div>
+                                        <div class="w-100 d-flex align-items-center justify-content-between">
+                                            <div>
+                                                <h6
+                                                    class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                    Input Areas</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                        href="../sections/input-areas/inputs.html">
+                                        Inputs
+                                    </a>
+                                    <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                        href="../sections/input-areas/forms.html">
+                                        Forms
+                                    </a>
+                                    <div class="d-flex mb-2 mt-3">
+                                        <div class="icon h-10 me-3 d-flex mt-1">
+                                            <i class="ni ni-notification-70 text-gradient text-primary"></i>
+                                        </div>
+                                        <div class="w-100 d-flex align-items-center justify-content-between">
+                                            <div>
+                                                <h6
+                                                    class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                    Attention Catchers</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                        href="../sections/attention-catchers/alerts.html">
+                                        Alerts
+                                    </a>
+                                    <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                        href="../sections/attention-catchers/modals.html">
+                                        Modals
+                                    </a>
+                                    <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                        href="../sections/attention-catchers/tooltips-popovers.html">
+                                        Tooltips & Popovers
+                                    </a>
+                                    <div class="d-flex mb-2 mt-3">
+                                        <div class="icon h-10 me-3 d-flex mt-1">
+                                            <i class="ni ni-app text-gradient text-primary"></i>
+                                        </div>
+                                        <div class="w-100 d-flex align-items-center justify-content-between">
+                                            <div>
+                                                <h6
+                                                    class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                    Elements</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                        href="../sections/elements/avatars.html">
+                                        Avatars
+                                    </a>
+                                    <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                        href="../sections/elements/badges.html">
+                                        Badges
+                                    </a>
+                                    <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                        href="../sections/elements/breadcrumbs.html">
+                                        Breadcrumbs
+                                    </a>
+                                    <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                        href="../sections/elements/buttons.html">
+                                        Buttons
+                                    </a>
+                                    <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                        href="../sections/elements/dropdowns.html">
+                                        Dropdowns
+                                    </a>
+                                    <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                        href="../sections/elements/progress-bars.html">
+                                        Progress Bars
+                                    </a>
+                                    <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                        href="../sections/elements/toggles.html">
+                                        Toggles
+                                    </a>
+                                    <a class="dropdown-item ps-3 border-radius-md mb-1"
+                                        href="../sections/elements/typography.html">
+                                        Typography
+                                    </a>
+                                </div>
+                            </div>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown dropdown-hover mx-2">
+                        <a class="nav-link ps-2 d-flex cursor-pointer align-items-center" id="dropdownMenuDocs"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="material-icons opacity-6 me-2 text-md">article</i>
+                            Docs
+                            <img src="../assets/img/down-arrow-white.svg" alt="down-arrow"
+                                class="arrow ms-auto ms-md-2 d-lg-block d-none">
+                            <img src="../assets/img/down-arrow-dark.svg" alt="down-arrow"
+                                class="arrow ms-auto ms-md-2 d-lg-none d-block">
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-animation dropdown-md dropdown-md-responsive mt-0 mt-lg-3 p-3 border-radius-lg"
+                            aria-labelledby="dropdownMenuDocs">
+                            <div class="d-none d-lg-block">
+                                <ul class="list-group">
+                                    <li class="nav-item list-group-item border-0 p-0">
+                                        <a class="dropdown-item py-2 ps-3 border-radius-md"
+                                            href=" https://www.creative-tim.com/learning-lab/bootstrap/overview/material-kit ">
+                                            <h6
+                                                class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                Getting Started</h6>
+                                            <span class="text-sm">All about overview, quick start, license and
+                                                contents</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item list-group-item border-0 p-0">
+                                        <a class="dropdown-item py-2 ps-3 border-radius-md"
+                                            href=" https://www.creative-tim.com/learning-lab/bootstrap/colors/material-kit ">
+                                            <h6
+                                                class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                Foundation</h6>
+                                            <span class="text-sm">See our colors, icons and typography</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item list-group-item border-0 p-0">
+                                        <a class="dropdown-item py-2 ps-3 border-radius-md"
+                                            href=" https://www.creative-tim.com/learning-lab/bootstrap/alerts/material-kit ">
+                                            <h6
+                                                class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                Components</h6>
+                                            <span class="text-sm">Explore our collection of fully designed
+                                                components</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item list-group-item border-0 p-0">
+                                        <a class="dropdown-item py-2 ps-3 border-radius-md"
+                                            href=" https://www.creative-tim.com/learning-lab/bootstrap/datepicker/material-kit ">
+                                            <h6
+                                                class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                Plugins</h6>
+                                            <span class="text-sm">Check how you can integrate our plugins</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item list-group-item border-0 p-0">
+                                        <a class="dropdown-item py-2 ps-3 border-radius-md"
+                                            href=" https://www.creative-tim.com/learning-lab/bootstrap/utilities/material-kit ">
+                                            <h6
+                                                class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                                Utility Classes</h6>
+                                            <span class="text-sm">For those who want flexibility, use our utility
+                                                classes</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="row d-lg-none">
+                                <div class="col-md-12 g-0">
+                                    <a class="dropdown-item py-2 ps-3 border-radius-md" href="../pages/about-us.html">
+                                        <h6
+                                            class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                            Getting Started</h6>
+                                        <span class="text-sm">All about overview, quick start, license and
+                                            contents</span>
+                                    </a>
+                                    <a class="dropdown-item py-2 ps-3 border-radius-md" href="../pages/about-us.html">
+                                        <h6
+                                            class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                            Foundation</h6>
+                                        <span class="text-sm">See our colors, icons and typography</span>
+                                    </a>
+                                    <a class="dropdown-item py-2 ps-3 border-radius-md" href="../pages/about-us.html">
+                                        <h6
+                                            class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                            Components</h6>
+                                        <span class="text-sm">Explore our collection of fully designed components</span>
+                                    </a>
+                                    <a class="dropdown-item py-2 ps-3 border-radius-md" href="../pages/about-us.html">
+                                        <h6
+                                            class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                            Plugins</h6>
+                                        <span class="text-sm">Check how you can integrate our plugins</span>
+                                    </a>
+                                    <a class="dropdown-item py-2 ps-3 border-radius-md" href="../pages/about-us.html">
+                                        <h6
+                                            class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center p-0">
+                                            Utility Classes</h6>
+                                        <span class="text-sm">For those who want flexibility, use our utility
+                                            classes</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </ul>
+                    </li>
+                    <li class="nav-item ms-lg-auto my-auto ms-3 ms-lg-0 mt-2 mt-lg-0">
+                        <a href="https://www.reddit.com/"
+                            class="btn btn-sm  bg-gradient-primary mb-0 me-1 mt-2 mt-md-0">Reddit</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- End Navbar -->
+
+    <!-- Photo by <a href="https://unsplash.com/@heylagostechie?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Lagos Techie</a> on <a href="https://unsplash.com/s/photos/bootcamp?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a> -->
+
+
+    <div class="page-header min-vh-45" style="background-image: url('../assets/img/lagossmallhalf.jpg');">
+        <span class="mask bg-gradient-secondary opacity-4"></span>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center mx-auto my-auto">
+                    <h1 class="text-white">Training and Log - Division II</h1>
+                    <p class="lead mb-4 text-white opacity-8">Based on Colt Steele's Bootcamp <br> <img
+                            class="circular--square" src="../assets/img/4466306_6fd8_3.jpg">
+                    </p>
+                    <!-- <button type="submit" class="btn bg-white text-dark">Create Account</button> -->
+                    <!-- <h6 class="text-white mb-2 mt-5">Find us on</h6>
+            <div class="d-flex justify-content-center">
+              <a href="javascript:;"><i class="fab fa-facebook text-lg text-white me-4"></i></a>
+              <a href="javascript:;"><i class="fab fa-instagram text-lg text-white me-4"></i></a>
+              <a href="javascript:;"><i class="fab fa-twitter text-lg text-white me-4"></i></a>
+              <a href="javascript:;"><i class="fab fa-google-plus text-lg text-white"></i></a>
+            </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card card-body shadow-xl mx-3 mx-md-4 mt-n6">
+
+        <!-- Here starts the main container -->
+        <div class="container">
+
+
+
+
+            <div class="section text-center">
+                <h1 class="title">CSS</h1>
+            </div>
+
+            <div class="section text-center">
+                <h3>Position</h3>
+            </div>
+
+            <div class="divs">
+
+                <h1>Position Property</h1>
+                <section id="static">
+                    <h2>Static</h2>
+                    <div></div>
+                    <div id="middle"></div>
+                    <div></div>
+                </section>
+
+                <section id="relative">
+                    <h2>Relative</h2>
+                    <div></div>
+                    <div id="middle"></div>
+                    <div></div>
+                </section>
+
+                <section id="absolute">
+                    <h2>Absolute</h2>
+                    <div></div>
+                    <div id="middle"></div>
+                    <div></div>
+                </section>
+
+                <section id="fixed">
+                    <h2>Fixed</h2>
+                    <div></div>
+                    <div id="middle"></div>
+                    <div></div>
+                </section>
+
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sapiente ad voluptatibus fugiat voluptates
+                    alias, velit
+                    culpa rerum aliquid quia officia ipsum autem expedita voluptatum, recusandae facilis, quo dolor at
+                    aperiam.
+                    Qui ad fugiat consectetur explicabo quos nemo odit voluptatum obcaecati, unde at blanditiis
+                    delectus! Architecto
+                    totam, voluptatibus molestiae sequi necessitatibus enim deleniti eum officiis iste dicta accusantium
+                    earum
+                    ducimus eos!
+                    Optio dicta asperiores minima vero, quos, laudantium sunt dolores maiores a molestias ipsam et
+                    debitis voluptate
+                    eaque voluptas quam, iusto rem consequatur maxime! Distinctio vitae laboriosam ea beatae eius sed!
+                    Consequuntur excepturi ratione exercitationem eveniet, vero iste est officia odit ea voluptate sequi
+                    aliquam
+                    distinctio quibusdam provident minus? Magnam, porro. Quis placeat similique aperiam. Reprehenderit
+                    debitis
+                    veniam iure aut sed.
+                    Iure minima distinctio exercitationem pariatur. Omnis possimus debitis, repellat amet unde quasi ab
+                    doloribus
+                    eveniet molestiae necessitatibus dolores nobis dignissimos, sapiente quae deserunt velit adipisci.
+                    Tenetur
+                    perspiciatis quo veniam expedita?
+                    Unde maiores eaque nulla aperiam, harum eveniet earum voluptatibus fugiat atque est quidem natus
+                    doloremque
+                    distinctio enim. Magni sint delectus repudiandae illo velit at. Voluptatum ex ratione dolor optio
+                    quam?
+                    Fugit nisi voluptate explicabo odio. Quidem amet ipsam, libero esse in officia officiis cum magnam!
+                    Autem esse
+                    ullam magnam nam. Labore sequi sed unde voluptate itaque id voluptatibus natus incidunt!
+                    Iure est repellendus consequatur eius sit inventore neque quas molestias dolore excepturi
+                    reprehenderit facere
+                    dolor quibusdam voluptatem sed corporis dolorum, facilis animi aliquid nisi? Et dignissimos
+                    reiciendis veritatis
+                    eum pariatur?
+                    Voluptas quos voluptatibus est quae magni, iure veritatis voluptatem perspiciatis, debitis unde,
+                    nihil quasi
+                    temporibus dolorum. Animi ducimus in sed ut repellendus totam rem unde, at distinctio expedita iusto
+                    repellat.
+                    Culpa cumque nulla enim. Sit eaque ipsum veniam modi. Obcaecati perferendis nesciunt velit
+                    reprehenderit,
+                    itaque, optio, vitae ex sit ducimus perspiciatis delectus laborum odit porro alias repellendus quia
+                    quis eos.
+                    Sed magni quod aspernatur aliquam esse ullam, odit suscipit temporibus. Odio facilis, vitae
+                    molestias ratione ad
+                    ipsam molestiae dolor in consequuntur vero minima quo aspernatur nemo assumenda voluptate,
+                    distinctio officiis.
+                    Quisquam eaque voluptatem iusto, voluptatibus quibusdam nobis. Beatae quas soluta sequi ab sint odio
+                    porro
+                    corporis, animi tempore iure veniam asperiores ratione totam? Necessitatibus quisquam aperiam unde,
+                    nesciunt
+                    fugit facere.
+                    Autem inventore magni dignissimos quibusdam cum nobis atque corrupti hic illo officiis, soluta
+                    corporis
+                    reprehenderit asperiores, rerum iste excepturi error. Sunt recusandae vel, excepturi nobis mollitia
+                    distinctio
+                    odit ducimus rerum.
+                    Laboriosam quasi nemo tempora, molestias accusamus recusandae beatae distinctio quae facere est?
+                    Autem
+                    molestias, sunt, accusantium animi beatae quaerat inventore, eaque nobis tempora commodi tempore
+                    libero
+                    recusandae ipsam aut excepturi!
+                    Porro, fugiat ratione officia eius nobis, accusantium sequi deserunt atque reprehenderit impedit
+                    aperiam illo,
+                    libero debitis nam esse similique. Earum, tenetur. Illo natus soluta minima perferendis sequi
+                    necessitatibus
+                    atque nostrum.
+                    Ipsa provident exercitationem possimus quos atque vitae recusandae ducimus? Architecto illum in
+                    repellat, a
+                    reiciendis consectetur alias recusandae aperiam nemo ipsam blanditiis, quisquam eos totam earum,
+                    veritatis
+                    tenetur! Quasi, dolor!
+                    Ex assumenda laborum facilis dolorem nobis explicabo debitis error deleniti, eos asperiores
+                    distinctio ullam
+                    voluptatum alias repudiandae perferendis sint sequi ipsam dolores rerum sapiente illum natus.
+                    Repudiandae
+                    numquam odio quae?
+                    Numquam, amet explicabo? Numquam nobis molestias nemo deserunt maxime nesciunt debitis expedita
+                    adipisci quas
+                    harum. Nihil incidunt qui optio dolor quisquam odio iusto non! Beatae distinctio maxime enim rem
+                    dolorum?
+                    Voluptates iusto neque doloribus nam provident eum ad voluptatum iure et enim esse sequi ex sint
+                    perspiciatis
+                    laborum quasi possimus obcaecati saepe, ut porro culpa! Doloribus dolorem eligendi molestias
+                    officia.
+                    Architecto repudiandae vitae necessitatibus est voluptates assumenda, recusandae quasi eos,
+                    perspiciatis, esse
+                    dignissimos soluta accusantium ipsam officia sequi adipisci maxime doloribus! Repudiandae quis eius
+                    porro nobis
+                    similique nemo amet fugiat.
+                    Non voluptatum illum commodi dolorem repellat officia molestiae cumque. Qui quasi, quae eligendi
+                    mollitia
+                    repudiandae nostrum eaque natus a assumenda voluptas aperiam doloremque ducimus facere, veniam quod
+                    animi neque?
+                    Eveniet.
+                    Nisi quaerat assumenda natus! Repudiandae iusto molestiae earum doloremque dolor unde sapiente id et
+                    quae
+                    voluptatem ducimus aliquam aut voluptates porro debitis culpa, distinctio, nesciunt, ea numquam at
+                    possimus
+                    reiciendis?
+                    Repudiandae voluptates sequi consequatur deleniti sapiente. Id nobis ipsa, quia facere dicta tempore
+                    distinctio
+                    totam enim veniam, error tempora porro ratione impedit. Minima inventore perferendis error voluptas
+                    animi harum
+                    ducimus!
+                    Dolor pariatur veniam quae dolore magnam quisquam, laudantium ratione, assumenda vero sint, vel eos
+                    soluta
+                    repellendus et tempore quo necessitatibus non incidunt mollitia adipisci. Voluptatem quas corporis
+                    fugiat nihil
+                    quod!
+                    Sed est suscipit ducimus, quis cum, odio assumenda accusamus soluta illo, dolore fugiat! Repellendus
+                    optio
+                    eligendi sequi saepe autem consectetur fuga nemo ipsa unde cum, porro quisquam eaque quae sint.
+                    Possimus molestias reprehenderit ut provident sunt ipsa quam architecto tenetur. Eaque cupiditate
+                    illo iusto
+                    rerum culpa ab dolor id, vel minima tenetur saepe! Tempora a quisquam, ipsa reprehenderit ut
+                    laboriosam?
+                    Magnam atque sed possimus tempore quaerat ea commodi nobis, maxime, architecto ducimus, error alias
+                    tenetur
+                    incidunt fugiat laudantium aliquid eaque hic eveniet illo quia! Esse dolor deleniti dicta ex
+                    ducimus.
+                    Accusantium natus consectetur veritatis, debitis non quae a nam voluptas commodi id, ipsum
+                    distinctio
+                    consequuntur cupiditate hic odio? Obcaecati perferendis exercitationem perspiciatis esse ratione id
+                    in eaque
+                    voluptates, optio explicabo.
+                    Nisi, tenetur. Voluptate quas minima aut amet natus hic soluta a eius quidem, eveniet inventore
+                    pariatur nulla
+                    corrupti impedit accusamus doloribus in iusto praesentium asperiores officiis. Quasi ab iure
+                    dolorum.
+                    Aspernatur in dolore earum laudantium ex voluptas nulla esse inventore, modi officiis est, maxime
+                    accusantium
+                    dolorum quaerat cupiditate ducimus doloremque animi amet odit, exercitationem neque maiores hic?
+                    Repellendus,
+                    maxime vel?
+                    Vel harum repellendus quasi consequuntur, amet iusto doloribus quod, nam, aut optio possimus ad
+                    officiis nisi
+                    delectus voluptates! Quas ducimus tempore nihil corporis voluptate alias dicta delectus quia.
+                    Perferendis,
+                    autem!
+                    Similique delectus quasi illo asperiores officiis, vero assumenda, ipsa placeat obcaecati numquam ea
+                    praesentium
+                    natus deleniti laboriosam harum cupiditate ab. Quod voluptatum quis porro eius temporibus debitis
+                    vitae
+                    repellendus iste.
+                    Fugiat dolore voluptatem nam! Eos modi voluptatum officia facilis, sapiente, eveniet nisi laborum
+                    rem possimus
+                    praesentium sequi, enim necessitatibus explicabo. Neque magni suscipit asperiores fugiat dignissimos
+                    enim
+                    maiores sit blanditiis.
+                    Repellat illum nobis ad distinctio molestias est dicta quidem inventore maiores cupiditate itaque
+                    iusto
+                    repellendus laboriosam, illo voluptate porro corporis libero debitis neque, sint reprehenderit
+                    tenetur
+                    perspiciatis tempore. Voluptas, quae?
+                    Consequuntur saepe ducimus veniam iusto quibusdam autem explicabo, debitis esse unde qui
+                    exercitationem deleniti
+                    quos voluptate maxime commodi, eaque, assumenda quis! Amet reiciendis aspernatur earum fuga totam
+                    sunt? Cumque,
+                    maiores!
+                    Corporis placeat porro dolore! Quam odio quia tempora perferendis facilis, veniam voluptatum nam
+                    ipsa tenetur
+                    quibusdam molestias, laboriosam eligendi incidunt, molestiae enim facere itaque natus earum. Autem
+                    velit ut ex.
+                    Dolore rerum illum eum, exercitationem animi officia quae, minus ipsum assumenda nihil deleniti
+                    consequatur
+                    eveniet omnis. Tempore, officia numquam iure quae voluptates placeat reprehenderit porro sit quaerat
+                    iste
+                    doloribus excepturi.
+                    Id praesentium beatae dolores eos inventore doloremque nam incidunt natus accusantium assumenda
+                    tempora quae
+                    reprehenderit sit commodi dignissimos quod facere voluptate, ratione quo, obcaecati voluptatum! Amet
+                    quaerat
+                    veniam aliquid fuga.
+                    Beatae dolorum sapiente amet nesciunt quidem magni quisquam tempora ducimus consequuntur? Provident
+                    ad error
+                    aliquam eligendi architecto laborum, libero praesentium adipisci, assumenda perferendis voluptas
+                    saepe sit alias
+                    earum at. Sed.
+                    Harum error odit quis saepe porro doloremque blanditiis mollitia repellendus autem culpa, voluptatem
+                    qui soluta
+                    nisi odio laboriosam, ex ea et animi vitae doloribus! Commodi, beatae. Itaque repudiandae quod
+                    nihil.
+                    Fuga in libero delectus architecto expedita eius non perferendis provident culpa quasi a rem fugit
+                    nam eligendi
+                    eaque, error doloremque doloribus debitis velit ad quae. Eligendi distinctio quae provident
+                    officiis!
+                    Hic asperiores culpa odio modi, corporis natus aliquid nobis totam molestiae unde quaerat, mollitia,
+                    maiores sit
+                    illo? Eius, laboriosam eaque! Quasi ducimus iure sed sint eius optio voluptate, tenetur voluptas.
+                    Repellendus, accusantium et itaque quia dignissimos minus reiciendis non eius at culpa sed, error
+                    ipsa cumque
+                    consectetur laudantium corporis doloremque quam consequuntur optio autem tempore modi magnam esse.
+                    Natus, sunt!
+                    Architecto cupiditate nisi, veniam modi porro suscipit repudiandae ipsum cum. Perspiciatis possimus
+                    est quam
+                    repellat unde sed ullam nulla ipsa, debitis, laudantium culpa ipsam accusamus ducimus id voluptatum
+                    eveniet
+                    commodi!
+                    Voluptas veniam, pariatur enim totam nemo libero, dicta reprehenderit ipsum iste possimus doloribus
+                    natus, quam
+                    nam excepturi beatae obcaecati ratione incidunt voluptates molestiae expedita modi tenetur! Deleniti
+                    aliquam
+                    earum mollitia.
+                    Recusandae maiores qui aut quaerat asperiores distinctio blanditiis minus, quidem earum libero
+                    laboriosam
+                    impedit rerum quisquam tenetur possimus ex! Provident repudiandae aut dolor. Illum doloribus ut
+                    minima velit,
+                    nihil aliquid.
+                    Illo, quia eveniet voluptatem assumenda qui perspiciatis similique deserunt quibusdam in modi, illum
+                    ullam
+                    animi, mollitia doloribus optio aperiam. Quisquam eaque repudiandae in itaque consequatur distinctio
+                    blanditiis,
+                    natus consectetur reiciendis!
+                    Ullam doloremque laborum nihil voluptas eaque nisi. Laboriosam ex nobis iusto modi hic! Quo incidunt
+                    deserunt
+                    enim ipsa delectus. Culpa corporis qui sunt aspernatur asperiores error, aperiam vitae itaque est.
+                    Sint in architecto quidem magnam praesentium! Vel unde a, maxime, placeat incidunt, soluta quasi
+                    ipsam quibusdam
+                    numquam nam est natus iure nihil blanditiis nostrum deleniti adipisci iste neque repudiandae
+                    pariatur!
+                    Rerum voluptates quasi odio odit temporibus eligendi, accusamus perferendis earum eaque aperiam
+                    maxime. Rem
+                    voluptatibus culpa libero enim temporibus explicabo nam aliquam, doloremque, placeat magni cum illo
+                    nihil maxime
+                    molestiae.
+                    Architecto consectetur sit fugit, corporis reiciendis expedita sunt accusantium doloremque
+                    voluptatem amet
+                    quisquam unde consequatur, officiis praesentium iure cum nam ipsum sequi commodi tenetur! Tenetur
+                    deleniti
+                    consequuntur non voluptas nostrum!
+                    Reiciendis blanditiis, deleniti doloremque rerum incidunt expedita sequi debitis quod mollitia
+                    itaque
+                    voluptatibus consequatur obcaecati tempora ducimus quasi illo earum. Rem itaque nostrum porro
+                    aliquam eius!
+                    Magnam nihil molestias aspernatur.
+                    Adipisci placeat earum eligendi quasi delectus ipsum, illo unde eum voluptates tempore facere
+                    veritatis nam
+                    inventore, nostrum harum? Nulla tempore, culpa quo distinctio adipisci non voluptatibus dolorum
+                    magnam
+                    accusamus! Incidunt.
+                    Eos omnis accusantium perspiciatis laborum libero! Accusamus alias rerum deleniti iusto, voluptate
+                    nostrum porro
+                    debitis. Aliquam id illo atque consequuntur quas dolor nisi nam omnis nemo, autem tenetur fugiat
+                    voluptatum.
+                    Nesciunt dicta ex ullam eos ducimus, provident numquam repudiandae commodi. Illum voluptate
+                    inventore velit
+                    explicabo perspiciatis ratione, officia ullam dolorem magnam dolores cupiditate dolor soluta iure
+                    beatae
+                    voluptatem totam saepe.
+                    Illo odit, vero quos sint dolorem corrupti quae rem obcaecati. Placeat excepturi minima possimus
+                    ducimus,
+                    incidunt eaque voluptas non saepe quibusdam debitis corrupti voluptate mollitia rem architecto
+                    suscipit nisi at.
+                    Facilis, fugiat nemo sunt soluta molestiae adipisci, nihil voluptas omnis beatae repellat neque
+                    assumenda
+                    debitis. Ducimus, id! Labore odit blanditiis quibusdam tempore cum distinctio iste impedit, iusto
+                    totam aliquam
+                    deleniti!
+                    Dicta, amet minus at, sed labore culpa voluptates sit tenetur hic quas aut sequi perspiciatis?
+                    Placeat esse
+                    dolor modi id laboriosam. Eveniet ipsum ab provident facere blanditiis nostrum atque earum.
+                    Eaque quibusdam, illo quas cupiditate assumenda modi tempore dignissimos, quos explicabo unde dolore
+                    voluptatem
+                    fuga delectus sed repellendus. Alias et dicta blanditiis odio numquam neque unde, voluptas est ipsum
+                    error.
+                    Ipsum explicabo rerum veniam impedit eveniet laboriosam maiores aliquid perspiciatis, optio unde
+                    enim neque
+                    inventore pariatur ex est nam voluptatibus, minus ad, alias dignissimos sequi repellat nostrum
+                    magnam minima.
+                    Accusantium!
+                    Exercitationem ex qui fugiat ad iure modi recusandae quasi asperiores maxime. Temporibus laborum,
+                    natus, neque
+                    eos fugiat dolores excepturi facilis nulla qui sapiente quas nostrum illo officia quisquam,
+                    voluptatum est.
+                    Amet laboriosam fuga minima at, itaque velit doloremque esse dolores accusantium maiores laudantium
+                    beatae optio
+                    fugit quasi qui earum iusto quos, voluptates aut. Quaerat quos dolor, pariatur architecto atque
+                    mollitia.
+                    Eaque omnis nisi natus excepturi minus deserunt neque maiores sunt recusandae quisquam dignissimos
+                    quibusdam
+                    nulla eius voluptatibus et quas reprehenderit, cum tempore non praesentium mollitia est optio.
+                    Eligendi, placeat
+                    similique!
+                    Voluptas ex aperiam reiciendis aliquam qui? Eum repudiandae voluptatibus, soluta cum explicabo quos
+                    error,
+                    molestias voluptates deleniti sed assumenda tempore molestiae repellat, eaque culpa distinctio!
+                    Dolore deserunt
+                    sequi nostrum maxime.
+                    Odio voluptatibus tempora beatae reiciendis aliquam ipsum inventore quidem at ratione ducimus
+                    dolorum sapiente
+                    modi, quos architecto magnam? Quidem error veniam est. Voluptate obcaecati, culpa consequatur illum
+                    maiores quo
+                    asperiores!
+                    Ipsam distinctio dignissimos veniam sed. Atque ducimus quod libero dolor voluptatibus voluptatem
+                    eligendi non,
+                    in accusamus recusandae soluta velit deleniti totam nihil reprehenderit repellendus iure, error,
+                    architecto
+                    repellat sunt expedita.
+                    Doloremque consequuntur iusto voluptatum commodi! Commodi esse atque ullam, vero mollitia amet sunt
+                    corrupti
+                    laboriosam rem nemo quae itaque quia, minima est culpa cupiditate aliquam nesciunt ad. Fugit,
+                    laboriosam
+                    voluptatum!
+                    Quibusdam eveniet, aliquid id ratione dolorum voluptas, quos pariatur vitae ullam quasi ipsam
+                    voluptates autem
+                    expedita nesciunt ab nostrum nihil dignissimos? Ipsum commodi aut magnam laboriosam saepe provident
+                    id atque!
+                    Similique labore quis facere, possimus, excepturi voluptas expedita minima iusto nam odio
+                    praesentium cum
+                    beatae! Earum, aspernatur? Aliquid velit praesentium inventore provident quod cupiditate, saepe
+                    illum. Doloribus
+                    iure architecto nihil.
+                    Sapiente, numquam sed! At consequuntur repellat praesentium aspernatur fugit eius veritatis
+                    cupiditate, deserunt
+                    alias sit, minima neque odio accusantium sapiente cumque, incidunt rem ex vitae totam voluptas ipsa
+                    id corrupti.
+                    Architecto, perspiciatis quod magni cum perferendis, aspernatur quas repellat iusto natus quisquam
+                    omnis enim
+                    vero magnam, voluptatum distinctio id quam vel eum fuga expedita laborum dolorum. Aspernatur
+                    reprehenderit
+                    voluptatum perferendis.
+                    Minus modi repellat reiciendis numquam rem incidunt repellendus officiis asperiores eum atque qui,
+                    deleniti nam
+                    quia natus? Aliquam animi sit iure odit, dignissimos laboriosam rem, atque aspernatur placeat, id
+                    magni.
+                    Aliquam ea nisi deleniti rem dolorum. Delectus, nisi deleniti, iusto voluptates dicta aut eum unde
+                    dignissimos
+                    provident hic quam autem fuga alias facilis suscipit corrupti odio minima eligendi? Blanditiis,
+                    quam.
+                    Sed consequatur cum beatae quos ex assumenda, voluptatum nemo iste molestias blanditiis? Nobis eius
+                    minus labore
+                    mollitia accusamus sit rem, natus perferendis aliquam eum at neque voluptate fuga assumenda harum?
+                    Quod, nemo! Dolorum fugit odit molestiae inventore sed voluptates, animi ipsam, consectetur, culpa
+                    iure nisi
+                    dignissimos nostrum? Optio eveniet, commodi, illo autem, itaque suscipit explicabo quos eius
+                    reiciendis ut
+                    minima?
+                    Magnam beatae tenetur, iste suscipit dolorum accusantium, consectetur veritatis natus assumenda
+                    omnis dolorem! A
+                    sequi ducimus distinctio omnis in error eveniet quasi, fuga delectus nam nostrum? Ducimus sequi odit
+                    quos.
+                    Unde, culpa nihil voluptas fugiat tempora, eum, quam repudiandae reiciendis quae sed ab nisi!
+                    Quaerat accusamus
+                    quos in ipsum, commodi inventore est reprehenderit repellat atque obcaecati laborum eveniet ab
+                    minus!
+                    Harum vitae laudantium molestiae quam quas aut. Inventore ea quas temporibus deserunt repellat ullam
+                    sed nulla
+                    odio fugit! Inventore animi enim incidunt rerum obcaecati, laudantium pariatur molestias illum.
+                    Illo, assumenda.
+                    Nihil ex molestiae veritatis necessitatibus odit quisquam tempore sit vitae cumque aut. Amet, cum
+                    quos porro
+                    vitae unde, eveniet vero perspiciatis a rem, ratione atque voluptas provident adipisci nisi
+                    consequatur?
+                    Ea sint quae facere culpa, commodi quisquam fugiat reiciendis quis nam sequi pariatur excepturi
+                    dolores
+                    voluptates hic quasi suscipit illo sapiente tempore. Minima, reprehenderit natus cum quos nemo
+                    similique
+                    repellat!
+                    Quia, ex earum veniam quaerat tempora voluptatibus. Doloribus voluptatem error totam. Earum mollitia
+                    nesciunt,
+                    recusandae magni eum vel numquam fugiat doloremque autem, iste quaerat, incidunt voluptatum dolore.
+                    Atque,
+                    necessitatibus sapiente.
+                    Ipsam libero, placeat architecto nostrum quaerat laborum distinctio explicabo voluptatibus omnis
+                    maxime. Alias
+                    qui, rerum dolorem labore sequi cumque explicabo impedit provident aut commodi tempora nesciunt enim
+                    reiciendis
+                    voluptatibus mollitia.
+                    Quaerat rem vero magnam enim perspiciatis libero ipsum autem quas? Blanditiis numquam qui quia ut et
+                    minima
+                    dolorum amet. Dolorem ullam quos voluptate, repudiandae ducimus nesciunt? Dolore blanditiis hic
+                    dolor.
+                    Molestias quam ullam, saepe at est, aliquid corrupti placeat sequi unde quod laborum ea eligendi
+                    maiores
+                    inventore dolor. Eligendi ab, natus sint aspernatur rerum incidunt fugit quis suscipit pariatur
+                    voluptatibus.
+                    Excepturi eum modi, illum ipsam assumenda optio magnam doloremque. Non tenetur illum magnam
+                    aspernatur veritatis
+                    numquam dolores est obcaecati temporibus libero sequi veniam, beatae inventore provident soluta vel
+                    atque
+                    delectus.
+                    Accusantium aliquid deserunt ipsam rerum eos perspiciatis error quasi fugit illo alias quaerat
+                    debitis,
+                    quibusdam velit, dolore nostrum iste corrupti iure tenetur, laboriosam nemo id. Omnis nemo
+                    voluptatum odio odit.
+                    Perspiciatis obcaecati a ab, expedita aspernatur rerum, odio, vero cum atque magnam perferendis nam.
+                    Commodi aut
+                    atque odit voluptatum quia cupiditate. Et nihil saepe architecto obcaecati accusantium, perspiciatis
+                    harum
+                    assumenda.
+                    Quia, aliquam commodi! Laudantium hic animi quis expedita! At, modi fuga? Ipsum quod numquam dicta
+                    distinctio
+                    praesentium, debitis, doloribus quis quia repudiandae ducimus sunt molestiae quas quibusdam
+                    inventore magnam
+                    incidunt?
+                    Quis fuga debitis quidem magnam sint veniam? Optio ea inventore deleniti doloribus, iure ad incidunt
+                    voluptatibus iusto sed architecto! Maiores accusamus labore delectus quia quibusdam dolorum pariatur
+                    ab incidunt
+                    veniam.
+                    Mollitia quia fugit, dignissimos recusandae tenetur id quas. Minus distinctio accusantium assumenda
+                    deleniti
+                    iste eaque dignissimos expedita aspernatur earum dolores sapiente mollitia, fugiat corrupti, libero
+                    odit porro
+                    molestias voluptatem quasi!
+                    Temporibus sed eum nemo, voluptas sequi dolor molestias quod quaerat ab natus magni dolorem illo
+                    necessitatibus,
+                    officiis commodi assumenda sint exercitationem deleniti? Amet alias eius, recusandae deserunt
+                    quaerat maiores
+                    earum?
+                    Repellat ipsum quibusdam iste ut autem iure deleniti ratione voluptatibus dolores molestiae
+                    voluptates sunt,
+                    pariatur at laborum commodi, veniam nam assumenda cum soluta! Asperiores, eligendi consequatur
+                    explicabo
+                    cupiditate sapiente pariatur?
+                    Vitae quia, nam libero iusto veritatis voluptate dolore molestiae quod in. Commodi blanditiis
+                    quibusdam odio
+                    accusamus amet praesentium vero ipsam, quae cum quisquam ratione! Rem reprehenderit harum eum
+                    voluptates soluta!
+                    Illum laboriosam voluptatem vero. Voluptate soluta assumenda in numquam pariatur quos obcaecati
+                    quaerat culpa
+                    expedita, reiciendis temporibus, vitae architecto rem asperiores labore nihil quia veniam iste
+                    laboriosam
+                    repudiandae quis corrupti?
+                    Fugit autem natus quaerat aperiam quibusdam numquam rem, facere porro aut dolores quis beatae, non
+                    voluptate
+                    optio dolore nobis maiores assumenda in, a nihil esse saepe ipsam? Quae, voluptates aliquid.
+                    Quod atque adipisci ipsam perferendis fuga, sint omnis animi natus quia reiciendis voluptates nisi
+                    exercitationem consequuntur quibusdam asperiores est inventore molestias deleniti optio illum ea.
+                    Earum id vitae
+                    necessitatibus officia.
+                    Optio explicabo eligendi animi fugit error amet, iusto porro ullam repudiandae exercitationem
+                    inventore repellat
+                    voluptas sint incidunt quos dolorum excepturi nisi magnam qui molestiae nihil asperiores aperiam
+                    accusamus?
+                    Sapiente, quos.
+                    Quo ab quas, ad quam tempora totam assumenda esse ut id accusamus libero praesentium ducimus
+                    reprehenderit
+                    deleniti iure unde quae, earum sed. Quidem eveniet quis, tenetur dolores eaque sit officiis.
+                    Labore ratione dolorum quo soluta ducimus fugit sit est itaque, quibusdam a exercitationem corrupti
+                    similique
+                    cupiditate assumenda officia amet nisi ea voluptatibus perspiciatis iste delectus suscipit ipsam
+                    sapiente
+                    explicabo? Fuga.
+                    Possimus cumque soluta animi eligendi consequatur temporibus aliquid cum aut ipsa eum deserunt
+                    suscipit, omnis
+                    doloremque quod quis sunt tenetur rem aspernatur corporis dolorem odit veniam beatae distinctio
+                    facere? Itaque!
+                </p>
+
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+        </main>
+
+    </div>
+    <!-- here ends the main container -->
+    </div>
+    <footer class="footer pt-5 mt-5">
+        <div class="container">
+            <div class=" row">
+                <div class="col-md-3 mb-4 ms-auto">
+                    <div>
+                        <a href="https://www.creative-tim.com/product/material-kit">
+                            <img src="./assets/img/logo-ct-dark.png" class="mb-3 footer-logo" alt="main_logo">
+                        </a>
+                        <h6 class="font-weight-bolder mb-4">Material Kit 2</h6>
+                    </div>
+                    <div>
+                        <ul class="d-flex flex-row ms-n3 nav">
+                            <li class="nav-item">
+                                <a class="nav-link pe-1" href="https://www.facebook.com/CreativeTim/" target="_blank">
+                                    <i class="fab fa-facebook text-lg opacity-8"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link pe-1" href="https://twitter.com/creativetim" target="_blank">
+                                    <i class="fab fa-twitter text-lg opacity-8"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link pe-1" href="https://dribbble.com/creativetim" target="_blank">
+                                    <i class="fab fa-dribbble text-lg opacity-8"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link pe-1" href="https://github.com/creativetimofficial" target="_blank">
+                                    <i class="fab fa-github text-lg opacity-8"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link pe-1" href="https://www.youtube.com/channel/UCVyTG4sCw-rOvB9oHkzZD1w"
+                                    target="_blank">
+                                    <i class="fab fa-youtube text-lg opacity-8"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-6 mb-4">
+                    <div>
+                        <h6 class="text-sm">Company</h6>
+                        <ul class="flex-column ms-n3 nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://www.creative-tim.com/presentation" target="_blank">
+                                    About Us
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://www.creative-tim.com/templates/free" target="_blank">
+                                    Freebies
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://www.creative-tim.com/templates/premium"
+                                    target="_blank">
+                                    Premium Tools
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://www.creative-tim.com/blog" target="_blank">
+                                    Blog
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-6 mb-4">
+                    <div>
+                        <h6 class="text-sm">Resources</h6>
+                        <ul class="flex-column ms-n3 nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://iradesign.io/" target="_blank">
+                                    Illustrations
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://www.creative-tim.com/bits" target="_blank">
+                                    Bits & Snippets
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://www.creative-tim.com/affiliates/new" target="_blank">
+                                    Affiliate Program
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-6 mb-4">
+                    <div>
+                        <h6 class="text-sm">Help & Support</h6>
+                        <ul class="flex-column ms-n3 nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://www.creative-tim.com/contact-us" target="_blank">
+                                    Contact Us
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://www.creative-tim.com/knowledge-center"
+                                    target="_blank">
+                                    Knowledge Center
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://services.creative-tim.com/?ref=ct-mk2-footer"
+                                    target="_blank">
+                                    Custom Development
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://www.creative-tim.com/sponsorships" target="_blank">
+                                    Sponsorships
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6 col-6 mb-4 me-auto">
+                    <div>
+                        <h6 class="text-sm">Legal</h6>
+                        <ul class="flex-column ms-n3 nav">
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                    href="https://www.creative-tim.com/knowledge-center/terms-of-service/"
+                                    target="_blank">
+                                    Terms & Conditions
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://www.creative-tim.com/knowledge-center/privacy-policy/"
+                                    target="_blank">
+                                    Privacy Policy
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://www.creative-tim.com/license" target="_blank">
+                                    Licenses (EULA)
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="text-center">
+                        <p class="text-dark my-4 text-sm font-weight-normal">
+                            All rights reserved. Copyright ©
+                            <script>
+                                document.write(new Date().getFullYear())
+                            </script> Material Kit by <a href="https://www.creative-tim.com" target="_blank">Creative
+                                Tim</a>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
