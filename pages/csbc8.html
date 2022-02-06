@@ -28,32 +28,36 @@
 
 
     <style>
+        
+        .pagination .page-link {
+            background: rgba(146, 125, 125, 0.24);
+            color: white;
+        }
 
-.divs h1 {
-  background-color: burlywood;
-  border: 1px solid black;
-  width: 300px;
-  padding: 50px;
-  margin: 50px;
-}
+        .divs h1 {
+            background-color: burlywood;
+            border: 1px solid black;
+            width: 300px;
+            padding: 50px;
+            margin: 50px;
+        }
 
-.divs span {
-  background-color: cornflowerblue;
-  border: 1px solid black;
-  width: 500px;
-  padding: 100;
-  margin: 50px;
-}
+        .divs span {
+            background-color: cornflowerblue;
+            border: 1px solid black;
+            width: 500px;
+            padding: 100;
+            margin: 50px;
+        }
 
-.divs div {
-    height: 200px;
-    width: 200px;
-    background-color: olivedrab;
-    border: 5px solid black;
-    display: inline-block;
-    margin: 50px;
-}
-
+        .divs div {
+            height: 200px;
+            width: 200px;
+            background-color: olivedrab;
+            border: 5px solid black;
+            display: inline-block;
+            margin: 50px;
+        }
     </style>
 
 
@@ -79,6 +83,27 @@
             </button>
             <div class="collapse navbar-collapse w-100 pt-3 pb-2 py-lg-0 ms-lg-12 ps-lg-5" id="navigation">
                 <ul class="navbar-nav navbar-nav-hover ms-auto">
+
+                    <ul class="nav pagination">
+
+                        <li class="page-item">
+                          <a class="page-link" href="../pages/csbc7.html" aria-label="Previous">
+                            <span aria-hidden="true"><i class="material-icons" aria-hidden="true">chevron_left</i></span>
+                          </a>
+                        </li>
+            
+                        <li class="page-item">
+                          <a class="page-link" href="#.divs">8</a>
+                        </li>
+            
+                        <li class="page-item">
+                          <a class="page-link" href="../pages/csbc9.html" aria-label="Next">
+                            <span aria-hidden="true"><i class="material-icons" aria-hidden="true">chevron_right</i></span>
+                          </a>
+                        </li>
+            
+                      </ul>
+
                     <li class="nav-item dropdown dropdown-hover mx-2 ms-lg-6">
                         <a class="nav-link ps-2 d-flex cursor-pointer align-items-center" id="dropdownMenuPages2"
                             data-bs-toggle="dropdown" aria-expanded="false">
@@ -577,7 +602,8 @@
         <!-- Here starts the main container -->
         <div class="container">
 
-            <a href="../pages/csb1.html" class="btn btn-sm  bg-gradient-secondary mb-0 me-1 mt-2 mt-md-0">Bootcamp Index</a>
+            <a href="../pages/csb1.html" class="btn btn-sm  bg-gradient-secondary mb-0 me-1 mt-2 mt-md-0">Bootcamp
+                Index</a>
 
 
 

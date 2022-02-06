@@ -28,23 +28,26 @@
 
 
     <style>
+        .pagination .page-link {
+            background: rgba(146, 125, 125, 0.24);
+            color: white;
+        }
 
-   .divs     section {
-  width: 80%;
-  height: 800px;
-  /* background-image: url(https://images.unsplash.com/photo-1640780004706-9b26ad79829c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80);
+        .divs section {
+            width: 80%;
+            height: 800px;
+            /* background-image: url(https://images.unsplash.com/photo-1640780004706-9b26ad79829c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80);
   background-size: cover;
   background-position: bottom; */
 
-  background: center/cover
-    url(https://images.unsplash.com/photo-1640780004706-9b26ad79829c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80);
-  margin: auto;
-}
- 
-.divs h1 {
-  font-size: 100px;
-  color: white;
-}
+            background: center/cover url(https://images.unsplash.com/photo-1640780004706-9b26ad79829c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80);
+            margin: auto;
+        }
+
+        .divs h1 {
+            font-size: 100px;
+            color: white;
+        }
     </style>
 
 
@@ -70,6 +73,27 @@
             </button>
             <div class="collapse navbar-collapse w-100 pt-3 pb-2 py-lg-0 ms-lg-12 ps-lg-5" id="navigation">
                 <ul class="navbar-nav navbar-nav-hover ms-auto">
+
+                    <ul class="nav pagination">
+
+                        <li class="page-item">
+                          <a class="page-link" href="../pages/csbc14.html" aria-label="Previous">
+                            <span aria-hidden="true"><i class="material-icons" aria-hidden="true">chevron_left</i></span>
+                          </a>
+                        </li>
+            
+                        <li class="page-item">
+                          <a class="page-link" href="#.divs">15</a>
+                        </li>
+            
+                        <li class="page-item">
+                          <a class="page-link" href="../pages/csbc16.html" aria-label="Next">
+                            <span aria-hidden="true"><i class="material-icons" aria-hidden="true">chevron_right</i></span>
+                          </a>
+                        </li>
+            
+                      </ul>
+
                     <li class="nav-item dropdown dropdown-hover mx-2 ms-lg-6">
                         <a class="nav-link ps-2 d-flex cursor-pointer align-items-center" id="dropdownMenuPages2"
                             data-bs-toggle="dropdown" aria-expanded="false">
@@ -568,7 +592,8 @@
         <!-- Here starts the main container -->
         <div class="container">
 
-            <a href="../pages/csb1.html" class="btn btn-sm  bg-gradient-secondary mb-0 me-1 mt-2 mt-md-0">Bootcamp Index</a>
+            <a href="../pages/csb1.html" class="btn btn-sm  bg-gradient-secondary mb-0 me-1 mt-2 mt-md-0">Bootcamp
+                Index</a>
 
 
 

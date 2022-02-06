@@ -28,27 +28,29 @@
 
 
     <style>
+        .pagination .page-link {
+            background: rgba(146, 125, 125, 0.24);
+            color: white;
+        }
 
-.divs section {
-  width: 500px;
-  height: 500px;
-  background-color: magenta;
-}
+        .divs section {
+            width: 500px;
+            height: 500px;
+            background-color: magenta;
+        }
 
-.divs #rgba {
-  width:  50%;
-  height: 50%;
-  background-color: rgba(255,255,255,0.7);
-}
+        .divs #rgba {
+            width: 50%;
+            height: 50%;
+            background-color: rgba(255, 255, 255, 0.7);
+        }
 
-.divs #opacity {
-  width:  50%;
-  height: 50%;
-  background-color: yellowgreen;
-  opacity: 0.5;
-}
-
-
+        .divs #opacity {
+            width: 50%;
+            height: 50%;
+            background-color: yellowgreen;
+            opacity: 0.5;
+        }
     </style>
 
 
@@ -74,6 +76,27 @@
             </button>
             <div class="collapse navbar-collapse w-100 pt-3 pb-2 py-lg-0 ms-lg-12 ps-lg-5" id="navigation">
                 <ul class="navbar-nav navbar-nav-hover ms-auto">
+
+                    <ul class="nav pagination">
+
+                        <li class="page-item">
+                          <a class="page-link" href="../pages/csbc8.html" aria-label="Previous">
+                            <span aria-hidden="true"><i class="material-icons" aria-hidden="true">chevron_left</i></span>
+                          </a>
+                        </li>
+            
+                        <li class="page-item">
+                          <a class="page-link" href="#.divs">9</a>
+                        </li>
+            
+                        <li class="page-item">
+                          <a class="page-link" href="../pages/csbc10.html" aria-label="Next">
+                            <span aria-hidden="true"><i class="material-icons" aria-hidden="true">chevron_right</i></span>
+                          </a>
+                        </li>
+            
+                      </ul>
+
                     <li class="nav-item dropdown dropdown-hover mx-2 ms-lg-6">
                         <a class="nav-link ps-2 d-flex cursor-pointer align-items-center" id="dropdownMenuPages2"
                             data-bs-toggle="dropdown" aria-expanded="false">
@@ -572,7 +595,8 @@
         <!-- Here starts the main container -->
         <div class="container">
 
-            <a href="../pages/csb1.html" class="btn btn-sm  bg-gradient-secondary mb-0 me-1 mt-2 mt-md-0">Bootcamp Index</a>
+            <a href="../pages/csb1.html" class="btn btn-sm  bg-gradient-secondary mb-0 me-1 mt-2 mt-md-0">Bootcamp
+                Index</a>
 
 
 
@@ -586,23 +610,27 @@
 
             <div class="divs">
 
-               
-    <section>
-        <div id="rgba">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos fugit nesciunt sunt omnis odio nobis
-            doloribus, maxime magnam cumque voluptatum repudiandae cum? Cum molestias voluptate nesciunt officia,
-            eligendi inventore rerum?
-        </div>
-    </section>
 
-    <section>
-        <div id="opacity">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos fugit nesciunt sunt omnis odio nobis
-            doloribus, maxime magnam cumque voluptatum repudiandae cum? Cum molestias voluptate nesciunt officia,
-            eligendi inventore rerum?
-            <button>Well F me !</button>
-        </div>
-    </section>
+                <section>
+                    <div id="rgba">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos fugit nesciunt sunt omnis
+                        odio nobis
+                        doloribus, maxime magnam cumque voluptatum repudiandae cum? Cum molestias voluptate nesciunt
+                        officia,
+                        eligendi inventore rerum?
+                    </div>
+                </section>
+
+                <section>
+                    <div id="opacity">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos fugit nesciunt sunt omnis
+                        odio nobis
+                        doloribus, maxime magnam cumque voluptatum repudiandae cum? Cum molestias voluptate nesciunt
+                        officia,
+                        eligendi inventore rerum?
+                        <button>Well F me !</button>
+                    </div>
+                </section>
 
 
             </div>

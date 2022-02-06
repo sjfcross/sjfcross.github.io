@@ -28,50 +28,55 @@
 
 
     <style>
+        .pagination .page-link {
+            background: rgba(146, 125, 125, 0.24);
+            color: white;
+        }
 
-.circle {
-  width: 300px;
-  height: 300px;
-  background-color: tomato;
-  transition: background-color 1s, border-radius 2s;
-}
+        .circle {
+            width: 300px;
+            height: 300px;
+            background-color: tomato;
+            transition: background-color 1s, border-radius 2s;
+        }
 
 
-.circle:hover {
-  background-color: turquoise;
-  border-radius: 50%;
-}
+        .circle:hover {
+            background-color: turquoise;
+            border-radius: 50%;
+        }
 
-.divs section div {
-  height: 100px;
-  width: 100px;
-  background-color: teal;
-  margin: 20px 0;
-  transition: margin-left 3s;
-}
+        .divs section div {
+            height: 100px;
+            width: 100px;
+            background-color: teal;
+            margin: 20px 0;
+            transition: margin-left 3s;
+        }
 
-.divs section:hover div {
-  margin-left: 500px;
-}
+        .divs section:hover div {
+            margin-left: 500px;
+        }
 
-.divs div:nth-of-type(1) {
-  transition-timing-function: ease-in;
-}
-.divs div:nth-of-type(2) {
-  transition-timing-function: ease-out;
-}
+        .divs div:nth-of-type(1) {
+            transition-timing-function: ease-in;
+        }
 
-.divs div:nth-of-type(3) {
-  transition-timing-function: cubic-bezier(0.7, 0, 0.84, 0);
-}
+        .divs div:nth-of-type(2) {
+            transition-timing-function: ease-out;
+        }
 
-.divs div:nth-of-type(4) {
-  transition-timing-function: cubic-bezier(0.85, 0, 0.15, 1);
-}
-.divs div:nth-of-type(5) {
-  transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
+        .divs div:nth-of-type(3) {
+            transition-timing-function: cubic-bezier(0.7, 0, 0.84, 0);
+        }
 
+        .divs div:nth-of-type(4) {
+            transition-timing-function: cubic-bezier(0.85, 0, 0.15, 1);
+        }
+
+        .divs div:nth-of-type(5) {
+            transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
     </style>
 
 
@@ -97,6 +102,27 @@
             </button>
             <div class="collapse navbar-collapse w-100 pt-3 pb-2 py-lg-0 ms-lg-12 ps-lg-5" id="navigation">
                 <ul class="navbar-nav navbar-nav-hover ms-auto">
+
+                    <ul class="nav pagination">
+
+                        <li class="page-item">
+                          <a class="page-link" href="../pages/csbc11.html" aria-label="Previous">
+                            <span aria-hidden="true"><i class="material-icons" aria-hidden="true">chevron_left</i></span>
+                          </a>
+                        </li>
+            
+                        <li class="page-item">
+                          <a class="page-link" href="#.divs">12</a>
+                        </li>
+            
+                        <li class="page-item">
+                          <a class="page-link" href="../pages/csbc13.html" aria-label="Next">
+                            <span aria-hidden="true"><i class="material-icons" aria-hidden="true">chevron_right</i></span>
+                          </a>
+                        </li>
+            
+                      </ul>
+
                     <li class="nav-item dropdown dropdown-hover mx-2 ms-lg-6">
                         <a class="nav-link ps-2 d-flex cursor-pointer align-items-center" id="dropdownMenuPages2"
                             data-bs-toggle="dropdown" aria-expanded="false">
@@ -595,7 +621,8 @@
         <!-- Here starts the main container -->
         <div class="container">
 
-            <a href="../pages/csb1.html" class="btn btn-sm  bg-gradient-secondary mb-0 me-1 mt-2 mt-md-0">Bootcamp Index</a>
+            <a href="../pages/csb1.html" class="btn btn-sm  bg-gradient-secondary mb-0 me-1 mt-2 mt-md-0">Bootcamp
+                Index</a>
 
 
 
@@ -613,7 +640,8 @@
 
                 <p>The <a
                         href="https://developer.mozilla.org/en-US/docs/Web/CSS/transition"><strong><code>transition</code></strong>
-                    </a>property is a <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Shorthand_properties">shorthand
+                    </a>property is a <a
+                        href="https://developer.mozilla.org/en-US/docs/Web/CSS/Shorthand_properties">shorthand
                         property</a> for <a
                         href="https://developer.mozilla.org/en-US/docs/Web/CSS/transition-property"><code>transition-property</code></a>,
                     <a
@@ -623,24 +651,24 @@
                     and <a
                         href="https://developer.mozilla.org/en-US/docs/Web/CSS/transition-delay"><code>transition-delay</code></a>.
                 </p>
-            
-            
-            
+
+
+
                 <div class="circle">
-            
-            
+
+
                 </div>
-            
-            
+
+
                 <section>
                     <div></div>
                     <div></div>
                     <div></div>
                     <div></div>
                     <div></div>
-            
+
                 </section>
-            
+
             </div>
 
 
