@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Division V — Animals | SJFCROSS</title>
+  <link rel="icon" type="image/png" href="../assets/img/favicon-32x32.png">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400;500&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:        #0e1009;
+      --bg2:       #141a0f;
+      --bg3:       #1a2214;
+      --panel:     #1e2818;
+      --border:    #2e3d22;
+      --accent:    #7ab648;
+      --accent2:   #b8e05a;
+      --amber:     #d4a847;
+      --red:       #c0392b;
+      --text:      #d4cdb8;
+      --text-dim:  #7a8068;
+      --text-bright: #eee8d5;
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    'Lora', Georgia, serif;
+      --font-mono:    'DM Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.7;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── Grain overlay ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(14, 16, 9, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    nav a { color: var(--text-dim); text-decoration: none; font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.05em; transition: color 0.2s; }
+    nav a:hover { color: var(--accent2); }
+    nav .brand { color: var(--accent); font-weight: 500; font-size: 0.85rem; }
+    nav .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    nav .back-btn {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      padding: 0.35rem 0.9rem;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    nav .back-btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(122,182,72,0.08); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(122,182,72,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 20% 80%, rgba(212,168,71,0.05) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.1s;
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 700;
+      color: var(--text-bright);
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.2s;
+    }
+    .hero h1 em { color: var(--accent2); font-style: italic; }
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--text-dim);
+      max-width: 520px;
+      margin: 0 auto;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.35s;
+    }
+
+    /* ── LAYOUT ── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; }
+
+    section { padding: 3rem 0; }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      color: var(--text-bright);
+      margin-bottom: 2rem;
+    }
+
+    /* ── ENVIRONMENT PANEL ── */
+    .env-panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .env-panel::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+    .env-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .env-title {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: var(--text-bright);
+    }
+    .env-status-badge {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+    }
+    .env-status-badge.live {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(122,182,72,0.08);
+    }
+    .env-status-badge.live::before {
+      content: '● ';
+      animation: blink 1.5s infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    .env-metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+    }
+    .metric {
+      background: rgba(0,0,0,0.25);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.2rem 1rem;
+      text-align: center;
+      transition: border-color 0.2s;
+    }
+    .metric:hover { border-color: var(--accent); }
+    .metric-icon {
+      font-size: 1.4rem;
+      margin-bottom: 0.4rem;
+      display: block;
+    }
+    .metric-value {
+      font-family: var(--font-mono);
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: var(--text-bright);
+      line-height: 1;
+      margin-bottom: 0.2rem;
+    }
+    .metric-value.good { color: var(--accent2); }
+    .metric-value.warn { color: var(--amber); }
+    .metric-value.danger { color: var(--red); }
+    .metric-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .device-row {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .device-chip {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      padding: 0.4rem 0.9rem;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .device-chip .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--text-dim);
+    }
+    .device-chip.on { border-color: var(--accent); color: var(--accent); background: rgba(122,182,72,0.08); }
+    .device-chip.on .dot { background: var(--accent); box-shadow: 0 0 6px var(--accent); }
+    .device-chip.off { border-color: #333; color: #555; }
+    .device-chip.off .dot { background: #333; }
+
+    .env-note {
+      margin-top: 1.2rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      border-top: 1px solid var(--border);
+      padding-top: 0.8rem;
+    }
+    .env-note a { color: var(--accent); text-decoration: none; }
+    .env-note a:hover { text-decoration: underline; }
+
+    /* ── SPIDER CARDS ── */
+    .spiders-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .spider-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      opacity: 0;
+      animation: fadeUp 0.5s ease forwards;
+    }
+    .spider-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+      box-shadow: 0 12px 40px rgba(122,182,72,0.12);
+    }
+    .spider-card:nth-child(1) { animation-delay: 0.1s; }
+    .spider-card:nth-child(2) { animation-delay: 0.2s; }
+    .spider-card:nth-child(3) { animation-delay: 0.3s; }
+    .spider-card:nth-child(4) { animation-delay: 0.4s; }
+
+    .spider-img-wrap {
+      position: relative;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      background: var(--bg3);
+    }
+    .spider-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+      transition: transform 0.5s ease;
+      display: block;
+    }
+    .spider-card:hover .spider-img-wrap img { transform: scale(1.04); }
+
+    .spider-origin {
+      position: absolute;
+      bottom: 0.6rem;
+      right: 0.6rem;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      background: rgba(0,0,0,0.75);
+      color: var(--accent2);
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      backdrop-filter: blur(4px);
+    }
+
+    .spider-body { padding: 1.3rem; }
+
+    .spider-name {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-style: italic;
+      color: var(--text-bright);
+      margin-bottom: 0.1rem;
+      line-height: 1.2;
+    }
+    .spider-common {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+    }
+    .spider-desc {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      line-height: 1.6;
+      margin-bottom: 1.1rem;
+    }
+
+    .spider-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .spider-stat {
+      background: rgba(0,0,0,0.2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.5rem 0.7rem;
+    }
+    .spider-stat-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 0.1rem;
+    }
+    .spider-stat-value {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--text-bright);
+    }
+
+    .log-btn {
+      width: 100%;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      padding: 0.5rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+    .log-btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(122,182,72,0.06); }
+
+    /* ── LOG SECTION ── */
+    .log-section {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+    }
+    .log-add {
+      display: grid;
+      grid-template-columns: 1fr 1fr 2fr auto;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      align-items: end;
+    }
+    @media (max-width: 700px) {
+      .log-add { grid-template-columns: 1fr 1fr; }
+      .log-add .log-submit { grid-column: 1/-1; }
+    }
+    .log-add label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+    .log-add select,
+    .log-add input {
+      width: 100%;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      outline: none;
+      transition: border-color 0.2s;
+      appearance: none;
+    }
+    .log-add select:focus,
+    .log-add input:focus { border-color: var(--accent); }
+    .log-submit {
+      background: rgba(122,182,72,0.12);
+      border: 1px solid var(--accent);
+      color: var(--accent2);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      padding: 0.55rem 1.2rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .log-submit:hover { background: rgba(122,182,72,0.2); }
+
+    .log-table-wrap { overflow-x: auto; }
+    .log-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+    }
+    .log-table th {
+      text-align: left;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .log-table td {
+      padding: 0.65rem 0.75rem;
+      border-bottom: 1px solid rgba(46,61,34,0.5);
+      color: var(--text);
+      vertical-align: top;
+    }
+    .log-table tr:last-child td { border-bottom: none; }
+    .log-table tr:hover td { background: rgba(122,182,72,0.04); }
+    .log-type-badge {
+      display: inline-block;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.15rem 0.5rem;
+      border-radius: 3px;
+    }
+    .log-type-fed    { background: rgba(122,182,72,0.15); color: var(--accent2); border: 1px solid rgba(122,182,72,0.3); }
+    .log-type-moult  { background: rgba(212,168,71,0.15); color: var(--amber);  border: 1px solid rgba(212,168,71,0.3); }
+    .log-type-note   { background: rgba(100,120,200,0.12); color: #8899dd;      border: 1px solid rgba(100,120,200,0.25); }
+    .log-delete {
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      cursor: pointer;
+      font-size: 0.8rem;
+      padding: 0 0.3rem;
+      transition: color 0.2s;
+    }
+    .log-delete:hover { color: var(--red); }
+    .log-empty {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-dim);
+      font-size: 0.8rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      margin-top: 3rem;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      max-width: 400px;
+      width: 90%;
+    }
+    .modal h3 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      color: var(--text-bright);
+      margin-bottom: 1rem;
+    }
+    .modal-close {
+      float: right;
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .env-metrics { grid-template-columns: repeat(2, 1fr); }
+      nav .nav-links { gap: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav>
+    <a href="../index.html" class="brand">SJFCROSS</a>
+    <div class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="https://github.com/sjfcross" target="_blank">GitHub</a>
+      <a href="http://sjfcross.ddns.net/" target="_blank" class="back-btn">⚡ Live Control</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="container">
+      <p class="hero-eyebrow">Division V</p>
+      <h1>The <em>Arachnid</em> Cabinet</h1>
+      <p>Four arboreal tarantulas. One climate-controlled enclosure. Logged and monitored.</p>
+    </div>
+  </div>
+
+  <!-- Environment Section -->
+  <div class="container">
+    <section>
+      <div class="section-label">Cabinet Environment</div>
+      <div class="section-title">Shared Climate — All 4 Enclosures</div>
+
+      <div class="env-panel">
+        <div class="env-header">
+          <div class="env-title">NodeMCU Controller v2.3</div>
+          <span class="env-status-badge" id="env-badge">Static Display</span>
+        </div>
+
+        <div class="env-metrics">
+          <div class="metric">
+            <span class="metric-icon">🌡️</span>
+            <div class="metric-value good" id="env-temp">25.0°C</div>
+            <div class="metric-label">Temperature</div>
+          </div>
+          <div class="metric">
+            <span class="metric-icon">💧</span>
+            <div class="metric-value good" id="env-hum">42%</div>
+            <div class="metric-label">Humidity</div>
+          </div>
+          <div class="metric">
+            <span class="metric-icon">🕐</span>
+            <div class="metric-value" id="env-time" style="font-size:1.1rem">--:--:--</div>
+            <div class="metric-label">Controller Time</div>
+          </div>
+          <div class="metric">
+            <span class="metric-icon">📡</span>
+            <div class="metric-value" id="env-sensor" style="font-size:0.9rem; color: var(--text-dim)">—</div>
+            <div class="metric-label">Sensor</div>
+          </div>
+        </div>
+
+        <div class="device-row">
+          <div class="device-chip off" id="chip-fogger">
+            <span class="dot"></span> Fogger
+          </div>
+          <div class="device-chip off" id="chip-fan">
+            <span class="dot"></span> Fan
+          </div>
+          <div class="device-chip off" id="chip-light">
+            <span class="dot"></span> Light
+          </div>
+        </div>
+
+        <div class="env-note">
+          <span id="env-last-update">ThingSpeak integration coming soon — live data will auto-refresh here.</span>
+          &nbsp;·&nbsp;
+          <a href="http://sjfcross.ddns.net/" target="_blank">Open live control panel ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Spider Cards -->
+    <section>
+      <div class="section-label">Residents</div>
+      <div class="section-title">The Collection</div>
+
+      <div class="spiders-grid">
+
+        <!-- Caribena laeta -->
+        <div class="spider-card">
+          <div class="spider-img-wrap">
+            <img src="../assets/img/spiders/claeta.png" alt="Caribena laeta">
+            <span class="spider-origin">Puerto Rico 🇵🇷</span>
+          </div>
+          <div class="spider-body">
+            <div class="spider-name">Caribena laeta</div>
+            <div class="spider-common">Puerto Rican Pinktoe</div>
+            <p class="spider-desc">Inhabits tropical rainforests, thriving in humid environments with moderate airflow. Builds silken retreats within tree crevices.</p>
+            <div class="spider-stats">
+              <div class="spider-stat">
+                <div class="spider-stat-label">Last Fed</div>
+                <div class="spider-stat-value" id="stat-claeta-fed">—</div>
+              </div>
+              <div class="spider-stat">
+                <div class="spider-stat-label">Last Moult</div>
+                <div class="spider-stat-value" id="stat-claeta-moult">—</div>
+              </div>
+            </div>
+            <button class="log-btn" onclick="openLogModal('Caribena laeta')">+ Add Log Entry</button>
+          </div>
+        </div>
+
+        <!-- Caribena versicolor -->
+        <div class="spider-card">
+          <div class="spider-img-wrap">
+            <img src="../assets/img/spiders/cversi.png" alt="Caribena versicolor">
+            <span class="spider-origin">Martinique 🇲🇶</span>
+          </div>
+          <div class="spider-body">
+            <div class="spider-name">Caribena versicolor</div>
+            <div class="spider-common">Martinique Pinktoe</div>
+            <p class="spider-desc">Arboreal species spinning elaborate funnel webs in which it spends most of its time. Up to 14cm legspan when mature.</p>
+            <div class="spider-stats">
+              <div class="spider-stat">
+                <div class="spider-stat-label">Last Fed</div>
+                <div class="spider-stat-value" id="stat-cversi-fed">—</div>
+              </div>
+              <div class="spider-stat">
+                <div class="spider-stat-label">Last Moult</div>
+                <div class="spider-stat-value" id="stat-cversi-moult">—</div>
+              </div>
+            </div>
+            <button class="log-btn" onclick="openLogModal('Caribena versicolor')">+ Add Log Entry</button>
+          </div>
+        </div>
+
+        <!-- Avicularia purpurea -->
+        <div class="spider-card">
+          <div class="spider-img-wrap">
+            <img src="../assets/img/spiders/apurpurea2.png" alt="Avicularia purpurea">
+            <span class="spider-origin">Ecuador 🇪🇨</span>
+          </div>
+          <div class="spider-body">
+            <div class="spider-name">Avicularia purpurea</div>
+            <div class="spider-common">Purple Pinktoe</div>
+            <p class="spider-desc">Arboreal spider building nests primarily in hollows in trees, sometimes in the vicinity of epiphytic plants. Deep violet colouration.</p>
+            <div class="spider-stats">
+              <div class="spider-stat">
+                <div class="spider-stat-label">Last Fed</div>
+                <div class="spider-stat-value" id="stat-apurpurea-fed">—</div>
+              </div>
+              <div class="spider-stat">
+                <div class="spider-stat-label">Last Moult</div>
+                <div class="spider-stat-value" id="stat-apurpurea-moult">—</div>
+              </div>
+            </div>
+            <button class="log-btn" onclick="openLogModal('Avicularia purpurea')">+ Add Log Entry</button>
+          </div>
+        </div>
+
+        <!-- Avicularia minatrix -->
+        <div class="spider-card">
+          <div class="spider-img-wrap">
+            <img src="../assets/img/spiders/Avicularia_minatrix_in_natural_habitat.png" alt="Avicularia minatrix">
+            <span class="spider-origin">Venezuela 🇻🇪</span>
+          </div>
+          <div class="spider-body">
+            <div class="spider-name">Avicularia minatrix</div>
+            <div class="spider-common">Red Slate Pinktoe</div>
+            <p class="spider-desc">One of the smallest Avicularia species. Builds nests in tree hollows and epiphytic plants. Distinctive orange-black abdomen patterning.</p>
+            <div class="spider-stats">
+              <div class="spider-stat">
+                <div class="spider-stat-label">Last Fed</div>
+                <div class="spider-stat-value" id="stat-aminatrix-fed">—</div>
+              </div>
+              <div class="spider-stat">
+                <div class="spider-stat-label">Last Moult</div>
+                <div class="spider-stat-value" id="stat-aminatrix-moult">—</div>
+              </div>
+            </div>
+            <button class="log-btn" onclick="openLogModal('Avicularia minatrix')">+ Add Log Entry</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Log Section -->
+    <section>
+      <div class="section-label">Keeper's Log</div>
+      <div class="section-title">Feeding & Moult Records</div>
+
+      <div class="log-section">
+        <div class="log-add">
+          <div>
+            <label>Spider</label>
+            <select id="log-spider">
+              <option value="Caribena laeta">C. laeta</option>
+              <option value="Caribena versicolor">C. versicolor</option>
+              <option value="Avicularia purpurea">A. purpurea</option>
+              <option value="Avicularia minatrix">A. minatrix</option>
+            </select>
+          </div>
+          <div>
+            <label>Type</label>
+            <select id="log-type">
+              <option value="fed">Fed</option>
+              <option value="moult">Moult</option>
+              <option value="note">Note</option>
+            </select>
+          </div>
+          <div>
+            <label>Note (optional)</label>
+            <input type="text" id="log-note" placeholder="e.g. large cricket, refused food...">
+          </div>
+          <div>
+            <button class="log-submit" onclick="addLogEntry()">+ Add Entry</button>
+          </div>
+        </div>
+
+        <div class="log-table-wrap">
+          <table class="log-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Spider</th>
+                <th>Type</th>
+                <th>Note</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="log-tbody">
+              <tr><td colspan="5" class="log-empty">No entries yet. Add your first log entry above.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Quick Log Modal (triggered from spider cards) -->
+  <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+    <div class="modal">
+      <button class="modal-close" onclick="document.getElementById('modal-overlay').classList.remove('open')">✕</button>
+      <h3 id="modal-title">Add Entry</h3>
+      <div style="margin-top:1rem; display:grid; gap:0.75rem;">
+        <div>
+          <label style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);display:block;margin-bottom:0.4rem;">Type</label>
+          <select id="modal-type" style="width:100%;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-family:var(--font-mono);font-size:0.8rem;padding:0.5rem 0.75rem;border-radius:6px;outline:none;appearance:none;">
+            <option value="fed">Fed</option>
+            <option value="moult">Moult</option>
+            <option value="note">Note</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);display:block;margin-bottom:0.4rem;">Note</label>
+          <input type="text" id="modal-note" placeholder="optional..." style="width:100%;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-family:var(--font-mono);font-size:0.8rem;padding:0.5rem 0.75rem;border-radius:6px;outline:none;">
+        </div>
+        <button class="log-submit" style="margin-top:0.5rem;" onclick="addModalEntry()">Save Entry</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <a href="../index.html">← SJFCROSS Home</a>
+    &nbsp;·&nbsp;
+    Division V — Animals
+    &nbsp;·&nbsp;
+    Data stored locally in your browser
+  </footer>
+
+<script>
+  // ── Spider ID map ──
+  const spiderKey = {
+    'Caribena laeta':      'claeta',
+    'Caribena versicolor': 'cversi',
+    'Avicularia purpurea': 'apurpurea',
+    'Avicularia minatrix': 'aminatrix'
+  };
+
+  // ── localStorage log ──
+  function getLog() {
+    try { return JSON.parse(localStorage.getItem('sj_spider_log') || '[]'); }
+    catch(e) { return []; }
+  }
+  function saveLog(log) {
+    localStorage.setItem('sj_spider_log', JSON.stringify(log));
+  }
+
+  function addLogEntry() {
+    const spider = document.getElementById('log-spider').value;
+    const type   = document.getElementById('log-type').value;
+    const note   = document.getElementById('log-note').value.trim();
+    const log = getLog();
+    log.unshift({ date: new Date().toISOString(), spider, type, note });
+    saveLog(log);
+    document.getElementById('log-note').value = '';
+    renderLog();
+    updateSpiderStats();
+  }
+
+  let modalSpider = '';
+  function openLogModal(spider) {
+    modalSpider = spider;
+    document.getElementById('modal-title').textContent = 'Log — ' + spider;
+    document.getElementById('modal-note').value = '';
+    document.getElementById('modal-overlay').classList.add('open');
+  }
+  function closeModal(e) {
+    if (e.target === document.getElementById('modal-overlay'))
+      document.getElementById('modal-overlay').classList.remove('open');
+  }
+  function addModalEntry() {
+    const type = document.getElementById('modal-type').value;
+    const note = document.getElementById('modal-note').value.trim();
+    const log = getLog();
+    log.unshift({ date: new Date().toISOString(), spider: modalSpider, type, note });
+    saveLog(log);
+    document.getElementById('modal-overlay').classList.remove('open');
+    // sync main form spider to match
+    document.getElementById('log-spider').value = modalSpider;
+    renderLog();
+    updateSpiderStats();
+  }
+
+  function renderLog() {
+    const log = getLog();
+    const tbody = document.getElementById('log-tbody');
+    if (!log.length) {
+      tbody.innerHTML = '<tr><td colspan="5" class="log-empty">No entries yet. Add your first log entry above.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = log.map((e, i) => {
+      const d = new Date(e.date);
+      const ds = d.toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' });
+      const ts = d.toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit' });
+      const badge = `<span class="log-type-badge log-type-${e.type}">${e.type}</span>`;
+      return `<tr>
+        <td>${ds} <span style="color:var(--text-dim);font-size:0.7rem">${ts}</span></td>
+        <td style="font-style:italic">${e.spider}</td>
+        <td>${badge}</td>
+        <td style="color:var(--text-dim)">${e.note || '—'}</td>
+        <td><button class="log-delete" onclick="deleteEntry(${i})" title="Delete">✕</button></td>
+      </tr>`;
+    }).join('');
+  }
+
+  function deleteEntry(i) {
+    const log = getLog();
+    log.splice(i, 1);
+    saveLog(log);
+    renderLog();
+    updateSpiderStats();
+  }
+
+  function updateSpiderStats() {
+    const log = getLog();
+    Object.entries(spiderKey).forEach(([name, key]) => {
+      const entries = log.filter(e => e.spider === name);
+      const lastFed   = entries.find(e => e.type === 'fed');
+      const lastMoult = entries.find(e => e.type === 'moult');
+      const fmt = iso => {
+        const d = new Date(iso);
+        return d.toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'2-digit' });
+      };
+      const fedEl   = document.getElementById(`stat-${key}-fed`);
+      const moultEl = document.getElementById(`stat-${key}-moult`);
+      if (fedEl)   fedEl.textContent   = lastFed   ? fmt(lastFed.date)   : '—';
+      if (moultEl) moultEl.textContent = lastMoult ? fmt(lastMoult.date) : '—';
+    });
+  }
+
+  // ── Try to fetch live data from NodeMCU ──
+  // This will only work if the page is served over HTTP or the browser allows mixed content.
+  // Once ThingSpeak is wired up this whole block gets replaced.
+  function tryFetchLive() {
+    fetch('http://sjfcross.ddns.net/data', { signal: AbortSignal.timeout(4000) })
+      .then(r => r.json())
+      .then(d => {
+        document.getElementById('env-temp').textContent  = d.temperature.toFixed(1) + '°C';
+        document.getElementById('env-hum').textContent   = d.humidity.toFixed(0) + '%';
+        document.getElementById('env-time').textContent  = d.time || '--:--';
+        document.getElementById('env-sensor').textContent = d.sensorOk ? 'OK' : 'ERR';
+        document.getElementById('env-sensor').style.color = d.sensorOk ? 'var(--accent2)' : 'var(--red)';
+
+        setChip('chip-fogger', d.foggerStatus, d.override);
+        setChip('chip-fan',    d.fanStatus,    d.fanOverride);
+        setChip('chip-light',  d.lightStatus,  d.lightOverride);
+
+        const badge = document.getElementById('env-badge');
+        badge.textContent = 'Live';
+        badge.classList.add('live');
+
+        const hum = d.humidity;
+        const humEl = document.getElementById('env-hum');
+        humEl.className = 'metric-value ' + (hum > 89 ? 'danger' : hum > 75 ? 'warn' : 'good');
+
+        document.getElementById('env-last-update').textContent =
+          'Last updated: ' + new Date().toLocaleTimeString('en-GB');
+      })
+      .catch(() => {
+        // Silently fail — mixed content or DDNS unreachable from HTTPS
+        document.getElementById('env-last-update').textContent =
+          'Live data unavailable from HTTPS — ThingSpeak integration coming soon.';
+      });
+  }
+
+  function setChip(id, on, override) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.classList.remove('on', 'off');
+    el.classList.add(on ? 'on' : 'off');
+    const name = id.replace('chip-', '');
+    el.innerHTML = `<span class="dot"></span> ${name.charAt(0).toUpperCase()+name.slice(1)}${override ? ' (override)' : ''}`;
+  }
+
+  // Init
+  renderLog();
+  updateSpiderStats();
+  tryFetchLive();
+  setInterval(tryFetchLive, 15000);
+</script>
+</body>
+</html>
