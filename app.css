@@ -63,3 +63,14 @@ table {
   tr:nth-child(odd) td {
     background-color: rgb(245,245,245);
   }
+
+  /* Performance fix for Firefox (and general improvement) */
+.blur {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  background-color: rgba(255, 255, 255, 0.85);
+}
+
+.shadow-blur {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+}
