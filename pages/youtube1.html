@@ -1,215 +1,393 @@
-<!--
-=========================================================
-* Material Kit 2 - v3.0.0
-=========================================================
-
-* Product Page:  https://www.creative-tim.com/product/material-kit 
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-* Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
 <!DOCTYPE html>
 <html lang="en" itemscope itemtype="http://schema.org/WebPage">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
-    <title>
-        Material Kit 2 by Creative Tim
-    </title>
-    <!--     Fonts and icons     -->
-    <link rel="stylesheet" type="text/css"
-        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
-    <!-- Nucleo Icons -->
-    <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
-    <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
-    <!-- Font Awesome Icons -->
-    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-    <!-- Material Icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-    <!-- CSS Files -->
-    <link id="pagestyle" href="../assets/css/material-kit.css?v=3.0.0" rel="stylesheet" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-touch-76x76.png">
+  <link rel="icon" type="image/png" href="../assets/img/favicon-32x32.png">
+  <title>Division III — YouTube Favourites | SJFCROSS</title>
 
-    <style>
-        .mask {
+  <link rel="stylesheet" type="text/css"
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+  <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link id="pagestyle" href="../assets/css/material-kit.css?v=3.0.0" rel="stylesheet" />
+  <link rel="stylesheet" href="../app.css">
 
-            background: linear-gradient(45deg,
-                    rgba(29, 236, 198, 0.199),
-                    rgba(91, 14, 214, 0.7) 100%)
-        }
-    </style>
+  <style>
+    :root {
+      --red:     #e63946;
+      --dark:    #0d0d0d;
+      --panel:   #141414;
+      --border:  #2a2a2a;
+      --text:    #c9c3b5;
+      --dim:     #666;
+      --bright:  #f0ebe0;
+      --mono:    'DM Mono', monospace;
+      --display: 'Playfair Display', Georgia, serif;
+    }
 
+    body {
+      background: var(--dark);
+      color: var(--text);
+      font-family: 'Roboto', sans-serif;
+    }
+
+    /* ── Hero ── */
+    .yt-hero {
+      position: relative;
+      min-height: 70vh;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+    .yt-hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('../assets/img/musicutub.png');
+      background-size: cover;
+      background-position: center 30%;
+      filter: brightness(0.45);
+      transition: filter 0.5s;
+    }
+    .yt-hero:hover .yt-hero-bg { filter: brightness(0.55); }
+
+    .yt-hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 3rem 2rem 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .yt-hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 0.75rem;
+    }
+    .yt-hero h1 {
+      font-family: var(--display);
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      color: var(--bright);
+      line-height: 1.05;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+    .yt-hero h1 em {
+      font-style: italic;
+      color: var(--red);
+      font-weight: 400;
+    }
+    .yt-hero p {
+      font-size: 1.05rem;
+      color: var(--text);
+      max-width: 480px;
+      line-height: 1.7;
+    }
+
+    /* ── Grid ── */
+    .yt-grid-section {
+      padding: 4rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .yt-section-label {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 0.4rem;
+    }
+    .yt-section-title {
+      font-family: var(--display);
+      font-size: 1.8rem;
+      color: var(--bright);
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1rem;
+    }
+
+    .yt-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    /* ── Card ── */
+    .yt-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      text-decoration: none;
+      display: block;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+    .yt-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--red);
+      box-shadow: 0 12px 40px rgba(230, 57, 70, 0.15);
+      text-decoration: none;
+    }
+
+    .yt-card-thumb {
+      position: relative;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      background: #1a1a1a;
+    }
+    .yt-card-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+      filter: brightness(0.75) saturate(0.8);
+    }
+    .yt-card:hover .yt-card-thumb img {
+      transform: scale(1.05);
+      filter: brightness(0.9) saturate(1);
+    }
+
+    /* Play button overlay */
+    .yt-card-thumb::after {
+      content: '▶';
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      color: rgba(255,255,255,0.15);
+      transition: color 0.3s, font-size 0.3s;
+      pointer-events: none;
+    }
+    .yt-card:hover .yt-card-thumb::after {
+      color: rgba(230, 57, 70, 0.8);
+      font-size: 3rem;
+    }
+
+    /* Placeholder thumb (no image) */
+    .yt-card-thumb-placeholder {
+      aspect-ratio: 16/9;
+      background: linear-gradient(135deg, #1a1a1a 0%, #222 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: var(--border);
+      transition: color 0.3s;
+    }
+    .yt-card:hover .yt-card-thumb-placeholder { color: var(--red); }
+
+    .yt-card-body {
+      padding: 1.2rem;
+    }
+    .yt-card-genre {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 0.4rem;
+    }
+    .yt-card-title {
+      font-family: var(--display);
+      font-size: 1.25rem;
+      color: var(--bright);
+      margin-bottom: 0.4rem;
+      line-height: 1.2;
+    }
+    .yt-card-desc {
+      font-size: 0.82rem;
+      color: var(--dim);
+      line-height: 1.6;
+      margin-bottom: 0.8rem;
+    }
+    .yt-card-meta {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--border);
+      letter-spacing: 0.08em;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .yt-card-meta span { color: var(--dim); }
+
+    /* Coming soon badge */
+    .yt-badge-soon {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: rgba(230,57,70,0.15);
+      border: 1px solid rgba(230,57,70,0.4);
+      color: var(--red);
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+    }
+
+    /* ── Footer spacer ── */
+    .footer-spacer { background: var(--dark); }
+
+    /* Override Material Kit footer for dark bg */
+    .footer { background: #111 !important; }
+    .footer * { color: #666 !important; }
+    .footer a:hover { color: var(--red) !important; }
+    .footer h6 { color: #999 !important; }
+
+    @media (max-width: 600px) {
+      .yt-cards { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 
 <body>
-    <!-- Navbar Transparent -->
-    <div id="site-nav"></div>
+  <div id="site-nav"></div>
 
-    <!-- Photo by <a href="https://unsplash.com/@nordwood?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">NordWood Themes</a> on <a href="https://unsplash.com/s/photos/youtube?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a> -->
-    <!-- Photo by <a href="https://unsplash.com/@christianw?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Christian Wiediger</a> on <a href="https://unsplash.com/s/photos/youtube?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a> -->
-
-
-    <!-- End Navbar -->
-    <section>
-        <div class="page-header min-vh-100"
-            style="background-image: url('../assets/img/christian-wiediger-NmGzVG5Wsg8-unsplash.jpg');" loading="lazy">
-            <span class="mask bg-gradient-dark opacity-8"></span>
-
-            <div class="row mx-10 wrap">
-                <h1 class="display-3 text-white">Nneka</h1>
-
-                <div class="1 col-md-3 mt-4">
-                    <div class="card" style="width: 340px;">
-                        <iframe class="embed-responsive-item border-radius-lg m-2"
-                            src="https://www.youtube.com/embed/6ivg3J3h5Ps" allowfullscreen width="320"
-                            height="180"></iframe>
-                        <div class="card-body">
-                            <h5 class="card-title">Nneka - Heartbeat<br>(Official Video)</h5>
-                            <p class="card-text">Single from the album <b>No Longer at Ease</b> and <b>Concrete
-                                    Jungle</b></p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="2 col-md-3 mt-4">
-                    <div class="card" style="width: 340px;">
-                        <iframe class="embed-responsive-item border-radius-lg m-2"
-                            src="https://www.youtube.com/embed/SyCiDzvGN7o" allowfullscreen width="320"
-                            height="180"></iframe>
-                        <div class="card-body">
-                            <h5 class="card-title">Nneka - Stand Strong</h5>
-                            <br>
-                            <p class="card-text"><b>Victim of Truth</b>
-                                <br><br>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="3 col-md-3 mt-4">
-                    <div class="card" style="width: 340px;">
-                        <iframe class="embed-responsive-item border-radius-lg m-2"
-                            src="https://www.youtube.com/embed/amw2l4068d4" allowfullscreen width="320"
-                            height="180"></iframe>
-                        <div class="card-body">
-                            <h5 class="card-title">Nneka - Mind Vs. Heart</h5>
-                            <br>
-                            <p class="card-text"><b>No Longer At Ease</b>
-                                <br><br>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="4 col-md-3 mt-4">
-                    <div class="card" style="width: 340px;">
-                        <iframe class="embed-responsive-item border-radius-lg m-2"
-                            src="https://www.youtube.com/embed/rj-S-HChtKM" allowfullscreen width="320"
-                            height="180"></iframe>
-                        <div class="card-body">
-                            <h5 class="card-title">Nneka - Running Away</h5>
-                            <br>
-                            <p class="card-text"><b>No Longer At Ease</b>
-                                <br><br>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="5 col-md-3 mt-4">
-                    <div class="card" style="width: 340px;">
-                        <iframe class="embed-responsive-item border-radius-lg m-2"
-                            src="https://www.youtube.com/embed/4ytxjppXadM" allowfullscreen width="320"
-                            height="180"></iframe>
-                        <div class="card-body">
-                            <h5 class="card-title">Nneka - Suffri <br> (Live on KEXP)</h5>
-                            <p class="card-text"><b>No Longer At Ease</b>
-                                <br><br>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="6 col-md-3 mt-4">
-                    <div class="card" style="width: 340px;">
-                        <iframe class="embed-responsive-item border-radius-lg m-2"
-                            src="https://www.youtube.com/embed/RSWJmhBsum0" allowfullscreen width="320"
-                            height="180"></iframe>
-                        <div class="card-body">
-                            <h5 class="card-title">NNEKA - This Life<br>(Official Music Video)</h5>
-                            <p class="card-text">Single <b>This Life</b><br><br></p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="7 col-md-3 mt-4">
-                    <div class="card" style="width: 340px;">
-                        <iframe class="embed-responsive-item border-radius-lg m-2"
-                            src="https://www.youtube.com/embed/RkA5e32hed8" allowfullscreen width="320"
-                            height="180"></iframe>
-                        <div class="card-body">
-                            <h5 class="card-title">Nneka - Death</h5>
-                            <br>
-                            <p class="card-text"><b>No Longer At Ease</b>
-                                <br><br>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="8 col-md-3 mt-4">
-                    <div class="card" style="width: 340px;">
-                        <iframe class="embed-responsive-item border-radius-lg m-2"
-                            src="https://www.youtube.com/embed/krV6OvlMfQM" allowfullscreen width="320"
-                            height="180"></iframe>
-                        <div class="card-body">
-                            <h5 class="card-title">Nneka - Focus</h5>
-                            <br>
-                            <p class="card-text"><b>No Longer At Ease</b>
-                                <br><br>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
-
-
-
-
-
-
-
-
-
-        </div>
-    </section>
-
-
-
-
-
-
-
-
-    <div id="site-footer"></div>
+  <!-- Hero -->
+  <div class="yt-hero">
+    <div class="yt-hero-bg"></div>
+    <div class="yt-hero-content">
+      <p class="yt-hero-eyebrow">Division III</p>
+      <h1>YouTube<br><em>Favourites</em></h1>
+      <p>A curated collection of music that matters. Artists, genres, sessions — the ones worth watching again.</p>
     </div>
-    <!--   Core JS Files   -->
-    <script src="../assets/js/core/popper.min.js" type="text/javascript"></script>
-    <script src="../assets/js/core/bootstrap.min.js" type="text/javascript"></script>
-    <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
-    <!--  Plugin for Parallax, full documentation here: https://github.com/wagerfield/parallax  -->
-    <script src="../assets/js/plugins/parallax.min.js"></script>
-    <!-- Control Center for Material UI Kit: parallax effects, scripts for the example pages etc -->
-    <!--  Google Maps Plugin    -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTTfWur0PDbZWPr7Pmq8K3jiDp0_xUziI"></script>
-    <script src="../assets/js/material-kit.min.js?v=3.0.0" type="text/javascript"></script>
-<script src="../assets/js/components.js"></script>
+  </div>
+
+  <!-- Cards grid -->
+  <div class="yt-grid-section">
+    <div class="yt-section-label">The Collection</div>
+    <div class="yt-section-title">Browse by Artist &amp; Genre</div>
+
+    <div class="yt-cards">
+
+      <!-- Nneka -->
+      <a href="../pages/nneka.html" class="yt-card">
+        <div class="yt-card-thumb">
+          <img src="https://i.ytimg.com/vi/6ivg3J3h5Ps/maxresdefault.jpg" alt="Nneka" loading="lazy">
+        </div>
+        <div class="yt-card-body">
+          <div class="yt-card-genre">Afrobeat · Soul · Hip-Hop</div>
+          <div class="yt-card-title">Nneka</div>
+          <p class="yt-card-desc">Nigerian-German artist blending Afrobeat, reggae and hip-hop with raw political honesty.</p>
+          <div class="yt-card-meta">▶ <span>8 videos</span></div>
+        </div>
+      </a>
+
+      <!-- Tom Waits -->
+      <a href="../pages/tomwaits.html" class="yt-card">
+        <div class="yt-card-thumb">
+          <img src="https://i.ytimg.com/vi/PdLPe7XEINs/maxresdefault.jpg" alt="Tom Waits" loading="lazy">
+        </div>
+        <div class="yt-card-body">
+          <div class="yt-card-genre">Blues · Experimental · Folk</div>
+          <div class="yt-card-title">Tom Waits</div>
+          <p class="yt-card-desc">Gravel-voiced storyteller. Bukowski with a piano and a megaphone in a back alley.</p>
+          <div class="yt-card-meta">▶ <span>8 videos</span></div>
+        </div>
+      </a>
+
+      <!-- Math / Prog Rock -->
+      <a href="../pages/progrock.html" class="yt-card">
+        <div class="yt-card-thumb">
+          <img src="https://i.ytimg.com/vi/09cx6Zbsnvo/maxresdefault.jpg" alt="Math Rock / Prog" loading="lazy">
+        </div>
+        <div class="yt-card-body">
+          <div class="yt-card-genre">Math Rock · Prog · Post-Rock</div>
+          <div class="yt-card-title">Math &amp; Prog Rock</div>
+          <p class="yt-card-desc">Odd time signatures, extended compositions and guitar wizardry. Music that requires full attention.</p>
+          <div class="yt-card-meta">▶ <span>8 videos</span></div>
+        </div>
+      </a>
+
+      <!-- Reggae -->
+      <a href="../pages/reggae.html" class="yt-card">
+        <div class="yt-card-thumb">
+          <img src="https://i.ytimg.com/vi/pRpeEdMmmQ0/maxresdefault.jpg" alt="Reggae" loading="lazy">
+        </div>
+        <div class="yt-card-body">
+          <div class="yt-card-genre">Reggae · Dub · Roots</div>
+          <div class="yt-card-title">Reggae</div>
+          <p class="yt-card-desc">Roots, dub and the heavy one-drop. From Kingston to the world.</p>
+          <div class="yt-card-meta">▶ <span>8 videos</span></div>
+        </div>
+      </a>
+
+      <!-- Trip Hop -->
+      <a href="../pages/triphop.html" class="yt-card">
+        <div class="yt-card-thumb">
+          <img src="https://i.ytimg.com/vi/o0X4AQgCYEU/maxresdefault.jpg" alt="Trip Hop" loading="lazy">
+        </div>
+        <div class="yt-card-body">
+          <div class="yt-card-genre">Trip Hop · Downtempo · Electronic</div>
+          <div class="yt-card-title">Trip Hop</div>
+          <p class="yt-card-desc">Bristol sound, Portishead fog, Massive Attack bass. Late night music for rainy cities.</p>
+          <div class="yt-card-meta">▶ <span>8 videos</span></div>
+        </div>
+      </a>
+
+      <!-- 60s -->
+      <a href="../pages/sixties.html" class="yt-card">
+        <div class="yt-card-thumb">
+          <img src="https://i.ytimg.com/vi/RW0IlZe89k4/maxresdefault.jpg" alt="60s" loading="lazy">
+        </div>
+        <div class="yt-card-body">
+          <div class="yt-card-genre">Rock · Soul · Psychedelia</div>
+          <div class="yt-card-title">The Sixties</div>
+          <p class="yt-card-desc">The decade that changed everything. Hendrix, Stones, Motown, Cream and the rest.</p>
+          <div class="yt-card-meta">▶ <span>8 videos</span></div>
+        </div>
+      </a>
+
+      <!-- Placeholder 1 -->
+      <a href="#" class="yt-card">
+        <span class="yt-badge-soon">Coming Soon</span>
+        <div class="yt-card-thumb-placeholder">♪</div>
+        <div class="yt-card-body">
+          <div class="yt-card-genre">TBD</div>
+          <div class="yt-card-title">More Music</div>
+          <p class="yt-card-desc">Another collection in the works. Check back soon.</p>
+          <div class="yt-card-meta">▶ <span>Coming soon</span></div>
+        </div>
+      </a>
+
+      <!-- Placeholder 2 -->
+      <a href="#" class="yt-card">
+        <span class="yt-badge-soon">Coming Soon</span>
+        <div class="yt-card-thumb-placeholder">♫</div>
+        <div class="yt-card-body">
+          <div class="yt-card-genre">TBD</div>
+          <div class="yt-card-title">More Music</div>
+          <p class="yt-card-desc">Another collection in the works. Check back soon.</p>
+          <div class="yt-card-meta">▶ <span>Coming soon</span></div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <div class="footer-spacer">
+    <div id="site-footer"></div>
+  </div>
+
+  <script src="../assets/js/core/popper.min.js" type="text/javascript"></script>
+  <script src="../assets/js/core/bootstrap.min.js" type="text/javascript"></script>
+  <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
+  <script src="../assets/js/material-kit.min.js?v=3.0.0" type="text/javascript"></script>
+  <script src="../assets/js/components.js"></script>
 </body>
 
 </html>
