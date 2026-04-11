@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-touch-76x76.png">
   <link rel="icon" type="image/png" href="../assets/img/favicon-32x32.png">
-  <title>Nneka — YouTube Favourites | SJFCROSS</title>
+  <title>Tom Waits — YouTube Favourites | SJFCROSS</title>
 
   <link rel="stylesheet" type="text/css"
     href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
@@ -19,38 +19,57 @@
   <link rel="stylesheet" href="../app.css">
 
   <style>
-        :root {
-     --red:    #9a3e2b;
-     --dark:   #0b0b0b;
-     --panel:  #161312;
-     --border: #2f2622;
-     --text:   #c2b8a3;
-    --dim:    #6e6258;
-    --bright: #e7dcc7;
+    :root {
+      --red:     #9a3e2b;
+      --dark:    #0b0b0b;
+      --panel:   #161312;
+      --border:  #2f2622;
+      --text:    #c2b8a3;
+      --dim:     #6e6258;
+      --bright:  #e7dcc7;
+      --mono:    'DM Mono', monospace;
+      --display: 'Playfair Display', Georgia, serif;
     }
 
+    /* ── 3. Grain overlay on whole page ── */
     body {
       background: var(--dark);
       color: var(--text);
       font-family: 'Roboto', sans-serif;
     }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: url("https://www.transparenttextures.com/patterns/noise.png");
+      opacity: 0.08;
+      pointer-events: none;
+      z-index: 9999;
+    }
 
-    /* ── Hero ── */
+    /* ── 1. Hero with image background ── */
     .artist-hero {
       position: relative;
       min-height: 55vh;
       display: flex;
       align-items: flex-end;
       overflow: hidden;
-      background: #111;
+      background:
+        linear-gradient(rgba(11,11,11,0.82), rgba(11,11,11,0.96)),
+        url('../assets/img/artists/7hy296gntwra1.jpg') center/cover no-repeat;
     }
-    .artist-hero-bg {
+
+    /* ── 2. Grain overlay on hero ── */
+    .artist-hero::after {
+      content: "";
       position: absolute;
       inset: 0;
-      background: 
-        radial-gradient(ellipse 80% 60% at 60% 40%, rgba(230,57,70,0.12) 0%, transparent 70%),
-        linear-gradient(135deg, #0d0d0d 0%, #1a0a0a 50%, #0d0d0d 100%);
+      background-image: url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
+      opacity: 0.25;
+      mix-blend-mode: overlay;
+      pointer-events: none;
     }
+
     .artist-hero-content {
       position: relative;
       z-index: 2;
@@ -124,20 +143,34 @@
       gap: 1.5rem;
     }
 
+    /* ── 4. Roughed up video cards ── */
     .video-card {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 10px;
+      background: linear-gradient(145deg, #1a1513, #120f0e);
+      border: 1px solid #3a2e28;
+      border-radius: 6px;
       overflow: hidden;
-      transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+      transition: all 0.25s ease;
+      position: relative;
     }
+    .video-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url("https://www.transparenttextures.com/patterns/asfalt-light.png");
+      opacity: 0.15;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* ── 5. Dirty glow on hover ── */
     .video-card:hover {
       border-color: var(--red);
-      box-shadow: 0 8px 30px rgba(230,57,70,0.12);
+      box-shadow:
+        0 0 0 1px rgba(154,62,43,0.4),
+        0 10px 40px rgba(154,62,43,0.25);
       transform: translateY(-3px);
     }
 
-    /* Lazy load wrapper — shows thumbnail until clicked */
     .video-wrap {
       position: relative;
       aspect-ratio: 16/9;
@@ -145,19 +178,17 @@
       cursor: pointer;
       overflow: hidden;
     }
-
-.video-wrap img.thumb {
-  position: absolute;   /* ← THIS FIXES YOUR ISSUE */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: brightness(0.7);
-  transition: filter 0.3s, transform 0.3s;
-  display: block;
-}
-
+    .video-wrap img.thumb {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.7);
+      transition: filter 0.3s, transform 0.3s;
+      display: block;
+    }
     .video-card:hover .video-wrap img.thumb {
       filter: brightness(0.85);
       transform: scale(1.03);
@@ -169,12 +200,13 @@
       align-items: center;
       justify-content: center;
       pointer-events: none;
+      z-index: 2;
     }
     .play-btn-circle {
       width: 56px;
       height: 56px;
       border-radius: 50%;
-      background: rgba(230,57,70,0.85);
+      background: rgba(154,62,43,0.85);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -187,24 +219,30 @@
       transform: scale(1.1);
       background: var(--red);
     }
-    /* Loaded iframe */
     .video-wrap iframe {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
       border: none;
+      z-index: 3;
     }
 
     .video-info {
       padding: 1rem 1.1rem 1.2rem;
+      position: relative;
+      z-index: 2;
     }
+
+    /* ── 6. Worn title text ── */
     .video-title {
       font-family: var(--display);
       font-size: 1.05rem;
       color: var(--bright);
       margin-bottom: 0.25rem;
       line-height: 1.3;
+      letter-spacing: 0.02em;
+      text-shadow: 0 1px 0 rgba(0,0,0,0.6);
     }
     .video-album {
       font-family: var(--mono);
@@ -213,11 +251,7 @@
       color: var(--dim);
     }
 
-    /* ── Back link ── */
     .back-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
       font-family: var(--mono);
       font-size: 0.72rem;
       letter-spacing: 0.1em;
@@ -232,7 +266,6 @@
     }
     .back-link:hover { color: var(--red); text-decoration: none; }
 
-    /* Footer */
     .footer { background: #111 !important; }
     .footer * { color: #666 !important; }
     .footer a:hover { color: var(--red) !important; }
@@ -249,46 +282,115 @@
 
   <a href="../pages/youtube1.html" class="back-link">← Back to YouTube Favourites</a>
 
-  <!-- Hero -->
   <div class="artist-hero">
-    <div class="artist-hero-bg"></div>
     <div class="artist-hero-content">
       <div class="artist-breadcrumb">
         <a href="../pages/youtube1.html">YouTube Favourites</a> &nbsp;/&nbsp; Artist
       </div>
-        <h1>Tom Waits</h1>
-        <div class="artist-genre">Blues · Jazz · Experimental · Americana</div>
-        <p class="artist-bio">
-            Gravel-voiced poet of the gutter. Sounds like a broken jukebox in a dive bar that never closes.
-        </p>
+      <h1>Tom Waits</h1>
+      <div class="artist-genre">Blues &nbsp;·&nbsp; Jazz &nbsp;·&nbsp; Experimental &nbsp;·&nbsp; Americana</div>
+      <p class="artist-bio">
+        Gravel-voiced poet of the gutter. Sounds like a broken jukebox in a dive bar that never closes.
+      </p>
     </div>
   </div>
 
-  <!-- Videos -->
-<div class="videos-section">
-  <div class="videos-label">Selected Videos</div>
-  <div class="videos-title">8 Favourites</div>
+  <div class="videos-section">
+    <div class="videos-label">Selected Videos</div>
+    <div class="videos-title">8 Favourites</div>
 
-  <div class="video-grid">
+    <div class="video-grid">
 
-<div class="video-card" data-id="ej7Lh9kEdhY"><div class="video-wrap"><img class="thumb"><div class="play-btn"><div class="play-btn-circle">▶</div></div></div><div class="video-info"><div class="video-title">Loading...</div><div class="video-album"></div></div></div>
+      <div class="video-card" data-id="ej7Lh9kEdhY">
+        <div class="video-wrap">
+          <img class="thumb" alt="Tom Waits">
+          <div class="play-btn"><div class="play-btn-circle">▶</div></div>
+        </div>
+        <div class="video-info">
+          <div class="video-title">Loading...</div>
+          <div class="video-album"></div>
+        </div>
+      </div>
 
-<div class="video-card" data-id="i7xPtVrb0Os"><div class="video-wrap"><img class="thumb"><div class="play-btn"><div class="play-btn-circle">▶</div></div></div><div class="video-info"><div class="video-title">Loading...</div><div class="video-album"></div></div></div>
+      <div class="video-card" data-id="i7xPtVrb0Os">
+        <div class="video-wrap">
+          <img class="thumb" alt="Tom Waits">
+          <div class="play-btn"><div class="play-btn-circle">▶</div></div>
+        </div>
+        <div class="video-info">
+          <div class="video-title">Loading...</div>
+          <div class="video-album"></div>
+        </div>
+      </div>
 
-<div class="video-card" data-id="E0ivya27Bag"><div class="video-wrap"><img class="thumb"><div class="play-btn"><div class="play-btn-circle">▶</div></div></div><div class="video-info"><div class="video-title">Loading...</div><div class="video-album"></div></div></div>
+      <div class="video-card" data-id="E0ivya27Bag">
+        <div class="video-wrap">
+          <img class="thumb" alt="Tom Waits">
+          <div class="play-btn"><div class="play-btn-circle">▶</div></div>
+        </div>
+        <div class="video-info">
+          <div class="video-title">Loading...</div>
+          <div class="video-album"></div>
+        </div>
+      </div>
 
-<div class="video-card" data-id="vGpwgHqlfWo"><div class="video-wrap"><img class="thumb"><div class="play-btn"><div class="play-btn-circle">▶</div></div></div><div class="video-info"><div class="video-title">Loading...</div><div class="video-album"></div></div></div>
+      <div class="video-card" data-id="vGpwgHqlfWo">
+        <div class="video-wrap">
+          <img class="thumb" alt="Tom Waits">
+          <div class="play-btn"><div class="play-btn-circle">▶</div></div>
+        </div>
+        <div class="video-info">
+          <div class="video-title">Loading...</div>
+          <div class="video-album"></div>
+        </div>
+      </div>
 
-<div class="video-card" data-id="4CimtissslM"><div class="video-wrap"><img class="thumb"><div class="play-btn"><div class="play-btn-circle">▶</div></div></div><div class="video-info"><div class="video-title">Loading...</div><div class="video-album"></div></div></div>
+      <div class="video-card" data-id="4CimtissslM">
+        <div class="video-wrap">
+          <img class="thumb" alt="Tom Waits">
+          <div class="play-btn"><div class="play-btn-circle">▶</div></div>
+        </div>
+        <div class="video-info">
+          <div class="video-title">Loading...</div>
+          <div class="video-album"></div>
+        </div>
+      </div>
 
-<div class="video-card" data-id="63r18-BCmvI"><div class="video-wrap"><img class="thumb"><div class="play-btn"><div class="play-btn-circle">▶</div></div></div><div class="video-info"><div class="video-title">Loading...</div><div class="video-album"></div></div></div>
+      <div class="video-card" data-id="63r18-BCmvI">
+        <div class="video-wrap">
+          <img class="thumb" alt="Tom Waits">
+          <div class="play-btn"><div class="play-btn-circle">▶</div></div>
+        </div>
+        <div class="video-info">
+          <div class="video-title">Loading...</div>
+          <div class="video-album"></div>
+        </div>
+      </div>
 
-<div class="video-card" data-id="UizGMjeNW24"><div class="video-wrap"><img class="thumb"><div class="play-btn"><div class="play-btn-circle">▶</div></div></div><div class="video-info"><div class="video-title">Loading...</div><div class="video-album"></div></div></div>
+      <div class="video-card" data-id="UizGMjeNW24">
+        <div class="video-wrap">
+          <img class="thumb" alt="Tom Waits">
+          <div class="play-btn"><div class="play-btn-circle">▶</div></div>
+        </div>
+        <div class="video-info">
+          <div class="video-title">Loading...</div>
+          <div class="video-album"></div>
+        </div>
+      </div>
 
-<div class="video-card" data-id="3CfF7vKyO5A"><div class="video-wrap"><img class="thumb"><div class="play-btn"><div class="play-btn-circle">▶</div></div></div><div class="video-info"><div class="video-title">Loading...</div><div class="video-album"></div></div></div>
+      <div class="video-card" data-id="3CfF7vKyO5A">
+        <div class="video-wrap">
+          <img class="thumb" alt="Tom Waits">
+          <div class="play-btn"><div class="play-btn-circle">▶</div></div>
+        </div>
+        <div class="video-info">
+          <div class="video-title">Loading...</div>
+          <div class="video-album"></div>
+        </div>
+      </div>
 
+    </div>
   </div>
-</div>
 
   <div id="site-footer"></div>
 
@@ -299,58 +401,48 @@
   <script src="../assets/js/components.js"></script>
 
   <script>
-let currentPlayer = null;
+    let currentPlayer = null;
 
-function loadVideo(wrap, id) {
-  document.querySelectorAll(".video-card").forEach(c => c.classList.remove("playing"));
-
-  if (currentPlayer && currentPlayer !== wrap) {
-    currentPlayer.innerHTML = currentPlayer.dataset.original;
-  }
-
-  if (!wrap.dataset.original) {
-    wrap.dataset.original = wrap.innerHTML;
-  }
-
-  wrap.innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1"
-    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-    allowfullscreen></iframe>`;
-
-  wrap.closest(".video-card").classList.add("playing");
-  currentPlayer = wrap;
-}
-
-async function fetchVideoData(id, card) {
-  const key = "yt_" + id;
-  let data = localStorage.getItem(key);
-
-  if (data) {
-    try { data = JSON.parse(data); } catch { data = null; }
-  }
-
-  if (!data) {
-    try {
-      const res = await fetch(`https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${id}&format=json`);
-      data = await res.json();
-      localStorage.setItem(key, JSON.stringify(data));
-    } catch {
-      return;
+    function loadVideo(wrap, id) {
+      document.querySelectorAll(".video-card").forEach(c => c.classList.remove("playing"));
+      if (currentPlayer && currentPlayer !== wrap) {
+        currentPlayer.innerHTML = currentPlayer.dataset.original;
+      }
+      if (!wrap.dataset.original) {
+        wrap.dataset.original = wrap.innerHTML;
+      }
+      wrap.innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe>`;
+      wrap.closest(".video-card").classList.add("playing");
+      currentPlayer = wrap;
     }
-  }
 
-  card.querySelector(".video-title").textContent = data.title || "Unknown";
-  card.querySelector(".video-album").textContent = data.author_name || "";
-  card.querySelector("img.thumb").src = data.thumbnail_url;
-}
+    async function fetchVideoData(id, card) {
+      const key = "yt_" + id;
+      let data = localStorage.getItem(key);
+      if (data) {
+        try { data = JSON.parse(data); } catch { data = null; }
+      }
+      if (!data) {
+        try {
+          const res = await fetch(`https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${id}&format=json`);
+          data = await res.json();
+          localStorage.setItem(key, JSON.stringify(data));
+        } catch { return; }
+      }
+      card.querySelector(".video-title").textContent = data.title || "Unknown";
+      card.querySelector(".video-album").textContent = data.author_name || "";
+      card.querySelector("img.thumb").src = data.thumbnail_url;
+    }
 
-document.querySelectorAll(".video-card").forEach(card => {
-  const id = card.dataset.id;
-  const wrap = card.querySelector(".video-wrap");
-
-  wrap.addEventListener("click", () => loadVideo(wrap, id));
-  fetchVideoData(id, card);
-});
-</script>
+    document.querySelectorAll(".video-card").forEach(card => {
+      const id = card.dataset.id;
+      const wrap = card.querySelector(".video-wrap");
+      wrap.addEventListener("click", () => loadVideo(wrap, id));
+      fetchVideoData(id, card);
+    });
+  </script>
 
 </body>
 </html>
