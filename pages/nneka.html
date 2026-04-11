@@ -147,14 +147,19 @@
       cursor: pointer;
       overflow: hidden;
     }
-    .video-wrap img.thumb {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: brightness(0.7);
-      transition: filter 0.3s, transform 0.3s;
-      display: block;
-    }
+
+.video-wrap img.thumb {
+  position: absolute;   /* ← THIS FIXES YOUR ISSUE */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.7);
+  transition: filter 0.3s, transform 0.3s;
+  display: block;
+}
+
     .video-card:hover .video-wrap img.thumb {
       filter: brightness(0.85);
       transform: scale(1.03);
