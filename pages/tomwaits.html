@@ -188,6 +188,7 @@
       filter: brightness(0.7);
       transition: filter 0.3s, transform 0.3s;
       display: block;
+      background: #000;
     }
     .video-card:hover .video-wrap img.thumb {
       filter: brightness(0.85);
@@ -433,7 +434,7 @@
       }
       card.querySelector(".video-title").textContent = data.title || "Unknown";
       card.querySelector(".video-album").textContent = data.author_name || "";
-      card.querySelector("img.thumb").src = data.thumbnail_url;
+      card.querySelector("img.thumb").src = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
     }
 
     document.querySelectorAll(".video-card").forEach(card => {
