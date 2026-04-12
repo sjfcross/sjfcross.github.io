@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-touch-76x76.png">
   <link rel="icon" type="image/png" href="../assets/img/favicon-32x32.png">
-  <title>Math &amp; Prog Rock — YouTube Favourites | SJFCROSS</title>
+  <title>Reggae — YouTube Favourites | SJFCROSS</title>
 
   <link rel="stylesheet" type="text/css"
     href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
@@ -20,13 +20,13 @@
 
   <style>
     :root {
-      --red:     #4a7c6f;
-      --dark:    #0b0b0b;
-      --panel:   #121614;
-      --border:  #222e2a;
-      --text:    #b0c2bb;
-      --dim:     #5a706a;
-      --bright:  #d8ede7;
+      --accent:  #c8a84b;
+      --dark:    #0a0b08;
+      --panel:   #131510;
+      --border:  #272d1a;
+      --text:    #bdc4a0;
+      --dim:     #626b47;
+      --bright:  #eaedda;
       --mono:    'DM Mono', monospace;
       --display: 'Playfair Display', Georgia, serif;
     }
@@ -37,7 +37,7 @@
       font-family: 'Roboto', sans-serif;
     }
 
-    /* ── Page hero (top of page) ── */
+    /* ── Page hero ── */
     .page-hero {
       position: relative;
       min-height: 55vh;
@@ -45,8 +45,8 @@
       align-items: flex-end;
       overflow: hidden;
       background:
-        linear-gradient(rgba(11,11,11,0.78), rgba(11,11,11,0.96)),
-        url('../assets/img/artists/polyphia.jpg') center/cover no-repeat;
+        linear-gradient(rgba(10,11,8,0.75), rgba(10,11,8,0.96)),
+        url('../assets/img/artists/bobmarley.webp') center 30%/cover no-repeat;
     }
     .page-hero-content {
       position: relative;
@@ -64,7 +64,7 @@
       color: var(--dim);
       margin-bottom: 1rem;
     }
-    .page-breadcrumb a { color: var(--red); text-decoration: none; }
+    .page-breadcrumb a { color: var(--accent); text-decoration: none; }
     .page-breadcrumb a:hover { text-decoration: underline; }
     .page-hero h1 {
       font-family: var(--display);
@@ -77,14 +77,14 @@
     .page-hero h1 em {
       font-style: italic;
       font-weight: 400;
-      color: var(--red);
+      color: var(--accent);
     }
     .page-genre {
       font-family: var(--mono);
       font-size: 0.75rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--red);
+      color: var(--accent);
       margin-bottom: 1rem;
     }
     .page-bio {
@@ -92,7 +92,7 @@
       color: var(--text);
       max-width: 560px;
       line-height: 1.75;
-      border-left: 2px solid var(--red);
+      border-left: 2px solid var(--accent);
       padding-left: 1rem;
     }
 
@@ -110,13 +110,12 @@
       padding-bottom: 1rem;
       border-bottom: 1px solid var(--border);
     }
-    .band-header-text {}
     .band-label {
       font-family: var(--mono);
       font-size: 0.68rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--red);
+      color: var(--accent);
       margin-bottom: 0.3rem;
     }
     .band-name {
@@ -140,7 +139,7 @@
       color: var(--text);
       max-width: 600px;
       line-height: 1.7;
-      border-left: 2px solid var(--red);
+      border-left: 2px solid var(--accent);
       padding-left: 0.9rem;
     }
 
@@ -153,7 +152,7 @@
     }
 
     .video-card {
-      background: linear-gradient(145deg, #131a17, #0e1310);
+      background: linear-gradient(145deg, #181a10, #111309);
       border: 1px solid var(--border);
       border-radius: 6px;
       overflow: hidden;
@@ -162,10 +161,8 @@
       will-change: transform;
     }
     .video-card:hover {
-      border-color: var(--red);
-      box-shadow:
-        0 0 0 1px rgba(74,124,111,0.4),
-        0 10px 40px rgba(74,124,111,0.2);
+      border-color: var(--accent);
+      box-shadow: 0 10px 40px rgba(200,168,75,0.18);
       transform: translateY(-3px);
     }
 
@@ -223,7 +220,6 @@
       color: var(--dim);
     }
 
-    /* ── Section divider ── */
     .section-divider {
       max-width: 1200px;
       margin: 2rem auto 0;
@@ -244,11 +240,11 @@
       display: block;
       transition: color 0.2s;
     }
-    .back-link:hover { color: var(--red); text-decoration: none; }
+    .back-link:hover { color: var(--accent); text-decoration: none; }
 
     .footer { background: #111 !important; }
     .footer * { color: #666 !important; }
-    .footer a:hover { color: var(--red) !important; }
+    .footer a:hover { color: var(--accent) !important; }
     .footer h6 { color: #999 !important; }
 
     @media (max-width: 600px) {
@@ -269,72 +265,90 @@
       <div class="page-breadcrumb">
         <a href="../pages/youtube1.html">YouTube Favourites</a> &nbsp;/&nbsp; Genre
       </div>
-      <h1>Math &amp; <em>Prog</em> Rock</h1>
-      <div class="page-genre">Math Rock &nbsp;·&nbsp; Prog &nbsp;·&nbsp; Post-Rock &nbsp;·&nbsp; Djent</div>
+      <h1>Roots &amp; <em>Reggae</em></h1>
+      <div class="page-genre">Reggae &nbsp;·&nbsp; Dub &nbsp;·&nbsp; Roots &nbsp;·&nbsp; One Drop</div>
       <p class="page-bio">
-        Odd time signatures, extended compositions and guitar wizardry. Music that demands full attention and rewards every listen.
+        From Kingston to the world. The heavy one-drop, the bass that lives in your chest, and lyrics that mean something. Roots, dub and everything in between.
       </p>
     </div>
   </div>
 
-  <!-- ── POLYPHIA ── -->
+  <!-- ── BOB MARLEY ── -->
   <div class="band-section">
     <div class="band-header">
       <div class="band-header-text">
         <div class="band-label">Featured Artist</div>
-        <div class="band-name">Polyphia</div>
-        <div class="band-genre">Math Rock &nbsp;·&nbsp; Progressive &nbsp;·&nbsp; Instrumental</div>
+        <div class="band-name">Bob Marley &amp; The Wailers</div>
+        <div class="band-genre">Roots Reggae &nbsp;·&nbsp; Ska &nbsp;·&nbsp; Rocksteady</div>
         <p class="band-bio">
-          Dallas four-piece rewriting what guitar music can sound like. Equal parts video game soundtrack, hip-hop groove and shred clinic — and somehow it all makes sense.
+          The undisputed prophet of reggae. Marley turned the one-drop into a global language — equal parts spiritual conviction, political fire and pure groove. Fifty years on and it still hits different.
         </p>
       </div>
     </div>
-    <div class="video-grid" id="grid-polyphia">
-      <div class="video-card" data-id="0oCnt13S-1g"><div class="video-wrap"><img class="thumb" alt="Polyphia"><div class="play-btn"></div></div><div class="video-info"><div class="video-title">Loading...</div><div class="video-album"></div></div></div>
-      <div class="video-card" data-id="Z5NoQg8LdDk"><div class="video-wrap"><img class="thumb" alt="Polyphia"><div class="play-btn"></div></div><div class="video-info"><div class="video-title">Loading...</div><div class="video-album"></div></div></div>
-      <div class="video-card" data-id="1JNmz17gnMw"><div class="video-wrap"><img class="thumb" alt="Polyphia"><div class="play-btn"></div></div><div class="video-info"><div class="video-title">Loading...</div><div class="video-album"></div></div></div>
-      <div class="video-card" data-id="IHcAi2FPrTM"><div class="video-wrap"><img class="thumb" alt="Polyphia"><div class="play-btn"></div></div><div class="video-info"><div class="video-title">Loading...</div><div class="video-album"></div></div></div>
-      <div class="video-card" data-id="9_gkpYORQLU"><div class="video-wrap"><img class="thumb" alt="Polyphia"><div class="play-btn"></div></div><div class="video-info"><div class="video-title">Loading...</div><div class="video-album"></div></div></div>
+    <div class="video-grid">
+      <div class="video-card" data-id="mqmMdI7KchI"><div class="video-wrap"><img class="thumb" alt="Bob Marley"></div><div class="video-info"><div class="video-title">Loading...</div><div class="video-album"></div></div></div>
+      <div class="video-card" data-id="UZfaIx57UqU"><div class="video-wrap"><img class="thumb" alt="Bob Marley"></div><div class="video-info"><div class="video-title">Loading...</div><div class="video-album"></div></div></div>
+      <div class="video-card" data-id="RhJ0q7X3DLM"><div class="video-wrap"><img class="thumb" alt="Bob Marley"></div><div class="video-info"><div class="video-title">Loading...</div><div class="video-album"></div></div></div>
+      <div class="video-card" data-id="oFRbZJXjWIA"><div class="video-wrap"><img class="thumb" alt="Bob Marley"></div><div class="video-info"><div class="video-title">Loading...</div><div class="video-album"></div></div></div>
+      <div class="video-card" data-id="9ZpxaeICYyg"><div class="video-wrap"><img class="thumb" alt="Bob Marley"></div><div class="video-info"><div class="video-title">Loading...</div><div class="video-album"></div></div></div>
     </div>
   </div>
 
   <hr class="section-divider">
 
-  <!-- ── ANGINE DE POITRINE ── -->
+  <!-- ── SIDEQUEZT ── -->
   <div class="band-section">
     <div class="band-header">
       <div class="band-header-text">
         <div class="band-label">Featured Artist</div>
-        <div class="band-name">Angine de Poitrine</div>
-        <div class="band-genre">Math Rock &nbsp;·&nbsp; Post-Rock &nbsp;·&nbsp; Experimental</div>
+        <div class="band-name">Sidequezt</div>
+        <div class="band-genre">Reggae &nbsp;·&nbsp; Dub &nbsp;·&nbsp; Electronic</div>
         <p class="band-bio">
-          French math rock with a clinical edge and an unexpected warmth. Intricate, interlocking guitars that build into something far bigger than the sum of their parts.
+          Modern roots with a digital edge. Sidequezt takes the classic dub blueprint and runs it through contemporary production — deep, spacious, and absolutely locked in the pocket.
         </p>
       </div>
     </div>
-    <div class="video-grid" id="grid-angine">
-      <div class="video-card" data-id="t7OIc-DBRXM"><div class="video-wrap"><img class="thumb" alt="Angine de Poitrine"><div class="play-btn"></div></div><div class="video-info"><div class="video-title">Loading...</div><div class="video-album"></div></div></div>
-      <div class="video-card" data-id="pRgHYWOtqqc"><div class="video-wrap"><img class="thumb" alt="Angine de Poitrine"><div class="play-btn"></div></div><div class="video-info"><div class="video-title">Loading...</div><div class="video-album"></div></div></div>
-      <div class="video-card" data-id="sfDtfz7vXkY"><div class="video-wrap"><img class="thumb" alt="Angine de Poitrine"><div class="play-btn"></div></div><div class="video-info"><div class="video-title">Loading...</div><div class="video-album"></div></div></div>
+    <div class="video-grid">
+      <div class="video-card" data-id="RfQYi2Zb9so"><div class="video-wrap"><img class="thumb" alt="Sidequezt"></div><div class="video-info"><div class="video-title">Loading...</div><div class="video-album"></div></div></div>
+      <div class="video-card" data-id="H0_uTOM6Ics"><div class="video-wrap"><img class="thumb" alt="Sidequezt"></div><div class="video-info"><div class="video-title">Loading...</div><div class="video-album"></div></div></div>
     </div>
   </div>
 
   <hr class="section-divider">
 
-  <!-- ── ANIMALS AS LEADERS ── -->
+  <!-- ── DUB LIBITUM ── -->
   <div class="band-section">
     <div class="band-header">
       <div class="band-header-text">
         <div class="band-label">Featured Artist</div>
-        <div class="band-name">Animals as Leaders</div>
-        <div class="band-genre">Djent &nbsp;·&nbsp; Progressive Metal &nbsp;·&nbsp; Instrumental</div>
+        <div class="band-name">Dub Libitum</div>
+        <div class="band-genre">Dub &nbsp;·&nbsp; Experimental &nbsp;·&nbsp; Reggae</div>
         <p class="band-bio">
-          Tosin Abasi's eight-string monster. Djent precision meets jazz harmony and classical structure — instrumental metal that doesn't need a vocalist because it doesn't need anything.
+          The covid song. You know what it is.
         </p>
       </div>
     </div>
-    <div class="video-grid" id="grid-aal">
-      <div class="video-card" data-id="q0ZrF7taMHA"><div class="video-wrap"><img class="thumb" alt="Animals as Leaders"><div class="play-btn"></div></div><div class="video-info"><div class="video-title">Loading...</div><div class="video-album"></div></div></div>
+    <div class="video-grid">
+      <div class="video-card" data-id="3LXr89pMU2Q"><div class="video-wrap"><img class="thumb" alt="Dub Libitum"></div><div class="video-info"><div class="video-title">Loading...</div><div class="video-album"></div></div></div>
+    </div>
+  </div>
+
+  <hr class="section-divider">
+
+  <!-- ── RAS SPARROW ── -->
+  <div class="band-section">
+    <div class="band-header">
+      <div class="band-header-text">
+        <div class="band-label">Featured Artist</div>
+        <div class="band-name">Ras Sparrow</div>
+        <div class="band-genre">Roots Reggae &nbsp;·&nbsp; Dub &nbsp;·&nbsp; Conscious</div>
+        <p class="band-bio">
+          Conscious roots with a raw, unvarnished edge. Ras Sparrow keeps it real and keeps it heavy.
+        </p>
+      </div>
+    </div>
+    <div class="video-grid">
+      <div class="video-card" data-id="zJpWCTbgeOA"><div class="video-wrap"><img class="thumb" alt="Ras Sparrow"></div><div class="video-info"><div class="video-title">Loading...</div><div class="video-album"></div></div></div>
     </div>
   </div>
 
