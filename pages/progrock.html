@@ -36,15 +36,6 @@
       color: var(--text);
       font-family: 'Roboto', sans-serif;
     }
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background-image: url("https://www.transparenttextures.com/patterns/noise.png");
-      opacity: 0.08;
-      pointer-events: none;
-      z-index: 9999;
-    }
 
     /* ── Page hero (top of page) ── */
     .page-hero {
@@ -56,15 +47,6 @@
       background:
         linear-gradient(rgba(11,11,11,0.78), rgba(11,11,11,0.96)),
         url('../assets/img/artists/polyphia.jpg') center/cover no-repeat;
-    }
-    .page-hero::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image: url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
-      opacity: 0.25;
-      mix-blend-mode: overlay;
-      pointer-events: none;
     }
     .page-hero-content {
       position: relative;
@@ -177,15 +159,7 @@
       overflow: hidden;
       transition: all 0.25s ease;
       position: relative;
-    }
-    .video-card::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image: url("https://www.transparenttextures.com/patterns/asfalt-light.png");
-      opacity: 0.12;
-      pointer-events: none;
-      z-index: 1;
+      will-change: transform;
     }
     .video-card:hover {
       border-color: var(--red);
@@ -213,6 +187,7 @@
       transition: filter 0.3s, transform 0.3s;
       display: block;
       background: #000;
+      will-change: transform, filter;
     }
     .video-card:hover .video-wrap img.thumb {
       filter: brightness(0.85);

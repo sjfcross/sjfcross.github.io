@@ -48,15 +48,6 @@
         linear-gradient(rgba(13,13,13,0.82), rgba(13,13,13,0.96)),
         url('../assets/img/artists/nneka.jpg') center/cover no-repeat;
     }
-    .artist-hero::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image: url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
-      opacity: 0.25;
-      mix-blend-mode: overlay;
-      pointer-events: none;
-    }
     .artist-hero-bg {
       display: none;
     }
@@ -139,6 +130,7 @@
       border-radius: 10px;
       overflow: hidden;
       transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+      will-change: transform;
     }
     .video-card:hover {
       border-color: var(--red);
@@ -156,7 +148,7 @@
     }
 
 .video-wrap img.thumb {
-  position: absolute;   /* ← THIS FIXES YOUR ISSUE */
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -165,6 +157,7 @@
   filter: brightness(0.7);
   transition: filter 0.3s, transform 0.3s;
   display: block;
+  will-change: transform, filter;
 }
 
     .video-card:hover .video-wrap img.thumb {
