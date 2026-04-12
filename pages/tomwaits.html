@@ -31,20 +31,10 @@
       --display: 'Playfair Display', Georgia, serif;
     }
 
-    /* ── 3. Grain overlay on whole page ── */
     body {
       background: var(--dark);
       color: var(--text);
       font-family: 'Roboto', sans-serif;
-    }
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background-image: url("https://www.transparenttextures.com/patterns/noise.png");
-      opacity: 0.08;
-      pointer-events: none;
-      z-index: 9999;
     }
 
     /* ── 1. Hero with image background ── */
@@ -57,17 +47,6 @@
       background:
         linear-gradient(rgba(11,11,11,0.82), rgba(11,11,11,0.96)),
         url('../assets/img/artists/7hy296gntwra1.jpg') center/cover no-repeat;
-    }
-
-    /* ── 2. Grain overlay on hero ── */
-    .artist-hero::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image: url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
-      opacity: 0.25;
-      mix-blend-mode: overlay;
-      pointer-events: none;
     }
 
     .artist-hero-content {
@@ -143,31 +122,21 @@
       gap: 1.5rem;
     }
 
-    /* ── 4. Roughed up video cards ── */
+    /* ── 4. Video cards ── */
     .video-card {
       background: linear-gradient(145deg, #1a1513, #120f0e);
       border: 1px solid #3a2e28;
       border-radius: 6px;
       overflow: hidden;
-      transition: all 0.25s ease;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
       position: relative;
-    }
-    .video-card::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image: url("https://www.transparenttextures.com/patterns/asfalt-light.png");
-      opacity: 0.15;
-      pointer-events: none;
-      z-index: 1;
+      will-change: transform;
     }
 
     /* ── 5. Dirty glow on hover ── */
     .video-card:hover {
       border-color: var(--red);
-      box-shadow:
-        0 0 0 1px rgba(154,62,43,0.4),
-        0 10px 40px rgba(154,62,43,0.25);
+      box-shadow: 0 10px 40px rgba(154,62,43,0.25);
       transform: translateY(-3px);
     }
 
@@ -189,6 +158,7 @@
       transition: filter 0.3s, transform 0.3s;
       display: block;
       background: #000;
+      will-change: transform, filter;
     }
     .video-card:hover .video-wrap img.thumb {
       filter: brightness(0.85);
