@@ -212,37 +212,6 @@
       text-transform: uppercase;
       color: var(--text-dim);
     }
-    .device-chip {
-      font-family: var(--font-mono);
-      font-size: 0.68rem;
-      letter-spacing: 0.08em;
-      padding: 0.35rem 0.8rem;
-      border-radius: 20px;
-      border: 1px solid var(--border);
-      color: var(--text-dim);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      transition: border-color 0.2s, color 0.2s, background 0.2s;
-    }
-    .device-chip .dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--text-dim);
-      transition: background 0.2s, box-shadow 0.2s;
-    }
-    .device-chip.on { border-color: var(--accent); color: var(--accent); background: rgba(122,182,72,0.08); }
-    .device-chip.on .dot { background: var(--accent); box-shadow: 0 0 6px var(--accent); }
-    .device-chip.off { border-color: #2a2a2a; color: #454545; }
-    .device-chip.off .dot { background: #333; }
-
-    .device-row {
-      display: flex;
-      gap: 0.65rem;
-      flex-wrap: wrap;
-      margin-bottom: 0.8rem;
-    }
-
     .live-badge {
       font-family: var(--font-mono);
       font-size: 0.68rem;
@@ -576,17 +545,6 @@
       <span class="update-note" id="last-update"></span>
     </div>
 
-    <div class="device-row" id="device-row">
-      <span class="device-chip off" id="chip-fog">
-        <span class="dot"></span>Fogger
-      </span>
-      <span class="device-chip off" id="chip-fan">
-        <span class="dot"></span>Fan
-      </span>
-      <span class="device-chip off" id="chip-light">
-        <span class="dot"></span>Light
-      </span>
-    </div>
   </section>
 
   <!-- ══════════════════════════════════════
@@ -779,11 +737,6 @@ async function loadLiveSnapshot() {
     document.getElementById('live-fan').textContent   = fan   != null ? (fan   ? 'ON' : 'OFF') : '—';
     document.getElementById('live-light').textContent = light != null ? (light ? 'ON' : 'OFF') : '—';
 
-    // Device chips
-    setChip('chip-fog',   fog   === 1);
-    setChip('chip-fan',   fan   === 1);
-    setChip('chip-light', light === 1);
-
     // Timestamp
     const ts = new Date(f.created_at);
     document.getElementById('last-update').textContent = 'Last reading: ' + ts.toLocaleTimeString();
@@ -795,11 +748,6 @@ async function loadLiveSnapshot() {
     console.error('Snapshot error:', e);
     document.getElementById('live-badge').textContent = 'Error';
   }
-}
-
-function setChip(id, on) {
-  const el = document.getElementById(id);
-  el.className = 'device-chip ' + (on ? 'on' : 'off');
 }
 
 /* ─────────────────────────────────────────
