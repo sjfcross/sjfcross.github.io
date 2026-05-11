@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Environment — Terrarium Dashboard | SJFCROSS</title>
+  <link rel="icon" type="image/png" href="../assets/img/favicon-32x32.png">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400;500&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <!-- Chart.js adapter for time scale -->
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+
+  <style>
+    /* ── CSS VARIABLES — matches animals.html exactly ── */
+    :root {
+      --bg:        #0e1009;
+      --bg2:       #141a0f;
+      --bg3:       #1a2214;
+      --panel:     #1e2818;
+      --border:    #2e3d22;
+      --accent:    #7ab648;
+      --accent2:   #b8e05a;
+      --amber:     #d4a847;
+      --red:       #c0392b;
+      --text:      #d4cdb8;
+      --text-dim:  #7a8068;
+      --text-bright: #eee8d5;
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    'Lora', Georgia, serif;
+      --font-mono:    'DM Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.7;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(14, 16, 9, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    nav a {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--accent2); }
+    nav .brand { color: var(--accent); font-weight: 500; font-size: 0.85rem; }
+    nav .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    nav .back-btn {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      padding: 0.35rem 0.9rem;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    nav .back-btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(122,182,72,0.08); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      padding: 4.5rem 2rem 3.5rem;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(122,182,72,0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 80% 80%, rgba(212,168,71,0.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.9rem;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.1s;
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 700;
+      color: var(--text-bright);
+      line-height: 1.1;
+      margin-bottom: 0.9rem;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.2s;
+    }
+    .hero h1 em { color: var(--accent2); font-style: italic; }
+    .hero p {
+      font-size: 1rem;
+      color: var(--text-dim);
+      max-width: 500px;
+      margin: 0 auto;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.35s;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── LAYOUT ── */
+    .container {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    section { padding: 2.5rem 0; }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
+      color: var(--text-bright);
+      margin-bottom: 0.4rem;
+    }
+    .section-subtitle {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      margin-bottom: 1.8rem;
+    }
+
+    /* ── LIVE METRICS STRIP ── */
+    .live-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 0.85rem;
+      margin-bottom: 2rem;
+    }
+    .metric-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.1rem 1rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .metric-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+    .metric-card:hover { border-color: var(--accent); box-shadow: 0 8px 30px rgba(122,182,72,0.1); }
+    .metric-card:hover::after { opacity: 1; }
+
+    .metric-icon { font-size: 1.3rem; margin-bottom: 0.3rem; display: block; }
+    .metric-value {
+      font-family: var(--font-mono);
+      font-size: 1.55rem;
+      font-weight: 500;
+      color: var(--text-bright);
+      line-height: 1;
+      margin-bottom: 0.15rem;
+    }
+    .metric-value.good  { color: var(--accent2); }
+    .metric-value.warn  { color: var(--amber); }
+    .metric-value.danger { color: var(--red); }
+    .metric-label {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+    .device-chip {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      padding: 0.35rem 0.8rem;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .device-chip .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--text-dim);
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+    .device-chip.on { border-color: var(--accent); color: var(--accent); background: rgba(122,182,72,0.08); }
+    .device-chip.on .dot { background: var(--accent); box-shadow: 0 0 6px var(--accent); }
+    .device-chip.off { border-color: #2a2a2a; color: #454545; }
+    .device-chip.off .dot { background: #333; }
+
+    .device-row {
+      display: flex;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.8rem;
+    }
+
+    .live-badge {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      background: rgba(122,182,72,0.08);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .live-badge::before {
+      content: '●';
+      font-size: 0.6rem;
+      animation: blink 1.5s infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+    .update-note {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      margin-left: 0.5rem;
+    }
+
+    /* ── TIME RANGE BAR ── */
+    .range-bar {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+      align-items: center;
+    }
+    .range-btn {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      padding: 0.4rem 1rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-dim);
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .range-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .range-btn.active {
+      border-color: var(--accent);
+      color: var(--accent2);
+      background: rgba(122,182,72,0.1);
+    }
+
+    /* ── CHART PANELS ── */
+    .chart-panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .chart-panel::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+    }
+    .chart-panel-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 1.2rem;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .chart-panel-title {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+    .chart-panel-tag {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      color: var(--text-dim);
+      border: 1px solid var(--border);
+      padding: 0.15rem 0.55rem;
+      border-radius: 4px;
+    }
+    .chart-canvas-wrap {
+      position: relative;
+      height: 220px;
+    }
+    .chart-canvas-wrap canvas {
+      width: 100% !important;
+    }
+
+    /* ── STEP CHART PANEL (live only) ── */
+    #panel-devices { transition: opacity 0.3s; }
+    #panel-devices.hidden { display: none; }
+
+    /* ── LOADING / ERROR ── */
+    .chart-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(14,16,9,0.7);
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      border-radius: 8px;
+      z-index: 10;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .chart-overlay.visible { opacity: 1; pointer-events: auto; }
+    .chart-overlay.error { color: var(--amber); }
+
+    /* ── NIGHT INSPECTOR ── */
+    .inspector-panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .inspector-panel::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--amber), transparent);
+    }
+
+    .inspector-controls {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+    .inspector-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .inspector-field label {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+    .inspector-field input[type="date"] {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      padding: 0.45rem 0.8rem;
+      border-radius: 6px;
+      outline: none;
+      transition: border-color 0.2s;
+      color-scheme: dark;
+    }
+    .inspector-field input[type="date"]:focus { border-color: var(--accent); }
+
+    .inspector-btn {
+      background: rgba(212,168,71,0.1);
+      border: 1px solid var(--amber);
+      color: var(--amber);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      padding: 0.48rem 1.2rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .inspector-btn:hover { background: rgba(212,168,71,0.2); }
+    .inspector-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .inspector-meta {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      margin-bottom: 1.2rem;
+    }
+    .inspector-meta span { color: var(--amber); }
+
+    .inspector-chart-wrap {
+      position: relative;
+      height: 260px;
+    }
+
+    /* ── FOGGER BAND LEGEND ── */
+    .chart-legend {
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      margin-top: 0.8rem;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.06em;
+      color: var(--text-dim);
+    }
+    .legend-swatch {
+      width: 14px;
+      height: 10px;
+      border-radius: 2px;
+    }
+    .legend-swatch.humidity { background: var(--accent); opacity: 0.85; }
+    .legend-swatch.fogger  { background: rgba(212,168,71,0.35); border: 1px solid rgba(212,168,71,0.5); }
+
+    /* ── NO DATA PLACEHOLDER ── */
+    .no-data {
+      height: 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .no-data .icon { font-size: 2rem; opacity: 0.3; }
+    .no-data p {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-dim);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+      margin-top: 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    footer p {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text-dim);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { color: var(--accent2); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      nav { padding: 0.75rem 1rem; }
+      .container { padding: 0 1rem; }
+      .hero { padding: 3rem 1rem 2.5rem; }
+      .chart-canvas-wrap { height: 180px; }
+      .inspector-chart-wrap { height: 210px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="../pages/animals.html" class="brand">Division V — Animals</a>
+  <div class="nav-links">
+    <a href="../pages/animals.html" class="back-btn">← Animals</a>
+    <a href="../index.html">Home</a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-eyebrow">Terrarium · Live Data · ThingSpeak</div>
+  <h1>Environment <em>Monitor</em></h1>
+  <p>Real-time temperature, humidity, and device state from the terrarium cabinet. Historical inspection back to day one.</p>
+</div>
+
+<!-- ══════════════════════════════════════
+     SECTION 1: LIVE SNAPSHOT
+══════════════════════════════════════ -->
+<div class="container">
+  <section id="live-section">
+    <div class="section-label">Current readings</div>
+    <div class="section-title">Live Snapshot</div>
+
+    <div class="live-strip" id="live-strip">
+      <div class="metric-card">
+        <span class="metric-icon">🌡️</span>
+        <div class="metric-value" id="live-temp">—</div>
+        <div class="metric-label">Temperature °C</div>
+      </div>
+      <div class="metric-card">
+        <span class="metric-icon">💧</span>
+        <div class="metric-value" id="live-hum">—</div>
+        <div class="metric-label">Humidity %</div>
+      </div>
+      <div class="metric-card">
+        <span class="metric-icon">🌫️</span>
+        <div class="metric-value" id="live-fog">—</div>
+        <div class="metric-label">Fogger</div>
+      </div>
+      <div class="metric-card">
+        <span class="metric-icon">🌀</span>
+        <div class="metric-value" id="live-fan">—</div>
+        <div class="metric-label">Fan</div>
+      </div>
+      <div class="metric-card">
+        <span class="metric-icon">💡</span>
+        <div class="metric-value" id="live-light">—</div>
+        <div class="metric-label">Light</div>
+      </div>
+    </div>
+
+    <div style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap; margin-bottom:1.2rem;">
+      <span class="live-badge" id="live-badge">Connecting…</span>
+      <span class="update-note" id="last-update"></span>
+    </div>
+
+    <div class="device-row" id="device-row">
+      <span class="device-chip off" id="chip-fog">
+        <span class="dot"></span>Fogger
+      </span>
+      <span class="device-chip off" id="chip-fan">
+        <span class="dot"></span>Fan
+      </span>
+      <span class="device-chip off" id="chip-light">
+        <span class="dot"></span>Light
+      </span>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SECTION 2: CHARTS
+  ══════════════════════════════════════ -->
+  <section id="charts-section">
+    <div class="section-label">Historical data</div>
+    <div class="section-title">Trend Charts</div>
+    <div class="section-subtitle">Hourly averages for week/month views · Raw 20s data in live view</div>
+
+    <!-- TIME RANGE SELECTOR -->
+    <div class="range-bar">
+      <button class="range-btn active" data-range="live">Live (2h)</button>
+      <button class="range-btn" data-range="week">1 Week</button>
+      <button class="range-btn" data-range="4weeks">4 Weeks</button>
+      <button class="range-btn" data-range="6months">6 Months</button>
+    </div>
+
+    <!-- TEMP + HUMIDITY CHART -->
+    <div class="chart-panel">
+      <div class="chart-panel-header">
+        <span class="chart-panel-title">Temperature &amp; Humidity</span>
+        <span class="chart-panel-tag" id="th-tag">Last 2 hours · 20s resolution</span>
+      </div>
+      <div class="chart-canvas-wrap">
+        <div class="chart-overlay visible" id="th-overlay">Loading…</div>
+        <canvas id="th-chart"></canvas>
+      </div>
+    </div>
+
+    <!-- DEVICE STATE CHART (live only) -->
+    <div class="chart-panel" id="panel-devices">
+      <div class="chart-panel-header">
+        <span class="chart-panel-title">Device States — Fogger / Fan / Light</span>
+        <span class="chart-panel-tag">Live view · Raw 0/1 step data</span>
+      </div>
+      <div class="chart-canvas-wrap">
+        <div class="chart-overlay visible" id="dev-overlay">Loading…</div>
+        <canvas id="dev-chart"></canvas>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SECTION 3: NIGHT INSPECTOR
+  ══════════════════════════════════════ -->
+  <section id="inspector-section">
+    <div class="section-label">Diagnostic tool</div>
+    <div class="section-title">Night Inspector</div>
+    <div class="section-subtitle">Pick any date to see the 23:00 → 07:00 window at full 20s resolution. Instantly reveals whether the fogger ran and whether humidity responded.</div>
+
+    <div class="inspector-panel">
+
+      <div class="inspector-controls">
+        <div class="inspector-field">
+          <label for="night-date">Date (night starts)</label>
+          <input type="date" id="night-date" />
+        </div>
+        <button class="inspector-btn" id="inspect-btn">Inspect Night</button>
+      </div>
+
+      <div class="inspector-meta" id="inspector-meta">
+        Select a date above — the dashboard will fetch <span>23:00 → 07:00 UTC</span> for that night at full 20-second resolution.
+        <br>
+        <span style="color:var(--text-dim); font-size:0.65rem;">Note: timestamps are UTC. If your terrarium clock is set to local time, there may be an offset.</span>
+      </div>
+
+      <div id="inspector-chart-area">
+        <div class="no-data">
+          <div class="icon">🌙</div>
+          <p>No night selected yet</p>
+        </div>
+      </div>
+
+      <div class="chart-legend" id="inspector-legend" style="display:none;">
+        <div class="legend-item">
+          <div class="legend-swatch humidity"></div>
+          Humidity %
+        </div>
+        <div class="legend-item">
+          <div class="legend-swatch fogger"></div>
+          Fogger ON (background)
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <p>Data source: <a href="https://thingspeak.com/channels/3372054" target="_blank" rel="noopener">ThingSpeak #3372054</a> · Public channel · No auth required</p>
+  <p>Part of <a href="../pages/animals.html">Division V — Animals</a> · <a href="../index.html">sjfcross.github.io</a></p>
+</footer>
+
+
+<!-- ══════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════ -->
+<script>
+'use strict';
+
+/* ─────────────────────────────────────────
+   CONFIG
+───────────────────────────────────────── */
+const CHANNEL = 3372054;
+const BASE    = `https://api.thingspeak.com/channels/${CHANNEL}/feeds.json`;
+
+// Field mapping
+const F = { temp: 'field1', hum: 'field2', fog: 'field3', fan: 'field4', light: 'field5' };
+
+// Time range configs
+const RANGES = {
+  live:     { label: 'Last 2 hours · 20s resolution',     params: 'results=360',                      showDevices: true  },
+  week:     { label: '1 week · hourly averages',           params: 'days=7&average=60',                showDevices: false },
+  '4weeks': { label: '4 weeks · hourly averages',          params: 'days=28&average=60',               showDevices: false },
+  '6months':{ label: '6 months · daily averages',          params: 'days=180&average=1440',            showDevices: false },
+};
+
+/* ─────────────────────────────────────────
+   CHART.JS GLOBAL DEFAULTS
+───────────────────────────────────────── */
+Chart.defaults.color          = '#7a8068';
+Chart.defaults.borderColor    = '#2e3d22';
+Chart.defaults.font.family    = "'DM Mono', monospace";
+Chart.defaults.font.size      = 11;
+Chart.defaults.plugins.legend.labels.color = '#7a8068';
+Chart.defaults.plugins.tooltip.backgroundColor = 'rgba(14,16,9,0.92)';
+Chart.defaults.plugins.tooltip.borderColor     = '#2e3d22';
+Chart.defaults.plugins.tooltip.borderWidth     = 1;
+Chart.defaults.plugins.tooltip.titleColor      = '#eee8d5';
+Chart.defaults.plugins.tooltip.bodyColor       = '#d4cdb8';
+Chart.defaults.plugins.tooltip.padding         = 10;
+
+/* ─────────────────────────────────────────
+   UTILITY
+───────────────────────────────────────── */
+function parseNum(v) {
+  const n = parseFloat(v);
+  return isNaN(n) ? null : n;
+}
+
+function fmt(n, decimals = 1) {
+  return n == null ? '—' : n.toFixed(decimals);
+}
+
+function setOverlay(el, text, isError = false) {
+  el.textContent = text;
+  el.classList.toggle('error', isError);
+  el.classList.add('visible');
+}
+function hideOverlay(el) {
+  el.classList.remove('visible');
+}
+
+async function fetchThingSpeak(params) {
+  const url = `${BASE}?${params}&timezone=UTC`;
+  const res  = await fetch(url);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}
+
+/* ─────────────────────────────────────────
+   LIVE SNAPSHOT
+───────────────────────────────────────── */
+async function loadLiveSnapshot() {
+  try {
+    const data = await fetchThingSpeak('results=1');
+    const f    = data.feeds[0];
+    if (!f) return;
+
+    const temp  = parseNum(f[F.temp]);
+    const hum   = parseNum(f[F.hum]);
+    const fog   = parseNum(f[F.fog]);
+    const fan   = parseNum(f[F.fan]);
+    const light = parseNum(f[F.light]);
+
+    // Temp colour
+    const tempEl = document.getElementById('live-temp');
+    tempEl.textContent = fmt(temp) + '°';
+    tempEl.className = 'metric-value' + (temp == null ? '' : temp < 22 ? ' warn' : temp > 30 ? ' danger' : ' good');
+
+    // Humidity colour
+    const humEl = document.getElementById('live-hum');
+    humEl.textContent = fmt(hum) + '%';
+    humEl.className = 'metric-value' + (hum == null ? '' : hum < 55 ? ' warn' : hum > 90 ? ' warn' : ' good');
+
+    document.getElementById('live-fog').textContent   = fog   != null ? (fog   ? 'ON' : 'OFF') : '—';
+    document.getElementById('live-fan').textContent   = fan   != null ? (fan   ? 'ON' : 'OFF') : '—';
+    document.getElementById('live-light').textContent = light != null ? (light ? 'ON' : 'OFF') : '—';
+
+    // Device chips
+    setChip('chip-fog',   fog   === 1);
+    setChip('chip-fan',   fan   === 1);
+    setChip('chip-light', light === 1);
+
+    // Timestamp
+    const ts = new Date(f.created_at);
+    document.getElementById('last-update').textContent = 'Last reading: ' + ts.toLocaleTimeString();
+
+    const badge = document.getElementById('live-badge');
+    badge.textContent = 'Live';
+
+  } catch (e) {
+    console.error('Snapshot error:', e);
+    document.getElementById('live-badge').textContent = 'Error';
+  }
+}
+
+function setChip(id, on) {
+  const el = document.getElementById(id);
+  el.className = 'device-chip ' + (on ? 'on' : 'off');
+}
+
+/* ─────────────────────────────────────────
+   CHART INSTANCES
+───────────────────────────────────────── */
+let thChart  = null;  // temp+humidity
+let devChart = null;  // device states
+
+function destroyChart(chartRef) {
+  if (chartRef) chartRef.destroy();
+  return null;
+}
+
+/* ─────────────────────────────────────────
+   TEMP + HUMIDITY CHART
+───────────────────────────────────────── */
+function buildTHChart(labels, temps, hums) {
+  thChart = destroyChart(thChart);
+  const ctx = document.getElementById('th-chart').getContext('2d');
+
+  thChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'Temp °C',
+          data: temps,
+          borderColor:  '#d4a847',
+          backgroundColor: 'rgba(212,168,71,0.07)',
+          borderWidth: 1.8,
+          pointRadius: 0,
+          pointHoverRadius: 4,
+          tension: 0.3,
+          yAxisID: 'y',
+          fill: true,
+          spanGaps: true,
+        },
+        {
+          label: 'Humidity %',
+          data: hums,
+          borderColor:  '#7ab648',
+          backgroundColor: 'rgba(122,182,72,0.07)',
+          borderWidth: 1.8,
+          pointRadius: 0,
+          pointHoverRadius: 4,
+          tension: 0.3,
+          yAxisID: 'y2',
+          fill: true,
+          spanGaps: true,
+        },
+      ]
+    },
+    options: {
+      animation: false,
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { position: 'bottom', labels: { boxWidth: 12, padding: 16 } },
+        tooltip: {
+          callbacks: {
+            label: ctx => {
+              const v = ctx.parsed.y;
+              if (v == null) return '';
+              return ctx.dataset.label + ': ' + v.toFixed(1) + (ctx.datasetIndex === 0 ? '°C' : '%');
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          type: 'time',
+          time: { tooltipFormat: 'dd MMM HH:mm' },
+          grid:  { color: '#1e2818' },
+          ticks: { maxTicksLimit: 8, color: '#7a8068' },
+        },
+        y: {
+          position: 'left',
+          title: { display: true, text: '°C', color: '#d4a847', font: { size: 10 } },
+          grid: { color: '#1e2818' },
+          ticks: { color: '#d4a847' },
+        },
+        y2: {
+          position: 'right',
+          title: { display: true, text: '%', color: '#7ab648', font: { size: 10 } },
+          grid: { drawOnChartArea: false },
+          ticks: { color: '#7ab648' },
+          min: 0,
+          max: 100,
+        },
+      }
+    }
+  });
+}
+
+/* ─────────────────────────────────────────
+   DEVICE STATE STEP CHART
+───────────────────────────────────────── */
+function buildDevChart(labels, fogs, fans, lights) {
+  devChart = destroyChart(devChart);
+  const ctx = document.getElementById('dev-chart').getContext('2d');
+
+  devChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'Fogger',
+          data: fogs,
+          borderColor:  'rgba(122,182,72,0.9)',
+          backgroundColor: 'rgba(122,182,72,0.12)',
+          borderWidth: 2,
+          pointRadius: 0,
+          stepped: true,
+          fill: true,
+          spanGaps: true,
+          yAxisID: 'y',
+        },
+        {
+          label: 'Fan',
+          data: fans,
+          borderColor:  'rgba(212,168,71,0.8)',
+          backgroundColor: 'rgba(212,168,71,0.07)',
+          borderWidth: 2,
+          pointRadius: 0,
+          stepped: true,
+          fill: false,
+          spanGaps: true,
+          yAxisID: 'y',
+        },
+        {
+          label: 'Light',
+          data: lights,
+          borderColor:  'rgba(180,160,100,0.6)',
+          backgroundColor: 'rgba(180,160,100,0.04)',
+          borderWidth: 1.5,
+          pointRadius: 0,
+          stepped: true,
+          fill: false,
+          spanGaps: true,
+          yAxisID: 'y',
+        },
+      ]
+    },
+    options: {
+      animation: false,
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { position: 'bottom', labels: { boxWidth: 12, padding: 16 } },
+        tooltip: {
+          callbacks: {
+            label: ctx => {
+              const v = ctx.parsed.y;
+              if (v == null) return '';
+              return ctx.dataset.label + ': ' + (v === 1 ? 'ON' : 'OFF');
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          type: 'time',
+          time: { tooltipFormat: 'HH:mm' },
+          grid:  { color: '#1e2818' },
+          ticks: { maxTicksLimit: 8, color: '#7a8068' },
+        },
+        y: {
+          min: -0.05,
+          max: 1.15,
+          ticks: {
+            stepSize: 1,
+            callback: v => v === 0 ? 'OFF' : v === 1 ? 'ON' : '',
+            color: '#7a8068',
+          },
+          grid: { color: '#1e2818' },
+        },
+      }
+    }
+  });
+}
+
+/* ─────────────────────────────────────────
+   MAIN: LOAD RANGE DATA
+───────────────────────────────────────── */
+let currentRange = 'live';
+
+async function loadRange(rangeKey) {
+  currentRange = rangeKey;
+  const range   = RANGES[rangeKey];
+  const overlay = document.getElementById('th-overlay');
+  const devPanel = document.getElementById('panel-devices');
+
+  // Show / hide device chart panel
+  if (range.showDevices) {
+    devPanel.classList.remove('hidden');
+  } else {
+    devPanel.classList.add('hidden');
+  }
+
+  // Update tag label
+  document.getElementById('th-tag').textContent = range.label;
+
+  // Show loading
+  setOverlay(overlay, 'Loading…');
+
+  try {
+    const data  = await fetchThingSpeak(range.params);
+    const feeds = data.feeds;
+
+    if (!feeds || feeds.length === 0) {
+      setOverlay(overlay, 'No data returned', true);
+      return;
+    }
+
+    // Parse
+    const labels = feeds.map(f => new Date(f.created_at));
+    const temps  = feeds.map(f => parseNum(f[F.temp]));
+    const hums   = feeds.map(f => parseNum(f[F.hum]));
+    const fogs   = feeds.map(f => parseNum(f[F.fog]));
+    const fans   = feeds.map(f => parseNum(f[F.fan]));
+    const lights = feeds.map(f => parseNum(f[F.light]));
+
+    // Build temp+hum chart
+    buildTHChart(labels, temps, hums);
+    hideOverlay(overlay);
+
+    // Build device chart (only for live)
+    if (range.showDevices) {
+      const devOverlay = document.getElementById('dev-overlay');
+      buildDevChart(labels, fogs, fans, lights);
+      hideOverlay(devOverlay);
+    }
+
+  } catch (e) {
+    setOverlay(overlay, 'Error: ' + e.message, true);
+    console.error(e);
+  }
+}
+
+/* ─────────────────────────────────────────
+   RANGE BUTTON WIRING
+───────────────────────────────────────── */
+document.querySelectorAll('.range-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.range-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    loadRange(btn.dataset.range);
+  });
+});
+
+/* ─────────────────────────────────────────
+   NIGHT INSPECTOR
+───────────────────────────────────────── */
+let inspectorChart = null;
+
+// Pre-fill date to yesterday
+const yesterday = new Date();
+yesterday.setDate(yesterday.getDate() - 1);
+document.getElementById('night-date').value = yesterday.toISOString().slice(0, 10);
+
+document.getElementById('inspect-btn').addEventListener('click', loadNight);
+
+async function loadNight() {
+  const dateStr = document.getElementById('night-date').value;
+  if (!dateStr) return;
+
+  const btn = document.getElementById('inspect-btn');
+  btn.disabled = true;
+  btn.textContent = 'Fetching…';
+
+  const area   = document.getElementById('inspector-chart-area');
+  const legend = document.getElementById('inspector-legend');
+  const meta   = document.getElementById('inspector-meta');
+
+  // Build UTC window: YYYY-MM-DDT23:00:00Z → next day T07:00:00Z
+  const nightStart = new Date(dateStr + 'T23:00:00Z');
+  const nightEnd   = new Date(nightStart.getTime() + 8 * 60 * 60 * 1000); // +8h
+
+  const startISO = nightStart.toISOString().replace('.000', '');
+  const endISO   = nightEnd.toISOString().replace('.000', '');
+
+  meta.innerHTML = `
+    Fetching <span>${dateStr} 23:00 UTC → ${new Date(dateStr + 'T00:00:00Z').toLocaleDateString('en-GB', {day:'2-digit',month:'short',year:'numeric', timeZone:'UTC'})} (next day) 07:00 UTC</span>
+    at full 20-second resolution…
+    <br><span style="color:var(--text-dim); font-size:0.65rem;">Up to ~1,440 data points · All 5 fields</span>
+  `;
+
+  try {
+    const params = `start=${encodeURIComponent(startISO)}&end=${encodeURIComponent(endISO)}&results=8000`;
+    const data   = await fetchThingSpeak(params);
+    const feeds  = data.feeds;
+
+    btn.disabled    = false;
+    btn.textContent = 'Inspect Night';
+
+    if (!feeds || feeds.length === 0) {
+      area.innerHTML = `
+        <div class="no-data">
+          <div class="icon">🌑</div>
+          <p>No data for this night</p>
+        </div>`;
+      legend.style.display = 'none';
+      return;
+    }
+
+    // Update meta with actual count
+    meta.innerHTML = `
+      Night of <span>${dateStr}</span> → 
+      <span>${feeds.length} readings</span> fetched · 
+      23:00–07:00 UTC window
+    `;
+
+    // Parse
+    const labels = feeds.map(f => new Date(f.created_at));
+    const hums   = feeds.map(f => parseNum(f[F.hum]));
+    const fogs   = feeds.map(f => parseNum(f[F.fog]));
+
+    // Build chart canvas
+    area.innerHTML = `
+      <div class="inspector-chart-wrap">
+        <canvas id="inspector-canvas"></canvas>
+      </div>`;
+    legend.style.display = 'flex';
+
+    buildInspectorChart(labels, hums, fogs);
+
+  } catch(e) {
+    btn.disabled    = false;
+    btn.textContent = 'Inspect Night';
+    area.innerHTML = `
+      <div class="no-data">
+        <div class="icon">⚠️</div>
+        <p>Error: ${e.message}</p>
+      </div>`;
+    legend.style.display = 'none';
+    console.error(e);
+  }
+}
+
+/* ─────────────────────────────────────────
+   NIGHT INSPECTOR CHART
+   Humidity line + fogger shaded background
+───────────────────────────────────────── */
+function buildInspectorChart(labels, hums, fogs) {
+  if (inspectorChart) { inspectorChart.destroy(); inspectorChart = null; }
+
+  const ctx = document.getElementById('inspector-canvas').getContext('2d');
+
+  // Build fogger-on segments as background annotation using a custom plugin
+  // We use a vertical fill dataset approach: when fogger=1, push humidity-scale bar
+  // Cleaner approach: use Chart.js built-in background fill via a secondary dataset
+  // We draw fogger bands as a filled area at full scale (0-100) that steps with the data
+  const fogBand = fogs.map(v => v === 1 ? 100 : 0);
+
+  inspectorChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        {
+          // Background fogger band — rendered first (behind humidity line)
+          label: 'Fogger ON',
+          data: fogBand,
+          borderColor:  'transparent',
+          backgroundColor: 'rgba(212,168,71,0.18)',
+          borderWidth: 0,
+          pointRadius: 0,
+          stepped: true,
+          fill: 'origin',
+          spanGaps: true,
+          yAxisID: 'y',
+          order: 2,
+        },
+        {
+          label: 'Humidity %',
+          data: hums,
+          borderColor:  '#7ab648',
+          backgroundColor: 'rgba(122,182,72,0.08)',
+          borderWidth: 2,
+          pointRadius: 0,
+          pointHoverRadius: 4,
+          tension: 0.25,
+          fill: 'origin',
+          spanGaps: true,
+          yAxisID: 'y',
+          order: 1,
+        },
+      ]
+    },
+    options: {
+      animation: false,
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { display: false }, // we use our custom HTML legend
+        tooltip: {
+          callbacks: {
+            label: ctx => {
+              if (ctx.datasetIndex === 0) {
+                return 'Fogger: ' + (ctx.raw === 100 ? 'ON' : 'OFF');
+              }
+              const v = ctx.parsed.y;
+              return v == null ? '' : 'Humidity: ' + v.toFixed(1) + '%';
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          type: 'time',
+          time: { tooltipFormat: 'HH:mm:ss', displayFormats: { minute: 'HH:mm', hour: 'HH:mm' } },
+          grid:  { color: '#1e2818' },
+          ticks: { maxTicksLimit: 10, color: '#7a8068' },
+        },
+        y: {
+          min: 0,
+          max: 100,
+          title: { display: true, text: 'Humidity %', color: '#7a8068', font: { size: 10 } },
+          grid: { color: '#1e2818' },
+          ticks: { color: '#7a8068', stepSize: 10 },
+        },
+      }
+    }
+  });
+}
+
+/* ─────────────────────────────────────────
+   INIT
+───────────────────────────────────────── */
+loadLiveSnapshot();
+loadRange('live');
+
+// Auto-refresh live snapshot every 30s
+setInterval(loadLiveSnapshot, 30_000);
+
+</script>
+</body>
+</html>
