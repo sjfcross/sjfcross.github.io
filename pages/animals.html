@@ -596,30 +596,25 @@
 
       <div class="env-panel">
         <div class="env-header">
-          <div class="env-title">NodeMCU Controller v2.3</div>
-          <span class="env-status-badge" id="env-badge">Static Display</span>
+          <div class="env-title">NodeMCU Controller v2.4</div>
+          <span class="env-status-badge" id="env-badge">Connecting…</span>
         </div>
 
         <div class="env-metrics">
           <div class="metric">
             <span class="metric-icon">🌡️</span>
-            <div class="metric-value good" id="env-temp">25.0°C</div>
+            <div class="metric-value good" id="env-temp">--</div>
             <div class="metric-label">Temperature</div>
           </div>
           <div class="metric">
             <span class="metric-icon">💧</span>
-            <div class="metric-value good" id="env-hum">42%</div>
+            <div class="metric-value good" id="env-hum">--</div>
             <div class="metric-label">Humidity</div>
           </div>
           <div class="metric">
             <span class="metric-icon">🕐</span>
             <div class="metric-value" id="env-time" style="font-size:1.1rem">--:--:--</div>
-            <div class="metric-label">Controller Time</div>
-          </div>
-          <div class="metric">
-            <span class="metric-icon">📡</span>
-            <div class="metric-value" id="env-sensor" style="font-size:0.9rem; color: var(--text-dim)">—</div>
-            <div class="metric-label">Sensor</div>
+            <div class="metric-label">Last Reading</div>
           </div>
         </div>
 
@@ -636,9 +631,11 @@
         </div>
 
         <div class="env-note">
-          <span id="env-last-update">ThingSpeak integration coming soon — live data will auto-refresh here.</span>
+          <span id="env-last-update">Connecting…</span>
           &nbsp;·&nbsp;
           <a href="http://sjfcross.ddns.net/" target="_blank">Open live control panel ↗</a>
+          &nbsp;·&nbsp;
+          <a href="environment.html">Environment Data &amp; Graphs →</a>
         </div>
       </div>
     </section>
@@ -752,7 +749,7 @@
     <!-- Log Section -->
     <section>
       <div class="section-label">Keeper's Log</div>
-      <div class="section-title">Feeding & Moult Records</div>
+      <div class="section-title">Feeding &amp; Moult Records</div>
 
       <div class="log-section">
         <div class="log-add">
@@ -881,7 +878,6 @@
     log.unshift({ date: new Date().toISOString(), spider: modalSpider, type, note });
     saveLog(log);
     document.getElementById('modal-overlay').classList.remove('open');
-    // sync main form spider to match
     document.getElementById('log-spider').value = modalSpider;
     renderLog();
     updateSpiderStats();
@@ -934,55 +930,66 @@
     });
   }
 
-  // ── Try to fetch live data from NodeMCU ──
-  // This will only work if the page is served over HTTP or the browser allows mixed content.
-  // Once ThingSpeak is wired up this whole block gets replaced.
-  function tryFetchLive() {
-    fetch('http://sjfcross.ddns.net/data', { signal: AbortSignal.timeout(4000) })
+  // ── ThingSpeak live data (public channel, no key needed, pure HTTPS) ──
+  const TS_CHANNEL = '3372054';
+  const TS_URL     = `https://api.thingspeak.com/channels/${TS_CHANNEL}/feeds/last.json`;
+
+  function fetchFromThingSpeak() {
+    fetch(TS_URL)
       .then(r => r.json())
       .then(d => {
-        document.getElementById('env-temp').textContent  = d.temperature.toFixed(1) + '°C';
-        document.getElementById('env-hum').textContent   = d.humidity.toFixed(0) + '%';
-        document.getElementById('env-time').textContent  = d.time || '--:--';
-        document.getElementById('env-sensor').textContent = d.sensorOk ? 'OK' : 'ERR';
-        document.getElementById('env-sensor').style.color = d.sensorOk ? 'var(--accent2)' : 'var(--red)';
+        const temp   = parseFloat(d.field1);
+        const hum    = parseFloat(d.field2);
+        const fogger = d.field3 === '1';
+        const fan    = d.field4 === '1';
+        const light  = d.field5 === '1';
 
-        setChip('chip-fogger', d.foggerStatus, d.override);
-        setChip('chip-fan',    d.fanStatus,    d.fanOverride);
-        setChip('chip-light',  d.lightStatus,  d.lightOverride);
+        // Temperature
+        document.getElementById('env-temp').textContent = isNaN(temp) ? '--' : temp.toFixed(1) + '°C';
 
+        // Humidity with colour coding
+        const humEl = document.getElementById('env-hum');
+        humEl.textContent = isNaN(hum) ? '--' : hum.toFixed(0) + '%';
+        humEl.className   = 'metric-value ' + (hum > 89 ? 'danger' : hum > 75 ? 'warn' : 'good');
+
+        // Last reading timestamp — ThingSpeak returns UTC, convert to local time
+        const ts = new Date(d.created_at);
+        document.getElementById('env-time').textContent =
+          isNaN(ts.getTime()) ? '--:--:--' : ts.toLocaleTimeString('en-GB');
+
+        // Device chips
+        setChip('chip-fogger', fogger);
+        setChip('chip-fan',    fan);
+        setChip('chip-light',  light);
+
+        // Badge → Live
         const badge = document.getElementById('env-badge');
         badge.textContent = 'Live';
-        badge.classList.add('live');
-
-        const hum = d.humidity;
-        const humEl = document.getElementById('env-hum');
-        humEl.className = 'metric-value ' + (hum > 89 ? 'danger' : hum > 75 ? 'warn' : 'good');
+        badge.className   = 'env-status-badge live';
 
         document.getElementById('env-last-update').textContent =
           'Last updated: ' + new Date().toLocaleTimeString('en-GB');
       })
       .catch(() => {
-        // Silently fail — mixed content or DDNS unreachable from HTTPS
         document.getElementById('env-last-update').textContent =
-          'Live data unavailable from HTTPS — ThingSpeak integration coming soon.';
+          'ThingSpeak unreachable — will retry.';
       });
   }
 
-  function setChip(id, on, override) {
+  function setChip(id, on) {
     const el = document.getElementById(id);
     if (!el) return;
     el.classList.remove('on', 'off');
     el.classList.add(on ? 'on' : 'off');
     const name = id.replace('chip-', '');
-    el.innerHTML = `<span class="dot"></span> ${name.charAt(0).toUpperCase()+name.slice(1)}${override ? ' (override)' : ''}`;
+    el.innerHTML = `<span class="dot"></span> ${name.charAt(0).toUpperCase() + name.slice(1)}`;
   }
 
-  // Init
+  // ── Init ──
   renderLog();
   updateSpiderStats();
-  tryFetchLive();
-  setInterval(tryFetchLive, 15000);
+  fetchFromThingSpeak();
+  setInterval(fetchFromThingSpeak, 20000);
 </script>
 </body>
 </html>
