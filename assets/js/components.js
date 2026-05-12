@@ -1,4 +1,4 @@
-// components.js
+﻿// components.js
 // Injects shared navbar and footer into every page.
 // To update nav/footer across the whole site — edit THIS file only, then push.
 //
@@ -129,7 +129,7 @@
           <div class="text-center">
             <p class="text-dark my-4 text-sm font-weight-normal">
               &copy; ${new Date().getFullYear()} SJFCROSS.
-              Built with <a href="https://www.creative-tim.com/product/material-kit" target="_blank">Material Kit 2</a> by Creative Tim.
+              Built by sjfcross.
             </p>
           </div>
         </div>
