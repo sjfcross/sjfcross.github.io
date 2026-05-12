@@ -688,6 +688,20 @@ function parseNum(v) {
   return isNaN(n) ? null : n;
 }
 
+// Exponential moving average — alpha 0.25
+// Smooths jitter while weighting recent points heavily (low perceived lag)
+function ema(arr, alpha = 0.25) {
+  const out = [];
+  let prev = null;
+  for (const v of arr) {
+    if (v == null) { out.push(null); continue; }
+    if (prev == null) { prev = v; out.push(v); continue; }
+    prev = alpha * v + (1 - alpha) * prev;
+    out.push(Math.round(prev * 10) / 10);
+  }
+  return out;
+}
+
 function fmt(n, decimals = 1) {
   return n == null ? '—' : n.toFixed(decimals);
 }
@@ -968,7 +982,8 @@ async function loadRange(rangeKey) {
 
     // Parse
     const labels = feeds.map(f => new Date(f.created_at));
-    const temps  = feeds.map(f => { const v = parseNum(f[F.temp]); return v == null ? null : Math.round(v * 10) / 10; });
+    const rawTemps = feeds.map(f => parseNum(f[F.temp]));
+    const temps    = rangeKey === 'live' ? ema(rawTemps) : rawTemps;
     const hums   = feeds.map(f => parseNum(f[F.hum]));
     const fogs   = feeds.map(f => parseNum(f[F.fog]));
     const fans   = feeds.map(f => parseNum(f[F.fan]));
@@ -1066,8 +1081,8 @@ async function loadNight() {
 
     // Parse
     const labels = feeds.map(f => new Date(f.created_at));
-    const hums   = feeds.map(f => parseNum(f[F.hum]));
-    const fogs   = feeds.map(f => parseNum(f[F.fog]));
+    const hums    = feeds.map(f => parseNum(f[F.hum]));
+    const fogs    = feeds.map(f => parseNum(f[F.fog]));
 
     // Build chart canvas
     area.innerHTML = `
