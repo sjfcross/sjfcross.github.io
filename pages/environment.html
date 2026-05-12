@@ -968,7 +968,7 @@ async function loadRange(rangeKey) {
 
     // Parse
     const labels = feeds.map(f => new Date(f.created_at));
-    const temps  = feeds.map(f => parseNum(f[F.temp]));
+    const temps  = feeds.map(f => { const v = parseNum(f[F.temp]); return v == null ? null : Math.round(v * 10) / 10; });
     const hums   = feeds.map(f => parseNum(f[F.hum]));
     const fogs   = feeds.map(f => parseNum(f[F.fog]));
     const fans   = feeds.map(f => parseNum(f[F.fan]));
