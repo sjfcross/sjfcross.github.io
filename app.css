@@ -217,17 +217,17 @@ body.index-page {
 .py-5 p  { color: #475569 !important; }
 .py-5 .frech { color: #334155 !important; }
 
-/* Footer */
-footer.footer {
+/* Footer — dark only on index page */
+body.index-page footer.footer {
   background: #05050e !important;
   border-top: 1px solid rgba(99, 102, 241, 0.1) !important;
 }
-footer h6 { color: #e2e8f0 !important; }
-footer p.text-dark { color: #334155 !important; }
-footer p.text-secondary { color: #334155 !important; }
-footer .nav-link { color: #475569 !important; transition: color 150ms ease; }
-footer .nav-link:hover { color: #a78bfa !important; }
-footer .fab.fa-github { color: #6366f1 !important; }
+body.index-page footer h6 { color: #e2e8f0 !important; }
+body.index-page footer p.text-dark { color: #334155 !important; }
+body.index-page footer p.text-secondary { color: #334155 !important; }
+body.index-page footer .nav-link { color: #475569 !important; transition: color 150ms ease; }
+body.index-page footer .nav-link:hover { color: #a78bfa !important; }
+body.index-page footer .fab.fa-github { color: #6366f1 !important; }
 
 /* Dropdown */
 .dropdown-menu {
