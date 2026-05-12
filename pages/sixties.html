@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-touch-76x76.png">
+  <link rel="icon" type="image/png" href="../assets/img/favicon-32x32.png">
+  <title>The Sixties — YouTube Favourites | SJFCROSS</title>
+
+  <link rel="stylesheet" type="text/css"
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+  <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link id="pagestyle" href="../assets/css/sjfcross.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../app.css">
+
+  <style>
+    :root {
+      --red:    #e63946;
+      --dark:   #0d0d0d;
+      --panel:  #141414;
+      --border: #2a2a2a;
+      --text:   #c9c3b5;
+      --dim:    #666;
+      --bright: #f0ebe0;
+      --mono:   'DM Mono', monospace;
+      --display:'Playfair Display', Georgia, serif;
+    }
+
+    body {
+      background: var(--dark);
+      color: var(--text);
+      font-family: 'Roboto', sans-serif;
+    }
+
+    /* ── Hero ── */
+    .artist-hero {
+      position: relative;
+      min-height: 55vh;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+      background:
+        linear-gradient(rgba(13,13,13,0.78), rgba(13,13,13,0.96)),
+        url('https://i.ytimg.com/vi/TLV4_xaYynY/maxresdefault.jpg') center 30%/cover no-repeat;
+    }
+    .artist-hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 3rem 2rem 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .artist-breadcrumb {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 1rem;
+    }
+    .artist-breadcrumb a { color: var(--red); text-decoration: none; }
+    .artist-breadcrumb a:hover { text-decoration: underline; }
+
+    .artist-hero h1 {
+      font-family: var(--display);
+      font-size: clamp(3.5rem, 10vw, 7rem);
+      color: var(--bright);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+    .artist-hero h1 em {
+      font-style: italic;
+      color: var(--red);
+      font-weight: 400;
+    }
+    .artist-genre {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 1rem;
+    }
+    .artist-bio {
+      font-size: 1rem;
+      color: var(--text);
+      max-width: 560px;
+      line-height: 1.75;
+      border-left: 2px solid var(--red);
+      padding-left: 1rem;
+    }
+
+    /* ── Video sections ── */
+    .videos-section {
+      padding: 3rem 2rem 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .band-block {
+      margin-bottom: 4rem;
+    }
+    .band-block:last-child {
+      margin-bottom: 0;
+    }
+    .videos-label {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 0.4rem;
+    }
+    .videos-title {
+      font-family: var(--display);
+      font-size: 1.6rem;
+      color: var(--bright);
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.8rem;
+    }
+    .videos-title span {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--dim);
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      margin-left: 1rem;
+      vertical-align: middle;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .video-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+      will-change: transform;
+    }
+    .video-card:hover {
+      border-color: var(--red);
+      box-shadow: 0 8px 30px rgba(230,57,70,0.12);
+      transform: translateY(-3px);
+    }
+
+    .video-wrap {
+      position: relative;
+      aspect-ratio: 16/9;
+      background: #111;
+      cursor: pointer;
+      overflow: hidden;
+    }
+    .video-wrap img.thumb {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: brightness(0.7);
+      transition: filter 0.3s, transform 0.3s;
+      display: block;
+      will-change: transform, filter;
+    }
+    .video-card:hover .video-wrap img.thumb {
+      filter: brightness(0.85);
+      transform: scale(1.03);
+    }
+    .video-wrap .play-btn { display: none; }
+    .video-wrap iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      border: none;
+    }
+
+    .video-info {
+      padding: 1rem 1.1rem 1.2rem;
+    }
+    .video-title {
+      font-family: var(--display);
+      font-size: 1.05rem;
+      color: var(--bright);
+      margin-bottom: 0.25rem;
+      line-height: 1.3;
+    }
+    .video-album {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      color: var(--dim);
+    }
+
+    /* ── Back link ── */
+    .back-link {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--dim);
+      text-decoration: none;
+      padding: 2rem 2rem 0;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: block;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--red); text-decoration: none; }
+
+    /* Footer */
+    .footer { background: #111 !important; }
+    .footer * { color: #666 !important; }
+    .footer a:hover { color: var(--red) !important; }
+    .footer h6 { color: #999 !important; }
+
+    @media (max-width: 600px) {
+      .video-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="site-nav"></div>
+
+  <a href="../pages/youtube1.html" class="back-link">← Back to YouTube Favourites</a>
+
+  <!-- Hero -->
+  <div class="artist-hero">
+    <div class="artist-hero-content">
+      <div class="artist-breadcrumb">
+        <a href="../pages/youtube1.html">YouTube Favourites</a> &nbsp;/&nbsp; Era
+      </div>
+      <h1>The <em>Sixties</em></h1>
+      <div class="artist-genre">Rock &nbsp;·&nbsp; Psychedelia &nbsp;·&nbsp; Blues &nbsp;·&nbsp; Soul</div>
+      <p class="artist-bio">
+        The decade that broke everything open. Hendrix, Morrison, Gillan — guitarists who rewrote the rules,
+        vocalists who set fire to the stage. This is the music that still hasn't been topped.
+      </p>
+    </div>
+  </div>
+
+  <!-- Videos -->
+  <div class="videos-section">
+
+    <!-- ── The Doors ── -->
+    <div class="band-block">
+      <div class="videos-label">Los Angeles · 1965–1973</div>
+      <div class="videos-title">The Doors <span>3 videos</span></div>
+      <div class="video-grid">
+
+        <div class="video-card">
+          <div class="video-wrap" onclick="loadVideo(this, 'Ue4mNQbj9V4')">
+            <img class="thumb" src="https://i.ytimg.com/vi/Ue4mNQbj9V4/hqdefault.jpg" alt="Riders On The Storm" loading="lazy">
+            <div class="play-btn"></div>
+          </div>
+          <div class="video-info">
+            <div class="video-title">Riders On The Storm</div>
+            <div class="video-album">L.A. Woman · 1971</div>
+          </div>
+        </div>
+
+        <div class="video-card">
+          <div class="video-wrap" onclick="loadVideo(this, 'TMiAQPABgHA')">
+            <img class="thumb" src="https://i.ytimg.com/vi/TMiAQPABgHA/hqdefault.jpg" alt="L.A. Woman" loading="lazy">
+            <div class="play-btn"></div>
+          </div>
+          <div class="video-info">
+            <div class="video-title">L.A. Woman</div>
+            <div class="video-album">L.A. Woman · 1971</div>
+          </div>
+        </div>
+
+        <div class="video-card">
+          <div class="video-wrap" onclick="loadVideo(this, 'UeIcjnIEVfE')">
+            <img class="thumb" src="https://i.ytimg.com/vi/UeIcjnIEVfE/hqdefault.jpg" alt="When The Music's Over" loading="lazy">
+            <div class="play-btn"></div>
+          </div>
+          <div class="video-info">
+            <div class="video-title">When The Music's Over</div>
+            <div class="video-album">Strange Days · 1967</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── Deep Purple ── -->
+    <div class="band-block">
+      <div class="videos-label">Hertford · 1968–present</div>
+      <div class="videos-title">Deep Purple <span>3 videos</span></div>
+      <div class="video-grid">
+
+        <div class="video-card">
+          <div class="video-wrap" onclick="loadVideo(this, 'OorZcOzNcgE')">
+            <img class="thumb" src="https://i.ytimg.com/vi/OorZcOzNcgE/hqdefault.jpg" alt="Child In Time" loading="lazy">
+            <div class="play-btn"></div>
+          </div>
+          <div class="video-info">
+            <div class="video-title">Child In Time</div>
+            <div class="video-album">Deep Purple in Rock · Live 1970</div>
+          </div>
+        </div>
+
+        <div class="video-card">
+          <div class="video-wrap" onclick="loadVideo(this, 'UAKCR7kQMTQ')">
+            <img class="thumb" src="https://i.ytimg.com/vi/UAKCR7kQMTQ/hqdefault.jpg" alt="Highway Star" loading="lazy">
+            <div class="play-btn"></div>
+          </div>
+          <div class="video-info">
+            <div class="video-title">Highway Star</div>
+            <div class="video-album">Machine Head · 1972</div>
+          </div>
+        </div>
+
+        <div class="video-card">
+          <div class="video-wrap" onclick="loadVideo(this, 'gOjyGy1NR4Y')">
+            <img class="thumb" src="https://i.ytimg.com/vi/gOjyGy1NR4Y/hqdefault.jpg" alt="Gethsemane" loading="lazy">
+            <div class="play-btn"></div>
+          </div>
+          <div class="video-info">
+            <div class="video-title">Gethsemane (I Only Want to Say)</div>
+            <div class="video-album">Jesus Christ Superstar · Ian Gillan · 1970</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── The Rest ── -->
+    <div class="band-block">
+      <div class="videos-label">The Decade</div>
+      <div class="videos-title">The Rest <span>3 videos</span></div>
+      <div class="video-grid">
+
+        <div class="video-card">
+          <div class="video-wrap" onclick="loadVideo(this, 'yxrz00XSOAo')">
+            <img class="thumb" src="https://i.ytimg.com/vi/yxrz00XSOAo/hqdefault.jpg" alt="House Of The Rising Sun" loading="lazy">
+            <div class="play-btn"></div>
+          </div>
+          <div class="video-info">
+            <div class="video-title">House Of The Rising Sun</div>
+            <div class="video-album">The Animals · Ed Sullivan Show · 1964</div>
+          </div>
+        </div>
+
+        <div class="video-card">
+          <div class="video-wrap" onclick="loadVideo(this, 'egMWlD3fLJ8')">
+            <img class="thumb" src="https://i.ytimg.com/vi/egMWlD3fLJ8/hqdefault.jpg" alt="Born To Be Wild" loading="lazy">
+            <div class="play-btn"></div>
+          </div>
+          <div class="video-info">
+            <div class="video-title">Born To Be Wild</div>
+            <div class="video-album">Steppenwolf · Easy Rider OST · 1969</div>
+          </div>
+        </div>
+
+        <div class="video-card">
+          <div class="video-wrap" onclick="loadVideo(this, 'TLV4_xaYynY')">
+            <img class="thumb" src="https://i.ytimg.com/vi/TLV4_xaYynY/hqdefault.jpg" alt="All Along The Watchtower" loading="lazy">
+            <div class="play-btn"></div>
+          </div>
+          <div class="video-info">
+            <div class="video-title">All Along The Watchtower</div>
+            <div class="video-album">Jimi Hendrix Experience · Electric Ladyland · 1968</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div id="site-footer"></div>
+
+  <script src="../assets/js/core/popper.min.js" type="text/javascript"></script>
+  <script src="../assets/js/core/bootstrap.min.js" type="text/javascript"></script>
+  <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
+  <script src="../assets/js/sjfcross.min.js" type="text/javascript"></script>
+  <script src="../assets/js/components.js"></script>
+
+  <script>
+    function loadVideo(wrap, id) {
+      wrap.innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe>`;
+    }
+  </script>
+
+</body>
+</html>
