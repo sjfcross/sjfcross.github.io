@@ -29,7 +29,7 @@
   <link rel="stylesheet" href="app.css">
 </head>
 
-<body class="index-page bg-gray-200">
+<body class="index-page">
 
   <!-- Navbar -->
   <div class="container position-sticky z-index-sticky top-0">
@@ -178,83 +178,66 @@
         </div>
       </div>
 
-      <div class="container mt-5">
-        <div class="row">
-          <div class="col-md-9">
-            <div class="row mt-4">
+      <div class="container mt-4">
 
-              <!-- Division I - MDN -->
-              <div class="col-md-4 mb-4">
-                <a href="./pages/mdn1.html">
-                  <div class="card move-on-hover">
-                    <img class="w-100" src="./assets/img/mdncardpic.jpg" alt="MDN Division">
-                  </div>
-                  <div class="mt-2 ms-2">
-                    <h6 class="mb-0">Division I — Mozilla Developer Network</h6>
-                  </div>
-                </a>
+        <!-- Row 1: featured + secondary -->
+        <div class="row g-3 bento-grid">
+          <div class="col-md-8">
+            <a href="./pages/mdn1.html" class="division-card division-card-featured">
+              <img src="./assets/img/mdncardpic.jpg" alt="MDN Division">
+              <div class="card-overlay"></div>
+              <div class="card-label">
+                <div class="div-tag">Division I</div>
+                <h6>Mozilla Developer Network</h6>
               </div>
-
-              <!-- Division II - Colt Steele -->
-              <div class="col-md-4 mb-4">
-                <a href="./pages/csb1.html">
-                  <div class="card move-on-hover">
-                    <img class="w-100" src="./assets/img/coltboot3.png" alt="Colt Steele Bootcamp">
-                  </div>
-                  <div class="mt-2 ms-2">
-                    <h6 class="mb-0">Division II — Colt Steele's Bootcamp</h6>
-                  </div>
-                </a>
-              </div>
-
-              <!-- Division III - YouTube -->
-              <div class="col-md-4 mb-4">
-                <a href="./pages/youtube1.html">
-                                    <div class="card move-on-hover">
-                    <img class="w-100" src="./assets/img/utube.png" alt="YouTube Favourites">
-                  </div>
-                  <div class="mt-2 ms-2">
-                    <h6 class="mb-0">Division III — YouTube Favourites</h6>
-                  </div>
-                </a>
-              </div>
-
-              <!-- Division IV - Slideshow -->
-              <div class="col-md-4 mb-4">
-                <a href="./pages/test1.html">
-                  <div class="card move-on-hover">
-                    <img class="w-100" src="./assets/img/slideshow.png" alt="Slideshow">
-                  </div>
-                  <div class="mt-2 ms-2">
-                    <h6 class="mb-0">Division IV — Slideshow</h6>
-                  </div>
-                </a>
-              </div>
-
-              <!-- Division V - Animals -->
-              <div class="col-md-4 mb-4">
-                <a href="./pages/animals.html">
-                  <div class="card move-on-hover">
-                    <img class="w-100" src="./assets/img/spiders/terracup.png" alt="Animals Cabinet" loading="lazy">
-                  </div>
-                  <div class="mt-2 ms-2">
-                    <h6 class="mb-0">Division V — Animals</h6>
-                  </div>
-                </a>
-              </div>
-
-            </div>
+            </a>
           </div>
-
-          <div class="col-md-3 mx-auto mt-md-0 mt-5">
-            <div class="position-sticky" style="top:100px !important">
-              <h4>Access to Divisions 1 – 5</h4>
-              <h6 class="text-secondary font-weight-normal">MDN-based training, Colt Steele's Developer Bootcamp,
-                YouTube Favourites, a Photography Slideshow, and the Animals logbook.</h6>
-            </div>
+          <div class="col-md-4">
+            <a href="./pages/csb1.html" class="division-card division-card-featured">
+              <img src="./assets/img/coltboot3.png" alt="Colt Steele Bootcamp">
+              <div class="card-overlay"></div>
+              <div class="card-label">
+                <div class="div-tag">Division II</div>
+                <h6>Colt Steele's Bootcamp</h6>
+              </div>
+            </a>
           </div>
-
         </div>
+
+        <!-- Row 2: three equal cards -->
+        <div class="row g-3 bento-grid mt-1">
+          <div class="col-md-4">
+            <a href="./pages/youtube1.html" class="division-card division-card-normal">
+              <img src="./assets/img/utube.png" alt="YouTube Favourites">
+              <div class="card-overlay"></div>
+              <div class="card-label">
+                <div class="div-tag">Division III</div>
+                <h6>YouTube Favourites</h6>
+              </div>
+            </a>
+          </div>
+          <div class="col-md-4">
+            <a href="./pages/test1.html" class="division-card division-card-normal">
+              <img src="./assets/img/slideshow.png" alt="Slideshow">
+              <div class="card-overlay"></div>
+              <div class="card-label">
+                <div class="div-tag">Division IV</div>
+                <h6>Slideshow</h6>
+              </div>
+            </a>
+          </div>
+          <div class="col-md-4">
+            <a href="./pages/animals.html" class="division-card division-card-normal">
+              <img src="./assets/img/spiders/terracup.png" alt="Animals Cabinet" loading="lazy">
+              <div class="card-overlay"></div>
+              <div class="card-label">
+                <div class="div-tag">Division V</div>
+                <h6>Animals</h6>
+              </div>
+            </a>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -364,6 +347,24 @@
       const countUp2 = new CountUp('state3', document.getElementById("state3").getAttribute("countTo"));
       if (!countUp2.error) { countUp2.start(); } else { console.error(countUp2.error); }
     }
+  </script>
+
+  <script>
+    // Stagger card reveal on scroll
+    const divCards = document.querySelectorAll('.division-card');
+    const cardObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          setTimeout(() => el.classList.add('visible'), parseInt(el.dataset.stagger || 0));
+          cardObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '-10px' });
+    divCards.forEach((card, i) => {
+      card.dataset.stagger = i * 70;
+      cardObserver.observe(card);
+    });
   </script>
 
 </body>
