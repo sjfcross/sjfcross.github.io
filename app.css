@@ -266,3 +266,295 @@ body.index-page footer .fab.fa-github { color: #6366f1 !important; }
   .division-card.visible { transform: none !important; }
   .division-card img { transition: none !important; }
 }
+
+/* ── ARACHNID FEATURE BAND ── */
+
+.arachnid-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 2rem;
+  background: #f8f9fa;
+  border-top: 1px solid #e9ecef;
+  border-bottom: 1px solid #e9ecef;
+}
+.arachnid-divider-line {
+  flex: 1;
+  height: 1px;
+  background: #dee2e6;
+}
+.arachnid-divider-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #adb5bd;
+  padding: 0.55rem 0;
+  white-space: nowrap;
+}
+
+.arachnid-band {
+  background: #0f120e;
+  padding: 4rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+.arachnid-band::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, #7ab648 30%, #d4a847 70%, transparent 100%);
+}
+.arachnid-band::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, #2a3026 40%, #2a3026 60%, transparent 100%);
+}
+
+.arachnid-band-inner {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 3.5rem;
+  align-items: center;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.arachnid-eyebrow {
+  font-size: 0.65rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #7ab648;
+  margin-bottom: 0.75rem;
+  font-family: 'Courier New', monospace;
+}
+.arachnid-title {
+  font-size: 2.4rem;
+  font-weight: 400;
+  color: #f0ede8;
+  line-height: 1.15;
+  margin-bottom: 0.75rem;
+  font-family: Georgia, serif;
+}
+.arachnid-title em {
+  color: #d4a847;
+  font-style: italic;
+}
+.arachnid-subtitle {
+  font-size: 0.88rem;
+  color: #7a7f74;
+  line-height: 1.7;
+  margin-bottom: 1.75rem;
+  max-width: 480px;
+}
+
+.arachnid-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 1.75rem;
+}
+.arachnid-tag {
+  font-size: 0.65rem;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.1em;
+  padding: 3px 10px;
+  border-radius: 3px;
+  border: 1px solid #2a3026;
+  color: #5a6355;
+}
+.arachnid-tag--green {
+  border-color: #2a3d20;
+  color: #7ab648;
+}
+.arachnid-tag--gold {
+  border-color: #3d3118;
+  color: #d4a847;
+}
+
+.arachnid-ctas {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.arachnid-cta-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #7ab648;
+  color: #0f120e !important;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 10px 22px;
+  border-radius: 6px;
+  text-decoration: none !important;
+  letter-spacing: 0.03em;
+  transition: background 0.2s, transform 0.15s;
+}
+.arachnid-cta-primary:hover {
+  background: #8dcf55;
+  transform: translateY(-1px);
+}
+.arachnid-cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  color: #7a7f74 !important;
+  font-size: 0.8rem;
+  padding: 10px 22px;
+  border-radius: 6px;
+  border: 1px solid #2a3026;
+  text-decoration: none !important;
+  letter-spacing: 0.03em;
+  transition: border-color 0.2s, color 0.2s;
+}
+.arachnid-cta-secondary:hover {
+  border-color: #7a7f74;
+  color: #c8cdc2 !important;
+}
+
+.arachnid-panel {
+  background: #161b14;
+  border: 1px solid #2a3026;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.arachnid-panel-header {
+  background: #1a201a;
+  border-bottom: 1px solid #2a3026;
+  padding: 0.65rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.arachnid-panel-title {
+  font-family: 'Courier New', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #4a5445;
+}
+.arachnid-panel-live {
+  font-family: 'Courier New', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: #7ab648;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.arachnid-panel-live::before {
+  content: '';
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #7ab648;
+}
+
+.arachnid-panel-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.arachnid-metric {
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid #2a3026;
+  border-right: 1px solid #2a3026;
+}
+.arachnid-metric:nth-child(2n) { border-right: none; }
+.arachnid-metric:nth-last-child(-n+2) { border-bottom: none; }
+
+.arachnid-metric-val {
+  font-family: 'Courier New', monospace;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #7ab648;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.arachnid-metric-val--gold { color: #d4a847; }
+.arachnid-metric-val--dim  { font-size: 0.8rem; color: #4a5445; }
+.arachnid-metric-lbl {
+  font-family: 'Courier New', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #4a5445;
+}
+
+.arachnid-panel-chips {
+  padding: 0.75rem 1rem;
+  display: flex;
+  gap: 6px;
+  border-top: 1px solid #2a3026;
+}
+.arachnid-chip {
+  font-family: 'Courier New', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  padding: 3px 9px;
+  border-radius: 20px;
+  border: 1px solid #2a3026;
+  color: #4a5445;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.arachnid-chip::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  display: block;
+}
+.arachnid-chip--on { border-color: #2a3d20; color: #7ab648; }
+.arachnid-chip--on::before  { background: #7ab648; }
+.arachnid-chip--off::before { background: #2a3026; }
+
+.arachnid-panel-log {
+  border-top: 1px solid #2a3026;
+  padding: 0.75rem 1rem;
+}
+.arachnid-log-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 4px 0;
+  border-bottom: 1px solid #1e2419;
+}
+.arachnid-log-row:last-child { border-bottom: none; }
+.arachnid-log-spider {
+  font-family: 'Courier New', monospace;
+  font-size: 0.6rem;
+  font-style: italic;
+  color: #5a6355;
+}
+.arachnid-log-event {
+  font-family: 'Courier New', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+}
+.arachnid-log-event--fed   { color: #7ab648; }
+.arachnid-log-event--moult { color: #d4a847; }
+.arachnid-log-date {
+  font-family: 'Courier New', monospace;
+  font-size: 0.6rem;
+  color: #3a4035;
+}
+
+@media (max-width: 768px) {
+  .arachnid-band-inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .arachnid-panel {
+    max-width: 340px;
+  }
+  .arachnid-title {
+    font-size: 1.9rem;
+  }
+}
