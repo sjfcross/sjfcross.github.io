@@ -6,6 +6,7 @@
   <title>Division V — Animals | SJFCROSS</title>
   <link rel="icon" type="image/png" href="../assets/img/favicon-32x32.png">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400;500&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     :root {
       --bg:        #0e1009;
@@ -243,6 +244,27 @@
       font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-dim); margin-top: 3rem;
     }
     footer a { color: var(--accent); text-decoration: none; }
+    .auth-btn {
+      background: var(--panel); border: 1px solid var(--border); color: var(--text-dim);
+      padding: 0.35rem 0.9rem; border-radius: 4px; font-family: var(--font-mono);
+      font-size: 0.75rem; cursor: pointer; transition: all 0.2s;
+    }
+    .auth-btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(122,182,72,0.08); }
+    .auth-btn.logged-in { border-color: var(--accent); color: var(--accent); background: rgba(122,182,72,0.08); }
+    .login-overlay {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+      z-index: 200; align-items: center; justify-content: center; backdrop-filter: blur(4px);
+    }
+    .login-overlay.open { display: flex; }
+    .login-box {
+      background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
+      padding: 2rem; width: min(380px, 90vw);
+    }
+    .login-box h3 { font-family: var(--font-display); font-size: 1.2rem; color: var(--text-bright); margin-bottom: 1.2rem; }
+    .login-box label { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); display: block; margin-bottom: 0.4rem; }
+    .login-box input { width: 100%; background: var(--bg3); border: 1px solid var(--border); color: var(--text); font-family: var(--font-mono); font-size: 0.8rem; padding: 0.5rem 0.75rem; border-radius: 6px; outline: none; margin-bottom: 0.9rem; transition: border-color 0.2s; }
+    .login-box input:focus { border-color: var(--accent); }
+    .login-error { font-family: var(--font-mono); font-size: 0.72rem; color: var(--red); margin-bottom: 0.75rem; min-height: 1rem; }
     .modal-overlay {
       display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7);
       z-index: 200; align-items: center; justify-content: center; backdrop-filter: blur(4px);
@@ -307,6 +329,7 @@
       <a href="../index.html">Home</a>
       <a href="https://github.com/sjfcross" target="_blank">GitHub</a>
       <a href="http://sjfcross.ddns.net/" target="_blank" class="back-btn">⚡ Live Control</a>
+      <button class="auth-btn" id="auth-btn">Login</button>
     </div>
   </nav>
 
@@ -483,6 +506,19 @@
     </section>
   </div>
 
+  <!-- Login Overlay -->
+  <div class="login-overlay" id="login-overlay">
+    <div class="login-box">
+      <h3>Keeper Login</h3>
+      <label>Email</label>
+      <input type="email" id="login-email" placeholder="your@email.com">
+      <label>Password</label>
+      <input type="password" id="login-pass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
+      <div class="login-error" id="login-error"></div>
+      <button class="log-submit" style="width:100%" onclick="doLogin()">Sign In</button>
+    </div>
+  </div>
+
   <!-- Log Modal -->
   <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
     <div class="modal">
@@ -523,10 +559,16 @@
     &nbsp;·&nbsp;
     Division V — Animals
     &nbsp;·&nbsp;
-    Data stored locally in your browser
+    Data stored in Supabase
   </footer>
 
 <script>
+  const SUPA_URL = 'https://gtssgpzggrsjuccbnjgr.supabase.co';
+  const SUPA_KEY = 'sb_publishable_1kGpZSffoG1MjwlwDQcGzA_c7IBpe1A';
+  const sb = window.supabase.createClient(SUPA_URL, SUPA_KEY);
+
+  let currentSession = null;
+
   const spiderKey = {
     'Caribena laeta':      'claeta',
     'Caribena versicolor': 'cversi',
@@ -534,21 +576,57 @@
     'Avicularia minatrix': 'aminatrix'
   };
 
-  function getLog() {
-    try { return JSON.parse(localStorage.getItem('sj_spider_log') || '[]'); }
-    catch(e) { return []; }
+  // ── Auth ──
+  async function initAuth() {
+    const { data: { session } } = await sb.auth.getSession();
+    currentSession = session;
+    updateAuthUI();
+    sb.auth.onAuthStateChange((_e, session) => {
+      currentSession = session;
+      updateAuthUI();
+      refreshData();
+    });
   }
-  function saveLog(log) { localStorage.setItem('sj_spider_log', JSON.stringify(log)); }
 
-  function addLogEntry() {
+  function updateAuthUI() {
+    const btn = document.getElementById('auth-btn');
+    if (currentSession) {
+      btn.textContent = 'Logout';
+      btn.classList.add('logged-in');
+      btn.onclick = () => sb.auth.signOut();
+    } else {
+      btn.textContent = 'Login';
+      btn.classList.remove('logged-in');
+      btn.onclick = () => document.getElementById('login-overlay').classList.add('open');
+    }
+  }
+
+  async function doLogin() {
+    const email = document.getElementById('login-email').value.trim();
+    const pass  = document.getElementById('login-pass').value;
+    const err   = document.getElementById('login-error');
+    err.textContent = '';
+    const { error } = await sb.auth.signInWithPassword({ email, password: pass });
+    if (error) { err.textContent = error.message; return; }
+    document.getElementById('login-overlay').classList.remove('open');
+  }
+
+  // ── Data ──
+  async function refreshData() {
+    const { data: log } = await sb.from('spider_log').select('*').order('date', { ascending: false });
+    const entries = log || [];
+    renderLog(entries);
+    updateSpiderStats(entries);
+  }
+
+  async function addLogEntry() {
+    if (!currentSession) { document.getElementById('login-overlay').classList.add('open'); return; }
     const spider = document.getElementById('log-spider').value;
     const type   = document.getElementById('log-type').value;
     const note   = document.getElementById('log-note').value.trim();
-    const log = getLog();
-    log.unshift({ date: new Date().toISOString(), spider, type, note });
-    saveLog(log);
+    await sb.from('spider_log').insert({ spider, type, note });
     document.getElementById('log-note').value = '';
-    renderLog(); updateSpiderStats();
+    refreshData();
   }
 
   let modalSpider = '';
@@ -562,45 +640,51 @@
     if (e.target === document.getElementById('modal-overlay'))
       document.getElementById('modal-overlay').classList.remove('open');
   }
-  function addModalEntry() {
+  async function addModalEntry() {
+    if (!currentSession) {
+      document.getElementById('modal-overlay').classList.remove('open');
+      document.getElementById('login-overlay').classList.add('open');
+      return;
+    }
     const type = document.getElementById('modal-type').value;
     const note = document.getElementById('modal-note').value.trim();
-    const log = getLog();
-    log.unshift({ date: new Date().toISOString(), spider: modalSpider, type, note });
-    saveLog(log);
+    await sb.from('spider_log').insert({ spider: modalSpider, type, note });
     document.getElementById('modal-overlay').classList.remove('open');
     document.getElementById('log-spider').value = modalSpider;
-    renderLog(); updateSpiderStats();
+    refreshData();
   }
 
-  function renderLog() {
-    const log = getLog();
+  async function deleteEntry(id) {
+    if (!currentSession) return;
+    await sb.from('spider_log').delete().eq('id', id);
+    refreshData();
+  }
+
+  function renderLog(log) {
     const tbody = document.getElementById('log-tbody');
     if (!log.length) {
       tbody.innerHTML = '<tr><td colspan="5" class="log-empty">No entries yet. Add your first log entry above.</td></tr>';
       return;
     }
-    tbody.innerHTML = log.map((e, i) => {
+    tbody.innerHTML = log.map(e => {
       const d  = new Date(e.date);
       const ds = d.toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' });
       const ts = d.toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit' });
       const badge = `<span class="log-type-badge log-type-${e.type}">${e.type}</span>`;
+      const del = currentSession
+        ? `<button class="log-delete" onclick="deleteEntry('${e.id}')" title="Delete">✕</button>`
+        : '';
       return `<tr>
         <td>${ds} <span style="color:var(--text-dim);font-size:0.7rem">${ts}</span></td>
         <td style="font-style:italic">${e.spider}</td>
         <td>${badge}</td>
         <td style="color:var(--text-dim)">${e.note || '—'}</td>
-        <td><button class="log-delete" onclick="deleteEntry(${i})" title="Delete">✕</button></td>
+        <td>${del}</td>
       </tr>`;
     }).join('');
   }
 
-  function deleteEntry(i) {
-    const log = getLog(); log.splice(i, 1); saveLog(log); renderLog(); updateSpiderStats();
-  }
-
-  function updateSpiderStats() {
-    const log = getLog();
+  function updateSpiderStats(log) {
     Object.entries(spiderKey).forEach(([name, key]) => {
       const entries   = log.filter(e => e.spider === name);
       const lastFed   = entries.find(e => e.type === 'fed');
@@ -629,6 +713,7 @@
     if (e.key === 'Escape') {
       document.getElementById('lightbox-overlay').classList.remove('open');
       document.getElementById('modal-overlay').classList.remove('open');
+      document.getElementById('login-overlay').classList.remove('open');
     }
   });
 
@@ -680,8 +765,8 @@
     el.innerHTML = `<span class="dot"></span> ${name.charAt(0).toUpperCase() + name.slice(1)}`;
   }
 
-  renderLog();
-  updateSpiderStats();
+  initAuth();
+  refreshData();
   fetchFromThingSpeak();
   setInterval(fetchFromThingSpeak, 20000);
 </script>
