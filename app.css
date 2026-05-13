@@ -97,7 +97,7 @@ body.index-page .navbar .nav-link:hover p { color: #c4b5fd !important; }
 
 /* Navbar — mdn/other pages (pink primary) */
 body.about-us .container.position-sticky nav.navbar {
-  background: linear-gradient(195deg, #EC407A 0%, #D81B60 100%) !important;
+  background: linear-gradient(195deg, rgba(236, 64, 122, 0.616) 0%, rgba(216, 27, 96, 0.616) 100%) !important;
   backdrop-filter: blur(12px) !important;
   -webkit-backdrop-filter: blur(12px) !important;
   border: none !important;
