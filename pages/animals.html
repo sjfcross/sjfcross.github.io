@@ -624,7 +624,8 @@
     const spider = document.getElementById('log-spider').value;
     const type   = document.getElementById('log-type').value;
     const note   = document.getElementById('log-note').value.trim();
-    await sb.from('spider_log').insert({ spider, type, note });
+    const { error } = await sb.from('spider_log').insert({ spider, type, note });
+    if (error) { console.error('insert error:', error); alert(error.message); return; }
     document.getElementById('log-note').value = '';
     refreshData();
   }
