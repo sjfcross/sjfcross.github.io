@@ -55,9 +55,9 @@
                 <i class="fab fa-youtube opacity-6 me-2 text-sm"></i>
                 <span>Division III &mdash; YouTube</span>
               </a>
-              <a href="${base}/pages/test1.html" class="dropdown-item border-radius-md">
-                <i class="material-icons opacity-6 me-2 text-sm">slideshow</i>
-                <span>Division IV &mdash; Slideshow</span>
+              <a href="${base}/pages/projectdocs.html" class="dropdown-item border-radius-md">
+                <i class="material-icons opacity-6 me-2 text-sm">description</i>
+                <span>Division IV &mdash; Project Documentations</span>
               </a>
               <a href="${base}/pages/animals.html" class="dropdown-item border-radius-md">
                 <i class="material-icons opacity-6 me-2 text-sm">cruelty_free</i>
@@ -107,7 +107,7 @@
             <li class="nav-item"><a class="nav-link" href="${base}/pages/mdn1.html">Division I &mdash; MDN</a></li>
             <li class="nav-item"><a class="nav-link" href="${base}/pages/csb1.html">Division II &mdash; Colt Steele</a></li>
             <li class="nav-item"><a class="nav-link" href="${base}/pages/youtube1.html">Division III &mdash; YouTube</a></li>
-            <li class="nav-item"><a class="nav-link" href="${base}/pages/test1.html">Division IV &mdash; Slideshow</a></li>
+            <li class="nav-item"><a class="nav-link" href="${base}/pages/projectdocs.html">Division IV &mdash; Project Documentations</a></li>
             <li class="nav-item"><a class="nav-link" href="${base}/pages/animals.html">Division V &mdash; Animals</a></li>
           </ul>
         </div>
