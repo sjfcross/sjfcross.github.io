@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Arachnid Cabinet — Project Documentation | SJFCROSS</title>
+  <link rel="icon" type="image/png" href="../assets/img/favicon-32x32.png">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400;500&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:           #080812;
+      --bg2:          #0d0d1c;
+      --bg3:          #13132a;
+      --panel:        #1a1a2e;
+      --panel2:       #0f0f22;
+      --border:       rgba(99,102,241,0.15);
+      --border2:      rgba(99,102,241,0.07);
+      --accent:       #6366f1;
+      --accent2:      #c4b5fd;
+      --amber:        #f59e0b;
+      --red:          #ef4444;
+      --green:        #34d399;
+      --text:         #e2e8f0;
+      --text-dim:     #94a3b8;
+      --text-bright:  #f1f5f9;
+      --ease-out:     cubic-bezier(0.23, 1, 0.32, 1);
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    'Lora', Georgia, serif;
+      --font-mono:    'DM Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.75;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0; opacity: 0.35;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(8, 8, 18, 0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 2rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    }
+    .nav-brand {
+      font-family: var(--font-mono); font-size: 0.82rem;
+      color: var(--accent2); font-weight: 500; letter-spacing: 0.04em;
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    nav a {
+      color: var(--text-dim); text-decoration: none;
+      font-family: var(--font-mono); font-size: 0.77rem;
+      letter-spacing: 0.05em; transition: color 0.2s;
+    }
+    nav a:hover { color: var(--accent2); }
+    .back-btn {
+      background: var(--panel); border: 1px solid var(--border);
+      color: var(--text-dim); padding: 0.35rem 0.9rem;
+      border-radius: 6px; font-size: 0.75rem;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .back-btn:hover {
+      border-color: var(--accent); color: var(--accent2);
+      background: rgba(99, 102, 241, 0.08);
+    }
+    .nav-live { color: var(--accent2) !important; }
+    .nav-live:hover { color: #fff !important; }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; min-height: 560px;
+      display: flex; align-items: flex-end;
+      padding: 0 2rem 5rem;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('../assets/img/enclosure2.jpg');
+      background-size: cover; background-position: center 35%;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(to bottom,
+          rgba(8, 8, 18, 0.25) 0%,
+          rgba(8, 8, 18, 0.7) 55%,
+          var(--bg) 100%),
+        linear-gradient(135deg,
+          rgba(79, 70, 229, 0.45) 0%,
+          transparent 55%);
+    }
+    .hero-content {
+      position: relative; z-index: 1;
+      max-width: 680px;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-mono); font-size: 0.72rem;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--accent2); margin-bottom: 1rem;
+      opacity: 0; animation: fadeUp 0.6s var(--ease-out) forwards 0.1s;
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 4.4rem);
+      font-weight: 700; color: var(--text-bright);
+      line-height: 1.08; margin-bottom: 1rem;
+      opacity: 0; animation: fadeUp 0.65s var(--ease-out) forwards 0.22s;
+    }
+    .hero h1 em { color: var(--accent2); font-style: italic; }
+    .hero-sub {
+      font-size: 1.05rem; color: var(--text-dim);
+      max-width: 480px; margin-bottom: 2.25rem;
+      opacity: 0; animation: fadeUp 0.65s var(--ease-out) forwards 0.36s;
+    }
+    .hero-actions {
+      display: flex; gap: 0.75rem; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp 0.65s var(--ease-out) forwards 0.48s;
+    }
+    .hero-badge {
+      position: absolute; top: 1.5rem; right: 2rem; z-index: 1;
+      font-family: var(--font-mono); font-size: 0.68rem;
+      letter-spacing: 0.1em; padding: 0.3rem 0.8rem;
+      border-radius: 20px; border: 1px solid var(--accent);
+      color: var(--accent); background: rgba(99, 102, 241, 0.12);
+      opacity: 0; animation: fadeIn 0.5s ease forwards 0.7s;
+    }
+    .hero-badge::before { content: '◉ '; animation: blink 2s infinite; }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.6rem 1.4rem; border-radius: 8px;
+      font-family: var(--font-mono); font-size: 0.8rem;
+      letter-spacing: 0.05em; text-decoration: none;
+      border: 1px solid transparent;
+      transition: transform 0.22s var(--ease-out),
+                  background 0.2s, border-color 0.2s, box-shadow 0.2s;
+    }
+    .btn:hover  { transform: translateY(-2px); }
+    .btn:active { transform: scale(0.97); transition-duration: 0.08s; }
+    .btn-primary {
+      background: var(--accent); color: #fff; border-color: var(--accent);
+      box-shadow: 0 4px 18px rgba(99, 102, 241, 0.35);
+    }
+    .btn-primary:hover {
+      background: #818cf8; border-color: #818cf8;
+      box-shadow: 0 6px 24px rgba(99, 102, 241, 0.45);
+    }
+    .btn-ghost {
+      background: rgba(99, 102, 241, 0.08);
+      color: var(--text-dim); border-color: var(--border);
+    }
+    .btn-ghost:hover {
+      border-color: rgba(196, 181, 253, 0.4);
+      color: var(--accent2); background: rgba(99, 102, 241, 0.14);
+    }
+
+    /* ── LAYOUT ── */
+    .container {
+      max-width: 1160px; margin: 0 auto;
+      padding: 0 2rem; position: relative; z-index: 1;
+    }
+    section { padding: 3.5rem 0; }
+
+    .section-label {
+      font-family: var(--font-mono); font-size: 0.68rem;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 0.4rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.55rem, 3vw, 2.1rem);
+      color: var(--text-bright); line-height: 1.2;
+      margin-bottom: 0.6rem;
+    }
+    .section-intro {
+      color: var(--text-dim); font-size: 0.95rem;
+      max-width: 640px; line-height: 1.75; margin-bottom: 2rem;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border2);
+    }
+
+    /* ── GRID LAYOUTS ── */
+    .two-col     { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+    .two-col-3-2 { display: grid; grid-template-columns: 3fr 2fr; gap: 2rem; align-items: start; }
+    .two-col-2-3 { display: grid; grid-template-columns: 2fr 3fr; gap: 2rem; align-items: start; }
+    @media (max-width: 800px) {
+      .two-col, .two-col-3-2, .two-col-2-3 { grid-template-columns: 1fr; }
+    }
+
+    /* ── PANEL ── */
+    .panel {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.75rem;
+      position: relative; overflow: hidden;
+    }
+    .panel::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+    .panel-title {
+      font-family: var(--font-display); font-size: 1.1rem;
+      color: var(--text-bright); margin-bottom: 1.1rem;
+    }
+
+    /* ── CARDS ── */
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
+    .card {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.75rem;
+      position: relative; overflow: hidden;
+      transition: transform 0.28s var(--ease-out),
+                  border-color 0.28s, box-shadow 0.28s;
+    }
+    .card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .card:hover {
+        transform: translateY(-5px);
+        border-color: rgba(99, 102, 241, 0.3);
+        box-shadow: 0 14px 48px rgba(99, 102, 241, 0.1);
+      }
+    }
+    .card-icon  { font-size: 1.7rem; margin-bottom: 0.75rem; display: block; }
+    .card-title { font-family: var(--font-display); font-size: 1.1rem; color: var(--text-bright); margin-bottom: 0.6rem; }
+    .card-body  { font-size: 0.9rem; color: var(--text-dim); line-height: 1.7; }
+
+    /* ── TABLES ── */
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: 0.8rem; }
+    thead tr { border-bottom: 1px solid var(--border); }
+    th {
+      text-align: left; padding: 0.55rem 1rem;
+      font-size: 0.63rem; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--accent); font-weight: 500;
+    }
+    td {
+      padding: 0.65rem 1rem; border-bottom: 1px solid var(--border2);
+      color: var(--text); vertical-align: top;
+    }
+    tr:last-child td { border-bottom: none; }
+    tbody tr { transition: background 0.15s; }
+    @media (hover: hover) and (pointer: fine) {
+      tbody tr:hover { background: rgba(99, 102, 241, 0.05); }
+    }
+    .td-dim  { color: var(--text-dim); }
+    .td-mono { font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent2); }
+    .td-note { color: var(--text-dim); font-size: 0.76rem; }
+
+    /* ── CODE BLOCKS ── */
+    .code-block {
+      background: #050510; border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden;
+    }
+    .code-block-header {
+      padding: 0.6rem 1rem; border-bottom: 1px solid var(--border2);
+      font-family: var(--font-mono); font-size: 0.68rem;
+      color: var(--text-dim); letter-spacing: 0.07em;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+    .dot.r { background: #ff5f57; }
+    .dot.y { background: #ffbd2e; }
+    .dot.g { background: #28c840; }
+    .code-block pre {
+      padding: 1.25rem 1.5rem;
+      font-family: var(--font-mono); font-size: 0.8rem;
+      line-height: 1.7; color: var(--text-dim);
+      overflow-x: auto; margin: 0;
+    }
+    .c-kw  { color: #818cf8; }
+    .c-fn  { color: #c4b5fd; }
+    .c-str { color: #86efac; }
+    .c-cm  { color: #3d4f6b; }
+    .c-num { color: #fb923c; }
+    .c-key { color: var(--accent2); }
+
+    /* ── PRIORITY CARDS ── */
+    .priority-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
+    .priority-card {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.5rem;
+      position: relative; overflow: hidden;
+      transition: transform 0.25s var(--ease-out), border-color 0.25s;
+    }
+    .priority-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .priority-card:hover { transform: translateY(-3px); border-color: rgba(99, 102, 241, 0.3); }
+    }
+    .priority-name { font-family: var(--font-display); font-size: 1.1rem; color: var(--text-bright); margin-bottom: 1rem; }
+    .priority-list { list-style: none; }
+    .priority-list li {
+      display: flex; gap: 0.6rem; align-items: baseline;
+      padding: 0.45rem 0; border-bottom: 1px solid var(--border2);
+      font-family: var(--font-mono); font-size: 0.76rem;
+    }
+    .priority-list li:last-child { border-bottom: none; }
+    .p-num { font-size: 0.62rem; color: var(--text-dim); min-width: 12px; }
+    .p-label {
+      font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.15rem 0.45rem; border-radius: 4px;
+      font-weight: 500; white-space: nowrap;
+    }
+    .p-safety  { background: rgba(239,68,68,0.1);  color: #f87171; border: 1px solid rgba(239,68,68,0.2); }
+    .p-manual  { background: rgba(245,158,11,0.1); color: #fbbf24; border: 1px solid rgba(245,158,11,0.2); }
+    .p-schedule{ background: rgba(99,102,241,0.1); color: var(--accent2); border: 1px solid rgba(99,102,241,0.2); }
+    .p-desc { color: var(--text-dim); line-height: 1.55; flex: 1; }
+
+    /* ── SAFETY GRID ── */
+    .safety-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+    .safety-item {
+      background: rgba(99,102,241,0.03); border: 1px solid var(--border2);
+      border-radius: 10px; padding: 1.1rem 1.25rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .safety-item:hover { border-color: var(--border); background: rgba(99,102,241,0.07); }
+    }
+    .safety-title { font-family: var(--font-mono); font-size: 0.74rem; color: var(--accent2); margin-bottom: 0.3rem; }
+    .safety-desc  { font-size: 0.82rem; color: var(--text-dim); line-height: 1.6; }
+
+    /* ── IMAGE PANELS ── */
+    .img-panel {
+      border-radius: 14px; overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--panel);
+    }
+    .img-panel img {
+      width: 100%; height: auto; display: block;
+      transition: transform 0.5s var(--ease-out);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .img-panel:hover img { transform: scale(1.04); }
+    }
+    .img-caption {
+      padding: 0.7rem 1rem;
+      font-family: var(--font-mono); font-size: 0.68rem;
+      color: var(--text-dim); letter-spacing: 0.05em;
+      border-top: 1px solid var(--border2);
+    }
+
+    /* ── WIRING DIAGRAM ── */
+    .wiring-wrap {
+      background: #eef0f8; border-radius: 14px; overflow: hidden;
+      border: 2px solid var(--accent); padding: 1.5rem 1.5rem 0.75rem;
+    }
+    .wiring-wrap img { width: 100%; height: auto; display: block; }
+    .wiring-caption {
+      padding: 0.65rem 0; text-align: center;
+      font-family: var(--font-mono); font-size: 0.68rem;
+      color: #5b5e8a; letter-spacing: 0.06em;
+    }
+
+    /* ── POWER DIAGRAM ── */
+    .power-tree {
+      font-family: var(--font-mono); font-size: 0.82rem;
+      color: var(--text-dim); line-height: 1.95;
+      padding: 1.5rem;
+    }
+    .power-tree .pt-accent { color: var(--accent2); }
+    .power-tree .pt-dim    { color: #3d4f6b; }
+
+    /* ── SPECIES TABLE ── */
+    .species-table td:first-child { font-style: italic; color: var(--text-bright); }
+
+    /* ── INLINE CODE / TAGS ── */
+    .inline-code {
+      font-family: var(--font-mono); font-size: 0.82em;
+      background: rgba(99,102,241,0.1); color: var(--accent2);
+      padding: 0.1rem 0.4rem; border-radius: 4px;
+    }
+    .tag {
+      display: inline-block; font-family: var(--font-mono);
+      font-size: 0.63rem; letter-spacing: 0.08em;
+      padding: 0.2rem 0.6rem; border-radius: 4px;
+      background: rgba(99,102,241,0.1); color: var(--accent2);
+      border: 1px solid var(--border);
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0; transform: translateY(22px);
+      transition: opacity 0.55s var(--ease-out), transform 0.55s var(--ease-out);
+    }
+    .reveal.in { opacity: 1; transform: none; }
+
+    .stagger > * {
+      opacity: 0; transform: translateY(18px);
+      transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+    }
+    .stagger.in > *:nth-child(1) { opacity:1; transform:none; transition-delay:  0ms; }
+    .stagger.in > *:nth-child(2) { opacity:1; transform:none; transition-delay: 65ms; }
+    .stagger.in > *:nth-child(3) { opacity:1; transform:none; transition-delay:130ms; }
+    .stagger.in > *:nth-child(4) { opacity:1; transform:none; transition-delay:195ms; }
+    .stagger.in > *:nth-child(5) { opacity:1; transform:none; transition-delay:260ms; }
+    .stagger.in > *:nth-child(6) { opacity:1; transform:none; transition-delay:325ms; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border2);
+      padding: 2.25rem 2rem;
+      text-align: center;
+      font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-dim);
+      position: relative; z-index: 1;
+    }
+    footer a { color: var(--accent2); text-decoration: none; transition: color 0.2s; }
+    footer a:hover { color: #fff; }
+    footer p + p { margin-top: 0.45rem; }
+
+    /* ── UTILS ── */
+    .mt-1 { margin-top: 1rem; }
+    .mt-2 { margin-top: 2rem; }
+    .mb-1 { margin-bottom: 1rem; }
+    .mb-2 { margin-bottom: 2rem; }
+
+    /* ── KEYFRAMES ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: none; }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      nav { padding: 0.65rem 1.25rem; }
+      .nav-links .nav-live { display: none; }
+      .hero { min-height: 460px; padding: 0 1.25rem 3.5rem; }
+      .container { padding: 0 1.25rem; }
+      .panel { padding: 1.25rem; }
+    }
+
+    /* ── REDUCED MOTION ── */
+    @media (prefers-reduced-motion: reduce) {
+      .reveal, .stagger > *,
+      .hero-eyebrow, .hero h1, .hero-sub,
+      .hero-actions, .hero-badge {
+        opacity: 1; transform: none;
+        animation: none; transition: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─────────────── NAV ─────────────── -->
+  <nav>
+    <a href="../pages/projectdocs.html" class="back-btn">← Project Docs</a>
+    <a href="../index.html" class="nav-brand">SJFCROSS</a>
+    <div class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="animals.html">Animals</a>
+      <a href="http://sjfcross.ddns.net" target="_blank" rel="noopener" class="nav-live">Live ↗</a>
+    </div>
+  </nav>
+
+  <!-- ─────────────── HERO ─────────────── -->
+  <header class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <span class="hero-badge">Firmware v2.4</span>
+    <div class="container">
+      <div class="hero-content">
+        <p class="hero-eyebrow">Division IV · Project Documentation</p>
+        <h1>The Arachnid <em>Cabinet</em></h1>
+        <p class="hero-sub">A WiFi-connected climate controller for four arboreal tarantulas — automated humidity, remote control, and a persistent keeper's log.</p>
+        <div class="hero-actions">
+          <a href="http://sjfcross.ddns.net" target="_blank" rel="noopener" class="btn btn-primary">Live Dashboard ↗</a>
+          <a href="animals.html" class="btn btn-ghost">Keeper's Log</a>
+          <a href="https://github.com/sjfcross/sjfcross.github.io" target="_blank" rel="noopener" class="btn btn-ghost">GitHub ↗</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ─────────────── PROBLEM / WHAT / GOAL ─────────────── -->
+  <section>
+    <div class="container">
+      <div class="card-grid stagger">
+
+        <div class="card">
+          <span class="card-icon">🌿</span>
+          <h3 class="card-title">The Problem</h3>
+          <p class="card-body">Arboreal tarantulas need elevated humidity at night and reliable airflow to prevent stagnant damp conditions. Manual misting is inconsistent, missed feeds go unrecorded, and when you're away there's no visibility into what's happening in the cabinet.</p>
+        </div>
+
+        <div class="card">
+          <span class="card-icon">⚙️</span>
+          <h3 class="card-title">What It Is</h3>
+          <p class="card-body">A NodeMCU ESP8266 manages climate via three MOSFET-driven outputs, reads an AHT10 sensor, serves a live web dashboard, and pushes telemetry to ThingSpeak every 20 seconds. A Supabase-backed companion page logs feeding and moult events from any device.</p>
+        </div>
+
+        <div class="card">
+          <span class="card-icon">🎯</span>
+          <h3 class="card-title">The Goal</h3>
+          <p class="card-body">Automation with visibility — a system that handles the climate on a schedule, lets you override it remotely, fails safely when something goes wrong, and keeps a persistent cross-device record of the animals' lives.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─────────────── HARDWARE ─────────────── -->
+  <section id="hardware">
+    <div class="container">
+
+      <div class="reveal">
+        <p class="section-label">Hardware</p>
+        <h2 class="section-title">Components & Connections</h2>
+        <p class="section-intro">NodeMCU HW-364A at the core, with an I²C sensor bus shared between the AHT10 and OLED, three logic-level MOSFET outputs, and a 12 V → 5 V SMPS power chain.</p>
+      </div>
+
+      <div class="two-col-3-2 mt-2">
+
+        <!-- LEFT: tables -->
+        <div>
+
+          <div class="panel reveal mb-2">
+            <p class="panel-title">Controller</p>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Board</th><th>Chip</th><th>Role</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td>NodeMCU HW-364A</td>
+                    <td class="td-mono">ESP8266</td>
+                    <td class="td-dim">Sensor reads, control logic, web server, scheduling, ThingSpeak push</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="panel reveal mb-2">
+            <p class="panel-title">Sensor</p>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Sensor</th><th>Interface</th><th>Pins</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td>AHT10</td>
+                    <td class="td-mono">I²C</td>
+                    <td class="td-mono">SDA → GPIO12 (D6)&nbsp;&nbsp;SCL → GPIO14 (D5)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="panel reveal mb-2">
+            <p class="panel-title">Outputs</p>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Output</th><th>Driver</th><th>GPIO</th><th>Notes</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td>Fogger</td>
+                    <td class="td-mono">IRLZ44N</td>
+                    <td class="td-mono">GPIO5 (D1)</td>
+                    <td class="td-note">5 V ultrasonic fogger</td>
+                  </tr>
+                  <tr>
+                    <td>Fan</td>
+                    <td class="td-mono">IRLZ44N</td>
+                    <td class="td-mono">GPIO0 (D3)</td>
+                    <td class="td-note">Boot-sensitive pin — external pull-up; brief LOW pulse before state change</td>
+                  </tr>
+                  <tr>
+                    <td>Light</td>
+                    <td class="td-mono">IRLZ44N</td>
+                    <td class="td-mono">GPIO4 (D2)</td>
+                    <td class="td-note">Drives a Sea Monkey air pump — manual 10-min aeration at feeding time</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="panel reveal">
+            <p class="panel-title">Display</p>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Component</th><th>Interface</th><th>Notes</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td>SSD1306 OLED</td>
+                    <td class="td-mono">I²C (shared bus with AHT10)</td>
+                    <td class="td-dim">Cycles 6 screens every 10 s</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- RIGHT: pinout + power -->
+        <div>
+
+          <div class="img-panel reveal">
+            <img src="../assets/img/nodeMCUPins.png" alt="NodeMCU HW-364A GPIO pinout" loading="lazy">
+            <p class="img-caption">NodeMCU HW-364A — GPIO pinout reference</p>
+          </div>
+
+          <div class="panel reveal mt-2">
+            <p class="panel-title">Power Chain</p>
+            <div class="power-tree">
+              <span class="pt-accent">AC Mains</span><br>
+              <span class="pt-dim">&nbsp;&nbsp;&nbsp;↓</span><br>
+              AC-DC SMPS <span class="pt-dim">(12 V)</span><br>
+              <span class="pt-dim">&nbsp;&nbsp;&nbsp;↓</span><br>
+              Buck Converter <span class="pt-dim">(5 V, 10 A)</span><br>
+              <span class="pt-dim">&nbsp;&nbsp;&nbsp;↓</span><br>
+              Protoboard rail<br>
+              <span class="pt-dim">&nbsp;&nbsp;&nbsp;├──</span> NodeMCU <span class="pt-dim">(VIN)</span><br>
+              <span class="pt-dim">&nbsp;&nbsp;&nbsp;├──</span> Fogger MOSFET<br>
+              <span class="pt-dim">&nbsp;&nbsp;&nbsp;├──</span> Fan MOSFET<br>
+              <span class="pt-dim">&nbsp;&nbsp;&nbsp;└──</span> Light MOSFET
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────── WIRING DIAGRAM ─────────────── -->
+  <section id="wiring">
+    <div class="container">
+      <div class="reveal">
+        <p class="section-label">Schematics</p>
+        <h2 class="section-title">Wiring Diagram</h2>
+        <p class="section-intro">Full cabinet wiring — MCU, MOSFETs, AHT10 sensor, OLED display, and power rail.</p>
+        <div class="wiring-wrap">
+          <img src="../assets/img/arachnid_cabinet_wiring_v5.svg" alt="Arachnid Cabinet full wiring diagram v5" loading="lazy">
+          <p class="wiring-caption">arachnid_cabinet_wiring_v5 — NodeMCU HW-364A · AHT10 · IRLZ44N ×3 · BC548B · SSD1306 OLED</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─────────────── FOGGER MOD ─────────────── -->
+  <section id="fogger">
+    <div class="container">
+
+      <div class="reveal">
+        <p class="section-label">Hardware · Detail</p>
+        <h2 class="section-title">Fogger Modification</h2>
+      </div>
+
+      <div class="two-col-2-3 mt-2">
+
+        <div class="img-panel reveal">
+          <img src="../assets/img/humidifier.jpg" alt="180ML Mini USB Ultrasonic Mist Maker after switch bypass mod" loading="lazy">
+          <p class="img-caption">180ML Mini USB Ultrasonic Mist Maker — switch bypass</p>
+        </div>
+
+        <div class="panel reveal">
+          <p class="panel-title">Bypassing the Onboard Switch</p>
+          <p style="color:var(--text-dim);font-size:0.92rem;line-height:1.75;margin-bottom:1.1rem;">
+            <strong style="color:var(--text);">Component:</strong> 180ML Mini USB Ultrasonic Mist Maker — generic 5 V USB-powered "mini humidifier / aroma diffuser" type.
+          </p>
+          <p style="color:var(--text-dim);font-size:0.92rem;line-height:1.75;margin-bottom:1.1rem;">
+            <strong style="color:var(--text);">Modification:</strong> The onboard tactile switch was bypassed so the MCU can toggle the fogger directly. A signal line from GPIO5 (D1) drives the switch line via an NPN transistor (BC548B), pulling it low to simulate a button press. This keeps the fogger's own control board intact while making it fully software-controllable.
+          </p>
+          <p style="color:var(--text-dim);font-size:0.92rem;line-height:1.75;">
+            <strong style="color:var(--text);">Result:</strong> Fog on/off is triggered by MCU logic and integrates cleanly into the existing schedule and override flow. The IRLZ44N MOSFET on GPIO5 handles power switching; the BC548B handles the control-board signal line independently.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─────────────── FIRMWARE ─────────────── -->
+  <section id="firmware">
+    <div class="container">
+
+      <div class="reveal">
+        <p class="section-label">Firmware</p>
+        <h2 class="section-title">Architecture</h2>
+        <p class="section-intro">Arduino/C++ on the ESP8266, firmware v2.4. Two independent <span class="inline-code">millis()</span> timers ensure a slow cloud push never delays local sensor reads or device management.</p>
+      </div>
+
+      <div class="two-col mt-2">
+
+        <div class="code-block reveal">
+          <div class="code-block-header">
+            <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+            loop() — main control tick
+          </div>
+          <pre><span class="c-fn">loop</span><span class="c-cm">()</span>
+  ├── <span class="c-fn">server.handleClient</span><span class="c-cm">()</span>   <span class="c-cm">// web requests, any time</span>
+  ├── every <span class="c-num">1000</span> ms<span class="c-cm">:</span>
+  │     <span class="c-fn">readSensor</span><span class="c-cm">()</span>
+  │     <span class="c-fn">manageFogger</span><span class="c-cm">()</span>
+  │     <span class="c-fn">manageLight</span><span class="c-cm">()</span>
+  │     <span class="c-fn">manageFan</span><span class="c-cm">()</span>
+  │     <span class="c-fn">updateDisplay</span><span class="c-cm">()</span>
+  └── every <span class="c-num">20</span> s<span class="c-cm">:</span>
+        <span class="c-fn">pushToThingSpeak</span><span class="c-cm">()</span>  <span class="c-cm">// independent HTTPS push</span></pre>
+        </div>
+
+        <div class="panel reveal">
+          <p class="panel-title">OLED Display — 6 Screens</p>
+          <p style="font-size:0.82rem;color:var(--text-dim);margin-bottom:1rem;">Cycles every 10 seconds. Clock on the I²C shared bus alongside AHT10.</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>#</th><th>Content</th></tr></thead>
+              <tbody>
+                <tr><td class="td-mono">1</td><td>Clock — HH:MM:SS</td></tr>
+                <tr><td class="td-mono">2</td><td>Humidity % — shows <span class="inline-code">ERR</span> on sensor failure</td></tr>
+                <tr><td class="td-mono">3</td><td>Temperature °C</td></tr>
+                <tr><td class="td-mono">4</td><td>Fogger — ON / OFF / BLOCKED / OVERRIDE + countdown</td></tr>
+                <tr><td class="td-mono">5</td><td>Light status</td></tr>
+                <tr><td class="td-mono">6</td><td>Fan status</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Priority hierarchy -->
+      <div class="reveal mt-2">
+        <p class="section-label" style="margin-bottom:1rem;">Control Priority Hierarchy</p>
+      </div>
+      <div class="priority-grid stagger">
+
+        <div class="priority-card">
+          <p class="priority-name">🌫️ Fogger</p>
+          <ul class="priority-list">
+            <li><span class="p-num">1</span><span class="p-label p-safety">safety</span><span class="p-desc">Sensor failure (3 bad reads) → forced OFF</span></li>
+            <li><span class="p-num">2</span><span class="p-label p-safety">safety</span><span class="p-desc">Humidity ≥ 90% → forced OFF; re-enables below 85% (hysteresis)</span></li>
+            <li><span class="p-num">3</span><span class="p-label p-manual">manual</span><span class="p-desc">3-minute override active → ON</span></li>
+            <li><span class="p-num">4</span><span class="p-label p-schedule">schedule</span><span class="p-desc">Night 23:00–07:00: ON first 3 min/hr. Day 07:00–23:00: OFF</span></li>
+          </ul>
+        </div>
+
+        <div class="priority-card">
+          <p class="priority-name">💨 Fan</p>
+          <ul class="priority-list">
+            <li><span class="p-num">1</span><span class="p-label p-manual">manual</span><span class="p-desc">3-minute override active → ON</span></li>
+            <li><span class="p-num">2</span><span class="p-label p-schedule">schedule</span><span class="p-desc">Night: ON 4 min/hr. Day: ON 3 min at 07, 10, 13, 16, 19, 22:00</span></li>
+          </ul>
+        </div>
+
+        <div class="priority-card">
+          <p class="priority-name">💡 Light</p>
+          <ul class="priority-list">
+            <li><span class="p-num">—</span><span class="p-label p-manual">manual</span><span class="p-desc">Pure manual — no schedule. Drives a Sea Monkey air pump for feeding aeration</span></li>
+            <li style="padding-top:0.65rem;"><span class="p-num"></span><span class="p-label p-schedule">timed</span><span class="p-desc">10-min or 30-min override; turns OFF on expiry</span></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Safety features -->
+      <div class="reveal mt-2">
+        <p class="section-label" style="margin-bottom:1rem;">Safety Features</p>
+      </div>
+      <div class="safety-grid stagger">
+        <div class="safety-item">
+          <p class="safety-title">Boot Defaults</p>
+          <p class="safety-desc">All outputs set LOW before any other setup code runs.</p>
+        </div>
+        <div class="safety-item">
+          <p class="safety-title">Hardware Watchdog</p>
+          <p class="safety-desc">8-second timer — if <span class="inline-code">loop()</span> stalls, the board reboots automatically.</p>
+        </div>
+        <div class="safety-item">
+          <p class="safety-title">Sensor Failure Detection</p>
+          <p class="safety-desc">3 consecutive bad reads blocks the fogger and sets <span class="inline-code">sensorOk: false</span> in the API.</p>
+        </div>
+        <div class="safety-item">
+          <p class="safety-title">Humidity Hysteresis</p>
+          <p class="safety-desc">Fogger blocked at ≥ 90%, only re-enabled below 85% — prevents rapid cycling at the threshold.</p>
+        </div>
+        <div class="safety-item">
+          <p class="safety-title">WiFi-Loss Resilience</p>
+          <p class="safety-desc">If WiFi fails on boot, the system continues running on its local schedule with no network connection.</p>
+        </div>
+        <div class="safety-item">
+          <p class="safety-title">DST / Timezone</p>
+          <p class="safety-desc">POSIX TZ string handles UK GMT/BST transitions automatically. No biannual manual updates required.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─────────────── API ─────────────── -->
+  <section id="api">
+    <div class="container">
+
+      <div class="reveal">
+        <p class="section-label">Web Interface & API</p>
+        <h2 class="section-title">REST Endpoints</h2>
+        <p class="section-intro">The NodeMCU serves its own self-contained HTML dashboard at <span class="inline-code">/</span> and a JSON status API. All endpoints include CORS headers for cross-origin access from the GitHub Pages interface.</p>
+      </div>
+
+      <div class="two-col mt-2">
+
+        <div class="panel reveal">
+          <p class="panel-title">Endpoints</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Endpoint</th><th>Auth</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td class="td-mono">GET /</td>                  <td class="td-dim">None</td><td class="td-dim">Self-contained HTML dashboard</td></tr>
+                <tr><td class="td-mono">GET /data</td>              <td class="td-dim">None</td><td class="td-dim">Full system state as JSON</td></tr>
+                <tr><td class="td-mono">GET /staticData</td>        <td class="td-dim">None</td><td class="td-dim">Fixed fallback JSON for testing</td></tr>
+                <tr><td class="td-mono">GET /toggleFogger</td>      <td class="td-dim">Key</td> <td class="td-dim">Toggle fogger on/off</td></tr>
+                <tr><td class="td-mono">GET /overrideFogger</td>    <td class="td-dim">Key</td> <td class="td-dim">3-minute override on</td></tr>
+                <tr><td class="td-mono">GET /toggleFan</td>         <td class="td-dim">Key</td> <td class="td-dim">Toggle fan on/off</td></tr>
+                <tr><td class="td-mono">GET /overrideFan</td>       <td class="td-dim">Key</td> <td class="td-dim">3-minute override on</td></tr>
+                <tr><td class="td-mono">GET /toggleLight</td>       <td class="td-dim">Key</td> <td class="td-dim">Toggle light on/off</td></tr>
+                <tr><td class="td-mono">GET /overrideLight</td>     <td class="td-dim">Key</td> <td class="td-dim">10-minute override on</td></tr>
+                <tr><td class="td-mono">GET /longOverrideLight</td> <td class="td-dim">Key</td> <td class="td-dim">30-minute override on</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="margin-top:1rem;font-family:var(--font-mono);font-size:0.72rem;color:var(--text-dim);line-height:1.6;">
+            Control endpoints require <span class="inline-code">?key=YOUR_KEY</span>. Missing or invalid key returns HTTP 403.
+            The HTML dashboard caches the key in <span class="inline-code">localStorage</span> — prompts once, remembers it.
+          </p>
+        </div>
+
+        <div>
+          <div class="code-block reveal">
+            <div class="code-block-header">
+              <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+              GET /data — JSON response
+            </div>
+            <pre><span class="c-cm">{</span>
+  <span class="c-key">"time"</span><span class="c-cm">:</span>           <span class="c-str">"22:14:03"</span><span class="c-cm">,</span>
+  <span class="c-key">"humidity"</span><span class="c-cm">:</span>       <span class="c-num">67.40</span><span class="c-cm">,</span>
+  <span class="c-key">"temperature"</span><span class="c-cm">:</span>    <span class="c-num">24.20</span><span class="c-cm">,</span>
+  <span class="c-key">"sensorOk"</span><span class="c-cm">:</span>       <span class="c-kw">true</span><span class="c-cm">,</span>
+  <span class="c-key">"foggerStatus"</span><span class="c-cm">:</span>   <span class="c-kw">true</span><span class="c-cm">,</span>
+  <span class="c-key">"override"</span><span class="c-cm">:</span>       <span class="c-kw">false</span><span class="c-cm">,</span>
+  <span class="c-key">"foggerBlocked"</span><span class="c-cm">:</span>  <span class="c-kw">false</span><span class="c-cm">,</span>
+  <span class="c-key">"lightStatus"</span><span class="c-cm">:</span>    <span class="c-kw">false</span><span class="c-cm">,</span>
+  <span class="c-key">"lightOverride"</span><span class="c-cm">:</span>  <span class="c-kw">false</span><span class="c-cm">,</span>
+  <span class="c-key">"fanStatus"</span><span class="c-cm">:</span>      <span class="c-kw">false</span><span class="c-cm">,</span>
+  <span class="c-key">"fanOverride"</span><span class="c-cm">:</span>    <span class="c-kw">false</span>
+<span class="c-cm">}</span></pre>
+          </div>
+
+          <p style="margin-top:0.75rem;font-family:var(--font-mono);font-size:0.72rem;color:var(--text-dim);line-height:1.6;">
+            When an override is active the response additionally includes
+            <span class="inline-code">remainingTime</span>, <span class="inline-code">lightRemainingTime</span>,
+            or <span class="inline-code">fanRemainingTime</span> in seconds.
+          </p>
+
+          <div class="panel reveal mt-2">
+            <p class="panel-title">Remote Access</p>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Access</th><th>Address</th></tr></thead>
+                <tbody>
+                  <tr><td class="td-dim">Local</td>        <td class="td-mono">192.168.1.159</td></tr>
+                  <tr><td class="td-dim">Remote</td>       <td class="td-mono">sjfcross.ddns.net</td></tr>
+                  <tr><td class="td-dim">DDNS provider</td><td class="td-dim">No-IP</td></tr>
+                  <tr><td class="td-dim">Port forward</td> <td class="td-mono">:80 → 192.168.1.159:80</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─────────────── THINGSPEAK ─────────────── -->
+  <section id="telemetry">
+    <div class="container">
+
+      <div class="reveal">
+        <p class="section-label">Telemetry</p>
+        <h2 class="section-title">ThingSpeak Integration</h2>
+        <p class="section-intro">Temperature, humidity, and output states are pushed over HTTPS every 20 seconds on an independent <span class="inline-code">millis()</span> timer. A slow or failed push never delays sensor reads or device management — failures are logged to serial and skipped.</p>
+      </div>
+
+      <div class="reveal mt-2" style="max-width:520px;">
+        <div class="panel">
+          <p class="panel-title">Channel Fields</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Field</th><th>Data</th></tr></thead>
+              <tbody>
+                <tr><td class="td-mono">field1</td><td>Temperature (°C)</td></tr>
+                <tr><td class="td-mono">field2</td><td>Humidity (%)</td></tr>
+                <tr><td class="td-mono">field3</td><td>Fogger state (1 = ON, 0 = OFF)</td></tr>
+                <tr><td class="td-mono">field4</td><td>Fan state (1 = ON, 0 = OFF)</td></tr>
+                <tr><td class="td-mono">field5</td><td>Light state (1 = ON, 0 = OFF)</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─────────────── THE ANIMALS ─────────────── -->
+  <section id="animals">
+    <div class="container">
+
+      <div class="reveal">
+        <p class="section-label">Residents</p>
+        <h2 class="section-title">The Animals</h2>
+        <p class="section-intro">All four are arboreal species requiring elevated humidity, vertical space, and good ventilation. The cabinet targets 65–85% humidity during active night hours and dries down during the day.</p>
+      </div>
+
+      <div class="panel reveal mt-2">
+        <div class="table-wrap">
+          <table class="species-table">
+            <thead><tr><th>Species</th><th>Common Name</th><th>Origin</th></tr></thead>
+            <tbody>
+              <tr>
+                <td>Caribena laeta</td>
+                <td>Puerto Rican Pinktoe</td>
+                <td>🇵🇷 Puerto Rico</td>
+              </tr>
+              <tr>
+                <td>Caribena versicolor</td>
+                <td>Martinique Pinktoe</td>
+                <td>🇲🇶 Martinique</td>
+              </tr>
+              <tr>
+                <td>Avicularia purpurea</td>
+                <td>Purple Pinktoe</td>
+                <td>🇪🇨 Ecuador</td>
+              </tr>
+              <tr>
+                <td>Avicularia minatrix</td>
+                <td>Red Slate Pinktoe</td>
+                <td>🇻🇪 Venezuela</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="margin-top:1.5rem;text-align:center;">
+          <a href="animals.html" class="btn btn-ghost">View full keeper's log, photos & live stats →</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─────────────── WHAT'S NEXT ─────────────── -->
+  <section id="next">
+    <div class="container">
+
+      <div class="reveal">
+        <p class="section-label">Roadmap</p>
+        <h2 class="section-title">What's Next</h2>
+      </div>
+
+      <div class="panel reveal mt-2" style="max-width:640px;">
+        <ul style="list-style:none;">
+          <li style="display:flex;gap:0.85rem;align-items:baseline;padding:0.65rem 0;">
+            <span style="font-family:var(--font-mono);font-size:0.68rem;color:var(--amber);background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.2);padding:0.15rem 0.55rem;border-radius:4px;white-space:nowrap;">pending</span>
+            <span style="font-size:0.92rem;color:var(--text-dim);line-height:1.65;">
+              <strong style="color:var(--text-bright);">CYD ESP32 touchscreen dashboard</strong> — a local cabinet-side control panel without needing a phone. Hardware acquired, software integration pending.
+            </span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="reveal mt-2" style="display:flex;gap:1rem;flex-wrap:wrap;">
+        <a href="http://sjfcross.ddns.net" target="_blank" rel="noopener" class="btn btn-primary">Live Dashboard ↗</a>
+        <a href="animals.html" class="btn btn-ghost">Keeper's Log</a>
+        <a href="https://github.com/sjfcross/sjfcross.github.io" target="_blank" rel="noopener" class="btn btn-ghost">GitHub Repository ↗</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─────────────── FOOTER ─────────────── -->
+  <footer>
+    <p>The Arachnid Cabinet &nbsp;·&nbsp; Firmware v2.4 &nbsp;·&nbsp; Built by <a href="https://github.com/sjfcross">sjfcross</a></p>
+    <p>Active development &nbsp;·&nbsp; Last updated May 2026</p>
+    <p style="margin-top:0.75rem;"><a href="../index.html">← Back to Coding Logbook</a></p>
+  </footer>
+
+  <!-- ─────────────── SCROLL REVEAL ─────────────── -->
+  <script>
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.07, rootMargin: '0px 0px -28px 0px' });
+
+    document.querySelectorAll('.reveal, .stagger').forEach(el => io.observe(el));
+  </script>
+
+</body>
+</html>
