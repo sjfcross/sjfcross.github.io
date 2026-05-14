@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GLJ.DE — Grenke Stock Tracker | Project Documentation | SJFCROSS</title>
+  <link rel="icon" type="image/png" href="../assets/img/favicon-32x32.png">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400;500&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:           #080812;
+      --bg2:          #0d0d1c;
+      --bg3:          #13132a;
+      --panel:        #1a1a2e;
+      --panel2:       #0f0f22;
+      --border:       rgba(99,102,241,0.15);
+      --border2:      rgba(99,102,241,0.07);
+      --accent:       #6366f1;
+      --accent2:      #c4b5fd;
+      --amber:        #f59e0b;
+      --red:          #ef4444;
+      --green:        #34d399;
+      --text:         #e2e8f0;
+      --text-dim:     #94a3b8;
+      --text-bright:  #f1f5f9;
+      --ease-out:     cubic-bezier(0.23, 1, 0.32, 1);
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    'Lora', Georgia, serif;
+      --font-mono:    'DM Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.75;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0; opacity: 0.35;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(8, 8, 18, 0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 2rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    }
+    .nav-brand {
+      font-family: var(--font-mono); font-size: 0.82rem;
+      color: var(--accent2); font-weight: 500; letter-spacing: 0.04em;
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    nav a {
+      color: var(--text-dim); text-decoration: none;
+      font-family: var(--font-mono); font-size: 0.77rem;
+      letter-spacing: 0.05em; transition: color 0.2s;
+    }
+    nav a:hover { color: var(--accent2); }
+    .back-btn {
+      background: var(--panel); border: 1px solid var(--border);
+      color: var(--text-dim); padding: 0.35rem 0.9rem;
+      border-radius: 6px; font-size: 0.75rem;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .back-btn:hover {
+      border-color: var(--accent); color: var(--accent2);
+      background: rgba(99, 102, 241, 0.08);
+    }
+    .nav-live { color: var(--green) !important; }
+    .nav-live:hover { color: #fff !important; }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; min-height: 560px;
+      display: flex; align-items: flex-end;
+      padding: 0 2rem 5rem;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('../assets/img/stockm.jpg');
+      background-size: cover; background-position: center 45%;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(to bottom,
+          rgba(8, 8, 18, 0.3) 0%,
+          rgba(8, 8, 18, 0.72) 55%,
+          var(--bg) 100%),
+        linear-gradient(135deg,
+          rgba(52, 211, 153, 0.2) 0%,
+          transparent 55%);
+    }
+    .hero-content {
+      position: relative; z-index: 1;
+      max-width: 680px;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-mono); font-size: 0.72rem;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--accent2); margin-bottom: 1rem;
+      opacity: 0; animation: fadeUp 0.6s var(--ease-out) forwards 0.1s;
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 4.4rem);
+      font-weight: 700; color: var(--text-bright);
+      line-height: 1.08; margin-bottom: 1rem;
+      opacity: 0; animation: fadeUp 0.65s var(--ease-out) forwards 0.22s;
+    }
+    .hero h1 em { color: var(--green); font-style: italic; }
+    .hero-sub {
+      font-size: 1.05rem; color: var(--text-dim);
+      max-width: 480px; margin-bottom: 2.25rem;
+      opacity: 0; animation: fadeUp 0.65s var(--ease-out) forwards 0.36s;
+    }
+    .hero-actions {
+      display: flex; gap: 0.75rem; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp 0.65s var(--ease-out) forwards 0.48s;
+    }
+    .hero-badge {
+      position: absolute; top: 1.5rem; right: 2rem; z-index: 1;
+      font-family: var(--font-mono); font-size: 0.68rem;
+      letter-spacing: 0.1em; padding: 0.3rem 0.8rem;
+      border-radius: 20px; border: 1px solid var(--green);
+      color: var(--green); background: rgba(52, 211, 153, 0.1);
+      opacity: 0; animation: fadeIn 0.5s ease forwards 0.7s;
+    }
+    .hero-badge::before { content: '◉ '; animation: blink 2s infinite; }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.6rem 1.4rem; border-radius: 8px;
+      font-family: var(--font-mono); font-size: 0.8rem;
+      letter-spacing: 0.05em; text-decoration: none;
+      border: 1px solid transparent;
+      transition: transform 0.22s var(--ease-out),
+                  background 0.2s, border-color 0.2s, box-shadow 0.2s;
+    }
+    .btn:hover  { transform: translateY(-2px); }
+    .btn:active { transform: scale(0.97); transition-duration: 0.08s; }
+    .btn-primary {
+      background: var(--accent); color: #fff; border-color: var(--accent);
+      box-shadow: 0 4px 18px rgba(99, 102, 241, 0.35);
+    }
+    .btn-primary:hover {
+      background: #818cf8; border-color: #818cf8;
+      box-shadow: 0 6px 24px rgba(99, 102, 241, 0.45);
+    }
+    .btn-ghost {
+      background: rgba(99, 102, 241, 0.08);
+      color: var(--text-dim); border-color: var(--border);
+    }
+    .btn-ghost:hover {
+      border-color: rgba(196, 181, 253, 0.4);
+      color: var(--accent2); background: rgba(99, 102, 241, 0.14);
+    }
+
+    /* ── LAYOUT ── */
+    .container {
+      max-width: 1160px; margin: 0 auto;
+      padding: 0 2rem; position: relative; z-index: 1;
+    }
+    section { padding: 3.5rem 0; }
+
+    .section-label {
+      font-family: var(--font-mono); font-size: 0.68rem;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 0.4rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.55rem, 3vw, 2.1rem);
+      color: var(--text-bright); line-height: 1.2;
+      margin-bottom: 0.6rem;
+    }
+    .section-intro {
+      color: var(--text-dim); font-size: 0.95rem;
+      max-width: 640px; line-height: 1.75; margin-bottom: 2rem;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border2);
+    }
+
+    /* ── GRID LAYOUTS ── */
+    .two-col     { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+    .two-col-3-2 { display: grid; grid-template-columns: 3fr 2fr; gap: 2rem; align-items: start; }
+    .two-col-2-3 { display: grid; grid-template-columns: 2fr 3fr; gap: 2rem; align-items: start; }
+    @media (max-width: 800px) {
+      .two-col, .two-col-3-2, .two-col-2-3 { grid-template-columns: 1fr; }
+    }
+
+    /* ── PANEL ── */
+    .panel {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.75rem;
+      position: relative; overflow: hidden;
+    }
+    .panel::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+    .panel-title {
+      font-family: var(--font-display); font-size: 1.1rem;
+      color: var(--text-bright); margin-bottom: 1.1rem;
+    }
+
+    /* ── CARDS ── */
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
+    .card {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.75rem;
+      position: relative; overflow: hidden;
+      transition: transform 0.28s var(--ease-out),
+                  border-color 0.28s, box-shadow 0.28s;
+    }
+    .card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .card:hover {
+        transform: translateY(-5px);
+        border-color: rgba(99, 102, 241, 0.3);
+        box-shadow: 0 14px 48px rgba(99, 102, 241, 0.1);
+      }
+    }
+    .card-icon  { font-size: 1.7rem; margin-bottom: 0.75rem; display: block; }
+    .card-title { font-family: var(--font-display); font-size: 1.1rem; color: var(--text-bright); margin-bottom: 0.6rem; }
+    .card-body  { font-size: 0.9rem; color: var(--text-dim); line-height: 1.7; }
+
+    /* ── TABLES ── */
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: 0.8rem; }
+    thead tr { border-bottom: 1px solid var(--border); }
+    th {
+      text-align: left; padding: 0.55rem 1rem;
+      font-size: 0.63rem; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--accent); font-weight: 500;
+    }
+    td {
+      padding: 0.65rem 1rem; border-bottom: 1px solid var(--border2);
+      color: var(--text); vertical-align: top;
+    }
+    tr:last-child td { border-bottom: none; }
+    tbody tr { transition: background 0.15s; }
+    @media (hover: hover) and (pointer: fine) {
+      tbody tr:hover { background: rgba(99, 102, 241, 0.05); }
+    }
+    .td-dim  { color: var(--text-dim); }
+    .td-mono { font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent2); }
+    .td-note { color: var(--text-dim); font-size: 0.76rem; }
+    .td-green { color: var(--green); font-family: var(--font-mono); font-size: 0.78rem; }
+    .td-red   { color: var(--red);   font-family: var(--font-mono); font-size: 0.78rem; }
+
+    /* ── CODE BLOCKS ── */
+    .code-block {
+      background: #050510; border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden;
+    }
+    .code-block-header {
+      padding: 0.6rem 1rem; border-bottom: 1px solid var(--border2);
+      font-family: var(--font-mono); font-size: 0.68rem;
+      color: var(--text-dim); letter-spacing: 0.07em;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+    .dot.r { background: #ff5f57; }
+    .dot.y { background: #ffbd2e; }
+    .dot.g { background: #28c840; }
+    .code-block pre {
+      padding: 1.25rem 1.5rem;
+      font-family: var(--font-mono); font-size: 0.8rem;
+      line-height: 1.7; color: var(--text-dim);
+      overflow-x: auto; margin: 0;
+    }
+    .c-kw  { color: #818cf8; }
+    .c-fn  { color: #c4b5fd; }
+    .c-str { color: #86efac; }
+    .c-cm  { color: #3d4f6b; }
+    .c-num { color: #fb923c; }
+    .c-key { color: var(--accent2); }
+
+    /* ── ARCH DIAGRAM ── */
+    .arch-block {
+      background: #050510; border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden;
+    }
+    .arch-block-header {
+      padding: 0.6rem 1rem; border-bottom: 1px solid var(--border2);
+      font-family: var(--font-mono); font-size: 0.68rem;
+      color: var(--text-dim); letter-spacing: 0.07em;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .arch-block pre {
+      padding: 1.5rem;
+      font-family: var(--font-mono); font-size: 0.73rem;
+      line-height: 1.75; color: var(--text-dim);
+      overflow-x: auto; margin: 0;
+    }
+    .arch-browser  { color: var(--accent2); }
+    .arch-worker   { color: var(--green); }
+    .arch-yahoo    { color: var(--amber); }
+    .arch-arrow    { color: #3d4f6b; }
+    .arch-dim      { color: #2e3d55; }
+
+    /* ── DATA FLOW ── */
+    .flow-list { list-style: none; }
+    .flow-item {
+      display: flex; gap: 1rem; align-items: baseline;
+      padding: 0.7rem 0; border-bottom: 1px solid var(--border2);
+    }
+    .flow-item:last-child { border-bottom: none; }
+    .flow-num {
+      font-family: var(--font-mono); font-size: 0.65rem;
+      color: var(--accent); background: rgba(99,102,241,0.1);
+      border: 1px solid var(--border); border-radius: 4px;
+      padding: 0.1rem 0.5rem; white-space: nowrap; min-width: 28px;
+      text-align: center;
+    }
+    .flow-desc { font-size: 0.88rem; color: var(--text-dim); line-height: 1.65; }
+    .flow-desc strong { color: var(--text); }
+
+    /* ── SAFETY GRID ── */
+    .safety-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+    .safety-item {
+      background: rgba(99,102,241,0.03); border: 1px solid var(--border2);
+      border-radius: 10px; padding: 1.1rem 1.25rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .safety-item:hover { border-color: var(--border); background: rgba(99,102,241,0.07); }
+    }
+    .safety-title { font-family: var(--font-mono); font-size: 0.74rem; color: var(--accent2); margin-bottom: 0.3rem; }
+    .safety-desc  { font-size: 0.82rem; color: var(--text-dim); line-height: 1.6; }
+
+    /* ── HARDWARE VISION ── */
+    .hw-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.85rem; }
+    .hw-item {
+      background: rgba(52,211,153,0.04); border: 1px solid rgba(52,211,153,0.12);
+      border-radius: 10px; padding: 1rem 1.1rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .hw-item:hover { border-color: rgba(52,211,153,0.25); background: rgba(52,211,153,0.08); }
+    }
+    .hw-label { font-family: var(--font-mono); font-size: 0.72rem; color: var(--green); margin-bottom: 0.2rem; }
+    .hw-desc  { font-size: 0.8rem; color: var(--text-dim); line-height: 1.55; }
+
+    /* ── ROADMAP ITEMS ── */
+    .roadmap-list { list-style: none; }
+    .roadmap-item {
+      display: flex; gap: 0.85rem; align-items: baseline;
+      padding: 0.7rem 0; border-bottom: 1px solid var(--border2);
+      font-size: 0.9rem;
+    }
+    .roadmap-item:last-child { border-bottom: none; }
+    .r-tag {
+      font-family: var(--font-mono); font-size: 0.58rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.15rem 0.55rem; border-radius: 4px;
+      white-space: nowrap; font-weight: 500;
+    }
+    .r-future  { background: rgba(99,102,241,0.1); color: var(--accent2); border: 1px solid rgba(99,102,241,0.2); }
+    .r-risk    { background: rgba(245,158,11,0.1);  color: #fbbf24;       border: 1px solid rgba(245,158,11,0.2); }
+    .r-enhance { background: rgba(52,211,153,0.08); color: var(--green);  border: 1px solid rgba(52,211,153,0.18); }
+    .r-desc { color: var(--text-dim); flex: 1; line-height: 1.6; }
+    .r-desc strong { color: var(--text); }
+
+    /* ── IMAGE PANELS ── */
+    .img-panel {
+      border-radius: 14px; overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--panel);
+    }
+    .img-panel img {
+      width: 100%; height: auto; display: block;
+      transition: transform 0.5s var(--ease-out);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .img-panel:hover img { transform: scale(1.04); }
+    }
+    .img-caption {
+      padding: 0.7rem 1rem;
+      font-family: var(--font-mono); font-size: 0.68rem;
+      color: var(--text-dim); letter-spacing: 0.05em;
+      border-top: 1px solid var(--border2);
+    }
+
+    /* ── INLINE CODE / TAGS ── */
+    .inline-code {
+      font-family: var(--font-mono); font-size: 0.82em;
+      background: rgba(99,102,241,0.1); color: var(--accent2);
+      padding: 0.1rem 0.4rem; border-radius: 4px;
+    }
+    .tag {
+      display: inline-block; font-family: var(--font-mono);
+      font-size: 0.63rem; letter-spacing: 0.08em;
+      padding: 0.2rem 0.6rem; border-radius: 4px;
+      background: rgba(99,102,241,0.1); color: var(--accent2);
+      border: 1px solid var(--border);
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0; transform: translateY(22px);
+      transition: opacity 0.55s var(--ease-out), transform 0.55s var(--ease-out);
+    }
+    .reveal.in { opacity: 1; transform: none; }
+
+    .stagger > * {
+      opacity: 0; transform: translateY(18px);
+      transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+    }
+    .stagger.in > *:nth-child(1) { opacity:1; transform:none; transition-delay:  0ms; }
+    .stagger.in > *:nth-child(2) { opacity:1; transform:none; transition-delay: 65ms; }
+    .stagger.in > *:nth-child(3) { opacity:1; transform:none; transition-delay:130ms; }
+    .stagger.in > *:nth-child(4) { opacity:1; transform:none; transition-delay:195ms; }
+    .stagger.in > *:nth-child(5) { opacity:1; transform:none; transition-delay:260ms; }
+    .stagger.in > *:nth-child(6) { opacity:1; transform:none; transition-delay:325ms; }
+    .stagger.in > *:nth-child(7) { opacity:1; transform:none; transition-delay:390ms; }
+    .stagger.in > *:nth-child(8) { opacity:1; transform:none; transition-delay:455ms; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border2);
+      padding: 2.25rem 2rem;
+      text-align: center;
+      font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-dim);
+      position: relative; z-index: 1;
+    }
+    footer a { color: var(--accent2); text-decoration: none; transition: color 0.2s; }
+    footer a:hover { color: #fff; }
+    footer p + p { margin-top: 0.45rem; }
+
+    /* ── UTILS ── */
+    .mt-1 { margin-top: 1rem; }
+    .mt-2 { margin-top: 2rem; }
+    .mb-1 { margin-bottom: 1rem; }
+    .mb-2 { margin-bottom: 2rem; }
+
+    /* ── KEYFRAMES ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: none; }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      nav { padding: 0.65rem 1.25rem; }
+      .nav-links .nav-live { display: none; }
+      .hero { min-height: 460px; padding: 0 1.25rem 3.5rem; }
+      .container { padding: 0 1.25rem; }
+      .panel { padding: 1.25rem; }
+    }
+
+    /* ── REDUCED MOTION ── */
+    @media (prefers-reduced-motion: reduce) {
+      .reveal, .stagger > *,
+      .hero-eyebrow, .hero h1, .hero-sub,
+      .hero-actions, .hero-badge {
+        opacity: 1; transform: none;
+        animation: none; transition: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─────────────── NAV ─────────────── -->
+  <nav>
+    <a href="../pages/projectdocs.html" class="back-btn">← Project Docs</a>
+    <a href="../index.html" class="nav-brand">SJFCROSS</a>
+    <div class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="arachnid.html">Arachnid</a>
+      <a href="https://github.com/sjfcross/sjfcross.github.io" target="_blank" rel="noopener" class="nav-live">GitHub ↗</a>
+    </div>
+  </nav>
+
+  <!-- ─────────────── HERO ─────────────── -->
+  <header class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <span class="hero-badge">Zero-cost Stack</span>
+    <div class="container">
+      <div class="hero-content">
+        <p class="hero-eyebrow">Division IV · Project Documentation</p>
+        <h1>GLJ<em>.DE</em></h1>
+        <p class="hero-sub">A real-time stock tracker for Grenke AG — built on Cloudflare Workers, Yahoo Finance, and vanilla JS with zero backend cost and no API key exposure.</p>
+        <div class="hero-actions">
+          <a href="https://github.com/sjfcross/sjfcross.github.io" target="_blank" rel="noopener" class="btn btn-primary">GitHub ↗</a>
+          <a href="arachnid.html" class="btn btn-ghost">Arachnid Cabinet</a>
+          <a href="projectdocs.html" class="btn btn-ghost">All Projects</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ─────────────── INTRO CARDS ─────────────── -->
+  <section>
+    <div class="container">
+      <div class="card-grid stagger">
+
+        <div class="card">
+          <span class="card-icon">⚠️</span>
+          <h3 class="card-title">The Problem</h3>
+          <p class="card-body">Browsers can't fetch Yahoo Finance directly — CORS blocks the request. A client-side workaround would expose the upstream URL and hammer Yahoo on every tab load with no caching whatsoever.</p>
+        </div>
+
+        <div class="card">
+          <span class="card-icon">⚙️</span>
+          <h3 class="card-title">What It Is</h3>
+          <p class="card-body">A Cloudflare Worker acts as a smart proxy between the browser and Yahoo Finance. It handles CORS, caches responses based on market hours, and fails gracefully — all served from a single self-contained <span class="inline-code">index.html</span>.</p>
+        </div>
+
+        <div class="card">
+          <span class="card-icon">🎯</span>
+          <h3 class="card-title">The Goal</h3>
+          <p class="card-body">Zero backend cost. No API key exposure. Real-time XETRA price data in the browser — and a foundation for a physical ESP32 installation that glows green or red based on the day's performance.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─────────────── ARCHITECTURE ─────────────── -->
+  <section id="architecture">
+    <div class="container">
+
+      <div class="reveal">
+        <p class="section-label">Architecture</p>
+        <h2 class="section-title">Three-layer pipeline</h2>
+        <p class="section-intro">Browser → Cloudflare Worker → Yahoo Finance. The Worker is the only component that touches Yahoo, keeping the upstream URL off the client and the cache logic centralised.</p>
+      </div>
+
+      <div class="two-col-3-2 mt-2">
+
+        <div class="arch-block reveal">
+          <div class="arch-block-header">
+            <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+            data pipeline
+          </div>
+          <pre>
+<span class="arch-browser">┌─────────────────────────────────────────┐
+│               Browser                    │
+│                                          │
+│  GLJ.DE frontend  (HTML / CSS / JS)     │
+│  Hosted on Netlify · static             │
+│                                          │
+│  fetch()  every 5 minutes               │
+└────────────────┬────────────────────────┘</span>
+<span class="arch-arrow">                 │  HTTPS GET
+                 ▼</span>
+<span class="arch-worker">┌─────────────────────────────────────────┐
+│          Cloudflare Worker               │
+│                                          │
+│  • CORS preflight  (OPTIONS → 204)      │
+│  • In-memory cache (module-scoped)      │
+│  • Trading hours  (Europe/Berlin)       │
+│  • TTL: 30 min open · indefinite closed │
+│  • Stale fallback if Yahoo unreachable  │
+└────────────────┬────────────────────────┘</span>
+<span class="arch-arrow">                 │  HTTPS GET  (cache miss only)
+                 ▼</span>
+<span class="arch-yahoo">┌─────────────────────────────────────────┐
+│         Yahoo Finance  v8 chart API      │
+│                                          │
+│  interval=1m · range=1d                 │
+│  No API key required                    │
+└─────────────────────────────────────────┘</span></pre>
+        </div>
+
+        <div>
+          <div class="panel reveal mb-2">
+            <p class="panel-title">Stack</p>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Layer</th><th>Technology</th></tr></thead>
+                <tbody>
+                  <tr><td class="td-dim">Backend</td><td class="td-mono">Cloudflare Workers (V8 isolate)</td></tr>
+                  <tr><td class="td-dim">Data source</td><td class="td-mono">Yahoo Finance v8 (public)</td></tr>
+                  <tr><td class="td-dim">Frontend</td><td class="td-mono">Vanilla JS · single HTML file</td></tr>
+                  <tr><td class="td-dim">Hosting</td><td class="td-mono">Netlify (static)</td></tr>
+                  <tr><td class="td-dim">Fonts</td><td class="td-mono">IBM Plex Mono / Sans (CDN)</td></tr>
+                  <tr><td class="td-dim">Dependencies</td><td class="td-mono">none</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="panel reveal">
+            <p class="panel-title">Free tier limits</p>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Resource</th><th>Allowance</th></tr></thead>
+                <tbody>
+                  <tr><td class="td-dim">Requests / day</td><td class="td-green">100,000</td></tr>
+                  <tr><td class="td-dim">CPU / request</td><td class="td-green">10 ms</td></tr>
+                  <tr><td class="td-dim">Egress charge</td><td class="td-green">none</td></tr>
+                  <tr><td class="td-dim">Netlify bandwidth</td><td class="td-green">100 GB / mo</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─────────────── WORKER ─────────────── -->
+  <section id="worker">
+    <div class="container">
+
+      <div class="reveal">
+        <p class="section-label">Cloudflare Worker</p>
+        <h2 class="section-title">Backend proxy & cache</h2>
+        <p class="section-intro">The Worker has three responsibilities: proxying Yahoo Finance, caching intelligently around market hours, and never crashing silently — every response is structured JSON, error or not.</p>
+      </div>
+
+      <div class="two-col mt-2">
+
+        <div>
+          <div class="code-block reveal mb-2">
+            <div class="code-block-header">
+              <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+              isTradingHours() — XETRA schedule
+            </div>
+            <pre><span class="c-kw">function</span> <span class="c-fn">isTradingHours</span>() {
+  <span class="c-kw">const</span> now = <span class="c-kw">new</span> <span class="c-fn">Date</span>();
+  <span class="c-kw">const</span> day = now.<span class="c-fn">getUTCDay</span>();
+  <span class="c-kw">if</span> (day === <span class="c-num">0</span> || day === <span class="c-num">6</span>) <span class="c-kw">return false</span>;
+
+  <span class="c-kw">const</span> berlin = <span class="c-kw">new</span> <span class="c-fn">Date</span>().<span class="c-fn">toLocaleString</span>(<span class="c-str">"en-GB"</span>, {
+    timeZone: <span class="c-str">"Europe/Berlin"</span>,
+    hour: <span class="c-str">"2-digit"</span>,
+    minute: <span class="c-str">"2-digit"</span>,
+    hour12: <span class="c-kw">false</span>
+  });
+  <span class="c-kw">const</span> [h, m] = berlin.<span class="c-fn">split</span>(<span class="c-str">":"</span>).<span class="c-fn">map</span>(Number);
+  <span class="c-kw">const</span> decimal = h + m / <span class="c-num">60</span>;
+  <span class="c-kw">return</span> decimal >= <span class="c-num">9</span> && decimal <= <span class="c-num">17.5</span>;
+}</pre>
+          </div>
+
+          <div class="code-block reveal">
+            <div class="code-block-header">
+              <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+              fetchYahoo() — response shape
+            </div>
+            <pre><span class="c-cm">{</span>
+  <span class="c-key">"symbol"</span><span class="c-cm">:</span>        <span class="c-str">"GLJ.DE"</span><span class="c-cm">,</span>
+  <span class="c-key">"price"</span><span class="c-cm">:</span>         <span class="c-num">14.32</span><span class="c-cm">,</span>        <span class="c-cm">// 2 dp</span>
+  <span class="c-key">"change"</span><span class="c-cm">:</span>        <span class="c-num">+0.45</span><span class="c-cm">,</span>        <span class="c-cm">// vs prev close</span>
+  <span class="c-key">"changePercent"</span><span class="c-cm">:</span> <span class="c-num">+3.25</span><span class="c-cm">,</span>
+  <span class="c-key">"timestamp"</span><span class="c-cm">:</span>     <span class="c-num">1715680200</span><span class="c-cm">,</span>   <span class="c-cm">// Unix seconds</span>
+  <span class="c-key">"cached"</span><span class="c-cm">:</span>        <span class="c-kw">false</span>
+<span class="c-cm">}</span></pre>
+          </div>
+        </div>
+
+        <div>
+          <div class="panel reveal mb-2">
+            <p class="panel-title">How fetchYahoo() parses Yahoo</p>
+            <ul style="list-style:none;">
+              <li style="display:flex;gap:0.6rem;align-items:baseline;padding:0.5rem 0;border-bottom:1px solid var(--border2);">
+                <span class="tag" style="white-space:nowrap;">1</span>
+                <span style="font-size:0.85rem;color:var(--text-dim);line-height:1.6;">Calls <span class="inline-code">v8/finance/chart/GLJ.DE?interval=1m&range=1d</span> with a spoofed <span class="inline-code">User-Agent</span> header to avoid bot rejection</span>
+              </li>
+              <li style="display:flex;gap:0.6rem;align-items:baseline;padding:0.5rem 0;border-bottom:1px solid var(--border2);">
+                <span class="tag" style="white-space:nowrap;">2</span>
+                <span style="font-size:0.85rem;color:var(--text-dim);line-height:1.6;">Reads <span class="inline-code">chart.result[0]</span>, filters <span class="inline-code">null</span> values from the intraday close array — Yahoo fills off-hours with nulls</span>
+              </li>
+              <li style="display:flex;gap:0.6rem;align-items:baseline;padding:0.5rem 0;border-bottom:1px solid var(--border2);">
+                <span class="tag" style="white-space:nowrap;">3</span>
+                <span style="font-size:0.85rem;color:var(--text-dim);line-height:1.6;">Falls back to <span class="inline-code">meta.regularMarketPrice</span> when the close array is empty (outside market hours)</span>
+              </li>
+              <li style="display:flex;gap:0.6rem;align-items:baseline;padding:0.5rem 0;">
+                <span class="tag" style="white-space:nowrap;">4</span>
+                <span style="font-size:0.85rem;color:var(--text-dim);line-height:1.6;">Computes <span class="inline-code">change = price − chartPreviousClose</span> and <span class="inline-code">changePercent</span> from that ratio</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="panel reveal">
+            <p class="panel-title">Frontend DOM targets</p>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Element</th><th>Content</th></tr></thead>
+                <tbody>
+                  <tr><td class="td-mono">price-val</td>    <td class="td-dim">Current price (14.32)</td></tr>
+                  <tr><td class="td-mono">change-tag</td>   <td class="td-dim">↑ +0.45 with arrow</td></tr>
+                  <tr><td class="td-mono">pct-tag</td>      <td class="td-dim">+3.25%</td></tr>
+                  <tr><td class="td-mono">updated</td>      <td class="td-dim">HH:MM Berlin time</td></tr>
+                  <tr><td class="td-mono">age</td>          <td class="td-dim">4m ago · 2h ago</td></tr>
+                  <tr><td class="td-mono">source</td>       <td class="td-dim">live / cached</td></tr>
+                  <tr><td class="td-mono">market-status</td><td class="td-dim">open / closed</td></tr>
+                  <tr><td class="td-mono">dot</td>          <td class="td-dim">Green or red status dot</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─────────────── CACHING ─────────────── -->
+  <section id="caching">
+    <div class="container">
+
+      <div class="reveal">
+        <p class="section-label">Caching Strategy</p>
+        <h2 class="section-title">Market-aware TTL</h2>
+        <p class="section-intro">The Worker uses two module-scoped variables — <span class="inline-code">cacheData</span> and <span class="inline-code">cacheTimestamp</span> — persisting within a single V8 isolate. Cache is per-isolate, not globally shared, so a cold-started isolate always hits Yahoo fresh.</p>
+      </div>
+
+      <div class="two-col-2-3 mt-2">
+
+        <div class="panel reveal">
+          <p class="panel-title">Why 30-minute TTL?</p>
+          <p style="font-size:0.88rem;color:var(--text-dim);line-height:1.75;">XETRA data from Yahoo Finance is already delayed by ~15 minutes. Polling more frequently than every 30 minutes returns the same stale data — it just burns more requests against Yahoo's informal rate limits. The 30-minute window is a deliberate trade-off between freshness and reliability.</p>
+        </div>
+
+        <div class="panel reveal">
+          <p class="panel-title">TTL rules</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Condition</th><th>Behaviour</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td class="td-dim">Market open · cache &lt; 30 min old</td>
+                  <td class="td-green">Serve cache</td>
+                </tr>
+                <tr>
+                  <td class="td-dim">Market open · cache ≥ 30 min old</td>
+                  <td class="td-mono">Fetch Yahoo · update cache</td>
+                </tr>
+                <tr>
+                  <td class="td-dim">Market closed · cache exists</td>
+                  <td class="td-green">Serve cache (no expiry)</td>
+                </tr>
+                <tr>
+                  <td class="td-dim">Market closed · no cache</td>
+                  <td class="td-mono">Fetch Yahoo (first load of day)</td>
+                </tr>
+                <tr>
+                  <td class="td-dim">Yahoo unreachable · cache exists</td>
+                  <td class="td-mono">Serve stale + error field</td>
+                </tr>
+                <tr>
+                  <td class="td-dim">Yahoo unreachable · no cache</td>
+                  <td class="td-red">HTTP 500</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─────────────── DATA FLOW ─────────────── -->
+  <section id="dataflow">
+    <div class="container">
+
+      <div class="reveal">
+        <p class="section-label">Data Flow</p>
+        <h2 class="section-title">A full request cycle</h2>
+      </div>
+
+      <div class="two-col-2-3 mt-2">
+
+        <div class="img-panel reveal">
+          <img src="../assets/img/gljtrackerhtml.jpg" alt="GLJ.DE tracker dashboard screenshot" loading="lazy">
+          <p class="img-caption">GLJ.DE dashboard — dark terminal aesthetic, IBM Plex Mono</p>
+        </div>
+
+        <div class="panel reveal">
+          <p class="panel-title">Step by step</p>
+          <ul class="flow-list">
+            <li class="flow-item">
+              <span class="flow-num">1</span>
+              <span class="flow-desc">Tab loads or <strong>setInterval</strong> fires (every 5 min) — <span class="inline-code">load()</span> is called, refresh button disabled</span>
+            </li>
+            <li class="flow-item">
+              <span class="flow-num">2</span>
+              <span class="flow-desc"><strong>fetch()</strong> hits the Worker URL over HTTPS — Cloudflare edge receives the request</span>
+            </li>
+            <li class="flow-item">
+              <span class="flow-num">3</span>
+              <span class="flow-desc">Worker runs <strong>isTradingHours()</strong> and checks cache age — serves cache or delegates to Yahoo</span>
+            </li>
+            <li class="flow-item">
+              <span class="flow-num">4</span>
+              <span class="flow-desc">Yahoo returns intraday OHLCV + meta — Worker extracts last non-null close or <span class="inline-code">regularMarketPrice</span> fallback</span>
+            </li>
+            <li class="flow-item">
+              <span class="flow-num">5</span>
+              <span class="flow-desc">Worker returns <strong>clean JSON</strong> with symbol, price, change, changePercent, timestamp, cached flag</span>
+            </li>
+            <li class="flow-item">
+              <span class="flow-num">6</span>
+              <span class="flow-desc">Browser updates all <strong>DOM targets</strong> — colours flip green or red based on sign of change</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─────────────── ERROR HANDLING ─────────────── -->
+  <section id="errors">
+    <div class="container">
+
+      <div class="reveal">
+        <p class="section-label">Error Handling</p>
+        <h2 class="section-title">Three layers of resilience</h2>
+        <p class="section-intro">The Worker never crashes silently. Every response — data or error — is structured JSON. The frontend has a matching catch chain for each failure mode.</p>
+      </div>
+
+      <div class="safety-grid stagger mt-2">
+
+        <div class="safety-item">
+          <p class="safety-title">Layer 1 — Yahoo fails, cache exists</p>
+          <p class="safety-desc">Worker returns the last known good data with an additional <span class="inline-code">error</span> field. The stale price is displayed; no crash, no blank screen.</p>
+        </div>
+
+        <div class="safety-item">
+          <p class="safety-title">Layer 2 — Yahoo fails, no cache</p>
+          <p class="safety-desc">Worker returns <span class="inline-code">HTTP 500</span> with a JSON error body. The frontend catches <span class="inline-code">!res.ok</span>, shows the red error message, leaves price as <span class="inline-code">—</span>.</p>
+        </div>
+
+        <div class="safety-item">
+          <p class="safety-title">Layer 3 — Network down entirely</p>
+          <p class="safety-desc"><span class="inline-code">fetch()</span> throws a <span class="inline-code">TypeError</span>. The <span class="inline-code">catch(e)</span> block surfaces the message text and re-enables the refresh button.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─────────────── FUTURE VISION ─────────────── -->
+  <section id="vision">
+    <div class="container">
+
+      <div class="reveal">
+        <p class="section-label">Future Vision</p>
+        <h2 class="section-title">A physical installation</h2>
+        <p class="section-intro">The long-term goal is a self-contained artefact — a deep picture frame that wakes when someone stands in front of it, fetches GLJ.DE data, and presents it physically through light and a small display.</p>
+      </div>
+
+      <div class="two-col mt-2">
+
+        <div class="panel reveal">
+          <p class="panel-title">How it works</p>
+          <p style="font-size:0.9rem;color:var(--text-dim);line-height:1.75;margin-bottom:1.25rem;">A PIR motion sensor triggers a wake cycle from deep sleep. The ESP32 fetches the latest GLJ.DE data and translates it physically: the green filament glows on a positive day, red on a negative day, with brightness scaled to the magnitude of the change. The OLED shows price and percentage. When no one is present, the device returns to deep sleep to preserve battery.</p>
+          <p style="font-size:0.85rem;color:var(--text-dim);line-height:1.65;">The web tracker serves as the data and logic foundation — the same Worker endpoint, the same JSON, consumed by a microcontroller instead of a browser.</p>
+        </div>
+
+        <div class="reveal">
+          <p style="font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;">Hardware components</p>
+          <div class="hw-grid">
+            <div class="hw-item">
+              <p class="hw-label">MCU</p>
+              <p class="hw-desc">ESP32 — WiFi-capable, deep sleep support, runs the fetch + render cycle</p>
+            </div>
+            <div class="hw-item">
+              <p class="hw-label">Sensor</p>
+              <p class="hw-desc">PIR motion sensor — triggers wake on presence, idle returns to sleep</p>
+            </div>
+            <div class="hw-item">
+              <p class="hw-label">Lighting</p>
+              <p class="hw-desc">Two coloured incandescent LED filaments — green (up day) / red (down day)</p>
+            </div>
+            <div class="hw-item">
+              <p class="hw-label">Display</p>
+              <p class="hw-desc">Small OLED — price and percentage change, readable at arm's length</p>
+            </div>
+            <div class="hw-item">
+              <p class="hw-label">Power</p>
+              <p class="hw-desc">Battery + charging board — self-contained, no mains cable visible</p>
+            </div>
+            <div class="hw-item">
+              <p class="hw-label">Enclosure</p>
+              <p class="hw-desc">Deep picture frame — houses all components behind the glass</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─────────────── ROADMAP ─────────────── -->
+  <section id="roadmap">
+    <div class="container">
+
+      <div class="reveal">
+        <p class="section-label">Roadmap</p>
+        <h2 class="section-title">Known limitations & next steps</h2>
+      </div>
+
+      <div class="two-col mt-2">
+
+        <div class="panel reveal">
+          <p class="panel-title">Immediate tasks</p>
+          <ul class="roadmap-list">
+            <li class="roadmap-item">
+              <span class="r-tag r-future">next</span>
+              <span class="r-desc"><strong>Version-control the Worker</strong> — copy script into <span class="inline-code">worker/index.js</span>, add <span class="inline-code">wrangler.toml</span> for CLI deployment</span>
+            </li>
+            <li class="roadmap-item">
+              <span class="r-tag r-enhance">enhance</span>
+              <span class="r-desc"><strong>Surface stale-on-error in UI</strong> — check for <span class="inline-code">d.error</span> in <span class="inline-code">load()</span> and show a subtle warning banner</span>
+            </li>
+            <li class="roadmap-item">
+              <span class="r-tag r-enhance">enhance</span>
+              <span class="r-desc"><strong>Sparkline</strong> — the Yahoo response already contains the full intraday <span class="inline-code">closes</span> array; parse and render a simple SVG sparkline</span>
+            </li>
+            <li class="roadmap-item">
+              <span class="r-tag r-future">next</span>
+              <span class="r-desc"><strong>KV cache</strong> — replace module-scoped variables with Cloudflare KV for a consistent cache across all edge isolates</span>
+            </li>
+            <li class="roadmap-item">
+              <span class="r-tag r-future">next</span>
+              <span class="r-desc"><strong>Parameterise the Worker</strong> — accept <span class="inline-code">?symbol=</span> query string so the same Worker serves multiple tickers</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="panel reveal">
+          <p class="panel-title">Risks & limitations</p>
+          <ul class="roadmap-list">
+            <li class="roadmap-item">
+              <span class="r-tag r-risk">risk</span>
+              <span class="r-desc"><strong>Yahoo v8 endpoint is unofficial</strong> — no SLA, can break without notice. Consider Polygon.io or Finnhub free tier as fallback</span>
+            </li>
+            <li class="roadmap-item">
+              <span class="r-tag r-risk">risk</span>
+              <span class="r-desc"><strong>User-Agent spoofing</strong> — Yahoo periodically tightens bot detection; this may stop working</span>
+            </li>
+            <li class="roadmap-item">
+              <span class="r-tag r-risk">risk</span>
+              <span class="r-desc"><strong>Per-isolate cache</strong> — not globally consistent across Cloudflare edge nodes; a cold isolate always fetches fresh</span>
+            </li>
+            <li class="roadmap-item">
+              <span class="r-tag r-enhance">tighten</span>
+              <span class="r-desc"><strong>CORS wildcard</strong> — <span class="inline-code">Access-Control-Allow-Origin: *</span> is safe here (public data only) but could be restricted to the Netlify origin</span>
+            </li>
+            <li class="roadmap-item">
+              <span class="r-tag r-enhance">enhance</span>
+              <span class="r-desc"><strong>Tab visibility</strong> — auto-refresh pauses when tab is hidden; <span class="inline-code">visibilitychange</span> listener would refresh on focus</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="reveal mt-2" style="display:flex;gap:1rem;flex-wrap:wrap;">
+        <a href="https://github.com/sjfcross/sjfcross.github.io" target="_blank" rel="noopener" class="btn btn-primary">GitHub Repository ↗</a>
+        <a href="projectdocs.html" class="btn btn-ghost">All Projects</a>
+        <a href="arachnid.html" class="btn btn-ghost">Arachnid Cabinet</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─────────────── FOOTER ─────────────── -->
+  <footer>
+    <p>GLJ.DE — Grenke Stock Tracker &nbsp;·&nbsp; Built by <a href="https://github.com/sjfcross">sjfcross</a></p>
+    <p>Stack: Cloudflare Workers · Yahoo Finance · Vanilla JS · Netlify &nbsp;·&nbsp; May 2026</p>
+    <p style="margin-top:0.75rem;"><a href="../pages/projectdocs.html">← Back to Project Docs</a></p>
+  </footer>
+
+  <!-- ─────────────── SCROLL REVEAL ─────────────── -->
+  <script>
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.07, rootMargin: '0px 0px -28px 0px' });
+
+    document.querySelectorAll('.reveal, .stagger').forEach(el => io.observe(el));
+  </script>
+
+</body>
+</html>
