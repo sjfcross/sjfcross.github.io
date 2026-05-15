@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Component Inventory — Project Documentation | SJFCROSS</title>
+  <link rel="icon" type="image/png" href="../assets/img/favicon-32x32.png">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400;500&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:           #080812;
+      --bg2:          #0d0d1c;
+      --bg3:          #13132a;
+      --panel:        #1a1a2e;
+      --panel2:       #0f0f22;
+      --border:       rgba(99,102,241,0.15);
+      --border2:      rgba(99,102,241,0.07);
+      --accent:       #6366f1;
+      --accent2:      #c4b5fd;
+      --amber:        #f59e0b;
+      --red:          #ef4444;
+      --green:        #34d399;
+      --text:         #e2e8f0;
+      --text-dim:     #94a3b8;
+      --text-bright:  #f1f5f9;
+      --ease-out:     cubic-bezier(0.23, 1, 0.32, 1);
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    'Lora', Georgia, serif;
+      --font-mono:    'DM Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.75;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0; opacity: 0.35;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(8, 8, 18, 0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 2rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    }
+    .nav-brand {
+      font-family: var(--font-mono); font-size: 0.82rem;
+      color: var(--accent2); font-weight: 500; letter-spacing: 0.04em;
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    nav a {
+      color: var(--text-dim); text-decoration: none;
+      font-family: var(--font-mono); font-size: 0.77rem;
+      letter-spacing: 0.05em; transition: color 0.2s;
+    }
+    nav a:hover { color: var(--accent2); }
+    .back-btn {
+      background: var(--panel); border: 1px solid var(--border);
+      color: var(--text-dim); padding: 0.35rem 0.9rem;
+      border-radius: 6px; font-size: 0.75rem;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .back-btn:hover {
+      border-color: var(--accent); color: var(--accent2);
+      background: rgba(99, 102, 241, 0.08);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; min-height: 560px;
+      display: flex; align-items: flex-end;
+      padding: 0 2rem 5rem;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('../assets/img/compinv.jpg');
+      background-size: cover; background-position: center 40%;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(to bottom,
+          rgba(8, 8, 18, 0.25) 0%,
+          rgba(8, 8, 18, 0.72) 55%,
+          var(--bg) 100%),
+        linear-gradient(135deg,
+          rgba(79, 70, 229, 0.35) 0%,
+          transparent 55%);
+    }
+    .hero-content {
+      position: relative; z-index: 1;
+      max-width: 680px;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-mono); font-size: 0.72rem;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--accent2); margin-bottom: 1rem;
+      opacity: 0; animation: fadeUp 0.6s var(--ease-out) forwards 0.1s;
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 4.4rem);
+      font-weight: 700; color: var(--text-bright);
+      line-height: 1.08; margin-bottom: 1rem;
+      opacity: 0; animation: fadeUp 0.65s var(--ease-out) forwards 0.22s;
+    }
+    .hero h1 em { color: var(--accent2); font-style: italic; }
+    .hero-sub {
+      font-size: 1.05rem; color: var(--text-dim);
+      max-width: 480px; margin-bottom: 2.25rem;
+      opacity: 0; animation: fadeUp 0.65s var(--ease-out) forwards 0.36s;
+    }
+    .hero-actions {
+      display: flex; gap: 0.75rem; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp 0.65s var(--ease-out) forwards 0.48s;
+    }
+    .hero-badge {
+      position: absolute; top: 1.5rem; right: 2rem; z-index: 1;
+      font-family: var(--font-mono); font-size: 0.68rem;
+      letter-spacing: 0.1em; padding: 0.3rem 0.8rem;
+      border-radius: 20px; border: 1px solid var(--accent);
+      color: var(--accent); background: rgba(99, 102, 241, 0.12);
+      opacity: 0; animation: fadeIn 0.5s ease forwards 0.7s;
+    }
+    .hero-badge::before { content: '◉ '; animation: blink 2s infinite; }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.6rem 1.4rem; border-radius: 8px;
+      font-family: var(--font-mono); font-size: 0.8rem;
+      letter-spacing: 0.05em; text-decoration: none;
+      border: 1px solid transparent;
+      transition: transform 0.22s var(--ease-out),
+                  background 0.2s, border-color 0.2s, box-shadow 0.2s;
+    }
+    .btn:hover  { transform: translateY(-2px); }
+    .btn:active { transform: scale(0.97); transition-duration: 0.08s; }
+    .btn-primary {
+      background: var(--accent); color: #fff; border-color: var(--accent);
+      box-shadow: 0 4px 18px rgba(99, 102, 241, 0.35);
+    }
+    .btn-primary:hover {
+      background: #818cf8; border-color: #818cf8;
+      box-shadow: 0 6px 24px rgba(99, 102, 241, 0.45);
+    }
+    .btn-ghost {
+      background: rgba(99, 102, 241, 0.08);
+      color: var(--text-dim); border-color: var(--border);
+    }
+    .btn-ghost:hover {
+      border-color: rgba(196, 181, 253, 0.4);
+      color: var(--accent2); background: rgba(99, 102, 241, 0.14);
+    }
+
+    /* ── LAYOUT ── */
+    .container {
+      max-width: 1160px; margin: 0 auto;
+      padding: 0 2rem; position: relative; z-index: 1;
+    }
+    section { padding: 3.5rem 0; }
+
+    .section-label {
+      font-family: var(--font-mono); font-size: 0.68rem;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 0.4rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.55rem, 3vw, 2.1rem);
+      color: var(--text-bright); line-height: 1.2;
+      margin-bottom: 0.6rem;
+    }
+    .section-intro {
+      color: var(--text-dim); font-size: 0.95rem;
+      max-width: 640px; line-height: 1.75; margin-bottom: 2rem;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border2);
+    }
+
+    /* ── GRID LAYOUTS ── */
+    .two-col     { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+    .two-col-3-2 { display: grid; grid-template-columns: 3fr 2fr; gap: 2rem; align-items: start; }
+    .two-col-2-3 { display: grid; grid-template-columns: 2fr 3fr; gap: 2rem; align-items: start; }
+    @media (max-width: 800px) {
+      .two-col, .two-col-3-2, .two-col-2-3 { grid-template-columns: 1fr; }
+    }
+
+    /* ── PANEL ── */
+    .panel {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.75rem;
+      position: relative; overflow: hidden;
+    }
+    .panel::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+    .panel-title {
+      font-family: var(--font-display); font-size: 1.1rem;
+      color: var(--text-bright); margin-bottom: 1.1rem;
+    }
+
+    /* ── CARDS ── */
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
+    .card {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.75rem;
+      position: relative; overflow: hidden;
+      transition: transform 0.28s var(--ease-out),
+                  border-color 0.28s, box-shadow 0.28s;
+    }
+    .card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .card:hover {
+        transform: translateY(-5px);
+        border-color: rgba(99, 102, 241, 0.3);
+        box-shadow: 0 14px 48px rgba(99, 102, 241, 0.1);
+      }
+    }
+    .card-icon  { font-size: 1.7rem; margin-bottom: 0.75rem; display: block; }
+    .card-title { font-family: var(--font-display); font-size: 1.1rem; color: var(--text-bright); margin-bottom: 0.6rem; }
+    .card-body  { font-size: 0.9rem; color: var(--text-dim); line-height: 1.7; }
+
+    /* ── TABLES ── */
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: 0.8rem; }
+    thead tr { border-bottom: 1px solid var(--border); }
+    th {
+      text-align: left; padding: 0.55rem 1rem;
+      font-size: 0.63rem; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--accent); font-weight: 500;
+    }
+    td {
+      padding: 0.65rem 1rem; border-bottom: 1px solid var(--border2);
+      color: var(--text); vertical-align: top;
+    }
+    tr:last-child td { border-bottom: none; }
+    tbody tr { transition: background 0.15s; }
+    @media (hover: hover) and (pointer: fine) {
+      tbody tr:hover { background: rgba(99, 102, 241, 0.05); }
+    }
+    .td-dim  { color: var(--text-dim); }
+    .td-mono { font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent2); }
+    .td-note { color: var(--text-dim); font-size: 0.76rem; }
+
+    /* ── CODE BLOCKS ── */
+    .code-block {
+      background: #050510; border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden;
+    }
+    .code-block-header {
+      padding: 0.6rem 1rem; border-bottom: 1px solid var(--border2);
+      font-family: var(--font-mono); font-size: 0.68rem;
+      color: var(--text-dim); letter-spacing: 0.07em;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+    .dot.r { background: #ff5f57; }
+    .dot.y { background: #ffbd2e; }
+    .dot.g { background: #28c840; }
+    .code-block pre {
+      padding: 1.25rem 1.5rem;
+      font-family: var(--font-mono); font-size: 0.8rem;
+      line-height: 1.7; color: var(--text-dim);
+      overflow-x: auto; margin: 0;
+    }
+    .c-kw  { color: #818cf8; }
+    .c-fn  { color: #c4b5fd; }
+    .c-str { color: #86efac; }
+    .c-cm  { color: #3d4f6b; }
+    .c-num { color: #fb923c; }
+    .c-key { color: var(--accent2); }
+
+    /* ── SAFETY GRID ── */
+    .safety-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+    .safety-item {
+      background: rgba(99,102,241,0.03); border: 1px solid var(--border2);
+      border-radius: 10px; padding: 1.1rem 1.25rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .safety-item:hover { border-color: var(--border); background: rgba(99,102,241,0.07); }
+    }
+    .safety-title { font-family: var(--font-mono); font-size: 0.74rem; color: var(--accent2); margin-bottom: 0.3rem; }
+    .safety-desc  { font-size: 0.82rem; color: var(--text-dim); line-height: 1.6; }
+
+    /* ── BOX GRID ── */
+    .box-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.85rem; }
+    .box-item {
+      background: rgba(99,102,241,0.04); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1rem 1.1rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .box-item:hover { border-color: rgba(99,102,241,0.3); background: rgba(99,102,241,0.08); }
+    }
+    .box-label { font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent2); margin-bottom: 0.3rem; }
+    .box-desc  { font-size: 0.8rem; color: var(--text-dim); line-height: 1.55; }
+
+    /* ── FLOW LIST ── */
+    .flow-list { list-style: none; }
+    .flow-item {
+      display: flex; gap: 1rem; align-items: baseline;
+      padding: 0.7rem 0; border-bottom: 1px solid var(--border2);
+    }
+    .flow-item:last-child { border-bottom: none; }
+    .flow-num {
+      font-family: var(--font-mono); font-size: 0.65rem;
+      color: var(--accent); background: rgba(99,102,241,0.1);
+      border: 1px solid var(--border); border-radius: 4px;
+      padding: 0.1rem 0.5rem; white-space: nowrap; min-width: 28px;
+      text-align: center;
+    }
+    .flow-desc { font-size: 0.88rem; color: var(--text-dim); line-height: 1.65; }
+    .flow-desc strong { color: var(--text); }
+
+    /* ── ROADMAP ── */
+    .roadmap-list { list-style: none; }
+    .roadmap-item {
+      display: flex; gap: 0.85rem; align-items: baseline;
+      padding: 0.7rem 0; border-bottom: 1px solid var(--border2);
+      font-size: 0.9rem;
+    }
+    .roadmap-item:last-child { border-bottom: none; }
+    .r-tag {
+      font-family: var(--font-mono); font-size: 0.58rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.15rem 0.55rem; border-radius: 4px;
+      white-space: nowrap; font-weight: 500;
+    }
+    .r-future  { background: rgba(99,102,241,0.1); color: var(--accent2); border: 1px solid rgba(99,102,241,0.2); }
+    .r-enhance { background: rgba(52,211,153,0.08); color: var(--green);  border: 1px solid rgba(52,211,153,0.18); }
+    .r-desc { color: var(--text-dim); flex: 1; line-height: 1.6; }
+    .r-desc strong { color: var(--text); }
+
+    /* ── INLINE CODE / TAGS ── */
+    .inline-code {
+      font-family: var(--font-mono); font-size: 0.82em;
+      background: rgba(99,102,241,0.1); color: var(--accent2);
+      padding: 0.1rem 0.4rem; border-radius: 4px;
+    }
+    .tag {
+      display: inline-block; font-family: var(--font-mono);
+      font-size: 0.63rem; letter-spacing: 0.08em;
+      padding: 0.2rem 0.6rem; border-radius: 4px;
+      background: rgba(99,102,241,0.1); color: var(--accent2);
+      border: 1px solid var(--border);
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0; transform: translateY(22px);
+      transition: opacity 0.55s var(--ease-out), transform 0.55s var(--ease-out);
+    }
+    .reveal.in { opacity: 1; transform: none; }
+
+    .stagger > * {
+      opacity: 0; transform: translateY(18px);
+      transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+    }
+    .stagger.in > *:nth-child(1) { opacity:1; transform:none; transition-delay:  0ms; }
+    .stagger.in > *:nth-child(2) { opacity:1; transform:none; transition-delay: 65ms; }
+    .stagger.in > *:nth-child(3) { opacity:1; transform:none; transition-delay:130ms; }
+    .stagger.in > *:nth-child(4) { opacity:1; transform:none; transition-delay:195ms; }
+    .stagger.in > *:nth-child(5) { opacity:1; transform:none; transition-delay:260ms; }
+    .stagger.in > *:nth-child(6) { opacity:1; transform:none; transition-delay:325ms; }
+    .stagger.in > *:nth-child(7) { opacity:1; transform:none; transition-delay:390ms; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border2);
+      padding: 2.25rem 2rem;
+      text-align: center;
+      font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-dim);
+      position: relative; z-index: 1;
+    }
+    footer a { color: var(--accent2); text-decoration: none; transition: color 0.2s; }
+    footer a:hover { color: #fff; }
+    footer p + p { margin-top: 0.45rem; }
+
+    /* ── UTILS ── */
+    .mt-1 { margin-top: 1rem; }
+    .mt-2 { margin-top: 2rem; }
+    .mb-1 { margin-bottom: 1rem; }
+    .mb-2 { margin-bottom: 2rem; }
+
+    /* ── KEYFRAMES ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: none; }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      nav { padding: 0.65rem 1.25rem; }
+      .hero { min-height: 460px; padding: 0 1.25rem 3.5rem; }
+      .container { padding: 0 1.25rem; }
+      .panel { padding: 1.25rem; }
+    }
+
+    /* ── REDUCED MOTION ── */
+    @media (prefers-reduced-motion: reduce) {
+      .reveal, .stagger > *,
+      .hero-eyebrow, .hero h1, .hero-sub,
+      .hero-actions, .hero-badge {
+        opacity: 1; transform: none;
+        animation: none; transition: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─────────────── NAV ─────────────── -->
+  <nav>
+    <a href="../pages/projectdocs.html" class="back-btn">← Project Docs</a>
+    <a href="../index.html" class="nav-brand">SJFCROSS</a>
+    <div class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="arachnid.html">Arachnid</a>
+      <a href="gljtracker.html">GLJ-Tracker</a>
+    </div>
+  </nav>
+
+  <!-- ─────────────── HERO ─────────────── -->
+  <header class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <span class="hero-badge">Standalone .exe</span>
+    <div class="container">
+      <div class="hero-content">
+        <p class="hero-eyebrow">Division IV · Project Documentation</p>
+        <h1>Component <em>Inventory</em></h1>
+        <p class="hero-sub">A desktop app for tracking a physical electronics parts collection — searchable, sortable, CSV-importable, and packaged as a portable Windows executable.</p>
+        <div class="hero-actions">
+          <a href="https://github.com/sjfcross/sjfcross.github.io" target="_blank" rel="noopener" class="btn btn-primary">GitHub ↗</a>
+          <a href="arachnid.html" class="btn btn-ghost">Arachnid Cabinet</a>
+          <a href="projectdocs.html" class="btn btn-ghost">All Projects</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ─────────────── INTRO CARDS ─────────────── -->
+  <section>
+    <div class="container">
+      <div class="card-grid stagger">
+
+        <div class="card">
+          <span class="card-icon">📦</span>
+          <h3 class="card-title">The Problem</h3>
+          <p class="card-body">Six physical boxes and a bag of electronics parts, each with dozens of components across different categories and sub-locations. A markdown file worked briefly — until finding a specific transistor or checking stock of a capacitor meant reading through hundreds of lines.</p>
+        </div>
+
+        <div class="card">
+          <span class="card-icon">⚙️</span>
+          <h3 class="card-title">What It Is</h3>
+          <p class="card-body">A Python/tkinter desktop application backed by SQLite. It presents a sortable, searchable table of every component with fields for name, value, quantity, physical container, category, sublocation, datasheet, notes, and a configurable low-stock threshold. Packaged as a portable <span class="inline-code">.exe</span> via PyInstaller — no install needed.</p>
+        </div>
+
+        <div class="card">
+          <span class="card-icon">🎯</span>
+          <h3 class="card-title">The Goal</h3>
+          <p class="card-body">Answer "do I have one and where is it?" in under five seconds. Full-text search across all fields, per-field filtering, clickable column headers for sorting, and a one-click low-stock view that surfaces anything running low before starting a project.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─────────────── STACK ─────────────── -->
+  <section id="stack">
+    <div class="container">
+
+      <div class="reveal">
+        <p class="section-label">Stack</p>
+        <h2 class="section-title">Technology choices</h2>
+        <p class="section-intro">Deliberately minimal — no web server, no framework, no dependency on internet access. The entire application is one Python file and a SQLite database that lives next to the executable.</p>
+      </div>
+
+      <div class="two-col mt-2">
+
+        <div class="panel reveal">
+          <p class="panel-title">Stack</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Layer</th><th>Technology</th><th>Why</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td class="td-dim">UI</td>
+                  <td class="td-mono">tkinter / ttk</td>
+                  <td class="td-dim">Ships with Python — zero extra dependencies</td>
+                </tr>
+                <tr>
+                  <td class="td-dim">Database</td>
+                  <td class="td-mono">SQLite 3</td>
+                  <td class="td-dim">Single-file, portable, no server process</td>
+                </tr>
+                <tr>
+                  <td class="td-dim">Language</td>
+                  <td class="td-mono">Python 3</td>
+                  <td class="td-dim">Fast to write, rich stdlib, cross-platform</td>
+                </tr>
+                <tr>
+                  <td class="td-dim">Distribution</td>
+                  <td class="td-mono">PyInstaller</td>
+                  <td class="td-dim">Bundles Python runtime into a standalone .exe</td>
+                </tr>
+                <tr>
+                  <td class="td-dim">Data exchange</td>
+                  <td class="td-mono">CSV (utf-8-sig)</td>
+                  <td class="td-dim">Universal format; Excel-friendly BOM encoding</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="panel reveal">
+          <p class="panel-title">Portability</p>
+          <p style="font-size:0.9rem;color:var(--text-dim);line-height:1.75;margin-bottom:1.1rem;">
+            The <span class="inline-code">get_db_path()</span> function detects whether the process is a frozen PyInstaller bundle (<span class="inline-code">sys.frozen</span>) or a plain Python script and places <span class="inline-code">inventory.db</span> next to the executable in either case. Move the <span class="inline-code">dist/</span> folder anywhere — the database travels with it.
+          </p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Context</th><th>DB location</th></tr></thead>
+              <tbody>
+                <tr><td class="td-dim">Frozen .exe</td><td class="td-mono">next to ComponentInventory.exe</td></tr>
+                <tr><td class="td-dim">Dev (python …py)</td><td class="td-mono">next to inventory_app.py</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─────────────── DATABASE ─────────────── -->
+  <section id="database">
+    <div class="container">
+
+      <div class="reveal">
+        <p class="section-label">Database</p>
+        <h2 class="section-title">Schema</h2>
+        <p class="section-intro">Two tables. <span class="inline-code">components</span> holds every part; <span class="inline-code">settings</span> is a simple key/value store for future app preferences. Both are created on first launch via <span class="inline-code">CREATE TABLE IF NOT EXISTS</span>.</p>
+      </div>
+
+      <div class="two-col-3-2 mt-2">
+
+        <div class="panel reveal">
+          <p class="panel-title">components table</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Column</th><th>Type</th><th>Purpose</th></tr></thead>
+              <tbody>
+                <tr><td class="td-mono">id</td>         <td class="td-dim">INTEGER PK</td><td class="td-dim">Auto-incrementing row identifier</td></tr>
+                <tr><td class="td-mono">name</td>        <td class="td-dim">TEXT NOT NULL</td><td class="td-dim">Component name — the only required field</td></tr>
+                <tr><td class="td-mono">value</td>       <td class="td-dim">TEXT</td><td class="td-dim">Electrical value, part number, or spec</td></tr>
+                <tr><td class="td-mono">quantity</td>    <td class="td-dim">INTEGER</td><td class="td-dim">Current stock count</td></tr>
+                <tr><td class="td-mono">container</td>   <td class="td-dim">TEXT</td><td class="td-dim">Physical box or bag label</td></tr>
+                <tr><td class="td-mono">category</td>    <td class="td-dim">TEXT</td><td class="td-dim">Type grouping within the container</td></tr>
+                <tr><td class="td-mono">sublocation</td> <td class="td-dim">TEXT</td><td class="td-dim">Nested bag or compartment within the category</td></tr>
+                <tr><td class="td-mono">datasheet</td>   <td class="td-dim">TEXT</td><td class="td-dim">Local file path or URL to datasheet</td></tr>
+                <tr><td class="td-mono">notes</td>       <td class="td-dim">TEXT</td><td class="td-dim">Free-text notes and observations</td></tr>
+                <tr><td class="td-mono">low_stock</td>   <td class="td-dim">INTEGER</td><td class="td-dim">Alert threshold; 0 = no alert</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div>
+          <div class="code-block reveal">
+            <div class="code-block-header">
+              <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+              fetch_all() — search query
+            </div>
+            <pre><span class="c-kw">SELECT</span> * <span class="c-kw">FROM</span> components
+<span class="c-kw">WHERE</span>
+  name      <span class="c-kw">LIKE</span> <span class="c-str">?</span>
+  <span class="c-kw">OR</span> value    <span class="c-kw">LIKE</span> <span class="c-str">?</span>
+  <span class="c-kw">OR</span> container <span class="c-kw">LIKE</span> <span class="c-str">?</span>
+  <span class="c-kw">OR</span> category  <span class="c-kw">LIKE</span> <span class="c-str">?</span>
+  <span class="c-kw">OR</span> sublocation <span class="c-kw">LIKE</span> <span class="c-str">?</span>
+  <span class="c-kw">OR</span> notes    <span class="c-kw">LIKE</span> <span class="c-str">?</span>
+<span class="c-cm">-- AND low_stock > 0 AND quantity &lt;= low_stock</span>
+<span class="c-cm">-- (appended in low-stock mode)</span>
+<span class="c-kw">ORDER BY</span> container, category, name</pre>
+          </div>
+
+          <div class="panel reveal mt-2">
+            <p class="panel-title">settings table</p>
+            <p style="font-size:0.85rem;color:var(--text-dim);line-height:1.7;">A key/value store using <span class="inline-code">INSERT OR REPLACE</span> — upsert semantics without requiring a unique constraint migration. Reserved for future persistent preferences such as last-used filter or window geometry.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─────────────── UI FEATURES ─────────────── -->
+  <section id="ui">
+    <div class="container">
+
+      <div class="reveal">
+        <p class="section-label">User Interface</p>
+        <h2 class="section-title">Features</h2>
+        <p class="section-intro">Three horizontal zones — a dark toolbar, a search bar, and the component table — plus a slim status bar at the bottom showing the active database path.</p>
+      </div>
+
+      <div class="safety-grid stagger mt-2">
+
+        <div class="safety-item">
+          <p class="safety-title">CRUD toolbar</p>
+          <p class="safety-desc">Add, Edit, Delete, and Clear All buttons in a navy toolbar. Edit also opens on double-click; Delete fires on the <span class="inline-code">Delete</span> key. Clear All requires a confirmation dialog.</p>
+        </div>
+
+        <div class="safety-item">
+          <p class="safety-title">Add / Edit dialog</p>
+          <p class="safety-desc">A modal window with one field per column — entries, spinboxes for numeric values, a multi-line text area for notes, and Browse / Open buttons for the datasheet path. The dialog blocks the main window until dismissed.</p>
+        </div>
+
+        <div class="safety-item">
+          <p class="safety-title">Live search</p>
+          <p class="safety-desc">The table refilters on every keystroke via a <span class="inline-code">StringVar</span> trace. A field dropdown narrows the search to a single column (Name, Value, Container, Category, Sublocation, or Notes). A Clear button resets both.</p>
+        </div>
+
+        <div class="safety-item">
+          <p class="safety-title">Column sort</p>
+          <p class="safety-desc">Clicking any column header sorts ascending; clicking again reverses. Quantity is sorted numerically; all other columns alphabetically (case-insensitive). Sort state persists across search filter changes.</p>
+        </div>
+
+        <div class="safety-item">
+          <p class="safety-title">Low-stock mode</p>
+          <p class="safety-desc">A purple toolbar button toggles a filter that shows only rows where <span class="inline-code">quantity ≤ low_stock</span> and <span class="inline-code">low_stock > 0</span>. The button visually depresses (sunken relief) while active.</p>
+        </div>
+
+        <div class="safety-item">
+          <p class="safety-title">Row highlighting</p>
+          <p class="safety-desc">Low-stock rows are tinted rose-red with crimson text. Even-numbered non-low rows get a faint blue-white alternating stripe. Selected rows turn indigo with white text.</p>
+        </div>
+
+        <div class="safety-item">
+          <p class="safety-title">CSV import</p>
+          <p class="safety-desc">Opens a file picker, then asks Replace or Append. Reads <span class="inline-code">utf-8-sig</span> (BOM-stripped) — handles files saved from Excel without garbled characters. Skips rows with no name.</p>
+        </div>
+
+        <div class="safety-item">
+          <p class="safety-title">CSV export</p>
+          <p class="safety-desc">Exports the current filtered view — not always the full database. If a search or low-stock filter is active, only those rows are written. File is <span class="inline-code">utf-8-sig</span> for Excel compatibility.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─────────────── IMPORT PIPELINE ─────────────── -->
+  <section id="import">
+    <div class="container">
+
+      <div class="reveal">
+        <p class="section-label">Data Pipeline</p>
+        <h2 class="section-title">Markdown → CSV → Database</h2>
+        <p class="section-intro">The physical inventory was originally maintained as a structured markdown file. A two-stage Python pipeline converted it into the app's SQLite database without manual re-entry.</p>
+      </div>
+
+      <div class="two-col mt-2">
+
+        <div class="panel reveal">
+          <p class="panel-title">Stage 1 — parse_inventory_md.py</p>
+          <ul class="flow-list">
+            <li class="flow-item">
+              <span class="flow-num">1</span>
+              <span class="flow-desc">Reads <span class="inline-code">inventory.md</span> line by line, tracking the current <strong>container</strong> (Box heading), <strong>category</strong> (## Category:), and <strong>sublocation</strong> (nested bag)</span>
+            </li>
+            <li class="flow-item">
+              <span class="flow-num">2</span>
+              <span class="flow-desc">Each list item is split on <span class="inline-code"> - </span> or <span class="inline-code">---</span> separators; trailing parentheticals become the <strong>value</strong> field</span>
+            </li>
+            <li class="flow-item">
+              <span class="flow-num">3</span>
+              <span class="flow-desc">Quantities embedded in names (e.g. <span class="inline-code">- AHT10 - 2 - notes</span>) are parsed into the <strong>quantity</strong> column</span>
+            </li>
+            <li class="flow-item">
+              <span class="flow-num">4</span>
+              <span class="flow-desc">Outputs <span class="inline-code">inventory_import.csv</span> with all nine importable fields, ready for the app</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="panel reveal">
+          <p class="panel-title">Stage 2 — fix_qty.py</p>
+          <ul class="flow-list">
+            <li class="flow-item">
+              <span class="flow-num">1</span>
+              <span class="flow-desc">Reads <span class="inline-code">inventory_import.csv</span> and detects three quantity patterns still embedded in name strings: <strong>trailing ×N</strong>, <strong>Bag: Nx …</strong>, and <strong>leading Nx …</strong></span>
+            </li>
+            <li class="flow-item">
+              <span class="flow-num">2</span>
+              <span class="flow-desc">Smart disambiguation — skips <span class="inline-code">8×8</span> and <span class="inline-code">172×320</span> (no space before ×) and flags compound bags (<span class="inline-code">Bag: 3x A + 10x B</span>) for manual review</span>
+            </li>
+            <li class="flow-item">
+              <span class="flow-num">3</span>
+              <span class="flow-desc">Only applies changes when the existing quantity is <span class="inline-code">0</span> — never overwrites a value already set by Stage 1</span>
+            </li>
+            <li class="flow-item">
+              <span class="flow-num">4</span>
+              <span class="flow-desc">Writes <span class="inline-code">inventory_import_fixed.csv</span> and a full <span class="inline-code">inventory_fix_report.txt</span> change log for review before importing</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="code-block reveal mt-2">
+        <div class="code-block-header">
+          <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+          CSV column format
+        </div>
+        <pre><span class="c-key">name</span>        <span class="c-cm">IRLZ44N N-channel Logic-Level MOSFET</span>
+<span class="c-key">value</span>       <span class="c-cm">TO-220</span>
+<span class="c-key">quantity</span>    <span class="c-num">9</span>
+<span class="c-key">container</span>   <span class="c-cm">Box 3</span>
+<span class="c-key">category</span>    <span class="c-cm">Transistors + ICs + MOSFETs Box</span>
+<span class="c-key">sublocation</span> <span class="c-cm"></span>
+<span class="c-key">datasheet</span>   <span class="c-cm"></span>
+<span class="c-key">notes</span>       <span class="c-cm">N-channel Logic-Level MOSFET (TO-220)</span>
+<span class="c-key">low_stock</span>   <span class="c-num">0</span></pre>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─────────────── PHYSICAL INVENTORY ─────────────── -->
+  <section id="inventory">
+    <div class="container">
+
+      <div class="reveal">
+        <p class="section-label">Physical Layout</p>
+        <h2 class="section-title">Box structure</h2>
+        <p class="section-intro">The inventory spans six physical boxes and a tool bag, each containing parts grouped by category and further split into nested bags or compartments stored in the <span class="inline-code">sublocation</span> field.</p>
+      </div>
+
+      <div class="box-grid stagger mt-2">
+
+        <div class="box-item">
+          <p class="box-label">Box 1 — Modules</p>
+          <p class="box-desc">Power modules, step-up/buck converters, charging boards, timer relays, remote RF modules, ESP32/Arduino development boards, and sound modules.</p>
+        </div>
+
+        <div class="box-item">
+          <p class="box-label">Box 2 — Sensors & Kits</p>
+          <p class="box-desc">Breadboards, protoboards, Arduino Uno, sensor bags (DHT22, MPU-6050, magnetometer, microphones), robot kits, and a temperature prototype.</p>
+        </div>
+
+        <div class="box-item">
+          <p class="box-label">Box 3 — Components</p>
+          <p class="box-desc">Resistors, capacitors, diodes, transistors, MOSFETs, NE555 timers, displays (OLED, TFT, LCD), relays, potentiometers, switches, and connectors.</p>
+        </div>
+
+        <div class="box-item">
+          <p class="box-label">Box 4 — Cables & Mechanical</p>
+          <p class="box-desc">USB cables, battery holders, PC fans, pin headers, jumper wires, hook-up wire, test leads, barrel jack splitters, servo mounts, and an aluminium chassis.</p>
+        </div>
+
+        <div class="box-item">
+          <p class="box-label">Box 5 — Light, Water & Motors</p>
+          <p class="box-desc">WS2812B LED strips, laser modules, UV LEDs, ultrasonic foggers, water pumps, servo motors, ESCs, stepper drivers, H-bridge modules, and PWM speed controllers.</p>
+        </div>
+
+        <div class="box-item">
+          <p class="box-label">Tool Bag — PSUs</p>
+          <p class="box-desc">Nine AC-DC power supplies ranging from 5 V / 0.5 A to 12 V / 6 A in mini, medium, and large form factors, plus socket adapters.</p>
+        </div>
+
+        <div class="box-item">
+          <p class="box-label">Box 6 — Homebox</p>
+          <p class="box-desc">House repair items, assorted brass wire (0.7 / 1 / 2 mm straight and wound), and brass sheet stock — kept separate from electronics.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─────────────── ROADMAP ─────────────── -->
+  <section id="roadmap">
+    <div class="container">
+
+      <div class="reveal">
+        <p class="section-label">Roadmap</p>
+        <h2 class="section-title">What's next</h2>
+      </div>
+
+      <div class="two-col mt-2">
+
+        <div class="panel reveal">
+          <p class="panel-title">Features</p>
+          <ul class="roadmap-list">
+            <li class="roadmap-item">
+              <span class="r-tag r-future">next</span>
+              <span class="r-desc"><strong>Datasheet viewer</strong> — open PDFs and URLs directly from the table row without going through the Edit dialog</span>
+            </li>
+            <li class="roadmap-item">
+              <span class="r-tag r-future">next</span>
+              <span class="r-desc"><strong>Bulk quantity edit</strong> — select multiple rows and increment or decrement stock in one action after pulling parts for a project</span>
+            </li>
+            <li class="roadmap-item">
+              <span class="r-tag r-enhance">enhance</span>
+              <span class="r-desc"><strong>Auto-complete dropdowns</strong> — container and category fields should suggest existing values to prevent spelling variants creating duplicate groups</span>
+            </li>
+            <li class="roadmap-item">
+              <span class="r-tag r-enhance">enhance</span>
+              <span class="r-desc"><strong>Print / label export</strong> — generate a box contents sheet as PDF or plain text for sticking inside each box lid</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="panel reveal">
+          <p class="panel-title">Infrastructure</p>
+          <ul class="roadmap-list">
+            <li class="roadmap-item">
+              <span class="r-tag r-future">next</span>
+              <span class="r-desc"><strong>Persist column sort &amp; window geometry</strong> — use the <span class="inline-code">settings</span> table to remember last sort column and window size between launches</span>
+            </li>
+            <li class="roadmap-item">
+              <span class="r-tag r-enhance">enhance</span>
+              <span class="r-desc"><strong>DB backup on launch</strong> — copy <span class="inline-code">inventory.db</span> to a dated backup file at startup so accidental Clear All is recoverable</span>
+            </li>
+            <li class="roadmap-item">
+              <span class="r-tag r-enhance">enhance</span>
+              <span class="r-desc"><strong>Multi-row select</strong> — treeview currently uses <span class="inline-code">browse</span> mode (single selection); switching to <span class="inline-code">extended</span> would enable batch delete and bulk edits</span>
+            </li>
+            <li class="roadmap-item">
+              <span class="r-tag r-future">next</span>
+              <span class="r-desc"><strong>GitHub release workflow</strong> — automate PyInstaller builds via GitHub Actions and attach the <span class="inline-code">.exe</span> to tagged releases</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="reveal mt-2" style="display:flex;gap:1rem;flex-wrap:wrap;">
+        <a href="https://github.com/sjfcross/sjfcross.github.io" target="_blank" rel="noopener" class="btn btn-primary">GitHub Repository ↗</a>
+        <a href="projectdocs.html" class="btn btn-ghost">All Projects</a>
+        <a href="arachnid.html" class="btn btn-ghost">Arachnid Cabinet</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─────────────── FOOTER ─────────────── -->
+  <footer>
+    <p>Component Inventory &nbsp;·&nbsp; Python · tkinter · SQLite · PyInstaller &nbsp;·&nbsp; Built by <a href="https://github.com/sjfcross">sjfcross</a></p>
+    <p>May 2026</p>
+    <p style="margin-top:0.75rem;"><a href="../pages/projectdocs.html">← Back to Project Docs</a></p>
+  </footer>
+
+  <!-- ─────────────── SCROLL REVEAL ─────────────── -->
+  <script>
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.07, rootMargin: '0px 0px -28px 0px' });
+
+    document.querySelectorAll('.reveal, .stagger').forEach(el => io.observe(el));
+  </script>
+
+</body>
+</html>
