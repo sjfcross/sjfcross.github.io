@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vault — Encrypted Password Manager | Project Documentation | SJFCROSS</title>
+  <link rel="icon" type="image/png" href="../assets/img/favicon-32x32.png">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400;500&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:           #080810;
+      --bg2:          #0d0d1a;
+      --bg3:          #131328;
+      --panel:        #1a1a2e;
+      --panel2:       #0f0f20;
+      --border:       rgba(167,139,250,0.15);
+      --border2:      rgba(167,139,250,0.07);
+      --accent:       #a78bfa;
+      --accent2:      #c4b5fd;
+      --green:        #34d399;
+      --yellow:       #fbbf24;
+      --red:          #f87171;
+      --text:         #e2e8f0;
+      --text-dim:     #94a3b8;
+      --text-bright:  #f1f5f9;
+      --ease-out:     cubic-bezier(0.23, 1, 0.32, 1);
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    'Lora', Georgia, serif;
+      --font-mono:    'DM Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.75;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0; opacity: 0.35;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(8, 8, 16, 0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 2rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    }
+    .nav-brand {
+      font-family: var(--font-mono); font-size: 0.82rem;
+      color: var(--accent2); font-weight: 500; letter-spacing: 0.04em;
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    nav a {
+      color: var(--text-dim); text-decoration: none;
+      font-family: var(--font-mono); font-size: 0.77rem;
+      letter-spacing: 0.05em; transition: color 0.2s;
+    }
+    nav a:hover { color: var(--accent2); }
+    .back-btn {
+      background: var(--panel); border: 1px solid var(--border);
+      color: var(--text-dim); padding: 0.35rem 0.9rem;
+      border-radius: 6px; font-size: 0.75rem;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .back-btn:hover {
+      border-color: var(--accent); color: var(--accent2);
+      background: rgba(167, 139, 250, 0.08);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; min-height: 560px;
+      display: flex; align-items: flex-end;
+      padding: 0 2rem 5rem;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('../images/vault.jpg');
+      background-size: cover; background-position: center 40%;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(to bottom,
+          rgba(8, 8, 16, 0.35) 0%,
+          rgba(8, 8, 16, 0.75) 55%,
+          var(--bg) 100%),
+        linear-gradient(135deg,
+          rgba(167, 139, 250, 0.18) 0%,
+          transparent 55%);
+    }
+    .hero-content {
+      position: relative; z-index: 1;
+      max-width: 680px;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-mono); font-size: 0.72rem;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--accent2); margin-bottom: 1rem;
+      opacity: 0; animation: fadeUp 0.6s var(--ease-out) forwards 0.1s;
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 4.4rem);
+      font-weight: 700; color: var(--text-bright);
+      line-height: 1.08; margin-bottom: 1rem;
+      opacity: 0; animation: fadeUp 0.65s var(--ease-out) forwards 0.22s;
+    }
+    .hero h1 em { color: var(--accent); font-style: italic; }
+    .hero-sub {
+      font-size: 1.05rem; color: var(--text-dim);
+      max-width: 480px; margin-bottom: 2.25rem;
+      opacity: 0; animation: fadeUp 0.65s var(--ease-out) forwards 0.36s;
+    }
+    .hero-actions {
+      display: flex; gap: 0.75rem; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp 0.65s var(--ease-out) forwards 0.48s;
+    }
+    .hero-badge {
+      position: absolute; top: 1.5rem; right: 2rem; z-index: 1;
+      font-family: var(--font-mono); font-size: 0.68rem;
+      letter-spacing: 0.1em; padding: 0.3rem 0.8rem;
+      border-radius: 20px; border: 1px solid var(--accent);
+      color: var(--accent); background: rgba(167, 139, 250, 0.1);
+      opacity: 0; animation: fadeIn 0.5s ease forwards 0.7s;
+    }
+    .hero-badge::before { content: '🔐 '; }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.6rem 1.4rem; border-radius: 8px;
+      font-family: var(--font-mono); font-size: 0.8rem;
+      letter-spacing: 0.05em; text-decoration: none;
+      border: 1px solid transparent;
+      transition: transform 0.22s var(--ease-out),
+                  background 0.2s, border-color 0.2s, box-shadow 0.2s;
+    }
+    .btn:hover  { transform: translateY(-2px); }
+    .btn:active { transform: scale(0.97); transition-duration: 0.08s; }
+    .btn-primary {
+      background: var(--accent); color: #fff; border-color: var(--accent);
+      box-shadow: 0 4px 18px rgba(167, 139, 250, 0.35);
+    }
+    .btn-primary:hover {
+      background: #c4b5fd; border-color: #c4b5fd;
+      box-shadow: 0 6px 24px rgba(167, 139, 250, 0.45);
+    }
+    .btn-ghost {
+      background: rgba(167, 139, 250, 0.08);
+      color: var(--text-dim); border-color: var(--border);
+    }
+    .btn-ghost:hover {
+      border-color: rgba(196, 181, 253, 0.4);
+      color: var(--accent2); background: rgba(167, 139, 250, 0.14);
+    }
+
+    /* ── LAYOUT ── */
+    .container {
+      max-width: 1160px; margin: 0 auto;
+      padding: 0 2rem; position: relative; z-index: 1;
+    }
+    section { padding: 3.5rem 0; }
+
+    .section-label {
+      font-family: var(--font-mono); font-size: 0.68rem;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 0.4rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.55rem, 3vw, 2.1rem);
+      color: var(--text-bright); line-height: 1.2;
+      margin-bottom: 0.6rem;
+    }
+    .section-intro {
+      color: var(--text-dim); font-size: 0.95rem;
+      max-width: 640px; line-height: 1.75; margin-bottom: 2rem;
+    }
+
+    .divider { border: none; border-top: 1px solid var(--border2); }
+
+    /* ── GRID ── */
+    .two-col     { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+    .two-col-3-2 { display: grid; grid-template-columns: 3fr 2fr; gap: 2rem; align-items: start; }
+    .two-col-2-3 { display: grid; grid-template-columns: 2fr 3fr; gap: 2rem; align-items: start; }
+    @media (max-width: 800px) {
+      .two-col, .two-col-3-2, .two-col-2-3 { grid-template-columns: 1fr; }
+    }
+
+    /* ── PANEL ── */
+    .panel {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.75rem;
+      position: relative; overflow: hidden;
+    }
+    .panel::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+    .panel-title {
+      font-family: var(--font-display); font-size: 1.1rem;
+      color: var(--text-bright); margin-bottom: 1.1rem;
+    }
+
+    /* ── CARDS ── */
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
+    .card {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.75rem;
+      position: relative; overflow: hidden;
+      transition: transform 0.28s var(--ease-out), border-color 0.28s, box-shadow 0.28s;
+    }
+    .card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .card:hover {
+        transform: translateY(-5px);
+        border-color: rgba(167, 139, 250, 0.3);
+        box-shadow: 0 14px 48px rgba(167, 139, 250, 0.1);
+      }
+    }
+    .card-icon  { font-size: 1.7rem; margin-bottom: 0.75rem; display: block; }
+    .card-title { font-family: var(--font-display); font-size: 1.1rem; color: var(--text-bright); margin-bottom: 0.6rem; }
+    .card-body  { font-size: 0.9rem; color: var(--text-dim); line-height: 1.7; }
+
+    /* ── FLOW LIST ── */
+    .flow-list { list-style: none; }
+    .flow-item {
+      display: flex; gap: 1rem; align-items: baseline;
+      padding: 0.7rem 0; border-bottom: 1px solid var(--border2);
+    }
+    .flow-item:last-child { border-bottom: none; }
+    .flow-num {
+      font-family: var(--font-mono); font-size: 0.65rem;
+      color: var(--accent); background: rgba(167,139,250,0.1);
+      border: 1px solid var(--border); border-radius: 4px;
+      padding: 0.1rem 0.5rem; white-space: nowrap; min-width: 28px;
+      text-align: center;
+    }
+    .flow-desc { font-size: 0.88rem; color: var(--text-dim); line-height: 1.65; }
+    .flow-desc strong { color: var(--text); }
+
+    /* ── SAFETY GRID ── */
+    .safety-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+    .safety-item {
+      background: rgba(167,139,250,0.03); border: 1px solid var(--border2);
+      border-radius: 10px; padding: 1.1rem 1.25rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .safety-item:hover { border-color: var(--border); background: rgba(167,139,250,0.07); }
+    }
+    .safety-title { font-family: var(--font-mono); font-size: 0.74rem; color: var(--accent2); margin-bottom: 0.3rem; }
+    .safety-desc  { font-size: 0.82rem; color: var(--text-dim); line-height: 1.6; }
+
+    /* ── ARCH BLOCK ── */
+    .arch-block {
+      background: #05050e; border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden;
+    }
+    .arch-block-header {
+      padding: 0.6rem 1rem; border-bottom: 1px solid var(--border2);
+      font-family: var(--font-mono); font-size: 0.68rem;
+      color: var(--text-dim); letter-spacing: 0.07em;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+    .dot.r { background: #ff5f57; }
+    .dot.y { background: #ffbd2e; }
+    .dot.g { background: #28c840; }
+    .arch-block pre {
+      padding: 1.5rem;
+      font-family: var(--font-mono); font-size: 0.73rem;
+      line-height: 1.75; color: var(--text-dim);
+      overflow-x: auto; margin: 0;
+    }
+    .a-purple { color: var(--accent2); }
+    .a-green  { color: var(--green); }
+    .a-dim    { color: #2e3d55; }
+    .a-yellow { color: var(--yellow); }
+
+    /* ── CODE BLOCK ── */
+    .code-block {
+      background: #05050e; border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden;
+    }
+    .code-block-header {
+      padding: 0.6rem 1rem; border-bottom: 1px solid var(--border2);
+      font-family: var(--font-mono); font-size: 0.68rem;
+      color: var(--text-dim); letter-spacing: 0.07em;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .code-block pre {
+      padding: 1.25rem 1.5rem;
+      font-family: var(--font-mono); font-size: 0.8rem;
+      line-height: 1.7; color: var(--text-dim);
+      overflow-x: auto; margin: 0;
+    }
+    .c-kw  { color: #818cf8; }
+    .c-fn  { color: #c4b5fd; }
+    .c-str { color: #86efac; }
+    .c-cm  { color: #3d4f6b; }
+    .c-num { color: #fb923c; }
+
+    /* ── TABLE ── */
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: 0.8rem; }
+    thead tr { border-bottom: 1px solid var(--border); }
+    th {
+      text-align: left; padding: 0.55rem 1rem;
+      font-size: 0.63rem; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--accent); font-weight: 500;
+    }
+    td { padding: 0.65rem 1rem; border-bottom: 1px solid var(--border2); color: var(--text); vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    tbody tr { transition: background 0.15s; }
+    @media (hover: hover) and (pointer: fine) {
+      tbody tr:hover { background: rgba(167, 139, 250, 0.05); }
+    }
+    .td-dim  { color: var(--text-dim); }
+    .td-mono { font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent2); }
+    .td-green { color: var(--green); }
+
+    /* ── INLINE CODE / TAG ── */
+    .inline-code {
+      font-family: var(--font-mono); font-size: 0.82em;
+      background: rgba(167,139,250,0.1); color: var(--accent2);
+      padding: 0.1rem 0.4rem; border-radius: 4px;
+    }
+    .tag {
+      display: inline-block; font-family: var(--font-mono);
+      font-size: 0.63rem; letter-spacing: 0.08em;
+      padding: 0.2rem 0.6rem; border-radius: 4px;
+      background: rgba(167,139,250,0.1); color: var(--accent2);
+      border: 1px solid var(--border);
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0; transform: translateY(22px);
+      transition: opacity 0.55s var(--ease-out), transform 0.55s var(--ease-out);
+    }
+    .reveal.in { opacity: 1; transform: none; }
+    .stagger > * {
+      opacity: 0; transform: translateY(18px);
+      transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+    }
+    .stagger.in > *:nth-child(1) { opacity:1; transform:none; transition-delay:   0ms; }
+    .stagger.in > *:nth-child(2) { opacity:1; transform:none; transition-delay:  65ms; }
+    .stagger.in > *:nth-child(3) { opacity:1; transform:none; transition-delay: 130ms; }
+    .stagger.in > *:nth-child(4) { opacity:1; transform:none; transition-delay: 195ms; }
+    .stagger.in > *:nth-child(5) { opacity:1; transform:none; transition-delay: 260ms; }
+    .stagger.in > *:nth-child(6) { opacity:1; transform:none; transition-delay: 325ms; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border2);
+      padding: 2.25rem 2rem;
+      text-align: center;
+      font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-dim);
+      position: relative; z-index: 1;
+    }
+    footer a { color: var(--accent2); text-decoration: none; transition: color 0.2s; }
+    footer a:hover { color: #fff; }
+    footer p + p { margin-top: 0.45rem; }
+
+    /* ── UTILS ── */
+    .mt-1 { margin-top: 1rem; }
+    .mt-2 { margin-top: 2rem; }
+    .mb-1 { margin-bottom: 1rem; }
+    .mb-2 { margin-bottom: 2rem; }
+
+    /* ── KEYFRAMES ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: none; }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      nav { padding: 0.65rem 1.25rem; }
+      .hero { min-height: 460px; padding: 0 1.25rem 3.5rem; }
+      .container { padding: 0 1.25rem; }
+      .panel { padding: 1.25rem; }
+    }
+
+    /* ── REDUCED MOTION ── */
+    @media (prefers-reduced-motion: reduce) {
+      .reveal, .stagger > *,
+      .hero-eyebrow, .hero h1, .hero-sub,
+      .hero-actions, .hero-badge {
+        opacity: 1; transform: none;
+        animation: none; transition: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─────────────── NAV ─────────────── -->
+  <nav>
+    <a href="../pages/projectdocs.html" class="back-btn">← Project Docs</a>
+    <a href="../index.html" class="nav-brand">SJFCROSS</a>
+    <div class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="gljtracker.html">GLJ-Tracker</a>
+      <a href="https://github.com/sjfcross/sjfcross.github.io" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </nav>
+
+  <!-- ─────────────── HERO ─────────────── -->
+  <header class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <span class="hero-badge">Zero-server · Local-only</span>
+    <div class="container">
+      <div class="hero-content">
+        <p class="hero-eyebrow">Division IV · Project Documentation</p>
+        <h1><em>Vault</em></h1>
+        <p class="hero-sub">A self-contained, offline-first password manager — AES-256-GCM encrypted in the browser, zero backend, zero dependencies, no data ever leaves the page.</p>
+        <div class="hero-actions">
+          <a href="gljtracker.html" class="btn btn-ghost">GLJ-Tracker</a>
+          <a href="projectdocs.html" class="btn btn-ghost">All Projects</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ─────────────── INTRO CARDS ─────────────── -->
+  <section>
+    <div class="container">
+      <div class="card-grid stagger">
+
+        <div class="card">
+          <span class="card-icon">🔒</span>
+          <h3 class="card-title">The Problem</h3>
+          <p class="card-body">Cloud password managers require trust in a third-party server. Browser-built-ins leak metadata. A local solution that encrypts data before it ever touches storage — and that never phones home — is the only truly private option.</p>
+        </div>
+
+        <div class="card">
+          <span class="card-icon">🗄️</span>
+          <h3 class="card-title">What It Is</h3>
+          <p class="card-body">A single <span class="inline-code">vault.html</span> file that is both the app and the database. All account data lives inside the file itself as an AES-256-GCM encrypted blob. Open it in any browser, enter your master password, done.</p>
+        </div>
+
+        <div class="card">
+          <span class="card-icon">🎯</span>
+          <h3 class="card-title">The Goal</h3>
+          <p class="card-body">No installs, no server, no account. One file you back up yourself. Full CRUD for credentials, TOTP-style password-age timers, CSV import from Firefox, and encrypted export — all in &lt;1 400 lines of vanilla HTML.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─────────────── ARCHITECTURE ─────────────── -->
+  <section id="architecture">
+    <div class="container">
+
+      <div class="reveal">
+        <p class="section-label">Architecture</p>
+        <h2 class="section-title">One file, self-contained</h2>
+        <p class="section-intro">There is no backend. The encrypted vault blob is embedded directly in the HTML file. Every operation — unlock, render, edit, export — happens entirely in the browser via the WebCrypto API.</p>
+      </div>
+
+      <div class="two-col-3-2 mt-2">
+
+        <div class="arch-block reveal">
+          <div class="arch-block-header">
+            <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+            data flow
+          </div>
+          <pre>
+<span class="a-purple">┌─────────────────────────────────────────────┐
+│                  vault.html                   │
+│                                               │
+│  ┌──────────┐   master pw   ┌─────────────┐  │
+│  │ PBKDF2   │ ────────────► │  AES-256    │  │
+│  │ key der. │               │  GCM key    │  │
+│  └──────────┘               └──────┬──────┘  │
+│                                    │         │</span>
+<span class="a-dim">│         ┌──────────────────────────┘         │
+│         ▼                                   │</span>
+<span class="a-green">│  ┌─────────────┐    decrypt    ┌──────────┐  │
+│  │  VAULT_DATA │ ────────────► │  JSON[]  │  │
+│  │  (base64)   │               │  entries │  │
+│  └─────────────┘               └────┬─────┘  │</span>
+<span class="a-dim">│                                    │         │
+│         ┌──────────────────────────┘         │
+│         ▼                                   │</span>
+<span class="a-yellow">│  ┌──────────────────────────────────────┐   │
+│  │         Dashboard / Editor           │   │
+│  │   search · copy · add · import       │   │
+│  └──────────────────────────────────────┘   │</span>
+<span class="a-purple">└─────────────────────────────────────────────┘</span>
+          </pre>
+        </div>
+
+        <div class="panel reveal">
+          <h3 class="panel-title">Three views</h3>
+          <ul class="flow-list">
+            <li class="flow-item">
+              <span class="flow-num">1</span>
+              <span class="flow-desc"><strong>Lock screen</strong> — master password prompt. First use initialises an empty vault; any subsequent use must decrypt the existing blob.</span>
+            </li>
+            <li class="flow-item">
+              <span class="flow-num">2</span>
+              <span class="flow-desc"><strong>Dashboard</strong> — card grid of all entries. Search with live highlight, copy username/password, reveal/mask toggle, password-age timer.</span>
+            </li>
+            <li class="flow-item">
+              <span class="flow-num">3</span>
+              <span class="flow-desc"><strong>Editor</strong> — full CRUD for entries plus CSV import and encrypted export back to the HTML file.</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─────────────── CRYPTO ─────────────── -->
+  <section id="crypto">
+    <div class="container">
+
+      <div class="reveal">
+        <p class="section-label">Cryptography</p>
+        <h2 class="section-title">AES-256-GCM via WebCrypto</h2>
+        <p class="section-intro">Everything runs through the browser's native <span class="inline-code">crypto.subtle</span> API — no third-party crypto library, no JS reimplementation.</p>
+      </div>
+
+      <div class="two-col mt-2">
+
+        <div class="code-block reveal">
+          <div class="code-block-header">
+            <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+            key derivation
+          </div>
+          <pre>
+<span class="c-cm">// PBKDF2: password + random salt → AES key</span>
+<span class="c-kw">async function</span> <span class="c-fn">deriveKey</span>(password, salt) {
+  <span class="c-kw">const</span> enc = <span class="c-kw">new</span> TextEncoder();
+  <span class="c-kw">const</span> km = <span class="c-kw">await</span> crypto.subtle.<span class="c-fn">importKey</span>(
+    <span class="c-str">'raw'</span>, enc.<span class="c-fn">encode</span>(password),
+    <span class="c-str">'PBKDF2'</span>, <span class="c-kw">false</span>, [<span class="c-str">'deriveKey'</span>]
+  );
+  <span class="c-kw">return</span> crypto.subtle.<span class="c-fn">deriveKey</span>({
+    name: <span class="c-str">'PBKDF2'</span>,
+    salt,
+    iterations: <span class="c-num">310000</span>,
+    hash: <span class="c-str">'SHA-256'</span>
+  }, km, { name: <span class="c-str">'AES-GCM'</span>, length: <span class="c-num">256</span> },
+  <span class="c-kw">false</span>, [<span class="c-str">'encrypt'</span>, <span class="c-str">'decrypt'</span>]);
+}</pre>
+        </div>
+
+        <div class="panel reveal">
+          <h3 class="panel-title">Crypto spec</h3>
+          <ul class="flow-list">
+            <li class="flow-item">
+              <span class="flow-num">KDF</span>
+              <span class="flow-desc"><strong>PBKDF2-SHA-256</strong> with 310 000 iterations and a 16-byte random salt generated at first use. The salt is stored alongside the ciphertext.</span>
+            </li>
+            <li class="flow-item">
+              <span class="flow-num">ENC</span>
+              <span class="flow-desc"><strong>AES-256-GCM</strong> with a fresh 12-byte IV per save. GCM provides both confidentiality and authenticated integrity — a tampered blob will fail to decrypt.</span>
+            </li>
+            <li class="flow-item">
+              <span class="flow-num">OUT</span>
+              <span class="flow-desc">Salt + IV + ciphertext are base64-encoded into a single <span class="inline-code">VAULT_DATA</span> constant inside the HTML file — the file is its own encrypted database.</span>
+            </li>
+            <li class="flow-item">
+              <span class="flow-num">KEY</span>
+              <span class="flow-desc">The derived key is held in memory only for the session. It is never serialised, never written to <span class="inline-code">localStorage</span>, never sent anywhere.</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─────────────── FEATURES ─────────────── -->
+  <section id="features">
+    <div class="container">
+
+      <div class="reveal">
+        <p class="section-label">Features</p>
+        <h2 class="section-title">What's inside the vault</h2>
+        <p class="section-intro">Each entry stores name, icon, tag, username, password, URL, free-text notes, and a password-change period for the age timer.</p>
+      </div>
+
+      <div class="table-wrap mt-2 reveal">
+        <table>
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Detail</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="td-mono">Search &amp; highlight</td>
+              <td class="td-dim">Live filter across name, username, URL, and notes. Matching substrings are highlighted with <span class="inline-code">&lt;mark&gt;</span>.</td>
+            </tr>
+            <tr>
+              <td class="td-mono">Copy to clipboard</td>
+              <td class="td-dim">One-click copy for username and password. Passwords shown as dots by default; a reveal toggle unmasks them.</td>
+            </tr>
+            <tr>
+              <td class="td-mono">Password-age timer</td>
+              <td class="td-dim">Each entry tracks when the password was last changed. A coloured progress bar (green → yellow → red) shows how stale it is relative to a configurable period.</td>
+            </tr>
+            <tr>
+              <td class="td-mono">CSV import</td>
+              <td class="td-dim">Drag-and-drop or browse for a Firefox Lockwise CSV export. Duplicate detection by URL + login. Choose append or replace mode.</td>
+            </tr>
+            <tr>
+              <td class="td-mono">Encrypted export</td>
+              <td class="td-dim">Re-encrypts the current vault and outputs the blob — paste it back into the HTML as the new <span class="inline-code">VAULT_DATA</span> to persist your changes.</td>
+            </tr>
+            <tr>
+              <td class="td-mono">Offline / no CDN</td>
+              <td class="td-dim">The only external resource is the Tabler icon font. The crypto and app logic are fully self-contained — works on a USB stick with no internet.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─────────────── SECURITY ─────────────── -->
+  <section id="security">
+    <div class="container">
+
+      <div class="reveal">
+        <p class="section-label">Security model</p>
+        <h2 class="section-title">What it protects — and what it doesn't</h2>
+        <p class="section-intro">Vault is designed for a specific threat model: keeping credentials safe at rest in a portable file. It is not a hardened secret store — understand the limits.</p>
+      </div>
+
+      <div class="safety-grid mt-2 stagger">
+
+        <div class="safety-item">
+          <div class="safety-title">✅ At-rest encryption</div>
+          <div class="safety-desc">All data is encrypted before it is written. A stolen copy of the file is useless without the master password.</div>
+        </div>
+
+        <div class="safety-item">
+          <div class="safety-title">✅ No network exposure</div>
+          <div class="safety-desc">Nothing leaves the browser. No analytics, no telemetry, no sync endpoint, no update check.</div>
+        </div>
+
+        <div class="safety-item">
+          <div class="safety-title">✅ Authenticated encryption</div>
+          <div class="safety-desc">GCM's built-in authentication tag means a corrupted or tampered blob will fail to decrypt rather than silently returning garbage.</div>
+        </div>
+
+        <div class="safety-item">
+          <div class="safety-title">⚠️ Master password strength</div>
+          <div class="safety-desc">Security is only as good as the master password. A weak password with 310k PBKDF2 rounds is still a weak password.</div>
+        </div>
+
+        <div class="safety-item">
+          <div class="safety-title">⚠️ Browser memory</div>
+          <div class="safety-desc">Decrypted data lives in JS heap while the vault is unlocked. A malicious browser extension with script access could read it.</div>
+        </div>
+
+        <div class="safety-item">
+          <div class="safety-title">⚠️ No 2FA / biometrics</div>
+          <div class="safety-desc">The only gate is the master password. There is no second factor, no hardware key, no session timeout — locking is manual.</div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─────────────── HOW TO USE ─────────────── -->
+  <section id="usage">
+    <div class="container">
+
+      <div class="reveal">
+        <p class="section-label">Usage</p>
+        <h2 class="section-title">Getting started</h2>
+        <p class="section-intro">No install, no build step. Open the file, set a master password, add entries, export to save.</p>
+      </div>
+
+      <div class="two-col-2-3 mt-2">
+
+        <div class="panel reveal">
+          <h3 class="panel-title">First time</h3>
+          <ul class="flow-list">
+            <li class="flow-item">
+              <span class="flow-num">1</span>
+              <span class="flow-desc">Open <span class="inline-code">vault.html</span> in any modern browser.</span>
+            </li>
+            <li class="flow-item">
+              <span class="flow-num">2</span>
+              <span class="flow-desc">Enter any password — this becomes your master password and initialises an empty vault.</span>
+            </li>
+            <li class="flow-item">
+              <span class="flow-num">3</span>
+              <span class="flow-desc">Click <strong>Edit vault</strong>, then <strong>+ Add</strong> to create your first entry.</span>
+            </li>
+            <li class="flow-item">
+              <span class="flow-num">4</span>
+              <span class="flow-desc">Go to <strong>Export</strong>, click <strong>Generate</strong>, copy the blob, and paste it into <span class="inline-code">vault.html</span> as the value of <span class="inline-code">const VAULT_DATA</span>. Save the file.</span>
+            </li>
+            <li class="flow-item">
+              <span class="flow-num">5</span>
+              <span class="flow-desc">Back up the file wherever you like — USB stick, Dropbox, NAS. The encryption travels with it.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="panel reveal">
+          <h3 class="panel-title">Importing from Firefox</h3>
+          <ul class="flow-list">
+            <li class="flow-item">
+              <span class="flow-num">1</span>
+              <span class="flow-desc">In Firefox, go to <strong>about:logins</strong> → ⋯ menu → <strong>Export logins</strong>. Save the CSV.</span>
+            </li>
+            <li class="flow-item">
+              <span class="flow-num">2</span>
+              <span class="flow-desc">Unlock Vault, click <strong>Edit vault</strong>, scroll to <strong>Import CSV</strong>.</span>
+            </li>
+            <li class="flow-item">
+              <span class="flow-num">3</span>
+              <span class="flow-desc">Drop the file or click to browse. The preview shows how many entries were found, how many are duplicates (matched by URL + login), and how many are new.</span>
+            </li>
+            <li class="flow-item">
+              <span class="flow-num">4</span>
+              <span class="flow-desc">Choose <strong>Append</strong> (merge) or <strong>Replace</strong> (overwrite entire vault). Then export and save as above.</span>
+            </li>
+          </ul>
+          <p style="margin-top:1rem; font-size:0.82rem; color:var(--text-dim);">
+            <span class="tag">Note</span> &nbsp;The exported Firefox CSV is plaintext — delete it from your Downloads folder after importing.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────── FOOTER ─────────────── -->
+  <footer>
+    <p>Vault — Encrypted Password Manager &nbsp;·&nbsp; Built by <a href="https://github.com/sjfcross">sjfcross</a></p>
+    <p>Stack: WebCrypto API · AES-256-GCM · PBKDF2 · Vanilla JS &nbsp;·&nbsp; May 2026</p>
+    <p style="margin-top:0.75rem;"><a href="../pages/projectdocs.html">← Back to Project Docs</a></p>
+  </footer>
+
+  <!-- ─────────────── SCROLL REVEAL ─────────────── -->
+  <script>
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.07, rootMargin: '0px 0px -28px 0px' });
+
+    document.querySelectorAll('.reveal, .stagger').forEach(el => io.observe(el));
+  </script>
+
+</body>
+</html>
