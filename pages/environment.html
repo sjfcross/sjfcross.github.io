@@ -553,7 +553,7 @@
   <section id="charts-section">
     <div class="section-label">Historical data</div>
     <div class="section-title">Trend Charts</div>
-    <div class="section-subtitle">Hourly averages for week/month views · Raw 20s data in live view</div>
+    <div class="section-subtitle">Daily averages for week/month views · Raw 20s data in live view</div>
 
     <!-- TIME RANGE SELECTOR -->
     <div class="range-bar">
@@ -668,9 +668,9 @@ function dateRangeParams(daysBack, average) {
 }
 
 const RANGES = {
-  live:     { label: 'Last 2 hours · 20s resolution',  showDevices: true,  getParams: () => 'results=360'            },
-  week:     { label: '1 week · hourly averages',        showDevices: false, getParams: () => dateRangeParams(7,   60) },
-  '4weeks': { label: '4 weeks · hourly averages',       showDevices: false, getParams: () => dateRangeParams(28,  60) },
+  live:     { label: 'Last 2 hours · 20s resolution',  showDevices: true,  getParams: () => 'results=360'              },
+  week:     { label: '1 week · daily averages',         showDevices: false, getParams: () => dateRangeParams(7,   1440) },
+  '4weeks': { label: '4 weeks · daily averages',        showDevices: false, getParams: () => dateRangeParams(28,  1440) },
   '6months':{ label: '6 months · daily averages',       showDevices: false, getParams: () => dateRangeParams(180, 1440) },
 };
 
