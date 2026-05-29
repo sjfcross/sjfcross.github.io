@@ -313,7 +313,8 @@
     }
     .arch-block pre {
       padding: 1.5rem;
-      font-family: var(--font-mono); font-size: 0.73rem;
+      font-family: 'Cascadia Mono', 'Cascadia Code', Consolas, 'Courier New', monospace;
+      font-size: 0.73rem;
       line-height: 1.75; color: var(--text-dim);
       overflow-x: auto; margin: 0;
     }
@@ -569,18 +570,18 @@
           </div>
           <pre>
 <span class="arch-browser">┌─────────────────────────────────────────┐
-│               Browser                    │
-│                                          │
+│               Browser                   │
+│                                         │
 │  GLJ.DE frontend  (HTML / CSS / JS)     │
 │  Hosted on Netlify · static             │
-│                                          │
+│                                         │
 │  fetch()  every 5 minutes               │
 └────────────────┬────────────────────────┘</span>
 <span class="arch-arrow">                 │  HTTPS GET
                  ▼</span>
 <span class="arch-worker">┌─────────────────────────────────────────┐
-│          Cloudflare Worker               │
-│                                          │
+│          Cloudflare Worker              │
+│                                         │
 │  • CORS preflight  (OPTIONS → 204)      │
 │  • In-memory cache (module-scoped)      │
 │  • Trading hours  (Europe/Berlin)       │
@@ -590,8 +591,8 @@
 <span class="arch-arrow">                 │  HTTPS GET  (cache miss only)
                  ▼</span>
 <span class="arch-yahoo">┌─────────────────────────────────────────┐
-│         Yahoo Finance  v8 chart API      │
-│                                          │
+│         Yahoo Finance  v8 chart API     │
+│                                         │
 │  interval=1m · range=1d                 │
 │  No API key required                    │
 └─────────────────────────────────────────┘</span></pre>
