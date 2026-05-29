@@ -973,6 +973,7 @@ async function loadRange(rangeKey) {
 
   try {
     const data  = await fetchThingSpeak(range.params);
+    console.log('[range:' + rangeKey + '] feeds count:', data.feeds?.length, 'sample:', data.feeds?.[0]);
     const feeds = data.feeds;
 
     if (!feeds || feeds.length === 0) {
