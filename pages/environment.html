@@ -658,11 +658,20 @@ const BASE    = `https://api.thingspeak.com/channels/${CHANNEL}/feeds.json`;
 const F = { temp: 'field1', hum: 'field2', fog: 'field3', fan: 'field4', light: 'field5' };
 
 // Time range configs
+// week/4weeks/6months use getParams() to build explicit start/end so ThingSpeak
+// applies true time-based averaging rather than averaging a capped raw-result window.
+function dateRangeParams(daysBack, average) {
+  const now   = new Date();
+  const start = new Date(now.getTime() - daysBack * 24 * 3600 * 1000);
+  const fmt   = d => encodeURIComponent(d.toISOString().slice(0, 19).replace('T', ' '));
+  return `start=${fmt(start)}&end=${fmt(now)}&average=${average}`;
+}
+
 const RANGES = {
-  live:     { label: 'Last 2 hours · 20s resolution',     params: 'results=360',                               showDevices: true  },
-  week:     { label: '1 week · hourly averages',           params: 'days=7&average=60&results=8000',            showDevices: false },
-  '4weeks': { label: '4 weeks · hourly averages',          params: 'days=28&average=60&results=8000',           showDevices: false },
-  '6months':{ label: '6 months · daily averages',          params: 'days=180&average=1440&results=8000',        showDevices: false },
+  live:     { label: 'Last 2 hours · 20s resolution',  showDevices: true,  getParams: () => 'results=360'            },
+  week:     { label: '1 week · hourly averages',        showDevices: false, getParams: () => dateRangeParams(7,   60) },
+  '4weeks': { label: '4 weeks · hourly averages',       showDevices: false, getParams: () => dateRangeParams(28,  60) },
+  '6months':{ label: '6 months · daily averages',       showDevices: false, getParams: () => dateRangeParams(180, 1440) },
 };
 
 /* ─────────────────────────────────────────
@@ -972,7 +981,7 @@ async function loadRange(rangeKey) {
   setOverlay(overlay, 'Loading…');
 
   try {
-    const data  = await fetchThingSpeak(range.params);
+    const data  = await fetchThingSpeak(range.getParams());
     console.log('[range:' + rangeKey + '] feeds count:', data.feeds?.length, 'sample:', data.feeds?.[0]);
     const feeds = data.feeds;
 
