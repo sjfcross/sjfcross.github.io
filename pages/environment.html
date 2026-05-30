@@ -553,7 +553,7 @@
   <section id="charts-section">
     <div class="section-label">Historical data</div>
     <div class="section-title">Trend Charts</div>
-    <div class="section-subtitle">Daily averages for week/month views · Raw 20s data in live view</div>
+    <div class="section-subtitle">1 week · hourly averages · 4 weeks/6 months · daily averages · Live · raw 20s</div>
 
     <!-- TIME RANGE SELECTOR -->
     <div class="range-bar">
@@ -658,20 +658,14 @@ const BASE    = `https://api.thingspeak.com/channels/${CHANNEL}/feeds.json`;
 const F = { temp: 'field1', hum: 'field2', fog: 'field3', fan: 'field4', light: 'field5' };
 
 // Time range configs
-// week/4weeks/6months use getParams() to build explicit start/end so ThingSpeak
-// applies true time-based averaging rather than averaging a capped raw-result window.
-function dateRangeParams(daysBack, average) {
-  const now   = new Date();
-  const start = new Date(now.getTime() - daysBack * 24 * 3600 * 1000);
-  const fmt   = d => encodeURIComponent(d.toISOString().slice(0, 19).replace('T', ' '));
-  return `start=${fmt(start)}&end=${fmt(now)}&average=${average}`;
-}
-
+// week uses paged raw fetch + client-side hourly bucketing (ThingSpeak's average=60
+// only works on a short raw-data window; daily precomputed averages work long-term).
+// 4weeks / 6months use ThingSpeak precomputed daily averages (reliable full history).
 const RANGES = {
-  live:     { label: 'Last 2 hours · 20s resolution',  showDevices: true,  getParams: () => 'results=360'              },
-  week:     { label: '1 week · daily averages',         showDevices: false, getParams: () => dateRangeParams(7,   1440) },
-  '4weeks': { label: '4 weeks · daily averages',        showDevices: false, getParams: () => dateRangeParams(28,  1440) },
-  '6months':{ label: '6 months · daily averages',       showDevices: false, getParams: () => dateRangeParams(180, 1440) },
+  live:     { label: 'Last 2 hours · 20s resolution',  showDevices: true,  mode: 'live'              },
+  week:     { label: '1 week · hourly averages',        showDevices: false, mode: 'paged',  daysBack: 7   },
+  '4weeks': { label: '4 weeks · daily averages',        showDevices: false, mode: 'daily',  daysBack: 28  },
+  '6months':{ label: '6 months · daily averages',       showDevices: false, mode: 'daily',  daysBack: 180 },
 };
 
 /* ─────────────────────────────────────────
@@ -729,6 +723,62 @@ async function fetchThingSpeak(params) {
   const res  = await fetch(url);
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   return res.json();
+}
+
+/* ─────────────────────────────────────────
+   PAGED RAW FETCH + CLIENT-SIDE HOURLY AVG
+   ThingSpeak caps raw results at 8000/call.
+   We page forward in time to cover the full
+   requested window, then bucket client-side.
+───────────────────────────────────────── */
+function tsUrl(d) {
+  return encodeURIComponent(d.toISOString().slice(0, 19).replace('T', ' '));
+}
+
+async function fetchPagedRaw(startTime, endTime, maxBatches = 4) {
+  const all = [];
+  let cursor = startTime;
+
+  for (let i = 0; i < maxBatches; i++) {
+    const data  = await fetchThingSpeak(`start=${tsUrl(cursor)}&end=${tsUrl(endTime)}&results=8000`);
+    const feeds = data.feeds ?? [];
+    if (!feeds.length) break;
+
+    all.push(...feeds);
+    if (feeds.length < 8000) break; // reached end of available data
+
+    // Page forward: start just after the newest entry in this batch
+    const newest = new Date(feeds[feeds.length - 1].created_at);
+    if (newest >= endTime) break;
+    cursor = new Date(newest.getTime() + 1000);
+  }
+
+  // Sort ascending (ThingSpeak is usually ascending but be safe)
+  all.sort((a, b) => a.created_at < b.created_at ? -1 : 1);
+  // Deduplicate
+  const seen = new Set();
+  return all.filter(f => !seen.has(f.created_at) && seen.add(f.created_at));
+}
+
+function clientHourlyAvg(rawFeeds) {
+  const HOUR = 3_600_000;
+  const buckets = new Map();
+  for (const f of rawFeeds) {
+    const key = Math.floor(new Date(f.created_at).getTime() / HOUR) * HOUR;
+    if (!buckets.has(key)) buckets.set(key, { t: [], h: [] });
+    const b = buckets.get(key);
+    const tv = parseNum(f[F.temp]), hv = parseNum(f[F.hum]);
+    if (tv != null) b.t.push(tv);
+    if (hv != null) b.h.push(hv);
+  }
+  const avg = arr => arr.length ? Math.round(arr.reduce((s, v) => s + v, 0) / arr.length * 10) / 10 : null;
+  const labels = [], temps = [], hums = [];
+  for (const [key, b] of [...buckets].sort(([a], [b]) => a - b)) {
+    labels.push(new Date(key));
+    temps.push(avg(b.t));
+    hums.push(avg(b.h));
+  }
+  return { labels, temps, hums };
 }
 
 /* ─────────────────────────────────────────
@@ -967,43 +1017,46 @@ async function loadRange(rangeKey) {
   const overlay = document.getElementById('th-overlay');
   const devPanel = document.getElementById('panel-devices');
 
-  // Show / hide device chart panel
-  if (range.showDevices) {
-    devPanel.classList.remove('hidden');
-  } else {
-    devPanel.classList.add('hidden');
-  }
-
-  // Update tag label
+  devPanel.classList.toggle('hidden', !range.showDevices);
   document.getElementById('th-tag').textContent = range.label;
-
-  // Show loading
   setOverlay(overlay, 'Loading…');
 
   try {
-    const data  = await fetchThingSpeak(range.getParams());
-    console.log('[range:' + rangeKey + '] feeds count:', data.feeds?.length, 'sample:', data.feeds?.[0]);
-    const feeds = data.feeds;
+    let labels, temps, hums, fogs = [], fans = [], lights = [];
 
-    if (!feeds || feeds.length === 0) {
-      setOverlay(overlay, 'No data returned', true);
-      return;
+    if (range.mode === 'live') {
+      const data  = await fetchThingSpeak('results=360');
+      const feeds = data.feeds ?? [];
+      if (!feeds.length) { setOverlay(overlay, 'No data returned', true); return; }
+      labels = feeds.map(f => new Date(f.created_at));
+      temps  = ema(feeds.map(f => parseNum(f[F.temp])));
+      hums   = feeds.map(f => parseNum(f[F.hum]));
+      fogs   = feeds.map(f => parseNum(f[F.fog]));
+      fans   = feeds.map(f => parseNum(f[F.fan]));
+      lights = feeds.map(f => parseNum(f[F.light]));
+
+    } else if (range.mode === 'paged') {
+      const now   = new Date();
+      const start = new Date(now.getTime() - range.daysBack * 86_400_000);
+      setOverlay(overlay, 'Fetching… (up to 4 requests)');
+      const raw = await fetchPagedRaw(start, now, 4);
+      if (!raw.length) { setOverlay(overlay, 'No data returned', true); return; }
+      ({ labels, temps, hums } = clientHourlyAvg(raw));
+
+    } else { // 'daily' — ThingSpeak precomputed daily averages
+      const now   = new Date();
+      const start = new Date(now.getTime() - range.daysBack * 86_400_000);
+      const data  = await fetchThingSpeak(`start=${tsUrl(start)}&end=${tsUrl(now)}&average=1440`);
+      const feeds = data.feeds ?? [];
+      if (!feeds.length) { setOverlay(overlay, 'No data returned', true); return; }
+      labels = feeds.map(f => new Date(f.created_at));
+      temps  = feeds.map(f => parseNum(f[F.temp]));
+      hums   = feeds.map(f => parseNum(f[F.hum]));
     }
 
-    // Parse
-    const labels = feeds.map(f => new Date(f.created_at));
-    const rawTemps = feeds.map(f => parseNum(f[F.temp]));
-    const temps    = rangeKey === 'live' ? ema(rawTemps) : rawTemps;
-    const hums   = feeds.map(f => parseNum(f[F.hum]));
-    const fogs   = feeds.map(f => parseNum(f[F.fog]));
-    const fans   = feeds.map(f => parseNum(f[F.fan]));
-    const lights = feeds.map(f => parseNum(f[F.light]));
-
-    // Build temp+hum chart
     buildTHChart(labels, temps, hums);
     hideOverlay(overlay);
 
-    // Build device chart (only for live)
     if (range.showDevices) {
       const devOverlay = document.getElementById('dev-overlay');
       buildDevChart(labels, fogs, fans, lights);
