@@ -737,20 +737,20 @@ function tsUrl(d) {
 
 async function fetchPagedRaw(startTime, endTime, maxBatches = 4) {
   const all = [];
-  let cursor = startTime;
+  let cursor = endTime; // page backward from now
 
   for (let i = 0; i < maxBatches; i++) {
-    const data  = await fetchThingSpeak(`start=${tsUrl(cursor)}&end=${tsUrl(endTime)}&results=8000`);
+    const data  = await fetchThingSpeak(`start=${tsUrl(startTime)}&end=${tsUrl(cursor)}&results=8000`);
     const feeds = data.feeds ?? [];
     if (!feeds.length) break;
 
     all.push(...feeds);
-    if (feeds.length < 8000) break; // reached end of available data
+    if (feeds.length < 8000) break; // reached the beginning of available data
 
-    // Page forward: start just after the newest entry in this batch
-    const newest = new Date(feeds[feeds.length - 1].created_at);
-    if (newest >= endTime) break;
-    cursor = new Date(newest.getTime() + 1000);
+    // Page backward: end just before the oldest entry in this batch
+    const oldest = new Date(feeds[0].created_at);
+    if (oldest <= startTime) break;
+    cursor = new Date(oldest.getTime() - 1000);
   }
 
   // Sort ascending (ThingSpeak is usually ascending but be safe)
