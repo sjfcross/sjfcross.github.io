@@ -1010,8 +1010,11 @@ function buildDevChart(labels, fogs, fans, lights) {
    MAIN: LOAD RANGE DATA
 ───────────────────────────────────────── */
 let currentRange = 'live';
+let rangeLoading = false;
 
 async function loadRange(rangeKey) {
+  if (rangeLoading) return;
+  rangeLoading = true;
   currentRange = rangeKey;
   const range   = RANGES[rangeKey];
   const overlay = document.getElementById('th-overlay');
@@ -1071,6 +1074,8 @@ async function loadRange(rangeKey) {
   } catch (e) {
     setOverlay(overlay, 'Error: ' + e.message, true);
     console.error(e);
+  } finally {
+    rangeLoading = false;
   }
 }
 
