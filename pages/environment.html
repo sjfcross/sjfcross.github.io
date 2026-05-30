@@ -837,7 +837,7 @@ function destroyChart(chartRef) {
 /* ─────────────────────────────────────────
    TEMP + HUMIDITY CHART
 ───────────────────────────────────────── */
-function buildTHChart(labels, temps, hums) {
+function buildTHChart(labels, temps, hums, timeOpts = {}) {
   thChart = destroyChart(thChart);
   const ctx = document.getElementById('th-chart').getContext('2d');
 
@@ -894,7 +894,7 @@ function buildTHChart(labels, temps, hums) {
       scales: {
         x: {
           type: 'time',
-          time: { tooltipFormat: 'dd MMM HH:mm' },
+          time: { tooltipFormat: 'dd MMM HH:mm', ...timeOpts },
           grid:  { color: '#1e2818' },
           ticks: { maxTicksLimit: 8, color: '#7a8068' },
         },
@@ -1054,7 +1054,12 @@ async function loadRange(rangeKey) {
       hums   = feeds.map(f => parseNum(f[F.hum]));
     }
 
-    buildTHChart(labels, temps, hums);
+    const timeOpts = range.mode === 'paged'
+      ? { unit: 'day', displayFormats: { day: 'EEE d MMM' }, tooltipFormat: 'EEE d MMM HH:mm' }
+      : range.mode === 'daily'
+        ? { unit: 'day', displayFormats: { day: 'd MMM' }, tooltipFormat: 'd MMM yyyy' }
+        : {};
+    buildTHChart(labels, temps, hums, timeOpts);
     hideOverlay(overlay);
 
     if (range.showDevices) {
