@@ -285,10 +285,10 @@ body.index-page footer .fab.fa-github { color: #6366f1 !important; }
 
 .division-card-app .card-overlay {
   background: linear-gradient(to right,
-    rgba(14,15,17,0.88) 0%,
-    rgba(14,15,17,0.45) 35%,
-    rgba(14,15,17,0.97) 65%,
-    rgba(14,15,17,1) 100%) !important;
+    rgba(14,15,17,0.85) 0%,
+    rgba(14,15,17,0.3) 18%,
+    rgba(14,15,17,0.85) 42%,
+    rgba(14,15,17,1) 55%) !important;
 }
 
 .card-app-inner {
