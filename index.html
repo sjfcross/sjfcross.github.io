@@ -373,7 +373,7 @@
           cardObserver.unobserve(el);
         }
       });
-    }, { threshold: 0.08, rootMargin: '-10px' });
+    }, { threshold: 0.05, rootMargin: '0px' });
     divCards.forEach((card, i) => {
       card.dataset.stagger = i * 70;
       cardObserver.observe(card);
