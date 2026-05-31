@@ -266,3 +266,72 @@ body.index-page footer .fab.fa-github { color: #6366f1 !important; }
   .division-card.visible { transform: none !important; }
   .division-card img { transition: none !important; }
 }
+
+/* App card (VITALS etc) */
+.division-card-app {
+  background: #0e0f11;
+  border-color: rgba(255,255,255,0.07) !important;
+  display: flex !important;
+  align-items: center;
+}
+
+.card-app-inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  width: 100%;
+  gap: 20px;
+}
+
+.card-app-left { flex: 1; }
+
+.app-tag {
+  color: #e8784a !important;
+  background: rgba(232,120,74,0.12) !important;
+  border-color: rgba(232,120,74,0.3) !important;
+}
+
+.app-title {
+  color: #f0eeea !important;
+  font-size: 1.25rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.1em !important;
+  margin: 6px 0 6px !important;
+  font-family: 'DM Mono', 'Cascadia Code', Consolas, monospace;
+}
+
+.app-desc {
+  color: #6b6f73 !important;
+  font-size: 0.78rem !important;
+  line-height: 1.5;
+  margin: 0 !important;
+  max-width: 320px;
+}
+
+.card-app-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.metric {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  font-family: 'DM Mono', 'Cascadia Code', Consolas, monospace;
+}
+
+@media (max-width: 576px) {
+  .card-app-metrics { display: none; }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .division-card-app.visible:hover {
+    border-color: rgba(232,120,74,0.25) !important;
+    box-shadow: 0 24px 60px rgba(232,120,74,0.1), 0 8px 20px rgba(0,0,0,0.4) !important;
+  }
+}
