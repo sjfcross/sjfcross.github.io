@@ -159,16 +159,28 @@ body.about-us .container.position-sticky .arrow { filter: brightness(0) invert(1
   background: #1a1a2e;
   opacity: 0;
   transform: translateY(20px);
+  /* Only transition compositable properties (transform, opacity) to avoid
+     Firefox repaint jank caused by box-shadow/border-color on the main thread */
   transition: transform 220ms cubic-bezier(0.23, 1, 0.32, 1),
-              box-shadow 220ms cubic-bezier(0.23, 1, 0.32, 1),
-              opacity 500ms cubic-bezier(0.23, 1, 0.32, 1),
-              border-color 220ms ease;
+              opacity 500ms cubic-bezier(0.23, 1, 0.32, 1);
   will-change: transform, opacity;
   border: 1px solid rgba(99, 102, 241, 0.08);
 }
 .division-card.visible {
   opacity: 1;
   transform: translateY(0);
+}
+/* Hover glow via pseudo-element so it fades with opacity (compositable, no repaint) */
+.division-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 24px 60px rgba(99,102,241,0.22), 0 8px 20px rgba(0,0,0,0.4);
+  opacity: 0;
+  transition: opacity 220ms ease;
+  pointer-events: none;
+  z-index: 0;
 }
 .division-card img {
   width: 100%;
@@ -188,6 +200,7 @@ body.about-us .container.position-sticky .arrow { filter: brightness(0) invert(1
   position: absolute;
   bottom: 0; left: 0; right: 0;
   padding: 18px 20px;
+  z-index: 1;
 }
 .division-card .div-tag {
   display: inline-block;
@@ -213,8 +226,10 @@ body.about-us .container.position-sticky .arrow { filter: brightness(0) invert(1
 @media (hover: hover) and (pointer: fine) {
   .division-card.visible:hover {
     transform: translateY(-6px) !important;
-    box-shadow: 0 24px 60px rgba(99,102,241,0.22), 0 8px 20px rgba(0,0,0,0.4) !important;
     border-color: rgba(99, 102, 241, 0.28) !important;
+  }
+  .division-card.visible:hover::after {
+    opacity: 1;
   }
   .division-card.visible:hover img {
     transform: scale(1.05);
@@ -341,9 +356,11 @@ body.index-page footer .fab.fa-github { color: #6366f1 !important; }
   .card-app-metrics { display: none; }
 }
 
+.division-card-app::after {
+  box-shadow: 0 24px 60px rgba(232,120,74,0.1), 0 8px 20px rgba(0,0,0,0.4);
+}
 @media (hover: hover) and (pointer: fine) {
   .division-card-app.visible:hover {
     border-color: rgba(232,120,74,0.25) !important;
-    box-shadow: 0 24px 60px rgba(232,120,74,0.1), 0 8px 20px rgba(0,0,0,0.4) !important;
   }
 }
