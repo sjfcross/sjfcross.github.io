@@ -159,16 +159,15 @@ body.about-us .container.position-sticky .arrow { filter: brightness(0) invert(1
   background: #1a1a2e;
   opacity: 0;
   transform: translateY(20px);
-  /* Only transition compositable properties (transform, opacity) to avoid
-     Firefox repaint jank caused by box-shadow/border-color on the main thread */
   transition: transform 220ms cubic-bezier(0.23, 1, 0.32, 1),
               opacity 500ms cubic-bezier(0.23, 1, 0.32, 1);
-  will-change: transform, opacity;
   border: 1px solid rgba(99, 102, 241, 0.08);
 }
+/* Promote to compositor layer only once visible, ready for hover interaction */
 .division-card.visible {
   opacity: 1;
   transform: translateY(0);
+  will-change: transform;
 }
 /* Hover glow via pseudo-element so it fades with opacity (compositable, no repaint) */
 .division-card::after {
@@ -187,7 +186,8 @@ body.about-us .container.position-sticky .arrow { filter: brightness(0) invert(1
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 400ms cubic-bezier(0.23, 1, 0.32, 1), filter 220ms ease;
+  will-change: transform;
+  transition: transform 400ms cubic-bezier(0.23, 1, 0.32, 1);
 }
 .division-card .card-overlay {
   position: absolute;
@@ -233,7 +233,6 @@ body.about-us .container.position-sticky .arrow { filter: brightness(0) invert(1
   }
   .division-card.visible:hover img {
     transform: scale(1.05);
-    filter: brightness(1.1) saturate(1.1);
   }
 }
 .division-card:active {
