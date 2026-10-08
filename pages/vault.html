@@ -472,7 +472,7 @@
         <div class="card">
           <span class="card-icon">🎯</span>
           <h3 class="card-title">The Goal</h3>
-          <p class="card-body">No installs, no server, no account. One file you back up yourself. Full CRUD for credentials, TOTP-style password-age timers, CSV import from Firefox, and encrypted export — all in &lt;1 400 lines of vanilla HTML.</p>
+          <p class="card-body">No installs, no server, no account. One file you back up yourself. Full CRUD for credentials, password-age timers, CSV import from Firefox, and encrypted export — all in &lt;1 400 lines of vanilla HTML.</p>
         </div>
 
       </div>
@@ -576,7 +576,7 @@
   <span class="c-kw">return</span> crypto.subtle.<span class="c-fn">deriveKey</span>({
     name: <span class="c-str">'PBKDF2'</span>,
     salt,
-    iterations: <span class="c-num">310000</span>,
+    iterations: <span class="c-num">250000</span>,
     hash: <span class="c-str">'SHA-256'</span>
   }, km, { name: <span class="c-str">'AES-GCM'</span>, length: <span class="c-num">256</span> },
   <span class="c-kw">false</span>, [<span class="c-str">'encrypt'</span>, <span class="c-str">'decrypt'</span>]);
@@ -588,7 +588,7 @@
           <ul class="flow-list">
             <li class="flow-item">
               <span class="flow-num">KDF</span>
-              <span class="flow-desc"><strong>PBKDF2-SHA-256</strong> with 310 000 iterations and a 16-byte random salt generated at first use. The salt is stored alongside the ciphertext.</span>
+              <span class="flow-desc"><strong>PBKDF2-SHA-256</strong> with 250 000 iterations and a 16-byte random salt generated at first use. The salt is stored alongside the ciphertext.</span>
             </li>
             <li class="flow-item">
               <span class="flow-num">ENC</span>
@@ -692,7 +692,7 @@
 
         <div class="safety-item">
           <div class="safety-title">⚠️ Master password strength</div>
-          <div class="safety-desc">Security is only as good as the master password. A weak password with 310k PBKDF2 rounds is still a weak password.</div>
+          <div class="safety-desc">Security is only as good as the master password. A weak password with 250k PBKDF2 rounds is still a weak password.</div>
         </div>
 
         <div class="safety-item">

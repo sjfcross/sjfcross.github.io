@@ -625,7 +625,7 @@
                   <tr><td class="td-dim">Requests / day</td><td class="td-green">100,000</td></tr>
                   <tr><td class="td-dim">CPU / request</td><td class="td-green">10 ms</td></tr>
                   <tr><td class="td-dim">Egress charge</td><td class="td-green">none</td></tr>
-                  <tr><td class="td-dim">Netlify bandwidth</td><td class="td-green">100 GB / mo</td></tr>
+                  <tr><td class="td-dim">Pages bandwidth</td><td class="td-green">unlimited</td></tr>
                 </tbody>
               </table>
             </div>
@@ -950,14 +950,6 @@
           <p class="panel-title">Immediate tasks</p>
           <ul class="roadmap-list">
             <li class="roadmap-item">
-              <span class="r-tag r-future">next</span>
-              <span class="r-desc"><strong>Version-control the Worker</strong> — copy script into <span class="inline-code">worker/index.js</span>, add <span class="inline-code">wrangler.toml</span> for CLI deployment</span>
-            </li>
-            <li class="roadmap-item">
-              <span class="r-tag r-enhance">enhance</span>
-              <span class="r-desc"><strong>Surface stale-on-error in UI</strong> — check for <span class="inline-code">d.error</span> in <span class="inline-code">load()</span> and show a subtle warning banner</span>
-            </li>
-            <li class="roadmap-item">
               <span class="r-tag r-enhance">enhance</span>
               <span class="r-desc"><strong>Sparkline</strong> — the Yahoo response already contains the full intraday <span class="inline-code">closes</span> array; parse and render a simple SVG sparkline</span>
             </li>
@@ -989,11 +981,7 @@
             </li>
             <li class="roadmap-item">
               <span class="r-tag r-enhance">tighten</span>
-              <span class="r-desc"><strong>CORS wildcard</strong> — <span class="inline-code">Access-Control-Allow-Origin: *</span> is safe here (public data only) but could be restricted to the Netlify origin</span>
-            </li>
-            <li class="roadmap-item">
-              <span class="r-tag r-enhance">enhance</span>
-              <span class="r-desc"><strong>Tab visibility</strong> — auto-refresh pauses when tab is hidden; <span class="inline-code">visibilitychange</span> listener would refresh on focus</span>
+              <span class="r-desc"><strong>CORS wildcard</strong> — <span class="inline-code">Access-Control-Allow-Origin: *</span> is safe here (public data only) but could be restricted to the Cloudflare Pages origin</span>
             </li>
           </ul>
         </div>
