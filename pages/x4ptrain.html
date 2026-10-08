@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pilot Training — X4 Mod | Project Documentation | SJFCROSS</title>
+  <link rel="icon" type="image/png" href="../assets/img/favicon-32x32.png">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400;500&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:           #0b0906;
+      --bg2:          #110e09;
+      --bg3:          #1a150c;
+      --panel:        #1f1a10;
+      --panel2:       #141009;
+      --border:       rgba(245,184,61,0.15);
+      --border2:      rgba(245,184,61,0.07);
+      --accent:       #f5b83d;
+      --accent2:      #fcd679;
+      --green:        #34d399;
+      --yellow:       #fbbf24;
+      --red:          #f87171;
+      --text:         #e2e8f0;
+      --text-dim:     #94a3b8;
+      --text-bright:  #f1f5f9;
+      --ease-out:     cubic-bezier(0.23, 1, 0.32, 1);
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    'Lora', Georgia, serif;
+      --font-mono:    'DM Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.75;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0; opacity: 0.35;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(11, 9, 6, 0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 2rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    }
+    .nav-brand {
+      font-family: var(--font-mono); font-size: 0.82rem;
+      color: var(--accent2); font-weight: 500; letter-spacing: 0.04em;
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    nav a {
+      color: var(--text-dim); text-decoration: none;
+      font-family: var(--font-mono); font-size: 0.77rem;
+      letter-spacing: 0.05em; transition: color 0.2s;
+    }
+    nav a:hover { color: var(--accent2); }
+    .back-btn {
+      background: var(--panel); border: 1px solid var(--border);
+      color: var(--text-dim); padding: 0.35rem 0.9rem;
+      border-radius: 6px; font-size: 0.75rem;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .back-btn:hover {
+      border-color: var(--accent); color: var(--accent2);
+      background: rgba(245,184,61, 0.08);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; min-height: 560px;
+      display: flex; align-items: flex-end;
+      padding: 0 2rem 5rem;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('../assets/img/x4mods/x4main.jpg');
+      background-size: cover; background-position: center 55%;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(to bottom,
+          rgba(11, 9, 6, 0.35) 0%,
+          rgba(11, 9, 6, 0.75) 55%,
+          var(--bg) 100%),
+        linear-gradient(135deg,
+          rgba(245,184,61, 0.18) 0%,
+          transparent 55%);
+    }
+    .hero-content {
+      position: relative; z-index: 1;
+      max-width: 680px;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-mono); font-size: 0.72rem;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--accent2); margin-bottom: 1rem;
+      opacity: 0; animation: fadeUp 0.6s var(--ease-out) forwards 0.1s;
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 4.4rem);
+      font-weight: 700; color: var(--text-bright);
+      line-height: 1.08; margin-bottom: 1rem;
+      opacity: 0; animation: fadeUp 0.65s var(--ease-out) forwards 0.22s;
+    }
+    .hero h1 em { color: var(--accent); font-style: italic; }
+    .hero-sub {
+      font-size: 1.05rem; color: var(--text-dim);
+      max-width: 480px; margin-bottom: 2.25rem;
+      opacity: 0; animation: fadeUp 0.65s var(--ease-out) forwards 0.36s;
+    }
+    .hero-actions {
+      display: flex; gap: 0.75rem; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp 0.65s var(--ease-out) forwards 0.48s;
+    }
+    .hero-badge {
+      position: absolute; top: 1.5rem; right: 2rem; z-index: 1;
+      font-family: var(--font-mono); font-size: 0.68rem;
+      letter-spacing: 0.1em; padding: 0.3rem 0.8rem;
+      border-radius: 20px; border: 1px solid var(--accent);
+      color: var(--accent); background: rgba(245,184,61, 0.1);
+      opacity: 0; animation: fadeIn 0.5s ease forwards 0.7s;
+    }
+    .hero-badge::before { content: '🥊 '; }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.6rem 1.4rem; border-radius: 8px;
+      font-family: var(--font-mono); font-size: 0.8rem;
+      letter-spacing: 0.05em; text-decoration: none;
+      border: 1px solid transparent;
+      transition: transform 0.22s var(--ease-out),
+                  background 0.2s, border-color 0.2s, box-shadow 0.2s;
+    }
+    .btn:hover  { transform: translateY(-2px); }
+    .btn:active { transform: scale(0.97); transition-duration: 0.08s; }
+    .btn-primary {
+      background: var(--accent); color: #0b0b0b; border-color: var(--accent);
+      box-shadow: 0 4px 18px rgba(245,184,61, 0.35);
+    }
+    .btn-primary:hover {
+      background: #fcd679; border-color: #fcd679;
+      box-shadow: 0 6px 24px rgba(245,184,61, 0.45);
+    }
+    .btn-ghost {
+      background: rgba(245,184,61, 0.08);
+      color: var(--text-dim); border-color: var(--border);
+    }
+    .btn-ghost:hover {
+      border-color: rgba(252,214,121, 0.4);
+      color: var(--accent2); background: rgba(245,184,61, 0.14);
+    }
+
+    /* ── LAYOUT ── */
+    .container {
+      max-width: 1160px; margin: 0 auto;
+      padding: 0 2rem; position: relative; z-index: 1;
+    }
+    section { padding: 3.5rem 0; }
+
+    .section-label {
+      font-family: var(--font-mono); font-size: 0.68rem;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 0.4rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.55rem, 3vw, 2.1rem);
+      color: var(--text-bright); line-height: 1.2;
+      margin-bottom: 0.6rem;
+    }
+    .section-intro {
+      color: var(--text-dim); font-size: 0.95rem;
+      max-width: 640px; line-height: 1.75; margin-bottom: 2rem;
+    }
+
+    .divider { border: none; border-top: 1px solid var(--border2); }
+
+    /* ── GRID ── */
+    .two-col     { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+    .two-col-3-2 { display: grid; grid-template-columns: 3fr 2fr; gap: 2rem; align-items: start; }
+    .two-col-2-3 { display: grid; grid-template-columns: 2fr 3fr; gap: 2rem; align-items: start; }
+    @media (max-width: 800px) {
+      .two-col, .two-col-3-2, .two-col-2-3 { grid-template-columns: 1fr; }
+    }
+
+    /* ── PANEL ── */
+    .panel {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.75rem;
+      position: relative; overflow: hidden;
+    }
+    .panel::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+    .panel-title {
+      font-family: var(--font-display); font-size: 1.1rem;
+      color: var(--text-bright); margin-bottom: 1.1rem;
+    }
+
+    /* ── CARDS ── */
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
+    .card {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.75rem;
+      position: relative; overflow: hidden;
+      transition: transform 0.28s var(--ease-out), border-color 0.28s, box-shadow 0.28s;
+    }
+    .card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .card:hover {
+        transform: translateY(-5px);
+        border-color: rgba(245,184,61, 0.3);
+        box-shadow: 0 14px 48px rgba(245,184,61, 0.1);
+      }
+    }
+    .card-icon  { font-size: 1.7rem; margin-bottom: 0.75rem; display: block; }
+    .card-title { font-family: var(--font-display); font-size: 1.1rem; color: var(--text-bright); margin-bottom: 0.6rem; }
+    .card-body  { font-size: 0.9rem; color: var(--text-dim); line-height: 1.7; }
+
+    /* ── FLOW LIST ── */
+    .flow-list { list-style: none; }
+    .flow-item {
+      display: flex; gap: 1rem; align-items: baseline;
+      padding: 0.7rem 0; border-bottom: 1px solid var(--border2);
+    }
+    .flow-item:last-child { border-bottom: none; }
+    .flow-num {
+      font-family: var(--font-mono); font-size: 0.65rem;
+      color: var(--accent); background: rgba(245,184,61,0.1);
+      border: 1px solid var(--border); border-radius: 4px;
+      padding: 0.1rem 0.5rem; white-space: nowrap; min-width: 28px;
+      text-align: center;
+    }
+    .flow-desc { font-size: 0.88rem; color: var(--text-dim); line-height: 1.65; }
+    .flow-desc strong { color: var(--text); }
+
+    /* ── SAFETY GRID ── */
+    .safety-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+    .safety-item {
+      background: rgba(245,184,61,0.03); border: 1px solid var(--border2);
+      border-radius: 10px; padding: 1.1rem 1.25rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .safety-item:hover { border-color: var(--border); background: rgba(245,184,61,0.07); }
+    }
+    .safety-title { font-family: var(--font-mono); font-size: 0.74rem; color: var(--accent2); margin-bottom: 0.3rem; }
+    .safety-desc  { font-size: 0.82rem; color: var(--text-dim); line-height: 1.6; }
+
+    /* ── ARCH BLOCK ── */
+    .arch-block {
+      background: #080604; border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden;
+    }
+    .arch-block-header {
+      padding: 0.6rem 1rem; border-bottom: 1px solid var(--border2);
+      font-family: var(--font-mono); font-size: 0.68rem;
+      color: var(--text-dim); letter-spacing: 0.07em;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+    .dot.r { background: #ff5f57; }
+    .dot.y { background: #ffbd2e; }
+    .dot.g { background: #28c840; }
+    .arch-block pre {
+      padding: 1.5rem;
+      /* Box-drawing glyphs aren't in DM Mono; use a monospace font that has
+         full box-drawing coverage so every char shares one advance width. */
+      font-family: 'Cascadia Mono', 'Cascadia Code', Consolas, 'DejaVu Sans Mono', ui-monospace, monospace;
+      font-size: 0.73rem;
+      line-height: 1.75; color: var(--text-dim);
+      overflow-x: auto; margin: 0;
+    }
+    .a-purple { color: var(--accent2); }
+    .a-green  { color: var(--green); }
+    .a-dim    { color: #2e3d55; }
+    .a-yellow { color: var(--yellow); }
+
+    /* ── CODE BLOCK ── */
+    .code-block {
+      background: #080604; border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden;
+    }
+    .code-block-header {
+      padding: 0.6rem 1rem; border-bottom: 1px solid var(--border2);
+      font-family: var(--font-mono); font-size: 0.68rem;
+      color: var(--text-dim); letter-spacing: 0.07em;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .code-block pre {
+      padding: 1.25rem 1.5rem;
+      font-family: var(--font-mono); font-size: 0.8rem;
+      line-height: 1.7; color: var(--text-dim);
+      overflow-x: auto; margin: 0;
+    }
+    .c-kw  { color: #f472b6; }
+    .c-fn  { color: #fcd679; }
+    .c-str { color: #86efac; }
+    .c-cm  { color: #3d4f6b; }
+    .c-num { color: #fb923c; }
+
+    /* ── TABLE ── */
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: 0.8rem; }
+    thead tr { border-bottom: 1px solid var(--border); }
+    th {
+      text-align: left; padding: 0.55rem 1rem;
+      font-size: 0.63rem; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--accent); font-weight: 500;
+    }
+    td { padding: 0.65rem 1rem; border-bottom: 1px solid var(--border2); color: var(--text); vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    tbody tr { transition: background 0.15s; }
+    @media (hover: hover) and (pointer: fine) {
+      tbody tr:hover { background: rgba(245,184,61, 0.05); }
+    }
+    .td-dim  { color: var(--text-dim); }
+    .td-mono { font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent2); }
+    .td-green { color: var(--green); }
+
+    /* ── INLINE CODE / TAG ── */
+    .inline-code {
+      font-family: var(--font-mono); font-size: 0.82em;
+      background: rgba(245,184,61,0.1); color: var(--accent2);
+      padding: 0.1rem 0.4rem; border-radius: 4px;
+    }
+    .tag {
+      display: inline-block; font-family: var(--font-mono);
+      font-size: 0.63rem; letter-spacing: 0.08em;
+      padding: 0.2rem 0.6rem; border-radius: 4px;
+      background: rgba(245,184,61,0.1); color: var(--accent2);
+      border: 1px solid var(--border);
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0; transform: translateY(22px);
+      transition: opacity 0.55s var(--ease-out), transform 0.55s var(--ease-out);
+    }
+    .reveal.in { opacity: 1; transform: none; }
+    .stagger > * {
+      opacity: 0; transform: translateY(18px);
+      transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+    }
+    .stagger.in > *:nth-child(1) { opacity:1; transform:none; transition-delay:   0ms; }
+    .stagger.in > *:nth-child(2) { opacity:1; transform:none; transition-delay:  65ms; }
+    .stagger.in > *:nth-child(3) { opacity:1; transform:none; transition-delay: 130ms; }
+    .stagger.in > *:nth-child(4) { opacity:1; transform:none; transition-delay: 195ms; }
+    .stagger.in > *:nth-child(5) { opacity:1; transform:none; transition-delay: 260ms; }
+    .stagger.in > *:nth-child(6) { opacity:1; transform:none; transition-delay: 325ms; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border2);
+      padding: 2.25rem 2rem;
+      text-align: center;
+      font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-dim);
+      position: relative; z-index: 1;
+    }
+    footer a { color: var(--accent2); text-decoration: none; transition: color 0.2s; }
+    footer a:hover { color: #fff; }
+    footer p + p { margin-top: 0.45rem; }
+
+    /* ── UTILS ── */
+    .mt-1 { margin-top: 1rem; }
+    .mt-2 { margin-top: 2rem; }
+    .mb-1 { margin-bottom: 1rem; }
+    .mb-2 { margin-bottom: 2rem; }
+
+    /* ── KEYFRAMES ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: none; }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      nav { padding: 0.65rem 1.25rem; }
+      .hero { min-height: 460px; padding: 0 1.25rem 3.5rem; }
+      .container { padding: 0 1.25rem; }
+      .panel { padding: 1.25rem; }
+    }
+
+    /* ── REDUCED MOTION ── */
+    @media (prefers-reduced-motion: reduce) {
+      .reveal, .stagger > *,
+      .hero-eyebrow, .hero h1, .hero-sub,
+      .hero-actions, .hero-badge {
+        opacity: 1; transform: none;
+        animation: none; transition: none;
+      }
+    }
+  
+    /* ── SCREENSHOTS / GALLERY ── */
+    .shot { margin: 0; }
+    .shot img {
+      width: 100%; display: block; border-radius: 12px;
+      border: 1px solid var(--border); cursor: zoom-in;
+      transition: transform 0.28s var(--ease-out), border-color 0.28s, box-shadow 0.28s;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .shot img:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: 0 14px 48px rgba(245,184,61,0.15); }
+    }
+    .shot figcaption {
+      font-family: var(--font-mono); font-size: 0.72rem;
+      color: var(--text-dim); margin-top: 0.6rem; line-height: 1.5;
+    }
+    .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+    .gallery .shot img { aspect-ratio: 16 / 10; object-fit: cover; }
+    .stagger.in > *:nth-child(n+7) { opacity:1; transform:none; transition-delay: 390ms; }
+    .lightbox {
+      position: fixed; inset: 0; z-index: 200; display: none;
+      align-items: center; justify-content: center; padding: 2rem;
+      background: rgba(4,4,10,0.92); backdrop-filter: blur(6px); cursor: zoom-out;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: 100%; max-height: 100%; border-radius: 10px; box-shadow: 0 30px 90px rgba(0,0,0,0.7); }
+    footer .fine { opacity: 0.6; font-size: 0.66rem; }
+    @media (max-width: 640px) { .gallery { grid-template-columns: 1fr; } .nav-links a:not(:first-child) { display: none; } }
+</style>
+</head>
+<body>
+
+  <!-- ─────────────── NAV ─────────────── -->
+  <nav>
+    <a href="../pages/x4mods.html" class="back-btn">← X4-Mods</a>
+    <a href="../index.html" class="nav-brand">SJFCROSS</a>
+    <div class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="x4bailing.html">Enhanced Bailing</a>
+      <a href="projectdocs.html">Project Docs</a>
+    </div>
+  </nav>
+
+  <!-- ─────────────── HERO ─────────────── -->
+  <header class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <span class="hero-badge">v1.01 · Nexus + Steam</span>
+    <div class="container">
+      <div class="hero-content">
+        <p class="hero-eyebrow">Division IV · X4-Mods</p>
+        <h1><em>Pilot</em> Training</h1>
+        <p class="hero-sub">No-loss sparring drills for your S-class ships in X4: Foundations. Two teams, repeated rounds, and every pilot and crew member gains piloting and engineering, win or lose. Nobody can lose a ship.</p>
+        <div class="hero-actions">
+          <a href="https://www.nexusmods.com/x4foundations/mods/2411" class="btn btn-primary" target="_blank" rel="noopener">Nexus Mods ↗</a>
+          <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3812972090" class="btn btn-ghost" target="_blank" rel="noopener">Steam Workshop ↗</a>
+          <a href="x4mods.html" class="btn btn-ghost">All X4-Mods</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ─────────────── INTRO CARDS ─────────────── -->
+  <section>
+    <div class="container">
+      <div class="card-grid stagger">
+
+        <div class="card">
+          <span class="card-icon">🎖️</span>
+          <h3 class="card-title">The Problem</h3>
+          <p class="card-body">In X4, pilots only get better in real fights, and real fights cost ships. A rookie pilot in a new fighter is the most likely thing in your fleet to die, which means they never get the experience that would keep them alive.</p>
+        </div>
+
+        <div class="card">
+          <span class="card-icon">🥊</span>
+          <h3 class="card-title">What It Is</h3>
+          <p class="card-body">A sparring ring. Your own S-class ships are split into <strong>Gold</strong> and <strong>Pink</strong>, fight each other in rounds, get repaired between rounds, and go home with the load they came with. Pilot and service crew are paid experience after every round.</p>
+        </div>
+
+        <div class="card">
+          <span class="card-icon">🎯</span>
+          <h3 class="card-title">The Goal</h3>
+          <p class="card-body">A training loop you can run from the map: recruit fresh crews, drill them, see the star gains in a results window, then move the trained people onto the ships that need them. Then recruit again.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─────────────── HOW A ROUND WORKS ─────────────── -->
+  <section id="rounds">
+    <div class="container">
+
+      <div class="reveal">
+        <p class="section-label">Mechanics</p>
+        <h2 class="section-title">How a round works</h2>
+        <p class="section-intro">The ships are handed to two hidden factions that are hostile only to each other. Everyone else &mdash; your other ships, other mods' teams &mdash; stays neutral to them. When the drill ends, ownership comes back to you.</p>
+      </div>
+
+      <div class="two-col-3-2 mt-2">
+
+        <div class="arch-block reveal">
+          <div class="arch-block-header">
+            <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+            drill loop
+          </div>
+          <pre>
+<span class="a-purple">┌──────────────────────────────────────────────┐
+│  roster: your S ships (same sector, piloted) │
+└──────────────────────┬───────────────────────┘</span>
+<span class="a-dim">                       v</span>
+<span class="a-yellow">   ┌───────────────┐       ┌───────────────┐
+   │  GOLD faction │ &lt;───&gt; │  PINK faction │
+   │  hull floor   │ fight │  hull floor   │
+   │     10 %      │       │     10 %      │
+   └───────┬───────┘       └───────┬───────┘</span>
+<span class="a-dim">           └───────────┬───────────┘
+                       v</span>
+<span class="a-green">   ┌──────────────────────────────────────┐
+   │ hit to the out line (35 %) → OUT     │
+   │ one team empty, or time up → END     │
+   │ pay XP: pilot + service crew         │
+   │ repair, refill missiles, 4 s, again  │
+   └──────────────────┬───────────────────┘</span>
+<span class="a-dim">                      v</span>
+<span class="a-purple">┌──────────────────────────────────────────────┐
+│ release: hull, shields, owner, commander and │
+│ missile load restored  →  results window     │
+└──────────────────────────────────────────────┘</span>
+          </pre>
+        </div>
+
+        <div class="panel reveal">
+          <h3 class="panel-title">The rules of the ring</h3>
+          <ul class="flow-list">
+            <li class="flow-item">
+              <span class="flow-num">OUT</span>
+              <span class="flow-desc">A ship hit down to the <strong>out line</strong> (default 35 % hull) is out at once. Checked on every hit, with a 1-second poll as backup. It turns grey and waits.</span>
+            </li>
+            <li class="flow-item">
+              <span class="flow-num">END</span>
+              <span class="flow-desc">The round ends when one team has nobody left, or when the time limit (default 3 min) runs out. <strong>A draw still pays.</strong></span>
+            </li>
+            <li class="flow-item">
+              <span class="flow-num">XP</span>
+              <span class="flow-desc">Everyone is paid from the mod's own experience category: the pilot as an individual, the service crew as a group. Win or lose.</span>
+            </li>
+            <li class="flow-item">
+              <span class="flow-num">FIX</span>
+              <span class="flow-desc">Ships are repaired &mdash; including shot-off engines and weapons &mdash; and missiles and flares topped back up. The next round starts 4 seconds later, from where they are.</span>
+            </li>
+            <li class="flow-item">
+              <span class="flow-num">RUN</span>
+              <span class="flow-desc"><strong>No fleeing.</strong> The attack order is a priority order, so a ship with low shields or low morale isn't sent off to boost away or dock mid-round.</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─────────────── SAFE MODE ─────────────── -->
+  <section id="safemode">
+    <div class="container">
+
+      <div class="reveal">
+        <p class="section-label">Safe mode</p>
+        <h2 class="section-title">Why nobody can die &mdash; and why that was the hard part</h2>
+        <p class="section-intro">Every ship in a drill fights with a 10 % hull floor. But a floor makes the game treat a ship as <em>indestructible</em>, and the vanilla AI refuses to attack indestructible targets. The first version's ships just circled each other. The fix is three small patches to vanilla AI scripts that lift that rule <strong>only between a Gold and a Pink ship</strong>.</p>
+      </div>
+
+      <div class="table-wrap mt-2 reveal">
+        <table>
+          <thead>
+            <tr>
+              <th>Vanilla script</th>
+              <th>What the patch changes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="td-mono">interrupt.disengage</td>
+              <td class="td-dim">Don't break off and "learn" the opponent as indestructible.</td>
+            </tr>
+            <tr>
+              <td class="td-mono">lib.target.selection</td>
+              <td class="td-dim">Don't skip it when picking a target.</td>
+            </tr>
+            <tr>
+              <td class="td-mono">order.fight.attack.object</td>
+              <td class="td-dim">May still turn on whoever is shooting at it.</td>
+            </tr>
+            <tr>
+              <td class="td-mono">interrupt.attacked</td>
+              <td class="td-dim">Not patched &mdash; it already ignores ships on a priority order, which is what stops fleeing and crew bail checks mid-round.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="safety-grid mt-2 stagger">
+        <div class="safety-item">
+          <div class="safety-title">✅ Fails safe</div>
+          <div class="safety-desc">If a game update ever breaks the patches, the ships only circle. A round with zero hits prints a red chat warning.</div>
+        </div>
+        <div class="safety-item">
+          <div class="safety-title">✅ Losses are loud</div>
+          <div class="safety-desc">A lost ship sets off a red ticker, a chat line and a logbook entry, and by default stops the drill.</div>
+        </div>
+        <div class="safety-item">
+          <div class="safety-title">✅ Close calls counted</div>
+          <div class="safety-desc">A ship that goes out at 10 % hull or less is announced in yellow and logged, with the lowest hull ever seen at out.</div>
+        </div>
+        <div class="safety-item">
+          <div class="safety-title">⚠️ One-burst risk</div>
+          <div class="safety-desc">A single burst that takes a ship from above the floor to zero before the hit event fires would kill it. Unlikely between S fighters at 35 %, not impossible.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─────────────── IN-GAME UI ─────────────── -->
+  <section id="ui">
+    <div class="container">
+
+      <div class="reveal">
+        <p class="section-label">In-game UI</p>
+        <h2 class="section-title">Run it from the map</h2>
+        <p class="section-intro">Everything is driven from the map's <strong>Property Owned</strong> menu and the right-click menu. Chat commands exist too, but you never need them.</p>
+      </div>
+
+      <div class="two-col mt-2">
+
+        <div class="panel reveal">
+          <h3 class="panel-title">Putting a drill together</h3>
+          <ul class="flow-list">
+            <li class="flow-item">
+              <span class="flow-num">1</span>
+              <span class="flow-desc"><strong>Right-click</strong> one of your S ships (or drag-select several) → <strong>Pilot Training</strong> → <em>Put on Gold team</em> / <em>Put on Pink team</em>.</span>
+            </li>
+            <li class="flow-item">
+              <span class="flow-num">2</span>
+              <span class="flow-desc">The map opens <strong>Property Owned → Pilot Training</strong>: both teams, with a column button that cycles <strong>Status</strong>, <strong>Pilot</strong> skills and <strong>Crew</strong> points gained.</span>
+            </li>
+            <li class="flow-item">
+              <span class="flow-num">3</span>
+              <span class="flow-desc"><strong>Run 3 rounds</strong>, <strong>Run 5 rounds</strong> or <strong>Run until stopped</strong>. A status line shows the round, time left and how many to go; the tab refreshes every 5 s.</span>
+            </li>
+            <li class="flow-item">
+              <span class="flow-num">4</span>
+              <span class="flow-desc"><strong>Stop drill</strong> any time. Every ship goes home with its hull, shields, owner, fleet commander and missile load restored.</span>
+            </li>
+          </ul>
+        </div>
+
+        <figure class="shot reveal">
+          <img src="../assets/img/x4mods/ptrain4.jpg" alt="Pilot Training tab during a round, Gold team in, Pink team partly out" loading="lazy">
+          <figcaption>Round 1 of 3: Gold all in, Pink down to two.</figcaption>
+        </figure>
+
+      </div>
+
+      <div class="two-col mt-2">
+
+        <figure class="shot reveal">
+          <img src="../assets/img/x4mods/ptrain6.jpg" alt="Pilot Training results window after three rounds" loading="lazy">
+          <figcaption>The results window: one block per ship, one row per person, stars now plus this drill's gain.</figcaption>
+        </figure>
+
+        <div class="panel reveal">
+          <h3 class="panel-title">After the drill</h3>
+          <ul class="flow-list">
+            <li class="flow-item">
+              <span class="flow-num">★</span>
+              <span class="flow-desc"><strong>Results window</strong> opens by itself. Each person's piloting and engineering was recorded at the start, so it shows the real gain in stars. Ships are sorted by total gain.</span>
+            </li>
+            <li class="flow-item">
+              <span class="flow-num">→</span>
+              <span class="flow-desc"><strong>Work somewhere else for me</strong> on every row opens the vanilla map picker &mdash; choose a ship or station and a job, and the game transfers them.</span>
+            </li>
+            <li class="flow-item">
+              <span class="flow-num">+</span>
+              <span class="flow-desc"><strong>New recruits</strong> fills empty pilot seats and crew places on docked roster ships with fresh recruit-level people, 7,500 Cr a head.</span>
+            </li>
+            <li class="flow-item">
+              <span class="flow-num">⇪</span>
+              <span class="flow-desc"><strong>Take the training group aboard</strong>: right-click a big ship and every pilot and crew member on the roster is assigned there as service crew, best pilots first.</span>
+            </li>
+          </ul>
+          <p style="margin-top:1rem; font-size:0.82rem; color:var(--text-dim);">
+            <span class="tag">Loop</span> &nbsp;Recruit → Train → Take group aboard → Recruit again.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─────────────── COMMANDS ─────────────── -->
+  <section id="commands">
+    <div class="container">
+
+      <div class="reveal">
+        <p class="section-label">Chat commands</p>
+        <h2 class="section-title">/ptrain</h2>
+        <p class="section-intro">The chat window does everything the tab does, plus the settings. Settings can only be changed between drills.</p>
+      </div>
+
+      <div class="table-wrap mt-2 reveal">
+        <table>
+          <thead>
+            <tr>
+              <th>Command</th>
+              <th>What it does</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="td-mono">/ptrain</td><td class="td-dim">Help plus current state.</td></tr>
+            <tr><td class="td-mono">/ptrain gold ABC-123 DEF-456</td><td class="td-dim">Put ships on Gold (or <span class="inline-code">pink</span>). <span class="inline-code">target</span> uses the ship you have HUD-targeted.</td></tr>
+            <tr><td class="td-mono">/ptrain run · run 5 · run loop</td><td class="td-dim">One round, N rounds, or until stopped.</td></tr>
+            <tr><td class="td-mono">/ptrain stop</td><td class="td-dim">End now and give every ship back. An unfinished round pays nothing.</td></tr>
+            <tr><td class="td-mono">/ptrain set floor 35</td><td class="td-dim">Hull percentage that counts as "shot down" (5&ndash;90).</td></tr>
+            <tr><td class="td-mono">/ptrain set time 3</td><td class="td-dim">Round time limit in minutes.</td></tr>
+            <tr><td class="td-mono">/ptrain set warp on</td><td class="td-dim">Warp both teams to start lines 6 km apart between rounds (default: fight on where they are).</td></tr>
+            <tr><td class="td-mono">/ptrain set missiles refill · ban</td><td class="td-dim">Top missiles up before every round (default), or strip them for the drill. Either way every ship goes home with the load it came with.</td></tr>
+            <tr><td class="td-mono">/ptrain set onloss stop · continue</td><td class="td-dim">What a destroyed roster ship does to the drill.</td></tr>
+            <tr><td class="td-mono">/ptrain losses · results</td><td class="td-dim">Loss log and close calls; reopen the last results window.</td></tr>
+            <tr><td class="td-mono">/ptrain rescue</td><td class="td-dim">Emergency: every ship still owned by a training faction comes back to you.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─────────────── XP ─────────────── -->
+  <section id="xp">
+    <div class="container">
+
+      <div class="reveal">
+        <p class="section-label">Experience</p>
+        <h2 class="section-title">Tuning the training speed</h2>
+        <p class="section-intro">The mod adds its own experience category instead of borrowing a vanilla one, so the rate can be tuned without touching anything else in the game.</p>
+      </div>
+
+      <div class="two-col mt-2">
+
+        <div class="code-block reveal">
+          <div class="code-block-header">
+            <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+            libraries/experiences.xml (shape)
+          </div>
+          <pre>
+<span class="c-cm">&lt;!-- own category: ptrain_bout --&gt;</span>
+<span class="c-kw">&lt;experience</span> id=<span class="c-str">"ptrain_bout"</span><span class="c-kw">&gt;</span>
+  <span class="c-cm">&lt;!-- pilot (individual) --&gt;</span>
+  piloting    falloff <span class="c-num">0.83</span>  cap <span class="c-num">15</span>
+  engineering falloff <span class="c-num">0.68</span>  cap <span class="c-num">15</span>
+  <span class="c-cm">&lt;!-- service crew (group) --&gt;</span>
+  same rates, group cap <span class="c-num">15</span>  <span class="c-cm">(vanilla: 8)</span>
+<span class="c-kw">&lt;/experience&gt;</span>
+
+<span class="c-cm">// per round: XP × $XPFactor</span>
+<span class="c-fn">normal</span>  = <span class="c-num">0.5</span>
+<span class="c-fn">fast</span>    = <span class="c-num">1.0</span>   <span class="c-cm">// "Fast training" checkbox</span></pre>
+        </div>
+
+        <div class="panel reveal">
+          <h3 class="panel-title">Normal vs. fast</h3>
+          <ul class="flow-list">
+            <li class="flow-item">
+              <span class="flow-num">OPT</span>
+              <span class="flow-desc"><strong>Extension Options → Pilot Training → Fast training (double experience).</strong> Off is normal (factor 0.5), on is fast (1.0). Saved with the game.</span>
+            </li>
+            <li class="flow-item">
+              <span class="flow-num">CAP</span>
+              <span class="flow-desc">The crew group cap is 15 instead of vanilla's 8, so a full service crew learns too, not just the first eight.</span>
+            </li>
+            <li class="flow-item">
+              <span class="flow-num">REF</span>
+              <span class="flow-desc">For scale: a vanilla hard kill pays piloting 0.43 to the pilot and 0.21 (cap 8) to the crew. Higher falloff means each level slows down less.</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─────────────── GALLERY ─────────────── -->
+  <section id="gallery">
+    <div class="container">
+
+      <div class="reveal">
+        <p class="section-label">Screenshots</p>
+        <h2 class="section-title">In the game</h2>
+        <p class="section-intro">Click any picture to enlarge it.</p>
+      </div>
+
+      <div class="gallery mt-2 stagger">
+        <figure class="shot"><img src="../assets/img/x4mods/ptrain1.jpg" alt="Roster with empty pilot seats and the New recruits button" loading="lazy"><figcaption>A fresh roster: no pilots yet. New recruits is ready.</figcaption></figure>
+        <figure class="shot"><img src="../assets/img/x4mods/ptrain2.jpg" alt="Roster after recruiting, Pilot column showing skill stars" loading="lazy"><figcaption>After recruiting: the Pilot column shows their stars.</figcaption></figure>
+        <figure class="shot"><img src="../assets/img/x4mods/ptrain9.jpg" alt="Right-click menu with Pilot Training submenu" loading="lazy"><figcaption>Right-click → Pilot Training, including "Take the training group aboard".</figcaption></figure>
+        <figure class="shot"><img src="../assets/img/x4mods/ptrain3.jpg" alt="Map view of a drill in progress" loading="lazy"><figcaption>A drill on the map.</figcaption></figure>
+        <figure class="shot"><img src="../assets/img/x4mods/ptrain5.jpg" alt="Map view later in a round with ships out" loading="lazy"><figcaption>Later in the round: out ships wait, the rest fight on.</figcaption></figure>
+        <figure class="shot"><img src="../assets/img/x4mods/ptrain7.jpg" alt="Map view of both teams mid-round" loading="lazy"><figcaption>Gold and Pink mid-round.</figcaption></figure>
+        <figure class="shot"><img src="../assets/img/x4mods/ptrain8.jpg" alt="Ship information and orders during a drill" loading="lazy"><figcaption>Ship info and orders for a roster ship.</figcaption></figure>
+        <figure class="shot"><img src="../assets/img/x4mods/ptrain6.jpg" alt="Results window after three rounds" loading="lazy"><figcaption>Results after three rounds.</figcaption></figure>
+        <figure class="shot"><img src="../assets/img/x4mods/x4main.jpg" alt="Player character on a station overlooking a planet" loading="lazy"><figcaption>Off duty.</figcaption></figure>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─────────────── INSTALL ─────────────── -->
+  <section id="install">
+    <div class="container">
+
+      <div class="reveal">
+        <p class="section-label">Install</p>
+        <h2 class="section-title">Requirements and known gaps</h2>
+        <p class="section-intro">Subscribe on the Steam Workshop or download from Nexus Mods &mdash; same mod, pick one. Then restart X4 completely: the new factions and experience category are only read at game start.</p>
+      </div>
+
+      <div class="two-col-2-3 mt-2">
+
+        <div class="panel reveal">
+          <h3 class="panel-title">Needs</h3>
+          <ul class="flow-list">
+            <li class="flow-item">
+              <span class="flow-num">API</span>
+              <span class="flow-desc"><strong>SirNukes Mod Support APIs</strong> &mdash; chat commands, options page and results window.</span>
+            </li>
+            <li class="flow-item">
+              <span class="flow-num">UIX</span>
+              <span class="flow-desc"><strong>kuertee's UI Extensions</strong> &mdash; the map tab. Either build (Steam or Nexus) works since 1.01. Without it the chat commands still work.</span>
+            </li>
+            <li class="flow-item">
+              <span class="flow-num">kMEx</span>
+              <span class="flow-desc">Runs side by side with kuertee's <strong>Military Exercises</strong>, which inspired it. Both patch the same AI checks; both load orders were tested.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="safety-grid stagger">
+          <div class="safety-item">
+            <div class="safety-title">⚠️ Standing orders</div>
+            <div class="safety-desc">A ship's own default order is cancelled for the drill. It comes back to its fleet commander, or gets Hold Position.</div>
+          </div>
+          <div class="safety-item">
+            <div class="safety-title">⚠️ Saving mid-drill</div>
+            <div class="safety-desc">Stores those ships as owned by a training faction. Load and <span class="inline-code">/ptrain stop</span> fixes it. Never uninstall with a drill running.</div>
+          </div>
+          <div class="safety-item">
+            <div class="safety-title">⚠️ Same sector</div>
+            <div class="safety-desc">Every ship on the roster must be in one sector when you start. One drill at a time.</div>
+          </div>
+          <div class="safety-item">
+            <div class="safety-title">⚠️ S-class only</div>
+            <div class="safety-desc">Owned by you, with a pilot, no subordinates, and not the ship you're flying.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────── FOOTER ─────────────── -->
+  <footer>
+    <p>Pilot Training for X4: Foundations &nbsp;·&nbsp; Built by <a href="https://github.com/sjfcross">sjfcross</a> &nbsp;·&nbsp; <a href="https://www.nexusmods.com/x4foundations/mods/2411" target="_blank" rel="noopener">Nexus</a> · <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3812972090" target="_blank" rel="noopener">Steam</a></p>
+    <p>Stack: X4 Mission Director XML · AI script diffs · Lua (UI Extensions) &nbsp;·&nbsp; Sep&ndash;Oct 2026</p>
+    <p class="fine">Unofficial fan project, free. Not affiliated with, endorsed or supported by Egosoft. X4: Foundations and related names belong to Egosoft.</p>
+    <p style="margin-top:0.75rem;"><a href="../pages/x4mods.html">← Back to X4-Mods</a></p>
+  </footer>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-label="Enlarged screenshot"><img alt=""></div>
+  <script>
+    const lb = document.getElementById('lightbox'), lbImg = lb.querySelector('img');
+    document.querySelectorAll('.shot img').forEach(img => img.addEventListener('click', () => {
+      lbImg.src = img.src; lbImg.alt = img.alt; lb.classList.add('open');
+    }));
+    lb.addEventListener('click', () => lb.classList.remove('open'));
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') lb.classList.remove('open'); });
+  </script>
+
+  <!-- ─────────────── SCROLL REVEAL ─────────────── -->
+  <script>
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.07, rootMargin: '0px 0px -28px 0px' });
+
+    document.querySelectorAll('.reveal, .stagger').forEach(el => io.observe(el));
+  </script>
+
+</body>
+</html>
