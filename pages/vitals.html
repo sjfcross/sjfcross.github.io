@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VITALS — Personal Health Tracker | Project Documentation | SJFCROSS</title>
+  <link rel="icon" type="image/png" href="../assets/img/favicon-32x32.png">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:           #0e0f11;
+      --bg2:          #121315;
+      --panel:        #161819;
+      --panel2:       #1e2022;
+      --border:       rgba(255,255,255,0.08);
+      --border2:      rgba(255,255,255,0.045);
+      --text:         #d9d7d2;
+      --text-dim:     #9ca0a4;
+      --text-faint:   #6b6f73;
+      --text-bright:  #f0eeea;
+
+      /* metric accents — straight from the app's index.css */
+      --cal:      #e8784a;
+      --sodium:   #5ba4e6;
+      --protein:  #6ec87a;
+      --fat:      #c97fd4;
+      --carbs:    #f0c96a;
+      --steps:    #b47fdb;
+      --weight:   #f0c96a;
+      --sys:      #e87a8a;
+      --deep:     #3a5fa8;
+
+      --accent:   var(--cal);
+      --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+      --font-body: 'DM Sans', system-ui, sans-serif;
+      --font-mono: 'DM Mono', ui-monospace, monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.7;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(14, 15, 17, 0.9);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 2rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    }
+    .nav-brand {
+      font-family: var(--font-mono); font-size: 0.82rem;
+      color: var(--text-bright); font-weight: 500; letter-spacing: 0.14em;
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    nav a {
+      color: var(--text-dim); text-decoration: none;
+      font-family: var(--font-mono); font-size: 0.77rem;
+      letter-spacing: 0.05em; transition: color 0.2s;
+    }
+    nav a:hover { color: var(--cal); }
+    .back-btn {
+      background: var(--panel); border: 1px solid var(--border);
+      color: var(--text-dim); padding: 0.35rem 0.9rem;
+      border-radius: 6px; font-size: 0.75rem;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .back-btn:hover { border-color: var(--cal); background: rgba(232,120,74,0.08); }
+    .nav-live { color: var(--protein) !important; }
+    .nav-live:hover { color: #fff !important; }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; min-height: 600px;
+      display: flex; align-items: flex-end;
+      padding: 0 2rem 5rem;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('../assets/img/vitals.jpg');
+      background-size: cover; background-position: center 40%;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(to bottom,
+          rgba(14, 15, 17, 0.15) 0%,
+          rgba(14, 15, 17, 0.7) 55%,
+          var(--bg) 100%),
+        linear-gradient(90deg,
+          rgba(14, 15, 17, 0.92) 0%,
+          rgba(14, 15, 17, 0.7) 45%,
+          rgba(14, 15, 17, 0.2) 80%,
+          transparent 100%);
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 640px; }
+    .hero-eyebrow {
+      font-family: var(--font-mono); font-size: 0.72rem;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--cal); margin-bottom: 1rem;
+      opacity: 0; animation: fadeUp 0.6s var(--ease-out) forwards 0.1s;
+    }
+    .hero h1 {
+      font-family: var(--font-mono);
+      font-size: clamp(2.8rem, 8vw, 5.2rem);
+      font-weight: 500; color: var(--text-bright);
+      letter-spacing: 0.14em;
+      line-height: 1.05; margin-bottom: 1rem;
+      opacity: 0; animation: fadeUp 0.65s var(--ease-out) forwards 0.22s;
+    }
+    .hero-sub {
+      font-size: 1.08rem; color: var(--text);
+      max-width: 520px; margin-bottom: 1.25rem;
+      opacity: 0; animation: fadeUp 0.65s var(--ease-out) forwards 0.36s;
+    }
+    .hero-metrics {
+      display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem;
+      opacity: 0; animation: fadeUp 0.65s var(--ease-out) forwards 0.42s;
+    }
+    .chip {
+      font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem; border-radius: 20px;
+      border: 1px solid currentColor; background: rgba(14,15,17,0.6);
+    }
+    .hero-actions {
+      display: flex; gap: 0.75rem; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp 0.65s var(--ease-out) forwards 0.5s;
+    }
+    .hero-badge {
+      position: absolute; top: 1.5rem; right: 2rem; z-index: 1;
+      font-family: var(--font-mono); font-size: 0.68rem;
+      letter-spacing: 0.1em; padding: 0.3rem 0.8rem;
+      border-radius: 20px; border: 1px solid var(--protein);
+      color: var(--protein); background: rgba(14, 15, 17, 0.7);
+      opacity: 0; animation: fadeIn 0.5s ease forwards 0.7s;
+    }
+    .hero-badge::before { content: '◉ '; animation: blink 2s infinite; }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.6rem 1.4rem; border-radius: 10px;
+      font-family: var(--font-body); font-weight: 500; font-size: 0.86rem;
+      text-decoration: none;
+      border: 1px solid transparent;
+      transition: transform 0.22s var(--ease-out),
+                  background 0.2s, border-color 0.2s, box-shadow 0.2s;
+    }
+    .btn:hover  { transform: translateY(-2px); }
+    .btn:active { transform: scale(0.97); transition-duration: 0.08s; }
+    .btn-primary {
+      background: #f0eeea; color: #0e0f11; border-color: #f0eeea;
+      box-shadow: 0 4px 18px rgba(240, 238, 234, 0.15);
+    }
+    .btn-primary:hover { background: #fff; box-shadow: 0 6px 24px rgba(240, 238, 234, 0.25); }
+    .btn-ghost {
+      background: rgba(22, 24, 25, 0.75);
+      color: var(--text); border-color: var(--border);
+    }
+    .btn-ghost:hover { border-color: rgba(232,120,74,0.45); color: var(--text-bright); }
+
+    /* ── LAYOUT ── */
+    .container {
+      max-width: 1160px; margin: 0 auto;
+      padding: 0 2rem; position: relative; z-index: 1;
+    }
+    section { padding: 3.5rem 0; }
+
+    .section-label {
+      font-family: var(--font-mono); font-size: 0.68rem;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 0.4rem;
+    }
+    .section-title {
+      font-size: clamp(1.55rem, 3vw, 2.1rem); font-weight: 700;
+      color: var(--text-bright); line-height: 1.2; letter-spacing: -0.01em;
+      margin-bottom: 0.6rem;
+    }
+    .section-intro {
+      color: var(--text-dim); font-size: 0.97rem;
+      max-width: 680px; line-height: 1.75; margin-bottom: 2rem;
+    }
+    .divider { border: none; border-top: 1px solid var(--border2); }
+
+    /* ── GRID LAYOUTS ── */
+    .two-col     { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+    .two-col-3-2 { display: grid; grid-template-columns: 3fr 2fr; gap: 2rem; align-items: start; }
+    .two-col-2-3 { display: grid; grid-template-columns: 2fr 3fr; gap: 2rem; align-items: start; }
+    @media (max-width: 800px) {
+      .two-col, .two-col-3-2, .two-col-2-3 { grid-template-columns: 1fr; }
+    }
+
+    /* ── PANEL / CARD ── */
+    .panel {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: 18px; padding: 1.75rem;
+      position: relative; overflow: hidden;
+    }
+    .panel-title {
+      font-family: var(--font-mono); font-size: 0.72rem; font-weight: 400;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--text-dim); margin-bottom: 1.1rem;
+    }
+    .panel p { font-size: 0.92rem; color: var(--text-dim); line-height: 1.75; }
+    .panel p + p { margin-top: 0.8rem; }
+    .panel strong { color: var(--text-bright); font-weight: 500; }
+
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
+    .card {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: 18px; padding: 1.75rem;
+      position: relative; overflow: hidden;
+      transition: transform 0.28s var(--ease-out), border-color 0.28s, box-shadow 0.28s;
+    }
+    .card::before {
+      content: ''; position: absolute; top: 0; left: 1.75rem; right: 1.75rem; height: 2px;
+      background: var(--c, var(--cal)); border-radius: 0 0 2px 2px; opacity: 0.85;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.14); box-shadow: 0 14px 48px rgba(0,0,0,0.4); }
+    }
+    .card-icon  { font-size: 1.6rem; margin-bottom: 0.75rem; display: block; }
+    .card-title { font-size: 1.1rem; font-weight: 700; color: var(--text-bright); margin-bottom: 0.6rem; }
+    .card-body  { font-size: 0.9rem; color: var(--text-dim); line-height: 1.7; }
+
+    /* ── TAB FEATURE ROWS ── */
+    .feature {
+      display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
+      gap: 2.5rem; align-items: center;
+      padding: 2.25rem 0; border-bottom: 1px solid var(--border2);
+    }
+    .feature:last-child { border-bottom: none; }
+    .feature.flip { grid-template-columns: minmax(0, 1fr) minmax(0, 360px); }
+    .feature.flip .shot { order: 2; }
+    @media (max-width: 800px) {
+      .feature, .feature.flip { grid-template-columns: 1fr; gap: 1.25rem; }
+      .feature.flip .shot { order: 0; }
+      .feature .shot { max-width: 420px; }
+    }
+    .feature-tag {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      font-family: var(--font-mono); font-size: 0.68rem;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--c); margin-bottom: 0.5rem;
+    }
+    .feature-tag .glyph { font-size: 0.95rem; letter-spacing: 0; }
+    .feature h3 { font-size: 1.45rem; font-weight: 700; color: var(--text-bright); margin-bottom: 0.7rem; line-height: 1.25; }
+    .feature p { color: var(--text-dim); font-size: 0.94rem; line-height: 1.75; }
+    .feature p + p { margin-top: 0.75rem; }
+    .feature strong { color: var(--text-bright); font-weight: 500; }
+    .bullets { list-style: none; margin-top: 1rem; }
+    .bullets li {
+      position: relative; padding: 0.35rem 0 0.35rem 1.2rem;
+      font-size: 0.88rem; color: var(--text-dim); line-height: 1.6;
+    }
+    .bullets li::before {
+      content: ''; position: absolute; left: 0; top: 0.85rem;
+      width: 6px; height: 6px; border-radius: 50%; background: var(--c, var(--cal));
+    }
+    .bullets strong { color: var(--text); font-weight: 500; }
+
+    /* ── SCREENSHOTS ── */
+    .shot {
+      border-radius: 18px; overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      cursor: zoom-in;
+      display: block; width: 100%;
+      padding: 0; font: inherit; color: inherit; text-align: left;
+    }
+    .shot img {
+      width: 100%; height: auto; display: block;
+      transition: transform 0.5s var(--ease-out);
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .shot:hover img { transform: scale(1.03); }
+    }
+    .shot-caption {
+      display: block;
+      padding: 0.7rem 1rem;
+      font-family: var(--font-mono); font-size: 0.68rem;
+      color: var(--text-faint); letter-spacing: 0.05em;
+      border-top: 1px solid var(--border2);
+      background: var(--panel);
+      position: relative;
+    }
+
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      position: fixed; inset: 0; z-index: 500;
+      background: rgba(5, 5, 6, 0.92);
+      display: flex; align-items: center; justify-content: center;
+      padding: 2rem;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s ease;
+      cursor: zoom-out;
+    }
+    .lightbox.open { opacity: 1; pointer-events: auto; }
+    .lightbox img {
+      max-width: 100%; max-height: 100%;
+      border-radius: 12px; border: 1px solid var(--border);
+      transform: scale(0.96); transition: transform 0.3s var(--ease-out);
+    }
+    .lightbox.open img { transform: none; }
+
+    /* ── TABLES ── */
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+    thead tr { border-bottom: 1px solid var(--border); }
+    th {
+      text-align: left; padding: 0.55rem 0.9rem;
+      font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--text-faint); font-weight: 400;
+    }
+    td {
+      padding: 0.6rem 0.9rem; border-bottom: 1px solid var(--border2);
+      color: var(--text); vertical-align: top;
+    }
+    tr:last-child td { border-bottom: none; }
+    .td-dim  { color: var(--text-dim); }
+    .td-mono { font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-bright); }
+    .td-note { color: var(--text-dim); font-size: 0.8rem; }
+
+    /* ── CODE / ARCH ── */
+    .code-block {
+      background: #0a0b0c; border: 1px solid var(--border);
+      border-radius: 14px; overflow: hidden;
+    }
+    .code-block-header {
+      padding: 0.6rem 1rem; border-bottom: 1px solid var(--border2);
+      font-family: var(--font-mono); font-size: 0.68rem;
+      color: var(--text-faint); letter-spacing: 0.07em;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+    .dot.r { background: #ff5f57; }
+    .dot.y { background: #ffbd2e; }
+    .dot.g { background: #28c840; }
+    .code-block pre {
+      padding: 1.25rem 1.5rem;
+      font-family: var(--font-mono); font-size: 0.8rem;
+      line-height: 1.7; color: var(--text-dim);
+      overflow-x: auto; margin: 0;
+    }
+    /* box-drawing needs a glyph-complete mono font — DM Mono lacks them */
+    .code-block pre.arch {
+      font-family: 'Cascadia Mono', 'Cascadia Code', Consolas, 'Courier New', monospace;
+      font-size: 0.74rem; line-height: 1.38;
+    }
+    .k  { color: var(--text-bright); }
+    .c-cal { color: var(--cal); }
+    .c-na  { color: var(--sodium); }
+    .c-pro { color: var(--protein); }
+    .c-fat { color: var(--fat); }
+    .c-carb{ color: var(--carbs); }
+    .c-st  { color: var(--steps); }
+    .c-sys { color: var(--sys); }
+    .c-cm  { color: #4a4e53; }
+
+    /* ── FLOW / NUMBERED ── */
+    .flow-list { list-style: none; }
+    .flow-item {
+      display: flex; gap: 1rem; align-items: baseline;
+      padding: 0.7rem 0; border-bottom: 1px solid var(--border2);
+    }
+    .flow-item:last-child { border-bottom: none; }
+    .flow-num {
+      font-family: var(--font-mono); font-size: 0.65rem;
+      color: var(--cal); background: rgba(232,120,74,0.1);
+      border: 1px solid rgba(232,120,74,0.25); border-radius: 4px;
+      padding: 0.1rem 0.5rem; white-space: nowrap; min-width: 28px;
+      text-align: center;
+    }
+    .flow-desc { font-size: 0.88rem; color: var(--text-dim); line-height: 1.65; }
+    .flow-desc strong { color: var(--text); font-weight: 500; }
+
+    /* ── LESSON GRID ── */
+    .lesson-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
+    .lesson {
+      background: var(--bg2); border: 1px solid var(--border2);
+      border-left: 2px solid var(--c, var(--cal));
+      border-radius: 12px; padding: 1.1rem 1.25rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .lesson:hover { background: var(--panel); }
+    }
+    .lesson-title { font-family: var(--font-mono); font-size: 0.76rem; color: var(--text-bright); margin-bottom: 0.35rem; }
+    .lesson-desc  { font-size: 0.84rem; color: var(--text-dim); line-height: 1.6; }
+
+    /* ── HISTOGRAM (SpO2) ── */
+    .histo { display: flex; flex-direction: column; gap: 0.7rem; margin-top: 0.5rem; }
+    .histo-row { display: grid; grid-template-columns: 70px 1fr 60px; gap: 0.75rem; align-items: center; }
+    .histo-label { font-family: var(--font-mono); font-size: 0.74rem; color: var(--text-dim); }
+    .histo-track { height: 10px; background: rgba(255,255,255,0.05); border-radius: 5px; overflow: hidden; }
+    .histo-bar { height: 100%; border-radius: 5px; }
+    .histo-n { font-family: var(--font-mono); font-size: 0.74rem; color: var(--text-bright); text-align: right; }
+    .histo-note { font-size: 0.78rem; color: var(--text-faint); margin-top: 0.9rem; }
+
+    /* ── ROADMAP ── */
+    .roadmap-list { list-style: none; }
+    .roadmap-item {
+      display: flex; gap: 0.85rem; align-items: baseline;
+      padding: 0.7rem 0; border-bottom: 1px solid var(--border2);
+      font-size: 0.9rem;
+    }
+    .roadmap-item:last-child { border-bottom: none; }
+    .r-tag {
+      font-family: var(--font-mono); font-size: 0.58rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.15rem 0.55rem; border-radius: 4px;
+      white-space: nowrap;
+    }
+    .r-next { background: rgba(91,164,230,0.1);  color: var(--sodium);  border: 1px solid rgba(91,164,230,0.25); }
+    .r-risk { background: rgba(232,120,74,0.1);  color: var(--cal);     border: 1px solid rgba(232,120,74,0.25); }
+    .r-done { background: rgba(110,200,122,0.1); color: var(--protein); border: 1px solid rgba(110,200,122,0.25); }
+    .r-desc { color: var(--text-dim); flex: 1; line-height: 1.6; }
+    .r-desc strong { color: var(--text); font-weight: 500; }
+
+    /* ── INLINE ── */
+    .ic {
+      font-family: var(--font-mono); font-size: 0.82em;
+      background: rgba(255,255,255,0.06); color: var(--text-bright);
+      padding: 0.08rem 0.4rem; border-radius: 4px;
+      overflow-wrap: anywhere;
+    }
+    .swatch {
+      display: inline-block; width: 0.7em; height: 0.7em; border-radius: 50%;
+      vertical-align: baseline; margin-right: 0.35em;
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0; transform: translateY(22px);
+      transition: opacity 0.55s var(--ease-out), transform 0.55s var(--ease-out);
+    }
+    .reveal.in { opacity: 1; transform: none; }
+    .stagger > * {
+      opacity: 0; transform: translateY(18px);
+      transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+    }
+    .stagger.in > * { opacity: 1; transform: none; }
+    .stagger.in > *:nth-child(2) { transition-delay: 65ms; }
+    .stagger.in > *:nth-child(3) { transition-delay: 130ms; }
+    .stagger.in > *:nth-child(4) { transition-delay: 195ms; }
+    .stagger.in > *:nth-child(5) { transition-delay: 260ms; }
+    .stagger.in > *:nth-child(6) { transition-delay: 325ms; }
+    .stagger.in > *:nth-child(7) { transition-delay: 390ms; }
+    .stagger.in > *:nth-child(8) { transition-delay: 455ms; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border2);
+      padding: 2.25rem 2rem;
+      text-align: center;
+      font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-faint);
+      position: relative; z-index: 1;
+    }
+    footer a { color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
+    footer a:hover { color: var(--cal); }
+    footer p + p { margin-top: 0.45rem; }
+
+    .mt-1 { margin-top: 1rem; }
+    .mt-2 { margin-top: 2rem; }
+    .mb-2 { margin-bottom: 2rem; }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    @media (max-width: 640px) {
+      nav { padding: 0.65rem 1rem; }
+      .nav-links .hide-sm { display: none; }
+      .hero { min-height: 520px; padding: 4rem 1rem 3.5rem; }
+      .hero-badge { display: none; }
+      .container { padding: 0 1rem; }
+      .panel, .card { padding: 1.25rem; }
+      .code-block pre { padding: 1rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal, .stagger > *,
+      .hero-eyebrow, .hero h1, .hero-sub, .hero-metrics,
+      .hero-actions, .hero-badge {
+        opacity: 1; transform: none; animation: none; transition: none;
+      }
+      .shot img, .lightbox, .lightbox img { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─────────────── NAV ─────────────── -->
+  <nav>
+    <a href="projectdocs.html" class="back-btn">← Project Docs</a>
+    <a href="../index.html" class="nav-brand">SJFCROSS</a>
+    <div class="nav-links">
+      <a href="../index.html" class="hide-sm">Home</a>
+      <a href="https://github.com/sjfcross/vitals" target="_blank" rel="noopener" class="hide-sm">GitHub ↗</a>
+      <a href="https://sjfcross.github.io/vitals/" target="_blank" rel="noopener" class="nav-live">Open App ↗</a>
+    </div>
+  </nav>
+
+  <!-- ─────────────── HERO ─────────────── -->
+  <header class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <span class="hero-badge">Installable PWA</span>
+    <div class="container">
+      <div class="hero-content">
+        <p class="hero-eyebrow">Division IV · Project Documentation</p>
+        <h1>VITALS</h1>
+        <p class="hero-sub">A personal health tracker for food, movement, sleep, weight and blood pressure. Meals are logged by pasting a nutrition breakdown from Claude, and the Fitbit data syncs itself overnight.</p>
+        <div class="hero-metrics">
+          <span class="chip" style="color:var(--cal)">Calories</span>
+          <span class="chip" style="color:var(--protein)">Protein</span>
+          <span class="chip" style="color:var(--sodium)">Sodium</span>
+          <span class="chip" style="color:var(--steps)">Steps</span>
+          <span class="chip" style="color:var(--sodium)">Sleep</span>
+          <span class="chip" style="color:var(--weight)">Weight</span>
+          <span class="chip" style="color:var(--sys)">Blood pressure</span>
+        </div>
+        <div class="hero-actions">
+          <a href="https://sjfcross.github.io/vitals/" target="_blank" rel="noopener" class="btn btn-primary">Open VITALS ↗</a>
+          <a href="https://github.com/sjfcross/vitals" target="_blank" rel="noopener" class="btn btn-ghost">Source on GitHub</a>
+          <a href="projectdocs.html" class="btn btn-ghost">All Projects</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ─────────────── INTRO CARDS ─────────────── -->
+  <section>
+    <div class="container">
+      <div class="card-grid stagger">
+        <div class="card" style="--c:var(--cal)">
+          <span class="card-icon">🧩</span>
+          <h3 class="card-title">The Problem</h3>
+          <p class="card-body">My health data was scattered across apps. Food lived in one, steps and sleep in the Fitbit app, blood pressure on scraps of paper. None of them showed the numbers I actually care about (sodium, systolic pressure) next to each other, and typing meals into a food database is tedious.</p>
+        </div>
+        <div class="card" style="--c:var(--protein)">
+          <span class="card-icon">📱</span>
+          <h3 class="card-title">What It Is</h3>
+          <p class="card-body">A mobile-first React PWA with six tabs, installed on my phone's home screen. Supabase handles login and storage. Fitbit data flows in through Google Health and a set of Supabase Edge Functions, so there is no server of my own to run.</p>
+        </div>
+        <div class="card" style="--c:var(--sodium)">
+          <span class="card-icon">🎯</span>
+          <h3 class="card-title">The Goal</h3>
+          <p class="card-body">One screen per question: <em>what did I eat, how much did I move, how did I sleep, where is my weight and blood pressure going?</em> Logging should take seconds, and there should be a clean table I can show a doctor.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─────────────── THE TABS ─────────────── -->
+  <section id="tabs">
+    <div class="container">
+
+      <div class="reveal">
+        <p class="section-label">The App</p>
+        <h2 class="section-title">Six tabs, one colour per metric</h2>
+        <p class="section-intro">Every metric keeps the same colour everywhere it appears: calories orange, sodium blue, protein green, fat violet, carbs yellow, steps purple. That way a ring, a bar or a line reads the same on every tab. Numbers are set in DM Mono and labels in DM Sans, on a near-black background built for phone use at night. Tap any screenshot to enlarge it.</p>
+      </div>
+
+      <!-- Overview -->
+      <div class="feature reveal" style="--c:var(--cal)">
+        <button class="shot" type="button" data-full="../assets/img/vitals/meal2.jpg">
+          <img src="../assets/img/vitals/meal2.jpg" alt="VITALS Overview tab: calorie, sodium and protein rings, steps card, weekly calorie bars and the day's meals" loading="lazy">
+          <span class="shot-caption">Overview: rings, steps, weekly calories, meal list</span>
+        </button>
+        <div>
+          <p class="feature-tag"><span class="glyph">◎</span> Overview</p>
+          <h3>The whole day at a glance</h3>
+          <p>Three progress rings track <strong>calories, sodium and protein</strong> against my personal targets. Below them are the day's steps and active minutes, a seven-day calorie bar chart with the target as a dashed line, and the logged meals with their kcal and sodium.</p>
+          <ul class="bullets">
+            <li>Meals logged from a Claude paste carry a small <strong>✨ AI</strong> badge.</li>
+            <li>A date picker steps back through history, and <strong>Back to today</strong> jumps home.</li>
+            <li>"Today" is kept in React state and refreshes when the app becomes visible again, so a PWA left open past midnight doesn't stay stuck on yesterday.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Nutrition -->
+      <div class="feature flip reveal" style="--c:var(--protein)">
+        <button class="shot" type="button" data-full="../assets/img/vitals/nutri1.jpg">
+          <img src="../assets/img/vitals/nutri1.jpg" alt="VITALS Nutrition tab: macro donut, sodium bar with optimal and limit markers, full nutrient table" loading="lazy">
+          <span class="shot-caption">Nutrition: macro donut, sodium scale, 14-row nutrient table</span>
+        </button>
+        <div>
+          <p class="feature-tag"><span class="glyph">⬡</span> Nutrition</p>
+          <h3>Every nutrient, not just calories</h3>
+          <p>A <strong>macro donut</strong> splits the day into protein, fat and carbs. Sodium gets its own scale with three markers: <strong>optimal 1,500 mg</strong>, the <strong>2,300 mg limit</strong>, and my personal target.</p>
+          <p>The full table lists 14 nutrients (calories, macros, saturated fat, sugar, added sugar, fibre, sodium, calcium, iron, potassium, vitamin C and D) against daily reference values. Each row gets a ✓, ! or – status.</p>
+        </div>
+      </div>
+
+      <!-- Move -->
+      <div class="feature reveal" style="--c:var(--steps)">
+        <button class="shot" type="button" data-full="../assets/img/vitals/acti1.jpg">
+          <img src="../assets/img/vitals/acti1.jpg" alt="VITALS Move tab: steps ring, distance, weekly steps bars, 24h heart rate card and activity form" loading="lazy">
+          <span class="shot-caption">Move: steps ring, weekly bars, 24h heart rate, activity log</span>
+        </button>
+        <div>
+          <p class="feature-tag"><span class="glyph">◈</span> Move</p>
+          <h3>Steps, distance and a 24-hour pulse</h3>
+          <p>Steps, distance and active minutes come from the Fitbit via <strong>Sync Fitbit</strong>. Workouts can be added by hand. The <strong>heart rate 24H</strong> card plots the last day at 3-minute resolution, and tapping any hour zooms in to 5-second detail.</p>
+          <ul class="bullets">
+            <li>Google refreshes the distance total less often than steps, so a fresh step count can sit next to an old distance. If the km look too low for the steps, the app shows an estimate marked <span class="ic">≈</span> until the real value arrives.</li>
+            <li>Raw heart rate is kept for a 48-hour window, about 35k rows at most, and older rows are pruned on every sync.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Sleep -->
+      <div class="feature flip reveal" style="--c:var(--sodium)">
+        <button class="shot" type="button" data-full="../assets/img/vitals/sleep.jpg">
+          <img src="../assets/img/vitals/sleep.jpg" alt="VITALS Sleep tab: sleep stage timeline, weekly sleep bars and 30-day HRV trend" loading="lazy">
+          <span class="shot-caption">Sleep: stage timeline, week bars, 30-day HRV</span>
+        </button>
+        <div>
+          <p class="feature-tag"><span class="glyph">◑</span> Sleep</p>
+          <h3>Stages, naps and recovery</h3>
+          <p>A hand-built SVG timeline draws the night as a staircase of <span class="swatch" style="background:#e8784a"></span>Awake, <span class="swatch" style="background:#5ba4e6"></span>REM, <span class="swatch" style="background:#b47fdb"></span>Light and <span class="swatch" style="background:#3a5fa8"></span>Deep blocks, in the style of Samsung Health. A week bar chart shows nights only, scaled to 10 hours.</p>
+          <ul class="bullets">
+            <li><strong>Naps are their own sessions.</strong> The longest sleep per wake-up date counts as the night, and the rest open in a "☀️ N naps" overlay that reuses the same timeline.</li>
+            <li><strong>Recovery, 30 days:</strong> HRV (ms RMSSD) and resting heart rate as trend lines.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Weight -->
+      <div class="feature reveal" style="--c:var(--weight)">
+        <button class="shot" type="button" data-full="../assets/img/vitals/weight.jpg">
+          <img src="../assets/img/vitals/weight.jpg" alt="VITALS Weight tab: current weight, BMI, 7 and 30-day change, trend chart and log form" loading="lazy">
+          <span class="shot-caption">Weight: current, BMI, deltas, all-time trend</span>
+        </button>
+        <div>
+          <p class="feature-tag"><span class="glyph">◷</span> Weight</p>
+          <h3>The long trend, not the daily noise</h3>
+          <p>The tab shows current weight with a <strong>BMI</strong> computed from the height in my profile, plus 7-day and 30-day change cards. The trend chart offers 1W / 4W / All. It plots one point per day (the latest reading) and fits the Y axis to the selected range with 30% padding, rounded to 5 kg.</p>
+          <p>The full history loads with no cap and can be edited under <strong>History &amp; Edit</strong>.</p>
+        </div>
+      </div>
+
+      <!-- BP -->
+      <div class="feature flip reveal" style="--c:var(--sys)">
+        <button class="shot" type="button" data-full="../assets/img/vitals/bp1.jpg">
+          <img src="../assets/img/vitals/bp1.jpg" alt="VITALS Blood pressure tab: latest reading with status, systolic and diastolic trend chart, log form" loading="lazy">
+          <span class="shot-caption">BP: latest reading, classified trend, quick log</span>
+        </button>
+        <div>
+          <p class="feature-tag"><span class="glyph">♡</span> Blood Pressure</p>
+          <h3>Classified readings and a fast log form</h3>
+          <p>The latest reading shows in <span style="color:var(--sys)">systolic red</span> / <span style="color:var(--sodium)">diastolic blue</span> with its classification. The chart uses a fixed medical range of 60 to 220 mmHg. A line joins the first reading of each day, and any further readings that day appear as faint dots, so a re-measure doesn't make the line jump around.</p>
+          <ul class="bullets">
+            <li><strong>Auto-advance input:</strong> after 3 systolic digits focus jumps to diastolic, and after 2 diastolic digits to pulse. A reading takes three quick bursts of typing with no tapping between fields.</li>
+            <li>Readings can carry an optional note (e.g. "after coffee").</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─────────────── PASTE FROM CLAUDE ─────────────── -->
+  <section id="paste">
+    <div class="container">
+
+      <div class="reveal">
+        <p class="section-label">Meal Logging</p>
+        <h2 class="section-title">Paste from Claude, not a food database</h2>
+        <p class="section-intro">Instead of searching a food database, I describe the meal to a Claude Project, e.g. <em>"overnight chia pudding 240g + 15g walnuts + 15g 85% dark chocolate"</em>. Its system prompt answers in a fixed, line-based format. Pasting that into VITALS fills every field. The parsing runs entirely in the browser with regular expressions, so the app itself makes no AI or API call.</p>
+      </div>
+
+      <div class="shot reveal mb-2" role="button" tabindex="0" data-full="../assets/img/vitals/meal1.jpg" style="max-width:900px">
+        <img src="../assets/img/vitals/meal1.jpg" alt="VITALS Log meal sheet with Paste from Claude and Manual entry options" loading="lazy">
+        <span class="shot-caption">Log meal sheet: paste or manual entry</span>
+      </div>
+
+      <div class="two-col">
+        <div class="code-block reveal">
+          <div class="code-block-header">
+            <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+            Claude's reply, pasted as-is
+          </div>
+          <pre><span class="k">Description:</span> Chicken sandwich on sourdough
+<span class="c-cal">Calories:</span>      481
+<span class="c-pro">Protein:</span>       ~32g
+<span class="c-fat">Fat:</span>           18
+<span class="c-fat">Saturated fat:</span> 4
+<span class="c-carb">Carbs:</span>         42
+<span class="c-carb">Sugar:</span>         5
+<span class="c-carb">Added sugar:</span>   0
+<span class="c-pro">Fibre:</span>         3
+<span class="c-na">Sodium:</span>        820mg
+Calcium:       120
+Iron:          3.2
+Potassium:     410
+Vitamin C:     4
+Vitamin D:     0.8</pre>
+        </div>
+
+        <div class="panel reveal">
+          <p class="panel-title">How the parser behaves</p>
+          <ul class="flow-list">
+            <li class="flow-item">
+              <span class="flow-num">1</span>
+              <span class="flow-desc">Fires automatically once a paste is <strong>longer than 20 characters</strong>, with no button to press.</span>
+            </li>
+            <li class="flow-item">
+              <span class="flow-num">2</span>
+              <span class="flow-desc">One regex per field with the separator <span class="ic">[:\s~&lt;&gt;≈]+</span>, so <strong>approximation prefixes</strong> such as <span class="ic">Protein: ~32g</span> still match.</span>
+            </li>
+            <li class="flow-item">
+              <span class="flow-num">3</span>
+              <span class="flow-desc">Captures only <span class="ic">[\d.]+</span>, so trailing units (<span class="ic">g</span>, <span class="ic">mg</span>, <span class="ic">µg</span>, <span class="ic">kcal</span>) drop off on their own. Markdown code fences are ignored.</span>
+            </li>
+            <li class="flow-item">
+              <span class="flow-num">4</span>
+              <span class="flow-desc">A real <strong>0 stays 0</strong>. A missing field becomes blank instead of <span class="ic">NaN</span>.</span>
+            </li>
+          </ul>
+          <p style="margin-top:1rem;font-size:0.84rem">An early version only accepted <span class="ic">:</span> plus whitespace. Claude often writes <span class="ic">~4.4g</span>, so every field except Calories silently came back empty, and <span class="ic">0 || ''</span> wiped out real zeros as well. Both bugs are fixed, and the format is documented in <span class="ic">PASTE_FORMAT.md</span>.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─────────────── DOCTOR VIEW ─────────────── -->
+  <section id="doctor" style="--accent:var(--sys)">
+    <div class="container">
+
+      <div class="reveal">
+        <p class="section-label">Doctor View</p>
+        <h2 class="section-title">A table you can hand across the desk</h2>
+        <p class="section-intro"><strong style="color:var(--text-bright);font-weight:500">Show at Doctor ›</strong> on the BP tab opens a full-screen log built for a GP appointment. It shows 7-day and 30-day averages for systolic, diastolic and pulse, then every reading with date, time, pulse and a short status, and notes as an italic sub-row.</p>
+      </div>
+
+      <div class="shot reveal" role="button" tabindex="0" data-full="../assets/img/vitals/doclog.jpg">
+        <img src="../assets/img/vitals/doclog.jpg" alt="VITALS Doctor View: 7 and 30-day blood pressure averages and full readings table" loading="lazy">
+        <span class="shot-caption">Doctor View: averages up top, every reading below</span>
+      </div>
+
+      <div class="two-col mt-2">
+        <div class="panel reveal">
+          <p class="panel-title">Classification (checked top-down)</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Status</th><th>Rule (mmHg)</th></tr></thead>
+              <tbody>
+                <tr><td style="color:#ff5a5a">Hypertensive crisis</td><td class="td-mono">sys &gt; 180 or dia &gt; 120</td></tr>
+                <tr><td style="color:#e8784a">High · Stage 2</td><td class="td-mono">sys ≥ 140 or dia ≥ 90</td></tr>
+                <tr><td style="color:#f0c96a">High · Stage 1</td><td class="td-mono">sys ≥ 130 or dia ≥ 80</td></tr>
+                <tr><td style="color:#f0c96a">Elevated</td><td class="td-mono">sys ≥ 120 and dia &lt; 80</td></tr>
+                <tr><td style="color:#6ec87a">Normal</td><td class="td-mono">below all of the above</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="panel reveal">
+          <p class="panel-title">Why it exists</p>
+          <p>Home readings swing a lot. A single high reading tells a doctor little, but a month of morning and evening readings with averages tells them a lot.</p>
+          <p>A phone screen can't show that in five seconds, so the Doctor View drops the chart and uses <strong>big averages and a plain table</strong>, with the same colours as the rest of the app.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─────────────── ARCHITECTURE ─────────────── -->
+  <section id="architecture">
+    <div class="container">
+
+      <div class="reveal">
+        <p class="section-label">Architecture</p>
+        <h2 class="section-title">No server of my own</h2>
+        <p class="section-intro">The browser talks straight to Supabase through supabase-js, protected by row-level security. Fitbit data takes a separate path: watch → Fitbit app → Google Health → Supabase Edge Functions → Postgres. A nightly <span class="ic">pg_cron</span> job keeps that path flowing when the app stays closed.</p>
+      </div>
+
+      <div class="two-col-3-2 mt-2">
+
+        <div class="code-block reveal">
+          <div class="code-block-header">
+            <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+            data paths
+          </div>
+          <pre class="arch"><span class="c-st">┌───────────────────────────────────────┐
+│  VITALS PWA  (React 19 + Vite)        │
+│  GitHub Pages · /vitals/ · offline SW │
+└──────┬────────────────────────┬───────┘</span>
+<span class="c-cm">       │ supabase-js            │ fetch()  "Sync Fitbit"
+       │ (auth + RLS)           ▼</span>
+<span class="c-cm">       │</span>  <span class="c-cal">┌─────────────────────────────────┐
+<span class="c-cm">       │</span>  │  Supabase Edge Functions (Deno) │
+<span class="c-cm">       │</span>  │  sync-steps · sync-extras       │
+<span class="c-cm">       │</span>  │  sync-sleep · sync-hr-intraday  │
+<span class="c-cm">       │</span>  └──────┬───────────────▲──────────┘</span>
+<span class="c-cm">       │         │ upsert        │ OAuth refresh token
+       │         │ (service role)│ + Health API v4
+       ▼         ▼               │</span>
+<span class="c-pro">┌──────────────────────────┐</span>  <span class="c-na">┌─┴───────────────────┐
+<span class="c-pro">│  Supabase Postgres       │</span>  │  Google Health API  │
+<span class="c-pro">│  meals · activity · sleep│</span>  │        ▲            │
+<span class="c-pro">│  weight · blood_pressure │</span>  │   Fitbit app        │
+<span class="c-pro">│  heart_rate_intraday     │</span>  │        ▲            │
+<span class="c-pro">│  user_profile            │</span>  │   Inspire 3 (wrist) │
+<span class="c-pro">│                          │</span>  └─────────────────────┘</span>
+<span class="c-pro">│  pg_cron 01:00 UTC ──────┼──▶ sync-extras (nightly)
+└──────────────────────────┘</span></pre>
+        </div>
+
+        <div>
+          <div class="panel reveal mb-2">
+            <p class="panel-title">Stack</p>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Layer</th><th>Tech</th></tr></thead>
+                <tbody>
+                  <tr><td class="td-dim">UI</td><td class="td-mono">React 19 · Vite 8</td></tr>
+                  <tr><td class="td-dim">Charts</td><td class="td-mono">Recharts + hand-rolled SVG</td></tr>
+                  <tr><td class="td-dim">Styling</td><td class="td-mono">CSS variables · inline styles</td></tr>
+                  <tr><td class="td-dim">Dates</td><td class="td-mono">dayjs</td></tr>
+                  <tr><td class="td-dim">DB / Auth</td><td class="td-mono">Supabase Postgres · RLS</td></tr>
+                  <tr><td class="td-dim">Sync</td><td class="td-mono">Edge Functions · pg_cron · pg_net</td></tr>
+                  <tr><td class="td-dim">PWA</td><td class="td-mono">vite-plugin-pwa (autoUpdate)</td></tr>
+                  <tr><td class="td-dim">Deploy</td><td class="td-mono">GitHub Actions → Pages</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="panel reveal">
+            <p class="panel-title">Code layout</p>
+            <p><strong>One hook per domain</strong> (<span class="ic">useMeals</span>, <span class="ic">useSleep</span>, <span class="ic">useBloodPressure</span>…) owns its Supabase queries and local state. Each exposes mutators that update optimistically and return <span class="ic">{ error }</span>. The tabs only render what the hooks hand them.</p>
+            <p>An <strong>ErrorBoundary</strong> around the app catches render errors and shows a retry screen instead of a blank page.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="panel reveal mt-2">
+        <p class="panel-title">Tables</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Table</th><th>Holds</th><th>Written by</th></tr></thead>
+            <tbody>
+              <tr><td class="td-mono">meals</td><td class="td-dim">name, emoji, description, source (manual / claude), 14 nutrient columns</td><td class="td-note">app</td></tr>
+              <tr><td class="td-mono">activity</td><td class="td-dim">one row per date: steps, km, active minutes, workout, resting HR, HRV, SpO₂</td><td class="td-note">sync + app</td></tr>
+              <tr><td class="td-mono">sleep</td><td class="td-dim">wake-up date, start/end, stage minutes, stage list (JSONB), <span class="ic">is_nap</span></td><td class="td-note">sync-sleep</td></tr>
+              <tr><td class="td-mono">heart_rate_intraday</td><td class="td-dim">5-second buckets, 48h sliding window</td><td class="td-note">sync-hr-intraday</td></tr>
+              <tr><td class="td-mono">weight</td><td class="td-dim">date, time, kg</td><td class="td-note">app</td></tr>
+              <tr><td class="td-mono">blood_pressure</td><td class="td-dim">date, time, systolic, diastolic, pulse, notes</td><td class="td-note">app</td></tr>
+              <tr><td class="td-mono">user_profile</td><td class="td-dim">height, calorie / sodium / protein / step targets (asked once at first launch)</td><td class="td-note">onboarding</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─────────────── FITBIT SYNC ─────────────── -->
+  <section id="sync" style="--accent:var(--steps)">
+    <div class="container">
+
+      <div class="reveal">
+        <p class="section-label">Fitbit Sync</p>
+        <h2 class="section-title">Four edge functions and a nightly job</h2>
+        <p class="section-intro">The Fitbit syncs to Google Health on the phone. The edge functions read it back server-side with a long-lived OAuth refresh token stored as a Supabase secret, so the app never shows a login popup and no Google credential reaches the browser. Every sync upserts, so running it twice is harmless.</p>
+      </div>
+
+      <div class="panel reveal">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Function</th><th>Pulls</th><th>Notes</th></tr></thead>
+            <tbody>
+              <tr><td class="td-mono">sync-steps</td><td class="td-dim">daily steps</td><td class="td-note"><span class="ic">dailyRollUp</span>, last 30 days, upsert on date</td></tr>
+              <tr><td class="td-mono">sync-extras</td><td class="td-dim">distance, active minutes, resting HR, HRV, SpO₂</td><td class="td-note">writes beside the steps without overwriting them. Re-run nightly by <span class="ic">pg_cron</span>, because Google publishes resting HR a few days late</td></tr>
+              <tr><td class="td-mono">sync-sleep</td><td class="td-dim">sleep sessions + stages</td><td class="td-note">plain <span class="ic">GET</span> list (no rollup for sleep); grouped by local wake-up date; upsert on <span class="ic">(date, sleep_start)</span></td></tr>
+              <tr><td class="td-mono">sync-hr-intraday</td><td class="td-dim">raw heart rate (~3 s samples)</td><td class="td-note">cursor-based; buckets to 5 s while streaming, inserts 2,000 rows per batch, prunes anything older than 48h</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="reveal mt-2">
+        <p class="panel-title" style="margin-bottom:1rem">Google Health API v4: the lessons that cost hours</p>
+      </div>
+      <div class="lesson-grid stagger">
+        <div class="lesson" style="--c:var(--steps)">
+          <p class="lesson-title">Type names are kebab-case</p>
+          <p class="lesson-desc"><span class="ic">active-minutes</span>, <span class="ic">heart-rate</span>. <span class="ic">steps</span> and <span class="ic">distance</span> look the same in any casing, which hides the rule. Get it wrong and the error never mentions casing.</p>
+        </div>
+        <div class="lesson" style="--c:var(--steps)">
+          <p class="lesson-title">14-day rollup cap</p>
+          <p class="lesson-desc">Active minutes <em>and</em> heart rate reject or silently empty any window over 14 days. Resting HR came back as zero rows (with status "ok") until its window was capped too.</p>
+        </div>
+        <div class="lesson" style="--c:var(--sodium)">
+          <p class="lesson-title">Sleep has no rollup</p>
+          <p class="lesson-desc">You fetch the whole list and filter by date afterwards. Sending a POST with a date range doesn't work either: the API treats it as <em>create a data point</em> and returns 403 on a read-only token.</p>
+        </div>
+        <div class="lesson" style="--c:var(--cal)">
+          <p class="lesson-title">Numbers arrive as strings</p>
+          <p class="lesson-desc"><span class="ic">countSum: "8432"</span>, sleep minutes and UTC offsets like <span class="ic">"3600s"</span> all need parsing. Days with zero steps are missing from the response entirely.</p>
+        </div>
+        <div class="lesson" style="--c:var(--cal)">
+          <p class="lesson-title">One header, two failures</p>
+          <p class="lesson-desc">The app calls the functions without an auth header, so they have to be deployed with JWT verification <em>off</em>. A test call that includes the key passes anyway and hides the problem.</p>
+        </div>
+        <div class="lesson" style="--c:var(--protein)">
+          <p class="lesson-title">Naps were silently dropped</p>
+          <p class="lesson-desc">The first sync kept one session per day and threw the rest away. Google had stored every nap all along. Switching the unique key to <span class="ic">(date, sleep_start)</span> fixed it.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─────────────── DATA QUALITY ─────────────── -->
+  <section id="data-quality" style="--accent:var(--sodium)">
+    <div class="container">
+
+      <div class="reveal">
+        <p class="section-label">Data Quality</p>
+        <h2 class="section-title">Look at the data before you chart it</h2>
+        <p class="section-intro">A cheap wrist tracker records a lot of noise. A throwaway <span class="ic">probe-health</span> function dumps the raw API response, and twice that changed what the app shows.</p>
+      </div>
+
+      <div class="two-col">
+        <div class="panel reveal">
+          <p class="panel-title">SpO₂: ~2,000 raw readings, three populations</p>
+          <div class="histo">
+            <div class="histo-row">
+              <span class="histo-label">50%</span>
+              <div class="histo-track"><div class="histo-bar" style="width:40%;background:var(--cal)"></div></div>
+              <span class="histo-n">514</span>
+            </div>
+            <div class="histo-row">
+              <span class="histo-label">74–91%</span>
+              <div class="histo-track"><div class="histo-bar" style="width:10%;background:var(--carbs)"></div></div>
+              <span class="histo-n">~130</span>
+            </div>
+            <div class="histo-row">
+              <span class="histo-label">92–99%</span>
+              <div class="histo-track"><div class="histo-bar" style="width:100%;background:var(--sodium)"></div></div>
+              <span class="histo-n">1,283</span>
+            </div>
+          </div>
+          <p class="histo-note">Bar length relative to the largest group.</p>
+          <p style="margin-top:1rem">A quarter of all readings were exactly 50%, which is sensor dropout. Another ~130 were motion artefacts. The real cluster is accurate to only ±2–3%, which is too coarse to chart honestly, so <strong>SpO₂ is still synced and stored but no longer shown.</strong></p>
+        </div>
+        <div class="panel reveal">
+          <p class="panel-title">What else the probe turned up</p>
+          <ul class="bullets" style="--c:var(--sodium);margin-top:0">
+            <li><strong>HRV:</strong> Google keeps only about one night of raw points, so the 30-day chart builds up one sync at a time.</li>
+            <li><strong>Distance lag:</strong> once, the stored distance was 1.34 km against 11,667 steps. The guard in the Move tab catches cases like that.</li>
+            <li><strong>Not available on an Inspire 3:</strong> VO₂ max and body fat return no data, and respiratory rate isn't offered by this API at all.</li>
+            <li><strong>HR history:</strong> Google stores it forever, but only serves it newest-first. Going back weeks would mean paging through millions of points, which doesn't fit in an edge function.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ─────────────── ROADMAP ─────────────── -->
+  <section id="roadmap">
+    <div class="container">
+
+      <div class="reveal">
+        <p class="section-label">Status</p>
+        <h2 class="section-title">Done, open and known risks</h2>
+      </div>
+
+      <div class="two-col mt-2">
+        <div class="panel reveal">
+          <p class="panel-title">Shipped</p>
+          <ul class="roadmap-list">
+            <li class="roadmap-item"><span class="r-tag r-done">done</span><span class="r-desc"><strong>Six tabs</strong> plus Doctor View, onboarding and the Claude paste logger</span></li>
+            <li class="roadmap-item"><span class="r-tag r-done">done</span><span class="r-desc"><strong>Intraday heart rate</strong>: 24h chart at 3-min resolution, tap to zoom to 5 s</span></li>
+            <li class="roadmap-item"><span class="r-tag r-done">done</span><span class="r-desc"><strong>Nightly backfill</strong> via <span class="ic">pg_cron</span>, so resting HR no longer stays blank</span></li>
+            <li class="roadmap-item"><span class="r-tag r-done">done</span><span class="r-desc"><strong>Naps</strong> stored as separate sessions with their own overlay</span></li>
+            <li class="roadmap-item"><span class="r-tag r-done">done</span><span class="r-desc"><strong>Google OAuth app in production</strong>, so the refresh token no longer expires every 7 days</span></li>
+          </ul>
+        </div>
+        <div class="panel reveal">
+          <p class="panel-title">Next &amp; risks</p>
+          <ul class="roadmap-list">
+            <li class="roadmap-item"><span class="r-tag r-next">next</span><span class="r-desc"><strong>Resting HR trend in Move</strong>, in the same style as the recovery charts, once there are a few months of data</span></li>
+            <li class="roadmap-item"><span class="r-tag r-next">next</span><span class="r-desc"><strong>Long-term HR summaries</strong>: daily min / max / avg written to <span class="ic">activity</span> before the raw rows are pruned</span></li>
+            <li class="roadmap-item"><span class="r-tag r-risk">risk</span><span class="r-desc"><strong>An upsert can overwrite a good value with NULL.</strong> If one date in a sync batch lacks a metric, PostgREST can write NULL over the stored value. The fix is a COALESCE upsert through an RPC</span></li>
+            <li class="roadmap-item"><span class="r-tag r-risk">risk</span><span class="r-desc"><strong>The Health API v4 is young.</strong> In June 2026 <span class="ic">window_size_days</span> became a required field overnight</span></li>
+            <li class="roadmap-item"><span class="r-tag r-risk">risk</span><span class="r-desc"><strong>The service worker caches aggressively.</strong> After a deploy, a hard refresh is sometimes needed to see the new version</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="reveal mt-2" style="display:flex;gap:1rem;flex-wrap:wrap;">
+        <a href="https://sjfcross.github.io/vitals/" target="_blank" rel="noopener" class="btn btn-primary">Open VITALS ↗</a>
+        <a href="https://github.com/sjfcross/vitals" target="_blank" rel="noopener" class="btn btn-ghost">GitHub Repository ↗</a>
+        <a href="projectdocs.html" class="btn btn-ghost">All Projects</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─────────────── FOOTER ─────────────── -->
+  <footer>
+    <p>VITALS — Personal Health Tracker &nbsp;·&nbsp; Built by <a href="https://github.com/sjfcross">sjfcross</a></p>
+    <p>Stack: React · Vite · Supabase · Google Health API · GitHub Pages &nbsp;·&nbsp; May – October 2026</p>
+    <p style="margin-top:0.75rem;"><a href="projectdocs.html">← Back to Project Docs</a></p>
+  </footer>
+
+  <!-- ─────────────── LIGHTBOX ─────────────── -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <img alt="">
+  </div>
+
+  <script>
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.07, rootMargin: '0px 0px -28px 0px' });
+    document.querySelectorAll('.reveal, .stagger').forEach(el => io.observe(el));
+
+    const lb = document.getElementById('lightbox');
+    const lbImg = lb.querySelector('img');
+    function openShot(el) {
+      const img = el.querySelector('img');
+      lbImg.src = el.dataset.full;
+      lbImg.alt = img ? img.alt : '';
+      lb.classList.add('open');
+      lb.setAttribute('aria-hidden', 'false');
+    }
+    function closeShot() {
+      lb.classList.remove('open');
+      lb.setAttribute('aria-hidden', 'true');
+    }
+    document.querySelectorAll('.shot[data-full]').forEach(el => {
+      el.addEventListener('click', () => openShot(el));
+      el.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openShot(el); }
+      });
+    });
+    lb.addEventListener('click', closeShot);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeShot(); });
+  </script>
+
+</body>
+</html>
