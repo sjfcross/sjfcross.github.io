@@ -69,6 +69,9 @@
     {
       "id": "cube-r4-l", "row": 4, "col": 0,
       "name": "Top left: tarantulas, mantis and Sea Monkeys",
+      "zoom": true,
+      "zoomKey": "top-left",
+      "zoomCaption": "Top left cube. The Sea Monkey tank's bubbler runs from the NodeMCU; the mantis cup hides a baby forest scorpion behind it. Not climatised: the LED panel on its timer is the only other device.",
       "desc": "Glass door hinged on the left, white insert, LED panel on the ceiling and a glass shelf. Not climatised; the Sea Monkey bubbler runs from the NodeMCU.",
       "lit": "ledTimer",
       "residents": [
@@ -88,6 +91,9 @@
     {
       "id": "cube-r3-l", "row": 3, "col": 0,
       "name": "Row 3 left: desert and isopod shelf",
+      "zoom": true,
+      "zoomKey": "desert",
+      "zoomCaption": "Row 3 left. Radiant sun beetle and dune scorpion on the shelf, orange isopods and a millipede in the glass terrarium below. Not climatised.",
       "desc": "Open cube with a glass shelf and an LED panel. Not climatised.",
       "lit": "ledTimer",
       "residents": [
@@ -122,6 +128,9 @@
     {
       "id": "cube-r2-r", "row": 2, "col": 1,
       "name": "Row 2 right: stick insects and electronics",
+      "zoom": true,
+      "zoomKey": "stick-insects",
+      "zoomCaption": "Row 2 right. Two Annam walking sticks in the Zoo Med terrarium. The wooden box on the left wall holds the NodeMCU; its OLED cycles six screens. Cables run up into the climate zone above.",
       "desc": "Zoo Med glass terrarium with an angled LED panel above. The light-wood box on the left wall holds the NodeMCU and its OLED; cables run up into the climate zone. The air pump and cable runs are behind the cupboard (open back).",
       "lit": "ledTimer",
       "residents": [

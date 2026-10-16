@@ -789,7 +789,7 @@
     '.cf-stage>*{grid-area:1/1}',
     '.cf-svg{display:block;width:100%;height:auto;max-height:min(82vh,940px);margin:0 auto;overflow:hidden;touch-action:manipulation}',
     '.cf-fog,.cf-front{pointer-events:none}',
-    '.cf-fog{width:100%;height:100%;display:block}',
+    '.cf-fog{width:100%;height:100%;display:block;transition:opacity .5s}',
     '.cf-root[data-gl] .cf-fx-mist{display:none}',
     // zoom: the rest of the cupboard steps back, the zoomed cube's glass door fades so the inside reads
     '.cf-cube,.cf-svg>.cf-part[data-cube]{transition:opacity .5s}',
@@ -1286,6 +1286,86 @@
     };
   }
 
+  // ------------------------------------------------------------------ sound
+  // Generated with Web Audio, no files: fan hum, the fogger's hiss and gurgle, the bubbler's pump buzz and bubbles.
+  // Off until the viewer switches it on (browsers only allow sound after a click anyway).
+
+  function createSound() {
+    var AC = global.AudioContext || global.webkitAudioContext;
+    if (!AC) return null;
+    var ctx = null, master = null, ch = {}, on = false, want = { fogger: false, fan: false, bubbler: false }, bubbleTimer = 0, gurgleTimer = 0;
+    function noiseBuffer() {
+      var b = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate), d = b.getChannelData(0), last = 0;
+      for (var i = 0; i < d.length; i++) { var w = Math.random() * 2 - 1; last = (last + 0.02 * w) / 1.02; d[i] = w * 0.5 + last * 3; }
+      return b;
+    }
+    function loopNoise() { var n = ctx.createBufferSource(); n.buffer = ch.noise; n.loop = true; n.start(); return n; }
+    function init() {
+      ctx = new AC();
+      master = ctx.createGain(); master.gain.value = 0.6; master.connect(ctx.destination);
+      ch.noise = noiseBuffer();
+      // fan: band-passed air plus a soft motor tone
+      ch.fan = ctx.createGain(); ch.fan.gain.value = 0; ch.fan.connect(master);
+      var fanBand = ctx.createBiquadFilter(); fanBand.type = 'bandpass'; fanBand.frequency.value = 700; fanBand.Q.value = 0.6;
+      loopNoise().connect(fanBand); fanBand.connect(ch.fan);
+      var motor = ctx.createOscillator(); motor.type = 'triangle'; motor.frequency.value = 118;
+      var motorG = ctx.createGain(); motorG.gain.value = 0.18; motor.connect(motorG); motorG.connect(ch.fan); motor.start();
+      // fogger: thin high hiss (the ultrasonic disc and the mist), gurgles scheduled below
+      ch.fogger = ctx.createGain(); ch.fogger.gain.value = 0; ch.fogger.connect(master);
+      var hiss = ctx.createBiquadFilter(); hiss.type = 'highpass'; hiss.frequency.value = 3200;
+      var hissG = ctx.createGain(); hissG.gain.value = 0.35;
+      loopNoise().connect(hiss); hiss.connect(hissG); hissG.connect(ch.fogger);
+      // bubbler: air pump buzz, bubbles scheduled below
+      ch.bubbler = ctx.createGain(); ch.bubbler.gain.value = 0; ch.bubbler.connect(master);
+      var pump = ctx.createOscillator(); pump.type = 'sawtooth'; pump.frequency.value = 100;
+      var pumpLp = ctx.createBiquadFilter(); pumpLp.type = 'lowpass'; pumpLp.frequency.value = 260;
+      var pumpG = ctx.createGain(); pumpG.gain.value = 0.12;
+      pump.connect(pumpLp); pumpLp.connect(pumpG); pumpG.connect(ch.bubbler); pump.start();
+    }
+    function blip(dest, f0, f1, dur, vol) {
+      var t = ctx.currentTime, o = ctx.createOscillator(), g = ctx.createGain();
+      o.type = 'sine'; o.frequency.setValueAtTime(f0, t); o.frequency.exponentialRampToValueAtTime(f1, t + dur);
+      g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(vol, t + 0.006); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+      o.connect(g); g.connect(dest); o.start(t); o.stop(t + dur + 0.02);
+    }
+    function schedule() {
+      clearTimeout(bubbleTimer); clearTimeout(gurgleTimer);
+      if (!on) return;
+      if (want.bubbler) (function bub() {
+        var f = 380 + Math.random() * 500;
+        blip(ch.bubbler, f, f * (2 + Math.random()), 0.05 + Math.random() * 0.05, 0.5 + Math.random() * 0.4);
+        bubbleTimer = setTimeout(bub, 40 + Math.random() * 140);
+      })();
+      if (want.fogger) (function gurgle() {
+        var f = 160 + Math.random() * 200;
+        blip(ch.fogger, f, f * 1.6, 0.09 + Math.random() * 0.08, 0.25);
+        gurgleTimer = setTimeout(gurgle, 500 + Math.random() * 1500);
+      })();
+    }
+    function apply() {
+      if (!ctx) return;
+      var t = ctx.currentTime;
+      ch.fan.gain.setTargetAtTime(on && want.fan ? 0.09 : 0, t, 0.4);
+      ch.fogger.gain.setTargetAtTime(on && want.fogger ? 0.06 : 0, t, 0.6);
+      ch.bubbler.gain.setTargetAtTime(on && want.bubbler ? 0.07 : 0, t, 0.3);
+      schedule();
+    }
+    document.addEventListener('visibilitychange', function () {
+      if (!ctx) return;
+      if (document.hidden) ctx.suspend(); else if (on) ctx.resume();
+    });
+    return {
+      // call from a click handler: creating/resuming the context needs a user gesture
+      enable: function (v) {
+        on = v;
+        if (on && !ctx) init();
+        if (ctx) { if (on) ctx.resume(); apply(); if (!on) setTimeout(function () { if (!on && ctx) ctx.suspend(); }, 1500); }
+      },
+      set: function (fog, fan, bub) { want.fogger = !!fog; want.fan = !!fan; want.bubbler = !!bub; apply(); },
+      isOn: function () { return on; }
+    };
+  }
+
   // ---------------------------------------------------------------- mount
 
   function mount(host, cfg, opts) {
@@ -1339,6 +1419,18 @@
     });
     var ledTimer = cfg.ledTimer;
     var ledChip = ledTimer ? text(el('span', { class: 'cf-chip', 'data-state': 'off', title: 'Own timer ' + ledTimer.on + '–' + ledTimer.off + ' UK time, not ThingSpeak' }, chips), ledTimer.label || 'LED panels') : null;
+    // sound: off until the viewer clicks it on
+    var sound = createSound(), soundBtn = null;
+    if (sound) {
+      soundBtn = text(el('button', { type: 'button', class: 'cf-chip cf-chip-btn cf-sound', 'data-state': 'off', 'aria-pressed': 'false', title: 'Hear the fan, fogger and bubbler while they run' }, chips), 'Sound off');
+      soundBtn.addEventListener('click', function () {
+        var v = !sound.isOn();
+        sound.enable(v);
+        soundBtn.setAttribute('data-state', v ? 'on' : 'off'); soundBtn.setAttribute('aria-pressed', v ? 'true' : 'false');
+        soundBtn.textContent = v ? 'Sound on' : 'Sound off';
+        render();
+      });
+    }
 
     var cubeBox = el('section', { class: 'cf-box cf-info', 'aria-live': 'polite' }, panel);
     var captionEl = el('p', { class: 'cf-caption' }, root);
@@ -1360,7 +1452,8 @@
       });
       var liveBtn = text(el('button', { type: 'button', class: 'cf-chip cf-chip-btn', 'data-state': 'off' }, row), 'Back to live');
       liveBtn.addEventListener('click', function () { state.demo = null; syncDemo(); render(); tick(); });
-      text(el('p', { class: 'cf-demo-note' }, demoBox), 'Turns the fogger, fan and bubbler on or off in the drawing so you can see the effects. Fog builds up over a few seconds and lingers after the fogger stops.');
+      text(el('p', { class: 'cf-demo-note' }, demoBox), 'Turns the fogger, fan and bubbler on or off in the drawing so you can see and hear the effects. Fog builds up over a few seconds and lingers after the fogger stops. Zoom into the climate zone to see it best.');
+      panel.insertBefore(demoBox, panel.firstChild);
     }
     function syncDemo() {
       Object.keys(demoBtns).forEach(function (k) {
@@ -1521,6 +1614,7 @@
         if (zoomed && g.getAttribute('data-cube') === zoomed) g.setAttribute('data-zoomed', ''); else g.removeAttribute('data-zoomed');
       });
       backBtn.hidden = !zoomed;
+      if (fogCanvas) fogCanvas.style.opacity = zoomed && cfg.fog && zoomed !== cfg.fog.cube ? '.18' : '';
       hintEl.textContent = zoomed ? (labels.zoomHint || 'Esc or ← to go back') : (labels.hint || 'Hover or tap a cube');
       captionEl.textContent = zoomed && c.zoomCaption ? c.zoomCaption : (labels.caption || '');
       if (zoomed) pinned = zoomed;
@@ -1573,7 +1667,14 @@
       });
       fogInputs();
     }
+    function soundInputs() {
+      if (!sound) return;
+      var known = outputsKnown(), by = {};
+      (cfg.thingspeak.outputs || []).forEach(function (o) { by[o.effect] = known && !!outputValue(o.key); });
+      sound.set(by.mist, by.spin, by.bubbles);
+    }
     function fogInputs() {
+      soundInputs();
       if (!fog) return;
       var fc = cfg.fog || {}, known = outputsKnown();
       fog.set(known && !!outputValue(fc.output || 'fogger'), known && !!outputValue(fc.fanOutput || 'fan'), root.getAttribute('data-leds') === 'on');

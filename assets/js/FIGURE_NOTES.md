@@ -129,7 +129,7 @@ Kinds available now: `whiteInsert`, `glassShelf`, `ledPanel`, `acrylicTerra`, `g
 
 ## Zoom (stage 2)
 
-A cube with `"zoom": true` zooms in on click (or Enter): the same drawing, with the viewBox animated to the cube's box
+A cube with `"zoom": true` (the four animal cubes) zooms in on click (or Enter): the same drawing, with the viewBox animated to the cube's box
 (the card keeps its size, so the aspect is kept). The other cubes fade, the cube's glass door fades, and
 "← Whole cupboard" or Esc goes back. `zoomCaption` replaces the caption while zoomed.
 
@@ -154,6 +154,13 @@ floor that the fan pushes left to right, haze in both levels, and a little fog s
 Every level eases toward its target (`attackSeconds` to build, `lingerSeconds` to clear), so nothing pops. The
 render loop runs only while the fog is changing or present and the figure is on screen. Under reduced motion it
 draws one still frame. Without WebGL (or with `data-no-webgl`), the stage 1 SVG puffs show instead.
+
+## Sound
+
+A "Sound off / on" switch in the live box. Everything is generated with Web Audio, with no audio files: a fan hum, the
+fogger's hiss and gurgles, and the bubbler's pump buzz and bubbles. Each follows its output's `effect` (`spin`,
+`mist`, `bubbles`), live or demo. It's off by default, because browsers only allow sound after a click. It fades in
+and out and pauses while the tab is hidden.
 
 ## Preview-only demo switches
 
