@@ -167,6 +167,27 @@ and out and pauses while the tab is hidden.
 `data-demo` on the embed adds a dashed "Preview only" box with switches for each ThingSpeak output, so the
 effects can be reviewed without live data. The badge then says "Demo". Never put `data-demo` on a real page.
 
+## 24 h simulation (stage 3)
+
+`assets/js/cupboard-rules.js` holds the controller's rules and is the **only** place to edit when the firmware
+changes (v2.5+). It has two separate parts:
+
+1. **`FIRMWARE`**: mirrors v2.4 as documented on `pages/arachnid.html`, in priority order. One assumption: the fan's
+   4 min per night hour are taken as the first 4 minutes.
+2. **`MODEL`**: an illustrative humidity and temperature model, so the rules have something to react to. Its numbers
+   are invented: with them the night climbs until the fogger is BLOCKED at 90 % from about 02:00, and the day dries
+   it back down.
+
+`simulateDay({ ledTimer, interventions })` runs a whole day in 10 s steps, starting from the state a normal day ends
+in, so midnight joins up. It returns the timeline and a list of events. A button press (override, bubbler, pulling
+the sensor) adds an intervention at the current time and recomputes the day, so the past doesn't change.
+
+The figure loads the rules file next to itself on demand (`simulation.rulesSrc` in the JSON overrides the path), so
+the embed is still one element. In the panel, "Simulate a day" starts it. Smart speed races through quiet stretches
+(`fast`, ≈ 1 h every 3 s) and eases down to `slow` (≈ 2 min per second) shortly before every event and for a while
+after it, longer after the bubbler starts (`bubblerHoldSeconds`). The fog, sounds, OLED (with BLOCKED / OVERRIDE /
+countdowns / ERR), LED panels and readings all follow the simulated day. With reduced motion it starts paused.
+
 ## Not built yet
 
-The 24 h simulation (stage 3), the real page (`pages/cupboard.html`) and any embed in existing pages (stage 4).
+The real page (`pages/cupboard.html`) and any embed in existing pages (stage 4).

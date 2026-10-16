@@ -33,6 +33,19 @@
     "quality": 0.75
   },
 
+  "simulation": {
+    "notes": "24 h simulation. Speeds are simulated seconds per real second: fast ≈ 1 h every 3 s, slow ≈ 2 min every second.",
+    "fast": 1200,
+    "slow": 120,
+    "fixed": 600,
+    "leadSeconds": 30,
+    "leadReal": 1.2,
+    "holdSeconds": 60,
+    "bubblerHoldSeconds": 300,
+    "startAt": "22:00",
+    "oledSecondsPerScreen": 3
+  },
+
   "ledTimer": { "timeZone": "Europe/London", "on": "12:00", "off": "22:30", "label": "LED panels" },
 
   "thingspeak": {

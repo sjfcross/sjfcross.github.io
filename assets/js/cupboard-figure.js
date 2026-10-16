@@ -18,6 +18,7 @@
   var NS = 'http://www.w3.org/2000/svg';
   var RAD = Math.PI / 180;
   var instanceCount = 0, instances = [];
+  var SELF_SRC = (document.currentScript && document.currentScript.src) || '';
 
   // ----------------------------------------------------------------- small utils
 
@@ -805,6 +806,18 @@
     '.cf-demo .cf-kicker{color:var(--cf-amber)}',
     '.cf-demo-note{margin:10px 0 0;font-size:12.5px;line-height:1.5;color:var(--cf-dim)}',
     '.cf-badge[data-net="demo"]{color:var(--cf-amber)}',
+    '.cf-badge[data-net="sim"]{color:var(--cf-accent2)}',
+    '.cf-sim[hidden],.cf-sim-ui[hidden]{display:none}',
+    '.cf-sim-note{margin:0 0 10px;font-size:12.5px;line-height:1.5;color:var(--cf-dim)}',
+    '.cf-sim-ui .cf-sim-note{margin:10px 0 0}',
+    '.cf-sim-top{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}',
+    '.cf-sim-clock{font-family:var(--cf-serif);font-size:34px;font-weight:700;color:var(--cf-bright);font-variant-numeric:tabular-nums;letter-spacing:.01em}',
+    '.cf-sim-speed{font-family:var(--cf-mono);font-size:11px;color:var(--cf-accent2);min-width:9ch}',
+    '.cf-sim-top .cf-chip-btn{margin-left:auto}',
+    '.cf-sim-range{width:100%;margin:10px 0 2px;accent-color:var(--cf-accent)}',
+    '.cf-sim-ticks{display:flex;justify-content:space-between;font-family:var(--cf-mono);font-size:10px;color:var(--cf-dim)}',
+    '.cf-sim-caption{min-height:2.9em;margin:10px 0;font-family:var(--cf-mono);font-size:12px;line-height:1.45;color:var(--cf-text)}',
+    '.cf-chip-btn:disabled{opacity:.5;cursor:default}',
     '.cf-svg path,.cf-svg circle,.cf-svg ellipse,.cf-svg rect{vector-effect:non-scaling-stroke}',
     '.cf-svg [data-cube]{cursor:pointer;outline:none}',
     '.cf-edge{fill:none;stroke:rgba(0,0,0,.55);stroke-width:.6px;stroke-linejoin:round}',
@@ -1101,6 +1114,8 @@
   }
   function parseBool(v) { if (v == null || v === '') return null; return String(v).trim() === '1'; }
   function parseNum(v) { if (v == null || v === '') return null; var n = parseFloat(v); return isFinite(n) ? n : null; }
+  function hhmmss(sec) { sec = Math.floor(sec) % 86400; var h = Math.floor(sec / 3600), m = Math.floor(sec / 60) % 60, x = sec % 60; return ('0' + h).slice(-2) + ':' + ('0' + m).slice(-2) + ':' + ('0' + x).slice(-2); }
+  function mmss(sec) { sec = Math.ceil(sec); return Math.floor(sec / 60) + ':' + ('0' + sec % 60).slice(-2); }
   function clockTime(d, tz) { return d.toLocaleTimeString('en-GB', { timeZone: tz || 'Europe/London', hour: '2-digit', minute: '2-digit', second: '2-digit' }); }
 
   // ------------------------------------------------------------- WebGL fog
@@ -1224,7 +1239,7 @@
     var env = { level: 0, upper: 0, pool: 0, seep: 0, fan: 0, adv: 0 };
     var target = { fog: 0, fan: 0, light: 1 }, light = 1;
     var attack = opts.attackSeconds || 6, linger = opts.lingerSeconds || 45;
-    var view = null, raf = 0, last = 0, t0 = performance.now(), visible = true, reduced = false, size = [0, 0];
+    var view = null, raf = 0, last = 0, t0 = performance.now(), visible = true, reduced = false, size = [0, 0], rate = 1;
     function ease(cur, to, dt, up, down) { var tau = to > cur ? up : down; return cur + (to - cur) * (1 - Math.exp(-dt / tau)); }
     function step(dt) {
       env.level = ease(env.level, target.fog, dt, attack, linger);
@@ -1263,7 +1278,7 @@
       raf = 0;
       // real time even when frames are slow (software rendering, busy phone), so the fog clears on schedule
       var dt = Math.min(1, (now - last) / 1000 || 0.016); last = now;
-      step(dt);
+      step(dt * rate);
       draw((now - t0) / 1000);
       var idle = env.level + env.upper + env.pool < 1e-3 && settled();
       if (visible && !reduced && !idle) raf = requestAnimationFrame(frameLoop);
@@ -1283,7 +1298,11 @@
       visible: function (v) { visible = v; if (v) kick(); },
       reduced: function (v) { reduced = v; kick(); },
       resize: function () { if (!raf) draw(reduced ? 4.0 : (performance.now() - t0) / 1000); },
-      levels: function () { return { level: env.level, upper: env.upper, pool: env.pool, seep: env.seep, fan: env.fan }; }
+      levels: function () { return { level: env.level, upper: env.upper, pool: env.pool, seep: env.seep, fan: env.fan }; },
+      // the simulation runs the fog on its own clock: rate = fog seconds per real second
+      rate: function (r) { rate = Math.max(0.05, r || 1); },
+      // jump straight to the target (after scrubbing the simulation)
+      snap: function () { env.level = env.upper = env.pool = target.fog; env.seep = target.fog * 0.6; env.fan = target.fan; light = target.light; kick(); if (!raf) draw((performance.now() - t0) / 1000); }
     };
   }
 
@@ -1401,7 +1420,7 @@
     // side panel
     var panel = el('aside', { class: 'cf-panel' }, layout);
     var liveBox = el('div', { class: 'cf-box' }, panel);
-    text(el('p', { class: 'cf-kicker' }, liveBox), 'Climate zone · live');
+    var liveKicker = text(el('p', { class: 'cf-kicker' }, liveBox), 'Climate zone · live');
     var status = el('div', { class: 'cf-status' }, liveBox);
     var badge = text(el('span', { class: 'cf-badge', 'data-net': 'connecting' }, status), 'Connecting');
     var when = text(el('span', null, status), '');
@@ -1641,19 +1660,36 @@
 
     // ---- live rendering
     function setNet(net) {
-      if (net !== 'demo') state.liveNet = net;
-      if (state.demo && net !== 'demo') net = 'demo';
+      if (net !== 'demo' && net !== 'sim') state.liveNet = net;
+      if (state.sim) net = 'sim';
+      else if (state.demo && net !== 'demo') net = 'demo';
       state.net = net;
       root.setAttribute('data-net', net);
       badge.setAttribute('data-net', net);
-      badge.textContent = { live: 'Live', stale: 'Stale', offline: 'Offline', connecting: 'Connecting', demo: 'Demo' }[net];
+      badge.textContent = { live: 'Live', stale: 'Stale', offline: 'Offline', connecting: 'Connecting', demo: 'Demo', sim: 'Simulation' }[net];
     }
-    function outputsKnown() { return state.net === 'live' || state.net === 'demo'; }
-    function outputValue(key) { return state.demo ? !!state.demo[key] : state.outputs[key]; }
+    // Where the figure's values come from: the simulation, then the demo switches, then ThingSpeak.
+    var SIM_CHANNEL = { mist: 'fog', spin: 'fan', bubbles: 'light' }, outputsByKey = {};
+    (cfg.thingspeak.outputs || []).forEach(function (o) { outputsByKey[o.key] = o; });
+    function simOn() { return !!(state.sim && state.sim.tl); }
+    function simIdx() { var S = state.sim; return Math.min(S.tl.n - 1, Math.max(0, Math.floor(S.t / S.tl.step))); }
+    function outputsKnown() { return simOn() || state.net === 'live' || state.net === 'demo'; }
+    function outputValue(key) {
+      if (simOn()) { var o = outputsByKey[key], ch = o && SIM_CHANNEL[o.effect]; return ch ? !!state.sim.tl[ch][simIdx()] : false; }
+      return state.demo ? !!state.demo[key] : state.outputs[key];
+    }
+    function readingValue(key) {
+      if (simOn()) {
+        var tl = state.sim.tl, i = simIdx();
+        if (key === 'humidity') return isNaN(tl.read[i]) ? null : tl.read[i];
+        if (key === 'temperature') return tl.temp[i];
+      }
+      return state.values[key];
+    }
     function render() {
       (cfg.thingspeak.readings || []).forEach(function (r) {
-        var v = state.values[r.key], b = metricEls[r.key];
-        b.textContent = v == null ? '--' : v.toFixed(r.decimals || 0) + (r.unit || '');
+        var v = readingValue(r.key), b = metricEls[r.key];
+        b.textContent = v == null ? (simOn() && r.key === 'humidity' ? 'ERR' : '--') : v.toFixed(r.decimals || 0) + (r.unit || '');
         var lvl = v == null ? '' : r.dangerAbove != null && v > r.dangerAbove ? 'danger' : r.warnAbove != null && v > r.warnAbove ? 'warn' : '';
         if (lvl) b.setAttribute('data-level', lvl); else b.removeAttribute('data-level');
       });
@@ -1679,10 +1715,11 @@
       fog.set(known && !!outputValue(fc.output || 'fogger'), known && !!outputValue(fc.fanOutput || 'fan'), root.getAttribute('data-leds') === 'on');
     }
     function tick() {
-      var now = ukNow(ledTimer && ledTimer.timeZone);
-      // LED panels: own timer, UK local time
+      var now = ukNow(ledTimer && ledTimer.timeZone), simI = simOn() ? simIdx() : -1;
+      if (simI >= 0) { var st = Math.floor(state.sim.t); now = { minutes: Math.floor(st / 60), text: hhmmss(st) }; }
+      // LED panels: own timer, UK local time (or the simulated day)
       if (ledTimer) {
-        var on = timerOn(ledTimer, now.minutes);
+        var on = simI >= 0 ? !!state.sim.tl.leds[simI] : timerOn(ledTimer, now.minutes);
         if (root.getAttribute('data-leds') !== (on ? 'on' : 'off')) { root.setAttribute('data-leds', on ? 'on' : 'off'); fogInputs(); }
         ledChip.setAttribute('data-state', on ? 'on' : 'off');
         ledChip.textContent = (ledTimer.label || 'LED panels') + (on ? ' on' : ' off') + ' · ' + (on ? 'off ' + ledTimer.off : 'on ' + ledTimer.on);
@@ -1697,18 +1734,27 @@
         when.textContent = state.liveNet === 'offline' ? 'ThingSpeak unreachable, retrying' : '';
       }
       if (state.demo) when.textContent = 'Demo: outputs switched by hand, not live';
-      // OLED: 6 screens, in step with the clock
+      if (simI >= 0) when.textContent = 'Simulated day · firmware ' + global.CupboardRules.FIRMWARE.version + ' rules · humidity is a model';
+      // OLED: 6 screens, in step with the clock (faster in the simulation)
       var o = cfg.oled;
       if (o && o.screens && o.screens.length) {
-        var secs = o.secondsPerScreen || 10, idx = Math.floor(Date.now() / 1000 / secs) % o.screens.length, sc = o.screens[idx], val = '--';
+        var secs = simI >= 0 ? ((cfg.simulation || {}).oledSecondsPerScreen || 3) : (o.secondsPerScreen || 10);
+        var idx = Math.floor(Date.now() / 1000 / secs) % o.screens.length, sc = o.screens[idx], val = '--';
         if (sc.show === 'clock') val = now.text;
         else if (sc.show === 'reading') {
-          var rd = (cfg.thingspeak.readings || []).filter(function (r) { return r.key === sc.key; })[0], v = state.values[sc.key];
-          if (state.readAt && v == null && sc.key === 'humidity') val = 'ERR';
+          var rd = (cfg.thingspeak.readings || []).filter(function (r) { return r.key === sc.key; })[0], v = readingValue(sc.key);
+          if ((state.readAt || simI >= 0) && v == null && sc.key === 'humidity') val = 'ERR';
           else if (v != null && rd) val = v.toFixed(rd.decimals || 0) + (rd.unit === '°C' ? 'C' : rd.unit || '');
         } else if (sc.show === 'output') {
-          var ov = state.demo ? !!state.demo[sc.key] : state.readAt ? state.outputs[sc.key] : null;
-          val = ov == null ? '--' : ov ? 'ON' : 'OFF';
+          if (simI >= 0) {
+            var tlo = state.sim.tl, fogKey = (cfg.fog || {}).output || 'fogger';
+            if (sc.key === fogKey) val = tlo.fogState[simI] + (tlo.fogLeft[simI] > 0 ? ' ' + mmss(tlo.fogLeft[simI]) : '');
+            else { var on2 = outputValue(sc.key), lft = outputsByKey[sc.key] && outputsByKey[sc.key].effect === 'bubbles' ? tlo.lightLeft[simI] : outputsByKey[sc.key] && outputsByKey[sc.key].effect === 'spin' ? tlo.fanLeft[simI] : 0;
+              val = (on2 ? 'ON' : 'OFF') + (on2 && lft > 0 ? ' ' + mmss(lft) : ''); }
+          } else {
+            var ov = state.demo ? !!state.demo[sc.key] : state.readAt ? state.outputs[sc.key] : null;
+            val = ov == null ? '--' : ov ? 'ON' : 'OFF';
+          }
         }
         var tEl = q('[data-part="' + o.part + '"] [data-oled-title]'), vEl = q('[data-part="' + o.part + '"] [data-oled-value]');
         if (tEl) tEl.textContent = sc.title;
@@ -1742,6 +1788,160 @@
     document.addEventListener('visibilitychange', function () {
       if (!document.hidden && Date.now() - state.lastFetch > (ts.pollSeconds || 25) * 1000) poll();
     });
+
+    // ---- 24 h simulation: the firmware rules (cupboard-rules.js) run a whole day on a clock that
+    // races through quiet stretches and slows down around every event.
+    var SC = Object.assign({ fast: 1200, slow: 120, fixed: 600, holdSeconds: 60, bubblerHoldSeconds: 300, leadSeconds: 30, leadReal: 1.2, startAt: '22:00' }, cfg.simulation || {});
+    var simBox = el('div', { class: 'cf-box cf-sim' });
+    panel.insertBefore(simBox, liveBox.nextSibling);
+    text(el('p', { class: 'cf-kicker' }, simBox), '24 h simulation');
+    var simIntro = el('div', null, simBox);
+    text(el('p', { class: 'cf-sim-note' }, simIntro), 'Play a whole day: the controller\'s rules run the fogger, fan and bubbler, the LED panels follow their timer, and the clock slows down whenever something happens.');
+    var simStart = text(el('button', { type: 'button', class: 'cf-chip cf-chip-btn cf-sim-start' }, simIntro), 'Simulate a day');
+    var simUI = el('div', { class: 'cf-sim-ui', hidden: '' }, simBox);
+    var simTop = el('div', { class: 'cf-sim-top' }, simUI);
+    var simClock = text(el('b', { class: 'cf-sim-clock' }, simTop), '22:00');
+    var simSpeed = text(el('span', { class: 'cf-sim-speed' }, simTop), '');
+    var simPlay = text(el('button', { type: 'button', class: 'cf-chip cf-chip-btn', 'aria-pressed': 'true' }, simTop), 'Pause');
+    var simRange = el('input', { type: 'range', min: '0', max: '1439', step: '1', value: '1320', class: 'cf-sim-range', 'aria-label': 'Time of the simulated day' }, simUI);
+    var simTicks = el('div', { class: 'cf-sim-ticks', 'aria-hidden': 'true' }, simUI);
+    ['00', '06', '12', '18', '24'].forEach(function (h) { text(el('span', null, simTicks), h); });
+    var simCaption = text(el('p', { class: 'cf-sim-caption', 'aria-live': 'polite' }, simUI), '');
+    var simBtns = el('div', { class: 'cf-chips' }, simUI);
+    function simButton(label, title) { return text(el('button', { type: 'button', class: 'cf-chip cf-chip-btn', title: title || '' }, simBtns), label); }
+    var simSmart = simButton('Smart speed', 'Fast through quiet stretches, slow around events');
+    simSmart.setAttribute('data-state', 'on'); simSmart.setAttribute('aria-pressed', 'true');
+    var simFog = simButton('Fogger 3 min', 'Manual override: 3 minutes on (safety rules still win)');
+    var simFan = simButton('Fan 3 min', 'Manual override: 3 minutes on');
+    var simBub10 = simButton('Bubbler 10 min', 'The Sea Monkey bubbler: 10 minutes on');
+    var simBub30 = simButton('Bubbler 30 min', 'The Sea Monkey bubbler: 30 minutes on');
+    var simSensor = simButton('Pull the sensor', 'Unplug the AHT10: 3 bad reads and the fogger is forced off');
+    var simStop = simButton('Back to live');
+    text(el('p', { class: 'cf-sim-note' }, simUI), 'Rules: controller firmware ' + (global.CupboardRules ? global.CupboardRules.FIRMWARE.version : 'v2.4') + '. The humidity curve is an illustrative model, not a measurement.');
+
+    function loadRules(done) {
+      if (global.CupboardRules) return done(true);
+      var src = (cfg.simulation && cfg.simulation.rulesSrc) || (SELF_SRC ? SELF_SRC.replace(/cupboard-figure(\.min)?\.js(\?.*)?$/, 'cupboard-rules.js') : '');
+      if (!src) return done(false);
+      var sc = document.createElement('script');
+      sc.src = src; sc.onload = function () { done(!!global.CupboardRules); }; sc.onerror = function () { done(false); };
+      document.head.appendChild(sc);
+    }
+    function recompute() {
+      var S = state.sim;
+      S.tl = global.CupboardRules.simulateDay({ ledTimer: ledTimer, interventions: S.interventions });
+      S.lastSig = '';
+      simUpdate(true);
+    }
+    function wrapD(d) { var D = 86400; if (d < -D / 2) d += D; if (d > D / 2) d -= D; return d; }
+    function smartTarget() {
+      var S = state.sim, lead = Math.max(SC.leadSeconds, S.speed * SC.leadReal), evs = S.tl.events;
+      for (var i = 0; i < evs.length; i++) {
+        var d = wrapD(evs[i].t - S.t), hold = evs[i].kind === 'bubbler' && /on$/.test(evs[i].text) ? SC.bubblerHoldSeconds : SC.holdSeconds;
+        if (d <= lead && d >= -hold) return { speed: SC.slow, ev: evs[i] };
+      }
+      return { speed: SC.fast, ev: null };
+    }
+    function simCaptionText() {
+      var S = state.sim, evs = S.tl.events, last = null, next = null, bestPast = 1e9, bestNext = 1e9;
+      evs.forEach(function (e) {
+        var d = wrapD(e.t - S.t);
+        if (d <= 0 && -d < bestPast) { bestPast = -d; last = e; }
+        if (d > 0 && d < bestNext) { bestNext = d; next = e; }
+      });
+      if (last && bestPast < 20 * 60) return last.text;
+      return next ? 'Next: ' + next.text : '';
+    }
+    function simUpdate(force) {
+      var S = state.sim; if (!S || !S.tl) return;
+      var i = simIdx(), tl = S.tl;
+      var sig = [tl.fog[i], tl.fan[i], tl.light[i], tl.leds[i], tl.sensor[i], tl.fogState[i]].join();
+      if (force || sig !== S.lastSig) {
+        var jumped = S.lastSig === '' || force;
+        S.lastSig = sig;
+        render(); tick();
+        if (jumped && fog && S.scrubbed) { fog.snap(); S.scrubbed = false; }
+      }
+      simClock.textContent = hhmmss(S.t).slice(0, 5);
+      if (!S.dragging) simRange.value = String(Math.floor(S.t / 60));
+      simSpeed.textContent = S.playing ? '×' + Math.round(S.speed) + (S.smart ? (S.speed < SC.slow * 1.5 ? ' · slow' : S.speed > SC.fast * 0.8 ? ' · fast' : '') : '') : 'paused';
+      simCaption.textContent = simCaptionText();
+      if (fog) fog.rate(S.playing ? Math.max(1, S.speed / 20) : 1);
+    }
+    function simFrame(now) {
+      var S = state.sim; if (!S) return;
+      S.raf = 0;
+      var dt = Math.min(0.25, (now - S.last) / 1000 || 0.016); S.last = now;
+      if (S.playing) {
+        var tgt = S.smart ? smartTarget().speed : SC.fixed;
+        S.speed = Math.exp(Math.log(S.speed) + (Math.log(tgt) - Math.log(S.speed)) * (1 - Math.exp(-dt / 0.35)));
+        S.t += dt * S.speed;
+        if (S.t >= 86400) { S.t -= 86400; S.interventions = []; S.pulled = false; simSensor.textContent = 'Pull the sensor'; recompute(); }
+      }
+      simUpdate(false);
+      if (now - S.lastTick > 250) { S.lastTick = now; tick(); }
+      if (S.playing) S.raf = requestAnimationFrame(simFrame);
+    }
+    function simKick() { var S = state.sim; if (S && S.playing && !S.raf) { S.last = performance.now(); S.raf = requestAnimationFrame(simFrame); } }
+    function setPlaying(v) {
+      var S = state.sim; S.playing = v;
+      simPlay.textContent = v ? 'Pause' : 'Play'; simPlay.setAttribute('aria-pressed', v ? 'true' : 'false');
+      simUpdate(false); simKick();
+    }
+    function intervene(kind) {
+      var S = state.sim;
+      S.interventions.push({ t: Math.floor(S.t / 10) * 10 + 10, kind: kind });
+      recompute(); simKick();
+    }
+    function startSim() {
+      simStart.disabled = true;
+      loadRules(function (ok) {
+        simStart.disabled = false;
+        if (!ok) { simCaption.textContent = ''; text(simStart, 'Simulation unavailable (rules file missing)'); return; }
+        state.demo = null;
+        if (demoBox) demoBox.hidden = true;
+        var at = String(SC.startAt).split(':');
+        state.sim = { t: (parseInt(at[0], 10) * 60 + parseInt(at[1] || 0, 10)) * 60, speed: SC.fast, playing: false, smart: true, interventions: [], pulled: false, raf: 0, last: 0, lastTick: 0, lastSig: '', scrubbed: true };
+        simIntro.hidden = true; simUI.hidden = false;
+        root.setAttribute('data-sim', ''); liveKicker.textContent = 'Climate zone · simulated';
+        setNet('sim');
+        recompute();
+        setPlaying(!isReduced());
+      });
+    }
+    function stopSim() {
+      var S = state.sim; if (!S) return;
+      cancelAnimationFrame(S.raf);
+      state.sim = null;
+      if (fog) fog.rate(1);
+      simIntro.hidden = false; simUI.hidden = true;
+      root.removeAttribute('data-sim'); liveKicker.textContent = 'Climate zone · live';
+      if (demoBox) { demoBox.hidden = false; syncDemo(); } else setNet(state.liveNet || 'connecting');
+      render(); tick();
+    }
+    simStart.addEventListener('click', startSim);
+    simStop.addEventListener('click', stopSim);
+    simPlay.addEventListener('click', function () { setPlaying(!state.sim.playing); });
+    simSmart.addEventListener('click', function () {
+      var S = state.sim; S.smart = !S.smart;
+      simSmart.setAttribute('data-state', S.smart ? 'on' : 'off'); simSmart.setAttribute('aria-pressed', S.smart ? 'true' : 'false');
+      simSmart.textContent = S.smart ? 'Smart speed' : 'Fixed speed';
+    });
+    simFog.addEventListener('click', function () { intervene('foggerOverride'); });
+    simFan.addEventListener('click', function () { intervene('fanOverride'); });
+    simBub10.addEventListener('click', function () { intervene('bubbler10'); });
+    simBub30.addEventListener('click', function () { intervene('bubbler30'); });
+    simSensor.addEventListener('click', function () {
+      var S = state.sim; S.pulled = !S.pulled;
+      simSensor.textContent = S.pulled ? 'Plug the sensor back in' : 'Pull the sensor';
+      intervene(S.pulled ? 'pullSensor' : 'plugSensor');
+    });
+    simRange.addEventListener('input', function () {
+      var S = state.sim; if (!S) return;
+      S.dragging = true; S.t = parseInt(simRange.value, 10) * 60; S.scrubbed = true; S.speed = S.smart ? SC.slow : S.speed;
+      simUpdate(true);
+    });
+    simRange.addEventListener('change', function () { if (state.sim) { state.sim.dragging = false; simKick(); } });
     if ('IntersectionObserver' in global) {
       new IntersectionObserver(function (es) {
         es.forEach(function (e) { if (e.isIntersecting) root.removeAttribute('data-offscreen'); else root.setAttribute('data-offscreen', ''); if (fog) fog.visible(e.isIntersecting); });
@@ -1750,7 +1950,7 @@
     render(); tick();
     setInterval(tick, 1000);
     poll();
-    var api = { root: root, svg: svgEl, state: state, zoomTo: zoomTo, fog: fog };
+    var api = { root: root, svg: svgEl, state: state, zoomTo: zoomTo, fog: fog, startSim: startSim, stopSim: stopSim };
     instances.push(api);
     return api;
   }
