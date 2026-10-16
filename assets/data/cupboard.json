@@ -7,7 +7,9 @@
     "title": "The cupboard · live",
     "hint": "Hover or tap a cube",
     "caption": "IKEA Expedit 2×4, drawn from photos. Climate-zone readings, fogger, fan and Sea Monkey bubbler are read live from the public ThingSpeak channel 3372054 (read-only). The four LED panels follow their own 12:00–22:30 timer (UK time); they are not in ThingSpeak.",
-    "emptyCube": "Hover or tap a cube to see who lives there."
+    "emptyCube": "Hover or tap a cube to see who lives there.",
+    "back": "Whole cupboard",
+    "zoomHint": "Esc or ← to go back"
   },
 
   "camera": { "azimuth": -7, "elevation": 8 },
@@ -16,6 +18,19 @@
     "width": 79, "height": 149, "depth": 39,
     "outerBoard": 4.5, "innerBoard": 2.5,
     "finish": "#2b211d"
+  },
+
+  "fog": {
+    "cube": "cube-r3-r",
+    "fogger": "part-fogger",
+    "fan": "part-fan",
+    "shelf": "part-glass-shelf-climate",
+    "output": "fogger",
+    "fanOutput": "fan",
+    "attackSeconds": 6,
+    "lingerSeconds": 45,
+    "colour": "#d2e8fa",
+    "quality": 0.75
   },
 
   "ledTimer": { "timeZone": "Europe/London", "on": "12:00", "off": "22:30", "label": "LED panels" },
@@ -88,6 +103,9 @@
       "desc": "Glass door hinged on the right, white insert, glass shelf with its back-right corner broken out so fog can rise. Fogger, fan and AHT10 sensor run from the NodeMCU in the cube below.",
       "lit": "ledTimer",
       "live": true,
+      "zoom": true,
+      "zoomKey": "climate",
+      "zoomCaption": "The climate zone. The fogger sits on the floor at the back right; its mist rises through the broken shelf corner into the upper level, the fan on the back wall pushes air across the lower level, and some fog seeps into the terras through their vents. Fog builds up while the fogger runs and lingers after it stops.",
       "residents": [
         { "scientific": "Caribena versicolor", "common": "Martinique pinktoe", "where": "top left", "in": "part-terra-versicolor", "visible": true, "nameSource": "site" },
         { "scientific": "Avicularia purpurea", "common": "Purple pinktoe", "where": "top right", "in": "part-terra-purpurea", "visible": true, "nameSource": "site" },

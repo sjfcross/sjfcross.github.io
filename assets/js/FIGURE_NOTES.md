@@ -127,6 +127,39 @@ Kinds available now: `whiteInsert`, `glassShelf`, `ledPanel`, `acrylicTerra`, `g
 `nameSource` on residents records where a common name came from: `site` (pages/animals.html), `plan`
 (ARACHNID_FIGURE_PLAN.md) or `unverified` (not checked against a source yet).
 
-## Not in stage 1
+## Zoom (stage 2)
 
-Climate-zone zoom, WebGL fog, 24 h simulation, the real page (`pages/cupboard.html`) and any embed in existing pages.
+A cube with `"zoom": true` zooms in on click (or Enter): the same drawing, with the viewBox animated to the cube's box
+(the card keeps its size, so the aspect is kept). The other cubes fade, the cube's glass door fades, and
+"← Whole cupboard" or Esc goes back. `zoomCaption` replaces the caption while zoomed.
+
+Start zoomed (for `pages/arachnid.html` later): `<div data-cupboard-figure data-start="climate" …>`, where
+`climate` is the cube's `zoomKey` (or its id).
+
+## Fog (stage 2)
+
+`fog` in the JSON names the cube, the fogger, fan and shelf parts, and the outputs that drive it. If WebGL is
+available, the cube gets three layers:
+
+```
+svg.cf-svg      the whole drawing (back)
+canvas.cf-fog   the fog, ray-marched in the cube's own coordinates (cm), so it lines up with the drawing
+svg.cf-front    a copy of what stands in front of the fog in that cube: terras, shelf, insert edges, door
+```
+
+The kinds copied to the front are listed in `FOG_FRONT_KINDS` in the JS. The shader also treats each terra's
+substrate as solid. The fog has a plume from the fogger up through the shelf's broken corner, a layer along the
+floor that the fan pushes left to right, haze in both levels, and a little fog seeping into the terras.
+
+Every level eases toward its target (`attackSeconds` to build, `lingerSeconds` to clear), so nothing pops. The
+render loop runs only while the fog is changing or present and the figure is on screen. Under reduced motion it
+draws one still frame. Without WebGL (or with `data-no-webgl`), the stage 1 SVG puffs show instead.
+
+## Preview-only demo switches
+
+`data-demo` on the embed adds a dashed "Preview only" box with switches for each ThingSpeak output, so the
+effects can be reviewed without live data. The badge then says "Demo". Never put `data-demo` on a real page.
+
+## Not built yet
+
+The 24 h simulation (stage 3), the real page (`pages/cupboard.html`) and any embed in existing pages (stage 4).

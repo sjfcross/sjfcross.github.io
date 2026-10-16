@@ -740,6 +740,9 @@
   }
   function escapeXml(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
 
+  // Kinds that stand in front of the fog and are copied into the front SVG of the fog cube.
+  var FOG_FRONT_KINDS = ['acrylicTerra', 'glassShelf', 'whiteInsert'];
+
   PAINTERS.door = function (G, p, X) {
     var W = X.cube.w, H = X.cube.h, g = 0, kn = p.knob || [.85, .2];
     var s = path(G.rectX(g, W - g, -.4, g, H - g), '#2e2420') + path(G.rectZ(g, W - g, -.4, 0, H - g), '#3b2f29') +
@@ -781,7 +784,27 @@
     '.cf-corner[data-c="hint"]{bottom:16px;left:16px;text-transform:uppercase;letter-spacing:.12em}',
     '.cf-corner[data-c="readout"]{bottom:16px;right:16px;color:var(--cf-accent2);font-variant-numeric:tabular-nums}',
     '@container (max-width:420px){.cf-root .cf-corner[data-c="hint"]{display:none}}',
-    '.cf-svg{display:block;width:100%;height:auto;max-height:min(82vh,940px);margin:0 auto;overflow:visible;touch-action:manipulation}',
+    '@container (max-width:600px){.cf-root[data-zoom] .cf-corner[data-c="title"]{display:none}}',
+    '.cf-stage{display:grid;position:relative}',
+    '.cf-stage>*{grid-area:1/1}',
+    '.cf-svg{display:block;width:100%;height:auto;max-height:min(82vh,940px);margin:0 auto;overflow:hidden;touch-action:manipulation}',
+    '.cf-fog,.cf-front{pointer-events:none}',
+    '.cf-fog{width:100%;height:100%;display:block}',
+    '.cf-root[data-gl] .cf-fx-mist{display:none}',
+    // zoom: the rest of the cupboard steps back, the zoomed cube's glass door fades so the inside reads
+    '.cf-cube,.cf-svg>.cf-part[data-cube]{transition:opacity .5s}',
+    '.cf-root[data-zoom] .cf-cube:not([data-zoomed]),.cf-root[data-zoom] .cf-svg>.cf-part[data-cube]:not([data-zoomed]){opacity:.18}',
+    '.cf-root[data-zoom] .cf-svg>.cf-part[data-cube][data-zoomed]{opacity:.35}',
+    '.cf-root[data-zoom] .cf-hl{opacity:0!important}',
+    '.cf-back{position:absolute;z-index:3;top:10px;left:50%;transform:translateX(-50%);padding:5px 12px;border-radius:999px;border:1px solid var(--cf-border);background:rgba(13,13,28,.92);color:var(--cf-accent2);font-family:var(--cf-mono);font-size:11px;letter-spacing:.06em;cursor:pointer}',
+    '.cf-back:hover{border-color:var(--cf-accent2)}',
+    '.cf-back:focus-visible,.cf-chip-btn:focus-visible{outline:2px solid var(--cf-accent2);outline-offset:2px}',
+    '.cf-chip-btn{background:none;cursor:pointer}',
+    '.cf-chip-btn:hover{border-color:var(--cf-accent2);color:var(--cf-text)}',
+    '.cf-demo{border-style:dashed;border-color:rgba(245,158,11,.4)}',
+    '.cf-demo .cf-kicker{color:var(--cf-amber)}',
+    '.cf-demo-note{margin:10px 0 0;font-size:12.5px;line-height:1.5;color:var(--cf-dim)}',
+    '.cf-badge[data-net="demo"]{color:var(--cf-amber)}',
     '.cf-svg path,.cf-svg circle,.cf-svg ellipse,.cf-svg rect{vector-effect:non-scaling-stroke}',
     '.cf-svg [data-cube]{cursor:pointer;outline:none}',
     '.cf-edge{fill:none;stroke:rgba(0,0,0,.55);stroke-width:.6px;stroke-linejoin:round}',
@@ -959,13 +982,18 @@
     // soft shadow under the cupboard
     svg += '<path d="' + world.rectZ(-3, Wc + 3, -3, Dc + 4, 0) + '" fill="#000" opacity=".55" filter="url(#' + uid + '-blur)"/>';
 
-    var frontLayer = '', hlLayer = '';
+    var frontLayer = '', hlLayer = '', boxes = {}, fogFront = '', fogDoor = '', fogGeom = null;
+    var fogCfg = cfg.fog && safeId(cfg.fog.cube) ? cfg.fog : null;
     cfg.cubes.forEach(function (cube) {
       if (!safeId(cube.id)) return;
       var o = CG.origin(cube.row, cube.col), G = frame(cam, o[0], o[1], o[2]);
       var X = { uid: uid, cube: { w: CG.w, h: CG.h, d: CG.d }, cam: cam };
       var mine = parts.filter(function (p) { return p.cube === cube.id; });
       var opening = G.rectX(0, CG.w, 0, 0, CG.h);
+      // screen box of the whole cube, for zooming
+      var bx = [], by = [];
+      [0, CG.w].forEach(function (x) { [0, CG.d].forEach(function (y) { [0, CG.h].forEach(function (z) { var q = G.P(x, y, z); bx.push(q[0]); by.push(q[1]); }); }); });
+      boxes[cube.id] = [Math.min.apply(0, bx), Math.min.apply(0, by), Math.max.apply(0, bx), Math.max.apply(0, by)];
       // shell: the cupboard's own inner surfaces (open back = dark void)
       var shell = path(G.rectX(0, CG.w, CG.d, 0, CG.h), '#0b0909') +
         path(G.rectY(G.far(0, CG.w), 0, CG.d, 0, CG.h), '#1b1512') +
@@ -1001,9 +1029,39 @@
         '<g clip-path="url(#' + uid + '-clip-' + cube.id + ')">' + shell + under + main + over + dim + '</g></g>';
 
       mine.filter(function (p) { return PAINTERS[p.kind].front; }).forEach(function (p) {
+        var door = PAINTERS[p.kind](G, p, X);
         frontLayer += '<g class="cf-part" id="' + prefix + p.id + '" data-part="' + p.id + '" data-cube="' + cube.id + '"' +
-          (p.kind === 'glassDoor' ? ' style="pointer-events:none"' : '') + '>' + PAINTERS[p.kind](G, p, X) + '</g>';
+          (p.kind === 'glassDoor' ? ' style="pointer-events:none"' : '') + '>' + door + '</g>';
+        if (fogCfg && fogCfg.cube === cube.id) fogDoor += '<g class="cf-part" data-cube="' + cube.id + '" data-door>' + door + '</g>';
       });
+
+      // The fog cube: a copy of everything that stands in front of the fog (terras, shelf, insert edges, door)
+      // goes into a front SVG above the fog canvas, and the shader gets the same numbers as the drawing.
+      if (fogCfg && fogCfg.cube === cube.id) {
+        items.forEach(function (it) {
+          if (FOG_FRONT_KINDS.indexOf(it.p.kind) < 0) return;
+          var inner = (it.out.main || '') + (it.out.over || '');
+          if (inner) fogFront += '<g data-front-of="' + it.p.id + '">' + inner + '</g>';
+        });
+        var byId = {};
+        mine.forEach(function (p) { byId[p.id] = p; });
+        var fg = byId[fogCfg.fogger], sh = byId[fogCfg.shelf], fan = byId[fogCfg.fan];
+        var ins = mine.filter(function (p) { return p.kind === 'whiteInsert'; })[0];
+        if (fg && sh) {
+          fogGeom = {
+            origin: cam.p(o[0], o[1], o[2]), cam: cam,
+            cube: [CG.w, ins ? (ins.back || 37.5) : CG.d, CG.h], wall: ins ? 1 : 0,
+            fogger: [fg.at[0], fg.at[1], fg.at[2] + fg.h, fg.r],
+            shelf: [sh.z, sh.z + 0.6],
+            notch: sh.notch ? [sh.x1 - sh.notch[0], sh.y1 - sh.notch[1], sh.x1, sh.y1] : [sh.x1 - 6, sh.y1 - 6, sh.x1, sh.y1],
+            fan: fan ? fan.at : null,
+            terras: mine.filter(function (p) { return p.kind === 'acrylicTerra'; }).slice(0, 4).map(function (p) {
+              return { min: [p.at[0], p.at[1], p.at[2]], max: [p.at[0] + p.size[0], p.at[1] + p.size[1], p.at[2] + p.size[2]], sub: p.at[2] + p.size[2] * 0.3 };
+            }),
+            clip: opening
+          };
+        }
+      }
       hlLayer += '<path class="cf-hl" data-hl="' + cube.id + '" d="' + opening + '"/>';
     });
 
@@ -1021,7 +1079,10 @@
       path(boxEdges(world, 0, 0, 0, Wc, Dc, Hc), null, 'class="cf-edge"') +
       '</g>';
     svg += frontLayer + '<g class="cf-hls">' + hlLayer + '</g></svg>';
-    return { svg: svg, uid: uid, prefix: prefix };
+    var front = fogGeom ? '<svg class="cf-svg cf-front" xmlns="' + NS + '" viewBox="' + vb.map(r2).join(' ') + '" aria-hidden="true" focusable="false">' +
+      '<clipPath id="' + uid + '-fclip"><path d="' + fogGeom.clip + '"/></clipPath>' +
+      '<g class="cf-cube" data-cube="' + fogCfg.cube + '"><g clip-path="url(#' + uid + '-fclip)">' + fogFront + '</g></g>' + fogDoor + '</svg>' : '';
+    return { svg: svg, front: front, uid: uid, prefix: prefix, vb: vb, boxes: boxes, fog: fogGeom };
   }
 
   // ------------------------------------------------------------- live data
@@ -1042,9 +1103,193 @@
   function parseNum(v) { if (v == null || v === '') return null; var n = parseFloat(v); return isFinite(n) ? n : null; }
   function clockTime(d, tz) { return d.toLocaleTimeString('en-GB', { timeZone: tz || 'Europe/London', hour: '2-digit', minute: '2-digit', second: '2-digit' }); }
 
+  // ------------------------------------------------------------- WebGL fog
+  // A volume ray-marched in the fog cube's own coordinates (cm), so it registers with the drawing:
+  // a plume from the fogger, up through the broken shelf corner, spreading in the upper level;
+  // a layer along the floor that the fan pushes left to right; a little fog seeping into the terras.
+  // The substrate blocks are opaque occluders; terras, shelf and door sit in the front SVG above the canvas.
+
+  var FOG_VS = 'attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}';
+  var FOG_FS = [
+    'precision highp float;',
+    'uniform vec2 uCanvas;uniform vec4 uVB;uniform vec3 uMap;uniform vec2 uO;uniform vec4 uCam;',
+    'uniform float uTime,uLevel,uUpper,uPool,uSeep,uFan,uAdv,uLight;',
+    'uniform vec3 uCube;uniform float uWall;uniform vec4 uFogger;uniform vec4 uNotch;uniform vec2 uShelf;uniform vec3 uColour;',
+    'uniform vec4 uTMin[4];uniform vec4 uTMax[4];',
+    'float hash13(vec3 p){p=fract(p*.1031);p+=dot(p,p.zyx+31.32);return fract((p.x+p.y)*p.z);}',
+    'float hash12(vec2 p){vec3 q=fract(vec3(p.xyx)*.1031);q+=dot(q,q.yzx+33.33);return fract((q.x+q.y)*q.z);}',
+    'float noise3(vec3 p){vec3 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);',
+    ' return mix(mix(mix(hash13(i),hash13(i+vec3(1,0,0)),f.x),mix(hash13(i+vec3(0,1,0)),hash13(i+vec3(1,1,0)),f.x),f.y),',
+    '  mix(mix(hash13(i+vec3(0,0,1)),hash13(i+vec3(1,0,1)),f.x),mix(hash13(i+vec3(0,1,1)),hash13(i+vec3(1,1,1)),f.x),f.y),f.z);}',
+    'float win(float x,float a,float b,float s){return smoothstep(a-s,a+s,x)*(1.-smoothstep(b-s,b+s,x));}',
+    'float density(vec3 p){',
+    ' float t=uTime;',
+    // the plume: centre and radius follow the height
+    ' float hz=clamp((p.z-uFogger.z)/(uShelf.x-uFogger.z),0.,1.);',
+    ' vec2 nc=(uNotch.xy+uNotch.zw)*.5;',
+    ' float up=max(p.z-uShelf.y,0.);',
+    ' float above=smoothstep(uShelf.x,uShelf.y+.5,p.z);',
+    ' vec2 lowC=mix(uFogger.xy,nc,smoothstep(0.,1.,hz))+vec2(uFan*1.1*hz,0.);',
+    ' vec2 cen=mix(lowC,nc+vec2(-.38*up,-.8*up),above);',
+    ' float r=mix(uFogger.w*.6+1.5*hz,2.4+.6*up,above);',
+    ' vec2 dq=p.xy-cen;',
+    ' float wisp=noise3(vec3(p.x*.3,p.y*.3,p.z*.24-t*.8))*.6+noise3(vec3(p.x*.75+3.1,p.y*.75,p.z*.55-t*1.4))*.3+noise3(vec3(p.x*1.6,p.y*1.6,p.z*1.2-t*2.2))*.1;',
+    ' wisp=smoothstep(.28,.82,wisp);',
+    ' float plume=exp(-dot(dq,dq)/(r*r))*smoothstep(uFogger.z-.2,uFogger.z+1.4,p.z)*(.08+1.3*wisp)*mix(uLevel,.55*uLevel+.45*uUpper,above);',
+    // the shelf stops the fog everywhere but the broken corner
+    ' float slab=win(p.z,uShelf.x,uShelf.y,.2);',
+    ' float notch=win(p.x,uNotch.x,uNotch.z,.35)*win(p.y,uNotch.y,uNotch.w,.35);',
+    ' float block=1.-slab*(1.-notch);',
+    // the floor layer, pushed left to right by the fan
+    ' float reach=uPool*28.;',
+    ' float pool=uPool*smoothstep(6.5,.5,p.z)*smoothstep(uFogger.x-reach-3.,uFogger.x-reach+3.,p.x)',
+    '  *smoothstep(.3,.85,noise3(vec3((p.x-uAdv)*.22,p.y*.28,p.z*.35+t*.07))*.7+noise3(vec3((p.x-uAdv)*.6,p.y*.6,p.z*.8))*.3)*1.4;',
+    // haze in the upper and lower levels
+    ' float upper=uUpper*.55*smoothstep(uShelf.y,uShelf.y+2.5,p.z)*smoothstep(.4,.9,noise3(vec3(p.x*.2+t*.05,p.y*.2,p.z*.25-t*.12))*.7+noise3(vec3(p.x*.55,p.y*.55,p.z*.6-t*.3))*.3);',
+    ' float lower=uPool*.25*(1.-above)*smoothstep(.4,.9,noise3(vec3((p.x-uAdv)*.16,p.y*.16,p.z*.22))*.7+noise3(vec3((p.x-uAdv)*.5,p.y*.5,p.z*.5))*.3);',
+    // fade to zero at every wall, floor and ceiling (real surfaces the drawing shows)
+    ' float walls=smoothstep(uWall,uWall+1.,p.x)*smoothstep(uWall,uWall+1.,uCube.x-p.x)*smoothstep(0.,.6,p.z)*smoothstep(0.,1.2,uCube.z-p.z)*smoothstep(0.,1.,uCube.y-p.y);',
+    ' return (plume*1.7+pool+upper+lower)*block*walls;',
+    '}',
+    'void main(){',
+    ' vec2 fc=vec2(gl_FragCoord.x,uCanvas.y-gl_FragCoord.y);',
+    ' vec2 vb=uVB.xy+(fc-uMap.yz)/uMap.x;',
+    ' vec2 S=vb-uO;',
+    ' float c=uCam.x,s=uCam.y,cp=uCam.z,sp=uCam.w;',
+    ' float x0=S.x/c,z0=(x0*s*sp-S.y)/cp;',
+    ' float px=1./(uMap.x);',
+    ' float open=win(x0,0.,uCube.x,px*.7)*win(z0,0.,uCube.z,px*.7);',
+    ' if(open<=0.||uLevel+uUpper+uPool<.0005){gl_FragColor=vec4(0.);return;}',
+    ' const int N=44;float y0=.6,dy=(uCube.y-y0)/float(N);',
+    ' float j=hash12(gl_FragCoord.xy+fract(uTime*.37)*61.);',
+    ' float acc=0.;',
+    ' for(int i=0;i<N;i++){',
+    '  float y=y0+(float(i)+j)*dy;',
+    '  float x=(S.x-y*s)/c;float z=((x*s-y*c)*sp-S.y)/cp;',
+    '  if(x<0.||x>uCube.x||z<0.||z>uCube.z)break;',
+    '  bool hit=false;float inT=0.;',
+    '  for(int k=0;k<4;k++){',
+    '   vec4 a=uTMin[k],b=uTMax[k];',
+    '   if(b.x>a.x&&x>a.x&&x<b.x&&y>a.y&&y<b.y&&z>a.z&&z<b.z){inT=1.;if(z<a.w)hit=true;}',
+    '  }',
+    '  if(hit)break;',
+    '  float d=density(vec3(x,y,z));',
+    '  acc+=d*mix(1.,uSeep*.55,inT)*dy;',
+    ' }',
+    ' float alpha=(1.-exp(-acc*.55))*open;',
+    ' vec3 col=uColour*mix(.62,1.,uLight)*(.82+.25*alpha);',
+    ' float n=(hash12(gl_FragCoord.xy+fract(uTime*.61)*91.)+hash12(gl_FragCoord.yx*1.37+fract(uTime*.29)*57.)-1.)/255.;',
+    ' alpha=max(alpha+n*smoothstep(0.,1.5/255.,alpha),0.);',
+    ' gl_FragColor=vec4(col*alpha,alpha);',
+    '}'
+  ].join('\n');
+
+  function createFog(canvas, geom, opts) {
+    var gl = null;
+    try { gl = canvas.getContext('webgl', { premultipliedAlpha: true, alpha: true, antialias: false, depth: false }); } catch (e) { gl = null; }
+    if (!gl) return null;
+    function sh(type, src) {
+      var o = gl.createShader(type); gl.shaderSource(o, src); gl.compileShader(o);
+      if (!gl.getShaderParameter(o, gl.COMPILE_STATUS)) { console.warn('[cupboard-figure] fog shader:', gl.getShaderInfoLog(o)); return null; }
+      return o;
+    }
+    var vs = sh(gl.VERTEX_SHADER, FOG_VS), fs = sh(gl.FRAGMENT_SHADER, FOG_FS);
+    if (!vs || !fs) return null;
+    var prog = gl.createProgram(); gl.attachShader(prog, vs); gl.attachShader(prog, fs); gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) { console.warn('[cupboard-figure] fog link failed'); return null; }
+    gl.useProgram(prog);
+    var buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+    var aLoc = gl.getAttribLocation(prog, 'a'); gl.enableVertexAttribArray(aLoc); gl.vertexAttribPointer(aLoc, 2, gl.FLOAT, false, 0, 0);
+    var U = {};
+    ['uCanvas', 'uVB', 'uMap', 'uO', 'uCam', 'uTime', 'uLevel', 'uUpper', 'uPool', 'uSeep', 'uFan', 'uAdv', 'uLight', 'uCube', 'uWall', 'uFogger', 'uNotch', 'uShelf', 'uColour', 'uTMin', 'uTMax']
+      .forEach(function (n) { U[n] = gl.getUniformLocation(prog, n); });
+    var cam = geom.cam, col = hexRgb(opts.colour || '#dcecff').map(function (v) { return v / 255; });
+    gl.uniform2f(U.uO, geom.origin[0], geom.origin[1]);
+    gl.uniform4f(U.uCam, cam.c, cam.s, cam.cp, cam.sp);
+    gl.uniform3f(U.uCube, geom.cube[0], geom.cube[1], geom.cube[2]);
+    gl.uniform1f(U.uWall, geom.wall);
+    gl.uniform4f(U.uFogger, geom.fogger[0], geom.fogger[1], geom.fogger[2], geom.fogger[3]);
+    gl.uniform4f(U.uNotch, geom.notch[0], geom.notch[1], geom.notch[2], geom.notch[3]);
+    gl.uniform2f(U.uShelf, geom.shelf[0], geom.shelf[1]);
+    gl.uniform3f(U.uColour, col[0], col[1], col[2]);
+    var tmin = new Float32Array(16), tmax = new Float32Array(16);
+    geom.terras.forEach(function (t, i) {
+      tmin.set([t.min[0], t.min[1], t.min[2], t.sub], i * 4);
+      tmax.set([t.max[0], t.max[1], t.max[2], 0], i * 4);
+    });
+    gl.uniform4fv(U.uTMin, tmin); gl.uniform4fv(U.uTMax, tmax);
+
+    // envelopes: every level eases toward its target, so nothing pops
+    var env = { level: 0, upper: 0, pool: 0, seep: 0, fan: 0, adv: 0 };
+    var target = { fog: 0, fan: 0, light: 1 }, light = 1;
+    var attack = opts.attackSeconds || 6, linger = opts.lingerSeconds || 45;
+    var view = null, raf = 0, last = 0, t0 = performance.now(), visible = true, reduced = false, size = [0, 0];
+    function ease(cur, to, dt, up, down) { var tau = to > cur ? up : down; return cur + (to - cur) * (1 - Math.exp(-dt / tau)); }
+    function step(dt) {
+      env.level = ease(env.level, target.fog, dt, attack, linger);
+      env.upper = ease(env.upper, env.level, dt, attack * 2, linger * 1.3);
+      env.pool = ease(env.pool, env.level, dt, attack * 3, linger * 1.4);
+      env.seep = ease(env.seep, env.upper, dt, attack * 5, linger * 2);
+      env.fan = ease(env.fan, target.fan, dt, 1.2, 2.5);
+      env.adv += env.fan * 3.2 * dt;
+      light = ease(light, target.light, dt, 1.2, 1.2);
+    }
+    function settled() {
+      return Math.abs(env.level - target.fog) < 1e-3 && Math.abs(env.upper - env.level) < 1e-3 && Math.abs(env.pool - env.level) < 1e-3 &&
+        Math.abs(env.seep - env.upper) < 1e-3 && Math.abs(env.fan - target.fan) < 1e-3 && Math.abs(light - target.light) < 1e-3;
+    }
+    function resize() {
+      var r = canvas.getBoundingClientRect(), k = Math.min(global.devicePixelRatio || 1, 1.5) * (opts.quality || 0.75);
+      var w = Math.max(1, Math.round(r.width * k)), h = Math.max(1, Math.round(r.height * k));
+      if (w !== size[0] || h !== size[1]) { canvas.width = w; canvas.height = h; size = [w, h]; }
+      return r;
+    }
+    function draw(time) {
+      var r = resize();
+      if (!view || !r.width) return;
+      var w = size[0], h = size[1], sc = Math.min(w / view[2], h / view[3]);
+      gl.viewport(0, 0, w, h);
+      gl.uniform2f(U.uCanvas, w, h);
+      gl.uniform4f(U.uVB, view[0], view[1], view[2], view[3]);
+      gl.uniform3f(U.uMap, sc, (w - view[2] * sc) / 2, (h - view[3] * sc) / 2);
+      gl.uniform1f(U.uTime, time);
+      gl.uniform1f(U.uLevel, env.level); gl.uniform1f(U.uUpper, env.upper); gl.uniform1f(U.uPool, env.pool);
+      gl.uniform1f(U.uSeep, env.seep); gl.uniform1f(U.uFan, env.fan); gl.uniform1f(U.uAdv, env.adv); gl.uniform1f(U.uLight, light);
+      gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+    }
+    function frameLoop(now) {
+      raf = 0;
+      var dt = Math.min(0.1, (now - last) / 1000 || 0.016); last = now;
+      step(dt);
+      draw((now - t0) / 1000);
+      var idle = env.level + env.upper + env.pool < 1e-3 && settled();
+      if (visible && !reduced && !idle) raf = requestAnimationFrame(frameLoop);
+    }
+    function kick() {
+      if (reduced) {
+        // one representative still frame at the target state
+        env.level = env.upper = env.pool = target.fog * 0.7; env.seep = target.fog * 0.5; env.fan = target.fan; light = target.light;
+        draw(4.0);
+        return;
+      }
+      if (!raf && visible) { last = performance.now(); raf = requestAnimationFrame(frameLoop); }
+    }
+    return {
+      set: function (fogOn, fanOn, lightsOn) { target.fog = fogOn ? 1 : 0; target.fan = fanOn ? 1 : 0; target.light = lightsOn ? 1 : 0; kick(); },
+      view: function (vb) { view = vb.slice(); if (!raf) { if (reduced) kick(); else draw((performance.now() - t0) / 1000); } kick(); },
+      visible: function (v) { visible = v; if (v) kick(); },
+      reduced: function (v) { reduced = v; kick(); },
+      resize: function () { if (!raf) draw(reduced ? 4.0 : (performance.now() - t0) / 1000); },
+      levels: function () { return { level: env.level, upper: env.upper, pool: env.pool, seep: env.seep, fan: env.fan }; }
+    };
+  }
+
   // ---------------------------------------------------------------- mount
 
-  function mount(host, cfg) {
+  function mount(host, cfg, opts) {
+    opts = opts || {};
     injectStyle();
     var labels = cfg.labels || {};
     host.innerHTML = '';
@@ -1054,11 +1299,25 @@
     text(el('div', { class: 'cf-corner', 'data-c': 'fig' }, card), labels.fig || 'Fig 1');
     text(el('div', { class: 'cf-corner', 'data-c': 'title' }, card), labels.title || 'The cupboard');
     var built = build(root, cfg);
-    var holder = el('div', null, card);
-    holder.innerHTML = built.svg;
-    var svgEl = holder.firstChild;
+    // layer stack: the drawing, the fog canvas, then a front copy of what stands in front of the fog
+    var stage = el('div', { class: 'cf-stage' }, card);
+    stage.innerHTML = built.svg;
+    var svgEl = stage.firstChild, fogCanvas = null, frontEl = null, fog = null;
+    if (built.fog && !opts.noWebgl) {
+      fogCanvas = el('canvas', { class: 'cf-fog', 'aria-hidden': 'true' }, stage);
+      fog = createFog(fogCanvas, built.fog, cfg.fog || {});
+      if (fog) {
+        var tmp = document.createElement('div');
+        tmp.innerHTML = built.front;
+        frontEl = tmp.firstChild;
+        stage.appendChild(frontEl);
+        root.setAttribute('data-gl', '');
+      } else { stage.removeChild(fogCanvas); fogCanvas = null; }
+    }
+    var backBtn = el('button', { class: 'cf-back', type: 'button', hidden: '' }, card);
+    text(backBtn, '← ' + (labels.back || 'Whole cupboard'));
     var tip = el('div', { class: 'cf-tip', hidden: '' }, card);
-    text(el('div', { class: 'cf-corner', 'data-c': 'hint' }, card), labels.hint || 'Hover or tap a cube');
+    var hintEl = text(el('div', { class: 'cf-corner', 'data-c': 'hint' }, card), labels.hint || 'Hover or tap a cube');
     var readout = el('div', { class: 'cf-corner', 'data-c': 'readout', 'data-readout': '', 'aria-live': 'off' }, card);
 
     // side panel
@@ -1082,7 +1341,35 @@
     var ledChip = ledTimer ? text(el('span', { class: 'cf-chip', 'data-state': 'off', title: 'Own timer ' + ledTimer.on + '–' + ledTimer.off + ' UK time, not ThingSpeak' }, chips), ledTimer.label || 'LED panels') : null;
 
     var cubeBox = el('section', { class: 'cf-box cf-info', 'aria-live': 'polite' }, panel);
-    el('p', { class: 'cf-caption' }, root).textContent = labels.caption || '';
+    var captionEl = el('p', { class: 'cf-caption' }, root);
+    captionEl.textContent = labels.caption || '';
+
+    // preview-only controls: switch the outputs by hand to review the effects (never on the real page)
+    var demoBox = null, demoBtns = {};
+    if (opts.demo) {
+      demoBox = el('div', { class: 'cf-box cf-demo' }, panel);
+      text(el('p', { class: 'cf-kicker' }, demoBox), 'Preview only · not live data');
+      var row = el('div', { class: 'cf-chips' }, demoBox);
+      (cfg.thingspeak.outputs || []).forEach(function (o) {
+        demoBtns[o.key] = text(el('button', { type: 'button', class: 'cf-chip cf-chip-btn', 'data-state': 'off', 'aria-pressed': 'false' }, row), o.label);
+        demoBtns[o.key].addEventListener('click', function () {
+          if (!state.demo) state.demo = {};
+          state.demo[o.key] = !state.demo[o.key];
+          syncDemo(); render();
+        });
+      });
+      var liveBtn = text(el('button', { type: 'button', class: 'cf-chip cf-chip-btn', 'data-state': 'off' }, row), 'Back to live');
+      liveBtn.addEventListener('click', function () { state.demo = null; syncDemo(); render(); tick(); });
+      text(el('p', { class: 'cf-demo-note' }, demoBox), 'Turns the fogger, fan and bubbler on or off in the drawing so you can see the effects. Fog builds up over a few seconds and lingers after the fogger stops.');
+    }
+    function syncDemo() {
+      Object.keys(demoBtns).forEach(function (k) {
+        var on = !!(state.demo && state.demo[k]);
+        demoBtns[k].setAttribute('data-state', on ? 'on' : 'off');
+        demoBtns[k].setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      setNet(state.demo ? 'demo' : (state.readAt ? state.liveNet || 'live' : state.liveNet || 'connecting'));
+    }
 
     var cubes = {}, partsById = {};
     cfg.cubes.forEach(function (c) { cubes[c.id] = c; });
@@ -1183,6 +1470,9 @@
     svgEl.addEventListener('click', function (ev) {
       var c = ev.target.closest && ev.target.closest('[data-cube]');
       var id = c ? c.getAttribute('data-cube') : null;
+      if (zoomed && id === zoomed) return;
+      if (id && cubes[id] && cubes[id].zoom) { pinned = id; hover = null; zoomTo(id); markHl(); return; }
+      if (zoomed) zoomTo(null);
       pinned = id && pinned !== id ? id : (id ? null : pinned);
       if (ev.pointerType === 'touch' || ev.pointerType === 'pen') hover = null;
       markHl();
@@ -1194,27 +1484,79 @@
     });
     svgEl.addEventListener('keydown', function (ev) {
       var cur = pinned ? order.indexOf(pinned) : -1, c = cubes[pinned], next = null;
-      if (ev.key === 'Escape') { pinned = null; hover = null; markHl(); return; }
+      if (ev.key === 'Escape') { if (zoomed) { zoomTo(null); return; } pinned = null; hover = null; markHl(); return; }
       if (!c) return;
       var find = function (row, col) { var m = cfg.cubes.filter(function (x) { return x.row === row && x.col === col; })[0]; return m ? m.id : null; };
       if (ev.key === 'ArrowUp') next = find(c.row + 1, c.col);
       else if (ev.key === 'ArrowDown') next = find(c.row - 1, c.col);
       else if (ev.key === 'ArrowLeft') next = find(c.row, c.col - 1);
       else if (ev.key === 'ArrowRight') next = find(c.row, c.col + 1);
-      else if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); markHl(); return; }
+      else if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); if (c.zoom && zoomed !== c.id) zoomTo(c.id); markHl(); return; }
       if (next) { ev.preventDefault(); var g = q('[data-cube="' + next + '"].cf-cube'); if (g) g.focus(); }
       void cur;
     });
     markHl();
 
+    // ---- zoom: the same drawing, the camera moves by animating the viewBox (aspect kept, so the card never resizes)
+    var homeVB = built.vb.slice(), curVB = homeVB.slice(), zoomed = null, zoomAnim = 0;
+    var reducedMQ = global.matchMedia ? global.matchMedia('(prefers-reduced-motion: reduce)') : null;
+    function isReduced() { return !!(reducedMQ && reducedMQ.matches); }
+    function setVB(v) {
+      curVB = v;
+      var str = v.map(r2).join(' ');
+      svgEl.setAttribute('viewBox', str);
+      if (frontEl) frontEl.setAttribute('viewBox', str);
+      if (fog) fog.view(v);
+    }
+    function vbFor(id) {
+      var b = built.boxes[id], m = 2.5, A = homeVB[2] / homeVB[3];
+      var bw = b[2] - b[0] + 2 * m, bh = b[3] - b[1] + 2 * m, w = Math.max(bw, bh * A), h = w / A;
+      return [(b[0] + b[2]) / 2 - w / 2, (b[1] + b[3]) / 2 - h / 2, w, h];
+    }
+    function zoomTo(id) {
+      var c = id ? cubes[id] : null;
+      zoomed = c ? id : null;
+      if (zoomed) root.setAttribute('data-zoom', zoomed); else root.removeAttribute('data-zoom');
+      Array.prototype.forEach.call(stage.querySelectorAll('[data-cube]'), function (g) {
+        if (zoomed && g.getAttribute('data-cube') === zoomed) g.setAttribute('data-zoomed', ''); else g.removeAttribute('data-zoomed');
+      });
+      backBtn.hidden = !zoomed;
+      hintEl.textContent = zoomed ? (labels.zoomHint || 'Esc or ← to go back') : (labels.hint || 'Hover or tap a cube');
+      captionEl.textContent = zoomed && c.zoomCaption ? c.zoomCaption : (labels.caption || '');
+      if (zoomed) pinned = zoomed;
+      markHl();
+      var from = curVB.slice(), to = zoomed ? vbFor(zoomed) : homeVB, t0 = performance.now(), dur = 700;
+      cancelAnimationFrame(zoomAnim);
+      if (isReduced()) { setVB(to); return; }
+      (function stepZoom(now) {
+        var k = Math.min(1, (now - t0) / dur), e = k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+        setVB(from.map(function (v, i) { return v + (to[i] - v) * e; }));
+        if (k < 1) zoomAnim = requestAnimationFrame(stepZoom);
+      })(t0);
+    }
+    backBtn.addEventListener('click', function () { zoomTo(null); var g = q('[data-cube="' + pinned + '"].cf-cube'); if (g) g.focus({ preventScroll: true }); });
+    if (fog) {
+      fog.reduced(isReduced());
+      if (reducedMQ && reducedMQ.addEventListener) reducedMQ.addEventListener('change', function () { fog.reduced(isReduced()); });
+      if ('ResizeObserver' in global) new ResizeObserver(function () { fog.resize(); }).observe(stage);
+      fog.view(curVB);
+    }
+    if (opts.start) {
+      var startCube = cfg.cubes.filter(function (c) { return c.id === opts.start || c.zoomKey === opts.start; })[0];
+      if (startCube) { setVB(vbFor(startCube.id)); zoomTo(startCube.id); }
+    }
+
     // ---- live rendering
     function setNet(net) {
+      if (net !== 'demo') state.liveNet = net;
+      if (state.demo && net !== 'demo') net = 'demo';
       state.net = net;
       root.setAttribute('data-net', net);
       badge.setAttribute('data-net', net);
-      badge.textContent = { live: 'Live', stale: 'Stale', offline: 'Offline', connecting: 'Connecting' }[net];
+      badge.textContent = { live: 'Live', stale: 'Stale', offline: 'Offline', connecting: 'Connecting', demo: 'Demo' }[net];
     }
-    function outputsKnown() { return state.net === 'live'; }
+    function outputsKnown() { return state.net === 'live' || state.net === 'demo'; }
+    function outputValue(key) { return state.demo ? !!state.demo[key] : state.outputs[key]; }
     function render() {
       (cfg.thingspeak.readings || []).forEach(function (r) {
         var v = state.values[r.key], b = metricEls[r.key];
@@ -1223,19 +1565,25 @@
         if (lvl) b.setAttribute('data-level', lvl); else b.removeAttribute('data-level');
       });
       (cfg.thingspeak.outputs || []).forEach(function (o) {
-        var v = outputsKnown() ? state.outputs[o.key] : null, st = v == null ? 'unknown' : v ? 'on' : 'off';
+        var v = outputsKnown() ? outputValue(o.key) : null, st = v == null ? 'unknown' : v ? 'on' : 'off';
         chipEls[o.key].setAttribute('data-state', st);
         chipEls[o.key].textContent = o.label + (st === 'unknown' ? ' ?' : st === 'on' ? ' on' : ' off');
         var pe = partEl(o.part);
         if (pe) pe.setAttribute('data-active', st);
       });
+      fogInputs();
+    }
+    function fogInputs() {
+      if (!fog) return;
+      var fc = cfg.fog || {}, known = outputsKnown();
+      fog.set(known && !!outputValue(fc.output || 'fogger'), known && !!outputValue(fc.fanOutput || 'fan'), root.getAttribute('data-leds') === 'on');
     }
     function tick() {
       var now = ukNow(ledTimer && ledTimer.timeZone);
       // LED panels: own timer, UK local time
       if (ledTimer) {
         var on = timerOn(ledTimer, now.minutes);
-        root.setAttribute('data-leds', on ? 'on' : 'off');
+        if (root.getAttribute('data-leds') !== (on ? 'on' : 'off')) { root.setAttribute('data-leds', on ? 'on' : 'off'); fogInputs(); }
         ledChip.setAttribute('data-state', on ? 'on' : 'off');
         ledChip.textContent = (ledTimer.label || 'LED panels') + (on ? ' on' : ' off') + ' · ' + (on ? 'off ' + ledTimer.off : 'on ' + ledTimer.on);
       }
@@ -1243,11 +1591,12 @@
       if (state.readAt) {
         var age = (Date.now() - state.readAt.getTime()) / 1000;
         var fresh = age <= (cfg.thingspeak.staleAfterSeconds || 120);
-        if (state.net !== 'offline') { var want = fresh ? 'live' : 'stale'; if (want !== state.net) { setNet(want); render(); } }
-        when.textContent = 'Reading ' + clockTime(state.readAt, ledTimer && ledTimer.timeZone) + ' · ' + (age < 90 ? Math.max(0, Math.round(age)) + ' s ago' : Math.round(age / 60) + ' min ago') + (state.net === 'offline' ? ' · ThingSpeak unreachable, retrying' : '');
+        if (state.liveNet !== 'offline') { var want = fresh ? 'live' : 'stale'; if (want !== state.liveNet) { setNet(want); render(); } }
+        when.textContent = 'Reading ' + clockTime(state.readAt, ledTimer && ledTimer.timeZone) + ' · ' + (age < 90 ? Math.max(0, Math.round(age)) + ' s ago' : Math.round(age / 60) + ' min ago') + (state.liveNet === 'offline' ? ' · ThingSpeak unreachable, retrying' : '');
       } else {
-        when.textContent = state.net === 'offline' ? 'ThingSpeak unreachable, retrying' : '';
+        when.textContent = state.liveNet === 'offline' ? 'ThingSpeak unreachable, retrying' : '';
       }
+      if (state.demo) when.textContent = 'Demo: outputs switched by hand, not live';
       // OLED: 6 screens, in step with the clock
       var o = cfg.oled;
       if (o && o.screens && o.screens.length) {
@@ -1258,7 +1607,7 @@
           if (state.readAt && v == null && sc.key === 'humidity') val = 'ERR';
           else if (v != null && rd) val = v.toFixed(rd.decimals || 0) + (rd.unit === '°C' ? 'C' : rd.unit || '');
         } else if (sc.show === 'output') {
-          var ov = state.readAt ? state.outputs[sc.key] : null;
+          var ov = state.demo ? !!state.demo[sc.key] : state.readAt ? state.outputs[sc.key] : null;
           val = ov == null ? '--' : ov ? 'ON' : 'OFF';
         }
         var tEl = q('[data-part="' + o.part + '"] [data-oled-title]'), vEl = q('[data-part="' + o.part + '"] [data-oled-value]');
@@ -1295,13 +1644,13 @@
     });
     if ('IntersectionObserver' in global) {
       new IntersectionObserver(function (es) {
-        es.forEach(function (e) { if (e.isIntersecting) root.removeAttribute('data-offscreen'); else root.setAttribute('data-offscreen', ''); });
+        es.forEach(function (e) { if (e.isIntersecting) root.removeAttribute('data-offscreen'); else root.setAttribute('data-offscreen', ''); if (fog) fog.visible(e.isIntersecting); });
       }).observe(card);
     }
     render(); tick();
     setInterval(tick, 1000);
     poll();
-    return { root: root, svg: svgEl, state: state };
+    return { root: root, svg: svgEl, state: state, zoomTo: zoomTo, fog: fog };
   }
 
   function mountFrom(host) {
@@ -1310,7 +1659,9 @@
     var src = host.getAttribute('data-src') || 'assets/data/cupboard.json';
     fetch(src, { cache: 'no-cache' })
       .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
-      .then(function (cfg) { mount(host, cfg); })
+      .then(function (cfg) {
+        mount(host, cfg, { start: host.getAttribute('data-start'), demo: host.hasAttribute('data-demo'), noWebgl: host.hasAttribute('data-no-webgl') });
+      })
       .catch(function (e) {
         injectStyle();
         host.innerHTML = '';
