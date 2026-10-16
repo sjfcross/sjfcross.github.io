@@ -67,7 +67,7 @@
     {
       "id": "cube-r4-r", "row": 4, "col": 1,
       "name": "Top right: bottles",
-      "desc": "Whisky bottles, drawn as generic bottles.",
+      "desc": "Whisky, left to right: Johnnie Walker Blue Label, Smokehead, Lagavulin and Laphroaig.",
       "residents": []
     },
     {
@@ -129,17 +129,17 @@
     { "id": "part-terra-hamorii", "cube": "cube-r4-l", "kind": "acrylicTerra", "label": "Acrylic terra (B. hamorii)", "at": [1.5, 2, 0], "size": [15, 16, 14.5], "substrate": "pale", "decor": ["bark", "plant"], "critter": { "type": "spider", "body": "#1d1714", "accent": "#d0612f", "span": 7, "u": 0.58, "b": 0.06 } },
     { "id": "part-terra-parahybana", "cube": "cube-r4-l", "kind": "acrylicTerra", "label": "Acrylic terra (L. parahybana)", "at": [17, 2, 0], "size": [15, 16, 14.5], "substrate": "dark", "decor": ["wood", "burrow"], "critter": { "type": "spider", "body": "#4a3428", "accent": "#d79a86", "span": 6, "u": 0.3, "b": 0.05 } },
     { "id": "part-glass-shelf-r4l", "cube": "cube-r4-l", "kind": "glassShelf", "label": "Glass shelf", "z": 15.5, "x0": 1, "x1": 32.75, "y0": 0.6, "y1": 37.5, "list": false },
-    { "id": "part-plant-polkadot", "cube": "cube-r4-l", "kind": "plantPot", "label": "Polka-dot plant", "at": [7.5, 11, 16.1], "r": 3.3, "h": 4.4 },
+    { "id": "part-plant-fittonia", "cube": "cube-r4-l", "kind": "plantPot", "label": "Fittonia", "at": [7.5, 11, 16.1], "r": 3.3, "h": 4.4 },
     { "id": "part-cup-scorpion", "cube": "cube-r4-l", "kind": "cup", "label": "Cup (H. silenus, hidden behind)", "at": [16.5, 17, 16.1], "r": 3.2, "h": 4, "lid": "#e9e7df" },
     { "id": "part-cup-mantis", "cube": "cube-r4-l", "kind": "cup", "label": "Mantis cup (yellow mesh lid)", "at": [15.8, 7.5, 16.1], "r": 3.9, "h": 4.6, "lid": "#e2c94a", "drape": true },
     { "id": "part-seamonkey-tank", "cube": "cube-r4-l", "kind": "seaMonkeyTank", "label": "Sea Monkey tank + bubbler tube", "at": [25, 11, 16.1], "r": 5, "h": 12.6, "tubeFrom": [21.5, 37.4, 29.5] },
     { "id": "part-led-r4l", "cube": "cube-r4-l", "kind": "ledPanel", "label": "LED panel (12 V, own timer)", "x0": 10, "x1": 24, "y0": 6, "y1": 21, "z": 33.0, "tilt": 0, "timer": "ledTimer" },
     { "id": "part-door-r4l", "cube": "cube-r4-l", "kind": "glassDoor", "label": "Glass door (hinged left)", "hinge": "left" },
 
-    { "id": "part-bottle-1", "cube": "cube-r4-r", "kind": "bottle", "label": "Bottle", "at": [5.5, 15, 0], "r": 3.7, "h": 30, "glass": "#18243f", "liquid": "#0d1426", "cap": "#3b3b3b", "neck": 0.32 },
-    { "id": "part-bottle-2", "cube": "cube-r4-r", "kind": "bottle", "label": "Bottle", "at": [12.8, 16, 0], "r": 3.8, "h": 27.5, "glass": "#4b3a2a", "liquid": "#2a1a0e", "cap": "#5a5040", "neck": 0.3 },
-    { "id": "part-bottle-3", "cube": "cube-r4-r", "kind": "bottle", "label": "Bottle", "at": [19.4, 17, 0], "r": 3.1, "h": 27, "glass": "#2c3a24", "liquid": "#1d2414", "cap": "#6a4a2a", "neck": 0.36 },
-    { "id": "part-bottle-4", "cube": "cube-r4-r", "kind": "bottle", "label": "Bottle", "at": [25.4, 14, 0], "r": 3.8, "h": 29.5, "glass": "#2d5a2a", "liquid": "#2a3a12", "cap": "#e8e6df", "neck": 0.3 },
+    { "id": "part-bottle-1", "cube": "cube-r4-r", "kind": "bottle", "label": "Johnnie Walker Blue Label", "tag": { "from": 0.3, "to": 0.58, "colour": "#16244a", "lines": [{ "text": "Blue Label", "at": 0.45, "size": 0.95, "colour": "#d4ddf2", "serif": true, "bold": true }, { "text": "JOHNNIE WALKER", "at": 0.22, "size": 0.42, "colour": "#9fb0d6" }] }, "at": [5.5, 15, 0], "r": 3.7, "h": 30, "glass": "#18243f", "liquid": "#0d1426", "cap": "#3b3b3b", "neck": 0.32 },
+    { "id": "part-bottle-2", "cube": "cube-r4-r", "kind": "bottle", "label": "Smokehead", "tag": { "from": 0.18, "to": 0.56, "colour": "#141210", "mark": "skull", "lines": [{ "text": "SMOKEHEAD", "at": 0.78, "size": 0.78, "colour": "#f1e6d2", "bold": true }] }, "at": [12.8, 16, 0], "r": 3.8, "h": 27.5, "glass": "#4b3a2a", "liquid": "#2a1a0e", "cap": "#5a5040", "neck": 0.3 },
+    { "id": "part-bottle-3", "cube": "cube-r4-r", "kind": "bottle", "label": "Lagavulin", "tag": { "from": 0.22, "to": 0.5, "colour": "#e9e1c8", "band": { "colour": "#4f6b35", "height": 0.22 }, "lines": [{ "text": "LAGAVULIN", "at": 0.35, "size": 0.62, "colour": "#1b1a16", "serif": true, "bold": true }] }, "at": [19.4, 17, 0], "r": 3.1, "h": 27, "glass": "#2c3a24", "liquid": "#1d2414", "cap": "#6a4a2a", "neck": 0.36 },
+    { "id": "part-bottle-4", "cube": "cube-r4-r", "kind": "bottle", "label": "Laphroaig", "tag": { "from": 0.2, "to": 0.58, "colour": "#f3f1ea", "lines": [{ "text": "LAPHROAIG", "at": 0.3, "size": 0.85, "colour": "#141414", "serif": true, "bold": true }, { "text": "ISLAY SINGLE MALT", "at": 0.5, "size": 0.38, "colour": "#444" }, { "text": "OAK SELECT", "at": 0.72, "size": 0.5, "colour": "#141414", "bold": true }] }, "at": [25.4, 14, 0], "r": 3.8, "h": 29.5, "glass": "#2d5a2a", "liquid": "#2a3a12", "cap": "#e8e6df", "neck": 0.3 },
 
     { "id": "part-terra-isopods", "cube": "cube-r3-l", "kind": "glassTerra", "label": "Glass terrarium (isopods + millipede)", "at": [2.5, 5, 0], "size": [28, 21, 14.5] },
     { "id": "part-glass-shelf-r3l", "cube": "cube-r3-l", "kind": "glassShelf", "label": "Glass shelf", "z": 19.5, "x0": 0, "x1": 33.75, "y0": 0.6, "y1": 38.5, "list": false },

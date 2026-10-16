@@ -710,12 +710,35 @@
     var liquid = lathe(G, cx, cy, z, [[r - .25, .3], [r - .25, h * .55]]);
     var s = '<path d="' + L.d + '" fill="' + p.glass + '"/>';
     s += '<path d="' + liquid.d + '" fill="' + p.liquid + '" opacity=".8"/>' + ellipse(liquid.top, mix(p.liquid, '#ffffff', .1), 'opacity=".6"');
+    if (p.tag) s += bottleTag(L, r, h, k, p.tag);
     s += '<path d="' + L.d + '" fill="url(#' + X.uid + '-bottle)"/>';
     s += '<path d="' + band(L, r * nk * 1.12, h * .84, h + .2, k) + '" fill="' + p.cap + '"/>' + ellipse({ cx: L.top.cx, cy: r2(L.at(h + .2)[1]), rx: r2(r * nk * 1.12), ry: r2(r * nk * 1.12 * k) }, mix(p.cap, '#ffffff', .15));
     s += '<path d="M' + r2(L.base[0] + r * .5) + ' ' + r2(L.at(h * .58)[1]) + 'L' + r2(L.base[0] + r * .5) + ' ' + r2(L.at(1)[1]) + '" class="cf-glint"/>';
     s += '<path d="' + L.d + '" fill="none" class="cf-bottle-edge"/>';
     return s;
   };
+
+  // A paper label wrapped round the front of a bottle: tag = {from, to (fractions of h), colour,
+  // lines: [{text, at (0 top .. 1 bottom), size (cm), colour, serif, bold}], mark: "skull"}.
+  function bottleTag(L, r, h, k, t) {
+    var a = L.at(h * t.from), b = L.at(h * t.to), m = .3, n = 16, pts = [], i, ang;
+    for (i = 0; i <= n; i++) { ang = Math.PI - m - (Math.PI - 2 * m) * i / n; pts.push([a[0] + r * Math.cos(ang), a[1] + r * k * Math.sin(ang)]); }
+    for (i = 0; i <= n; i++) { ang = m + (Math.PI - 2 * m) * i / n; pts.push([b[0] + r * Math.cos(ang), b[1] + r * k * Math.sin(ang)]); }
+    var s = '<path d="M' + pts.map(function (q) { return r2(q[0]) + ' ' + r2(q[1]); }).join('L') + 'Z" fill="' + t.colour + '"/>';
+    var top = b[1] + r * k, bottom = a[1] + r * k, cx = a[0];
+    if (t.band) s += '<rect x="' + r2(cx - r * .95) + '" y="' + r2(bottom - (bottom - top) * t.band.height) + '" width="' + r2(r * 1.9) + '" height="' + r2((bottom - top) * t.band.height) + '" fill="' + t.band.colour + '"/>';
+    if (t.mark === 'skull') {
+      var sy = top + (bottom - top) * .4, sr = r * .42;
+      s += '<path d="M' + r2(cx - sr) + ' ' + r2(sy) + 'a' + r2(sr) + ' ' + r2(sr) + ' 0 1 1 ' + r2(2 * sr) + ' 0l' + r2(-sr * .2) + ' ' + r2(sr * .7) + 'h' + r2(-sr * 1.6) + 'Z" fill="#e39a32"/>' +
+        '<circle cx="' + r2(cx - sr * .38) + '" cy="' + r2(sy) + '" r="' + r2(sr * .24) + '" fill="#111"/><circle cx="' + r2(cx + sr * .38) + '" cy="' + r2(sy) + '" r="' + r2(sr * .24) + '" fill="#111"/>';
+    }
+    (t.lines || []).forEach(function (ln) {
+      s += '<text class="cf-bottle-text" x="' + r2(cx) + '" y="' + r2(top + (bottom - top) * ln.at) + '" font-size="' + ln.size + '" fill="' + (ln.colour || '#111') + '"' +
+        (ln.serif ? ' data-serif' : '') + (ln.bold ? ' font-weight="700"' : '') + '>' + escapeXml(ln.text) + '</text>';
+    });
+    return s;
+  }
+  function escapeXml(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
 
   PAINTERS.door = function (G, p, X) {
     var W = X.cube.w, H = X.cube.h, g = 0, kn = p.knob || [.85, .2];
@@ -773,6 +796,8 @@
     '.cf-acrylic-edge{fill:none;stroke:rgba(230,240,245,.5);stroke-width:.6px;stroke-linejoin:round}',
     '.cf-faint{stroke:rgba(230,240,245,.16)}',
     '.cf-bottle-edge{fill:none;stroke:rgba(255,255,255,.14);stroke-width:.6px}',
+    '.cf-bottle-text{font-family:var(--cf-mono);text-anchor:middle;dominant-baseline:middle;letter-spacing:.02em}',
+    '.cf-bottle-text[data-serif]{font-family:var(--cf-serif)}',
     '.cf-vents{fill:rgba(20,20,24,.28)}',
     '.cf-clip{fill:rgba(235,242,245,.22);stroke:rgba(235,242,245,.5);stroke-width:.5px}',
     '.cf-foot{fill:rgba(255,255,255,.75)}',
