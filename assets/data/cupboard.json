@@ -28,7 +28,7 @@
     "output": "fogger",
     "fanOutput": "fan",
     "attackSeconds": 3,
-    "lingerSeconds": 45,
+    "lingerSeconds": 5,
     "colour": "#cbb8ff",
     "quality": 0.75
   },

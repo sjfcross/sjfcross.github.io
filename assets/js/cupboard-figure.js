@@ -17,7 +17,7 @@
 
   var NS = 'http://www.w3.org/2000/svg';
   var RAD = Math.PI / 180;
-  var instanceCount = 0;
+  var instanceCount = 0, instances = [];
 
   // ----------------------------------------------------------------- small utils
 
@@ -1228,9 +1228,9 @@
     function ease(cur, to, dt, up, down) { var tau = to > cur ? up : down; return cur + (to - cur) * (1 - Math.exp(-dt / tau)); }
     function step(dt) {
       env.level = ease(env.level, target.fog, dt, attack, linger);
-      env.upper = ease(env.upper, env.level, dt, attack * 2, linger * 1.3);
-      env.pool = ease(env.pool, env.level, dt, attack * 3, linger * 1.4);
-      env.seep = ease(env.seep, env.upper, dt, attack * 5, linger * 2);
+      env.upper = ease(env.upper, env.level, dt, attack * 2, linger * 0.6);
+      env.pool = ease(env.pool, env.level, dt, attack * 3, linger * 0.6);
+      env.seep = ease(env.seep, env.upper, dt, attack * 5, linger * 0.8);
       env.fan = ease(env.fan, target.fan, dt, 1.2, 2.5);
       env.adv += env.fan * 3.2 * dt;
       light = ease(light, target.light, dt, 1.2, 1.2);
@@ -1261,7 +1261,8 @@
     }
     function frameLoop(now) {
       raf = 0;
-      var dt = Math.min(0.1, (now - last) / 1000 || 0.016); last = now;
+      // real time even when frames are slow (software rendering, busy phone), so the fog clears on schedule
+      var dt = Math.min(1, (now - last) / 1000 || 0.016); last = now;
       step(dt);
       draw((now - t0) / 1000);
       var idle = env.level + env.upper + env.pool < 1e-3 && settled();
@@ -1315,7 +1316,7 @@
       // a soft "shhh": noise band-passed around 3 kHz, gently rounded off at the top
       var shh = ctx.createBiquadFilter(); shh.type = 'bandpass'; shh.frequency.value = 3000; shh.Q.value = 0.5;
       var shhTop = ctx.createBiquadFilter(); shhTop.type = 'lowpass'; shhTop.frequency.value = 6500;
-      var hissG = ctx.createGain(); hissG.gain.value = 0.5;
+      var hissG = ctx.createGain(); hissG.gain.value = 1;
       loopNoise().connect(shh); shh.connect(shhTop); shhTop.connect(hissG); hissG.connect(ch.fogger);
       // bubbler: air pump buzz, bubbles scheduled below
       ch.bubbler = ctx.createGain(); ch.bubbler.gain.value = 0; ch.bubbler.connect(master);
@@ -1343,7 +1344,7 @@
       if (!ctx) return;
       var t = ctx.currentTime;
       ch.fan.gain.setTargetAtTime(on && want.fan ? 0.09 : 0, t, 0.4);
-      ch.fogger.gain.setTargetAtTime(on && want.fogger ? 0.035 : 0, t, 0.8);
+      ch.fogger.gain.setTargetAtTime(on && want.fogger ? 0.22 : 0, t, 0.5);
       ch.bubbler.gain.setTargetAtTime(on && want.bubbler ? 0.07 : 0, t, 0.3);
       schedule();
     }
@@ -1749,7 +1750,9 @@
     render(); tick();
     setInterval(tick, 1000);
     poll();
-    return { root: root, svg: svgEl, state: state, zoomTo: zoomTo, fog: fog };
+    var api = { root: root, svg: svgEl, state: state, zoomTo: zoomTo, fog: fog };
+    instances.push(api);
+    return api;
   }
 
   function mountFrom(host) {
@@ -1770,6 +1773,6 @@
   }
 
   function auto() { Array.prototype.forEach.call(document.querySelectorAll('[data-cupboard-figure]'), mountFrom); }
-  global.CupboardFigure = { mount: mount, mountFrom: mountFrom, painters: PAINTERS };
+  global.CupboardFigure = { mount: mount, mountFrom: mountFrom, painters: PAINTERS, instances: instances };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', auto); else auto();
 })(window);
