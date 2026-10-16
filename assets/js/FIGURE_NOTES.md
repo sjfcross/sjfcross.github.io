@@ -126,7 +126,8 @@ Kinds available now: `whiteInsert`, `glassShelf`, `ledPanel`, `acrylicTerra`, `g
 `cableHole`, `cable`, `compartmentInsert`, `glencairn`, `flask`, `plush`, `bottle`, `door`, `glassDoor`.
 
 `nameSource` on residents records where a common name came from: `site` (pages/animals.html), `plan`
-(ARACHNID_FIGURE_PLAN.md) or `unverified` (not checked against a source yet).
+(ARACHNID_FIGURE_PLAN.md), `checked` (scientific name from the owner, common name confirmed against outside
+sources: Wikipedia, care sheets, dealers; 2026-10-16) or `unverified` (not checked against a source yet).
 
 ## Zoom (stage 2)
 

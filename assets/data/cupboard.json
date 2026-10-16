@@ -90,11 +90,11 @@
       "desc": "Glass door hinged on the left, white insert, LED panel on the ceiling and a glass shelf. Not climatised; the Sea Monkey bubbler runs from the NodeMCU.",
       "lit": "ledTimer",
       "residents": [
-        { "scientific": "Brachypelma hamorii", "common": "Mexican red-knee tarantula", "where": "acrylic terra, bottom left", "in": "part-terra-hamorii", "visible": true, "nameSource": "unverified" },
-        { "scientific": "Lasiodora parahybana", "common": "Brazilian salmon pink birdeater", "where": "acrylic terra, bottom right", "in": "part-terra-parahybana", "visible": true, "nameSource": "unverified" },
-        { "scientific": "Hierodula membranacea", "common": "Giant Asian mantis", "where": "yellow-lidded cup on the shelf", "in": "part-cup-mantis", "visible": false, "nameSource": "unverified" },
-        { "scientific": "Heterometrus silenus", "common": "Asian forest scorpion (baby)", "where": "small cup hidden behind the mantis cup", "in": "part-cup-scorpion", "visible": false, "nameSource": "unverified" },
-        { "scientific": "Artemia sp.", "common": "Sea Monkeys (brine shrimp)", "where": "tall tank on the shelf, bubbler from the NodeMCU", "in": "part-seamonkey-tank", "visible": false, "nameSource": "unverified" }
+        { "scientific": "Brachypelma hamorii", "common": "Mexican red-knee tarantula", "where": "acrylic terra, bottom left", "in": "part-terra-hamorii", "visible": true, "nameSource": "checked" },
+        { "scientific": "Lasiodora parahybana", "common": "Brazilian salmon pink birdeater", "where": "acrylic terra, bottom right", "in": "part-terra-parahybana", "visible": true, "nameSource": "checked" },
+        { "scientific": "Hierodula membranacea", "common": "Giant Asian mantis", "where": "yellow-lidded cup on the shelf", "in": "part-cup-mantis", "visible": false, "nameSource": "checked" },
+        { "scientific": "Heterometrus silenus", "common": "Asian forest scorpion (baby)", "where": "small cup hidden behind the mantis cup", "in": "part-cup-scorpion", "visible": false, "nameSource": "checked" },
+        { "scientific": "Artemia sp.", "common": "Sea Monkeys (brine shrimp)", "where": "tall tank on the shelf, bubbler from the NodeMCU", "in": "part-seamonkey-tank", "visible": false, "nameSource": "checked" }
       ]
     },
     {
@@ -113,8 +113,8 @@
       "lit": "ledTimer",
       "residents": [
         { "scientific": "Prionotheca coronata", "common": "Radiant sun beetle", "where": "acrylic box, top left", "in": "part-box-beetle", "visible": true, "nameSource": "plan" },
-        { "scientific": "Smeringurus mesaensis", "common": "Dune scorpion", "where": "round tub, top right", "in": "part-tub-scorpion", "visible": false, "nameSource": "unverified" },
-        { "scientific": "Porcellio laevis", "common": "Swift isopod, orange form (many)", "where": "glass terrarium, bottom", "in": "part-terra-isopods", "visible": true, "nameSource": "unverified" },
+        { "scientific": "Smeringurus mesaensis", "common": "Dune scorpion", "where": "round tub, top right", "in": "part-tub-scorpion", "visible": false, "nameSource": "checked" },
+        { "scientific": "Porcellio laevis", "common": "Swift isopod, orange form (many)", "where": "glass terrarium, bottom", "in": "part-terra-isopods", "visible": true, "nameSource": "checked" },
         { "scientific": "Millipede (unidentified)", "common": "1 millipede", "where": "glass terrarium, bottom", "in": "part-terra-isopods", "visible": false, "nameSource": "plan" }
       ]
     },
@@ -149,7 +149,7 @@
       "desc": "Zoo Med glass terrarium with an angled LED panel above. The light-wood box on the left wall holds the NodeMCU and its OLED; cables run up into the climate zone. The air pump and cable runs are behind the cupboard (open back).",
       "lit": "ledTimer",
       "residents": [
-        { "scientific": "Medauroidea extradentata", "common": "Annam walking stick, 'Blue' (2)", "where": "Zoo Med terrarium, on bramble in a water cup", "in": "part-terra-stickinsects", "visible": true, "nameSource": "unverified" }
+        { "scientific": "Medauroidea extradentata", "common": "Annam walking stick, 'Blue' (2)", "where": "Zoo Med terrarium, on bramble in a water cup", "in": "part-terra-stickinsects", "visible": true, "nameSource": "checked" }
       ]
     },
     {

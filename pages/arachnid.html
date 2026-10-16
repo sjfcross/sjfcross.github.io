@@ -205,6 +205,8 @@
     .two-col     { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
     .two-col-3-2 { display: grid; grid-template-columns: 3fr 2fr; gap: 2rem; align-items: start; }
     .two-col-2-3 { display: grid; grid-template-columns: 2fr 3fr; gap: 2rem; align-items: start; }
+    /* let columns shrink below their widest table/pre so .table-wrap can scroll instead */
+    .two-col > *, .two-col-3-2 > *, .two-col-2-3 > * { min-width: 0; }
     @media (max-width: 800px) {
       .two-col, .two-col-3-2, .two-col-2-3 { grid-template-columns: 1fr; }
     }
