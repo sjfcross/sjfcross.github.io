@@ -802,10 +802,9 @@
     '.cf-back:focus-visible,.cf-chip-btn:focus-visible{outline:2px solid var(--cf-accent2);outline-offset:2px}',
     '.cf-chip-btn{background:none;cursor:pointer}',
     '.cf-chip-btn:hover{border-color:var(--cf-accent2);color:var(--cf-text)}',
-    '.cf-demo{border-style:dashed;border-color:rgba(245,158,11,.4)}',
-    '.cf-demo .cf-kicker{color:var(--cf-amber)}',
-    '.cf-demo-note{margin:10px 0 0;font-size:12.5px;line-height:1.5;color:var(--cf-dim)}',
-    '.cf-badge[data-net="demo"]{color:var(--cf-amber)}',
+    '.cf-sim-note.cf-try{margin:16px 0 8px}',
+    '.cf-root [hidden]{display:none!important}',
+    '.cf-badge[data-net="demo"]{color:var(--cf-accent2)}',
     '.cf-badge[data-net="sim"]{color:var(--cf-accent2)}',
     '.cf-sim[hidden],.cf-sim-ui[hidden]{display:none}',
     '.cf-sim-note{margin:0 0 10px;font-size:12.5px;line-height:1.5;color:var(--cf-dim)}',
@@ -1437,49 +1436,44 @@
     });
     var ledTimer = cfg.ledTimer;
     var ledChip = ledTimer ? text(el('span', { class: 'cf-chip', 'data-state': 'off', title: 'Own timer ' + ledTimer.on + '–' + ledTimer.off + ' UK time, not ThingSpeak' }, chips), ledTimer.label || 'LED panels') : null;
-    // sound: off until the viewer clicks it on
+    // sound: on by default (cfg.sound.default), but browsers only allow it after the visitor's first
+    // click, tap or key press on the page, so it starts then. The switch turns it off and on again.
     var sound = createSound(), soundBtn = null;
     if (sound) {
-      soundBtn = text(el('button', { type: 'button', class: 'cf-chip cf-chip-btn cf-sound', 'data-state': 'off', 'aria-pressed': 'false', title: 'Hear the fan, fogger and bubbler while they run' }, chips), 'Sound off');
+      var soundDefault = !(cfg.sound && cfg.sound.default === false);
+      soundBtn = text(el('button', { type: 'button', class: 'cf-chip cf-chip-btn cf-sound', 'data-state': soundDefault ? 'on' : 'off', 'aria-pressed': soundDefault ? 'true' : 'false', title: 'Hear the fan, fogger and bubbler while they run' }, chips), soundDefault ? 'Sound on' : 'Sound off');
+      var soundWanted = soundDefault;
+      var setSoundBtn = function () {
+        soundBtn.setAttribute('data-state', soundWanted ? 'on' : 'off'); soundBtn.setAttribute('aria-pressed', soundWanted ? 'true' : 'false');
+        soundBtn.textContent = soundWanted ? 'Sound on' : 'Sound off';
+      };
       soundBtn.addEventListener('click', function () {
-        var v = !sound.isOn();
-        sound.enable(v);
-        soundBtn.setAttribute('data-state', v ? 'on' : 'off'); soundBtn.setAttribute('aria-pressed', v ? 'true' : 'false');
-        soundBtn.textContent = v ? 'Sound on' : 'Sound off';
-        render();
+        soundWanted = !soundWanted;
+        sound.enable(soundWanted); setSoundBtn(); render();
       });
+      if (soundDefault) {
+        var firstGesture = function (ev) {
+          ['pointerup', 'keydown', 'touchend'].forEach(function (t) { document.removeEventListener(t, firstGesture, true); });
+          if (ev.target === soundBtn) return;   // that click is handled by the switch itself
+          if (soundWanted) { sound.enable(true); render(); }
+        };
+        ['pointerup', 'keydown', 'touchend'].forEach(function (t) { document.addEventListener(t, firstGesture, true); });
+      }
     }
 
     var cubeBox = el('section', { class: 'cf-box cf-info', 'aria-live': 'polite' }, panel);
     var captionEl = el('p', { class: 'cf-caption' }, root);
     captionEl.textContent = labels.caption || '';
 
-    // preview-only controls: switch the outputs by hand to review the effects (never on the real page)
-    var demoBox = null, demoBtns = {};
-    if (opts.demo) {
-      demoBox = el('div', { class: 'cf-box cf-demo' }, panel);
-      text(el('p', { class: 'cf-kicker' }, demoBox), 'Preview only · not live data');
-      var row = el('div', { class: 'cf-chips' }, demoBox);
-      (cfg.thingspeak.outputs || []).forEach(function (o) {
-        demoBtns[o.key] = text(el('button', { type: 'button', class: 'cf-chip cf-chip-btn', 'data-state': 'off', 'aria-pressed': 'false' }, row), o.label);
-        demoBtns[o.key].addEventListener('click', function () {
-          if (!state.demo) state.demo = {};
-          state.demo[o.key] = !state.demo[o.key];
-          syncDemo(); render();
-        });
-      });
-      var liveBtn = text(el('button', { type: 'button', class: 'cf-chip cf-chip-btn', 'data-state': 'off' }, row), 'Back to live');
-      liveBtn.addEventListener('click', function () { state.demo = null; syncDemo(); render(); tick(); });
-      text(el('p', { class: 'cf-demo-note' }, demoBox), 'Turns the fogger, fan and bubbler on or off in the drawing so you can see and hear the effects. Fog builds up over a few seconds and lingers after the fogger stops. Zoom into the climate zone to see it best.');
-      text(el('p', { class: 'cf-demo-note' }, demoBox), fog ? 'Fog: WebGL.' : 'Fog: simple (this browser has no WebGL, so the fog is drawn as SVG puffs).');
-      panel.insertBefore(demoBox, panel.firstChild);
-    }
+    // 'Try it yourself' switches (built in the Simulation box below): outputs switched by hand, clearly marked
+    var demoBtns = {}, demoLive = null;
     function syncDemo() {
       Object.keys(demoBtns).forEach(function (k) {
         var on = !!(state.demo && state.demo[k]);
         demoBtns[k].setAttribute('data-state', on ? 'on' : 'off');
         demoBtns[k].setAttribute('aria-pressed', on ? 'true' : 'false');
       });
+      if (demoLive) demoLive.hidden = !state.demo;
       setNet(state.demo ? 'demo' : (state.readAt ? state.liveNet || 'live' : state.liveNet || 'connecting'));
     }
 
@@ -1667,7 +1661,7 @@
       state.net = net;
       root.setAttribute('data-net', net);
       badge.setAttribute('data-net', net);
-      badge.textContent = { live: 'Live', stale: 'Stale', offline: 'Offline', connecting: 'Connecting', demo: 'Demo', sim: 'Simulation' }[net];
+      badge.textContent = { live: 'Live', stale: 'Stale', offline: 'Offline', connecting: 'Connecting', demo: 'Simulation', sim: 'Simulation' }[net];
     }
     // Where the figure's values come from: the simulation, then the demo switches, then ThingSpeak.
     var SIM_CHANNEL = { mist: 'fog', spin: 'fan', bubbles: 'light' }, outputsByKey = {};
@@ -1734,7 +1728,7 @@
       } else {
         when.textContent = state.liveNet === 'offline' ? 'ThingSpeak unreachable, retrying' : '';
       }
-      if (state.demo) when.textContent = 'Demo: outputs switched by hand, not live';
+      if (state.demo) when.textContent = 'Simulated: switched on by hand, not live data';
       if (simI >= 0) when.textContent = 'Simulated day · firmware ' + global.CupboardRules.FIRMWARE.version + ' rules · humidity is a model';
       // OLED: 6 screens, in step with the clock (faster in the simulation)
       var o = cfg.oled;
@@ -1795,10 +1789,23 @@
     var SC = Object.assign({ fast: 1200, slow: 120, fixed: 600, holdSeconds: 60, bubblerHoldSeconds: 300, leadSeconds: 30, leadReal: 1.2, startAt: '22:00' }, cfg.simulation || {});
     var simBox = el('div', { class: 'cf-box cf-sim' });
     panel.insertBefore(simBox, liveBox.nextSibling);
-    text(el('p', { class: 'cf-kicker' }, simBox), '24 h simulation');
+    text(el('p', { class: 'cf-kicker' }, simBox), 'Simulation');
     var simIntro = el('div', null, simBox);
     text(el('p', { class: 'cf-sim-note' }, simIntro), 'Play a whole day: the controller\'s rules run the fogger, fan and bubbler, the LED panels follow their timer, and the clock slows down whenever something happens.');
     var simStart = text(el('button', { type: 'button', class: 'cf-chip cf-chip-btn cf-sim-start' }, simIntro), 'Simulate a day');
+    // try it yourself: switch each output by hand and watch (and hear) what it does
+    text(el('p', { class: 'cf-sim-note cf-try' }, simIntro), 'Or switch things on yourself:');
+    var tryRow = el('div', { class: 'cf-chips' }, simIntro);
+    (cfg.thingspeak.outputs || []).forEach(function (o) {
+      demoBtns[o.key] = text(el('button', { type: 'button', class: 'cf-chip cf-chip-btn', 'data-state': 'off', 'aria-pressed': 'false', title: o.label + ' on or off in the drawing (not the real device)' }, tryRow), o.label);
+      demoBtns[o.key].addEventListener('click', function () {
+        if (!state.demo) state.demo = {};
+        state.demo[o.key] = !state.demo[o.key];
+        syncDemo(); render(); tick();
+      });
+    });
+    demoLive = text(el('button', { type: 'button', class: 'cf-chip cf-chip-btn', hidden: '' }, tryRow), 'Back to live');
+    demoLive.addEventListener('click', function () { state.demo = null; syncDemo(); render(); tick(); });
     var simUI = el('div', { class: 'cf-sim-ui', hidden: '' }, simBox);
     var simTop = el('div', { class: 'cf-sim-top' }, simUI);
     var simClock = text(el('b', { class: 'cf-sim-clock' }, simTop), '22:00');
@@ -1900,7 +1907,6 @@
         simStart.disabled = false;
         if (!ok) { simCaption.textContent = ''; text(simStart, 'Simulation unavailable (rules file missing)'); return; }
         state.demo = null;
-        if (demoBox) demoBox.hidden = true;
         var at = String(SC.startAt).split(':');
         state.sim = { t: (parseInt(at[0], 10) * 60 + parseInt(at[1] || 0, 10)) * 60, speed: SC.fast, playing: false, smart: true, interventions: [], pulled: false, raf: 0, last: 0, lastTick: 0, lastSig: '', scrubbed: true };
         simIntro.hidden = true; simUI.hidden = false;
@@ -1917,7 +1923,7 @@
       if (fog) fog.rate(1);
       simIntro.hidden = false; simUI.hidden = true;
       root.removeAttribute('data-sim'); liveKicker.textContent = 'Climate zone · live';
-      if (demoBox) { demoBox.hidden = false; syncDemo(); } else setNet(state.liveNet || 'connecting');
+      syncDemo();
       render(); tick();
     }
     simStart.addEventListener('click', startSim);

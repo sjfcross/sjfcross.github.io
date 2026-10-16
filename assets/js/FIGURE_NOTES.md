@@ -6,7 +6,8 @@ Live isometric figure of the IKEA Expedit 2×4 invertebrate cupboard.
 |---|---|
 | `assets/js/cupboard-figure.js` | Drawing and behaviour. Knows how to draw each part **kind** and animate each **effect**. No animals, positions or field numbers in here. |
 | `assets/data/cupboard.json` | Everything that changes: camera, cupboard size, cubes, residents, parts, the ThingSpeak mapping, the OLED screens, the LED timer, labels. |
-| `_preview/cupboard_preview.html` | Standalone preview (stage 1). Not linked from the site. |
+| `assets/js/cupboard-rules.js` | The controller's rules (firmware v2.4) and the humidity model for the simulation. |
+| `pages/cupboard.html` | The cupboard page. |
 
 ## Embedding
 
@@ -20,7 +21,7 @@ The script injects its own CSS (scoped under `.cf-root`). It uses the page token
 values otherwise. Fonts: Playfair Display, Lora and DM Mono, loaded by the page.
 
 `fetch()` doesn't work from `file://`, so open it through a server:
-`python3 -m http.server 8000` from the repo root, then <http://localhost:8000/_preview/cupboard_preview.html>.
+`python3 -m http.server 8000` from the repo root, then <http://localhost:8000/pages/cupboard.html>.
 
 ## Coordinates
 
@@ -157,15 +158,19 @@ draws one still frame. Without WebGL (or with `data-no-webgl`), the stage 1 SVG 
 
 ## Sound
 
-A "Sound off / on" switch in the live box. Everything is generated with Web Audio, with no audio files: a fan hum, the
-fogger's soft shhh, and the bubbler's pump buzz and bubbles. Each follows its output's `effect` (`spin`,
-`mist`, `bubbles`), live or demo. It's off by default, because browsers only allow sound after a click. It fades in
-and out and pauses while the tab is hidden.
+A "Sound on / off" switch in the live box. Everything is generated with Web Audio, with no audio files: a fan hum, the
+fogger's soft shhh, and the bubbler's pump buzz and bubbles. Each follows its output's `effect` (`spin`, `mist`,
+`bubbles`), whether the value is live or simulated.
 
-## Preview-only demo switches
+`sound.default` in the JSON (default `true`): the switch starts at "Sound on", and the sound starts with the visitor's
+first click, tap or key press on the page, because browsers don't allow sound before that. Set it to `false` to start
+silent. It fades in and out and pauses while the tab is hidden.
 
-`data-demo` on the embed adds a dashed "Preview only" box with switches for each ThingSpeak output, so the
-effects can be reviewed without live data. The badge then says "Demo". Never put `data-demo` on a real page.
+## Simulation box: try it yourself
+
+The "Simulation" box in the side panel has "Simulate a day" (below) and a row of switches, one per ThingSpeak output
+(Fogger, Fan, Bubbler). A switch turns that output on in the drawing only: fog, fan, bubbles and sound. The badge then
+says "Simulation", and "Back to live" returns to the real data. Starting a simulated day clears the switches.
 
 ## 24 h simulation (stage 3)
 
@@ -199,4 +204,3 @@ The residents list is `<div data-cupboard-residents data-src="…/cupboard.json"
 fires a `cupboard:ready` event (with `detail` set to the figure's controls, e.g. `startSim()`) that bubbles from the
 embed element. `cupboard.html` uses it for its "Play the simulated day" button.
 
-Real pages never get `data-demo`; that's for previews only.
