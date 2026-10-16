@@ -1,0 +1,187 @@
+{
+  "version": 1,
+  "notes": "Config for assets/js/cupboard-figure.js. Units are centimetres. Cube-local coordinates: x from the cube's left inner wall, y from the front opening (back = 39), z from the cube floor. See FIGURE_NOTES.md.",
+
+  "labels": {
+    "fig": "Fig 1",
+    "title": "The cupboard · live",
+    "hint": "Hover or tap a cube",
+    "caption": "IKEA Expedit 2×4, drawn from photos. Climate-zone readings, fogger, fan and Sea Monkey bubbler are read live from the public ThingSpeak channel 3372054 (read-only). The four LED panels follow their own 12:00–22:30 timer (UK time); they are not in ThingSpeak.",
+    "emptyCube": "Hover or tap a cube to see who lives there."
+  },
+
+  "camera": { "azimuth": -7, "elevation": 8 },
+
+  "cupboard": {
+    "width": 79, "height": 149, "depth": 39,
+    "outerBoard": 4.5, "innerBoard": 2.5,
+    "finish": "#2b211d"
+  },
+
+  "ledTimer": { "timeZone": "Europe/London", "on": "12:00", "off": "22:30", "label": "LED panels" },
+
+  "thingspeak": {
+    "url": "https://api.thingspeak.com/channels/3372054/feeds/last.json",
+    "channel": 3372054,
+    "pollSeconds": 25,
+    "staleAfterSeconds": 120,
+    "timeoutSeconds": 10,
+    "readings": [
+      { "key": "temperature", "field": "field1", "label": "Temperature", "unit": "°C", "decimals": 1 },
+      { "key": "humidity", "field": "field2", "label": "Humidity", "unit": "%", "decimals": 0, "warnAbove": 75, "dangerAbove": 89 }
+    ],
+    "outputs": [
+      { "key": "fogger", "field": "field3", "label": "Fogger", "part": "part-fogger", "effect": "mist", "gpio": "D1 / GPIO5" },
+      { "key": "fan", "field": "field4", "label": "Fan", "part": "part-fan", "effect": "spin", "gpio": "D3 / GPIO0" },
+      { "key": "bubbler", "field": "field5", "label": "Bubbler", "part": "part-seamonkey-tank", "effect": "bubbles", "gpio": "D2 / GPIO4", "note": "Firmware still calls this output \"Light\"." }
+    ]
+  },
+
+  "oled": {
+    "part": "part-oled",
+    "secondsPerScreen": 10,
+    "screens": [
+      { "title": "CLOCK", "show": "clock" },
+      { "title": "HUMIDITY", "show": "reading", "key": "humidity" },
+      { "title": "TEMP", "show": "reading", "key": "temperature" },
+      { "title": "FOGGER", "show": "output", "key": "fogger" },
+      { "title": "LIGHT", "show": "output", "key": "bubbler" },
+      { "title": "FAN", "show": "output", "key": "fan" }
+    ]
+  },
+
+  "cubes": [
+    {
+      "id": "cube-r4-l", "row": 4, "col": 0,
+      "name": "Top left: tarantulas, mantis and Sea Monkeys",
+      "desc": "Glass door hinged on the left, white insert, LED panel on the ceiling and a glass shelf. Not climatised; the Sea Monkey bubbler runs from the NodeMCU.",
+      "lit": "ledTimer",
+      "residents": [
+        { "scientific": "Brachypelma hamorii", "common": "Mexican red-knee tarantula", "where": "acrylic terra, bottom left", "in": "part-terra-hamorii", "visible": true, "nameSource": "unverified" },
+        { "scientific": "Lasiodora parahybana", "common": "Brazilian salmon pink birdeater", "where": "acrylic terra, bottom right", "in": "part-terra-parahybana", "visible": true, "nameSource": "unverified" },
+        { "scientific": "Hierodula membranacea", "common": "Giant Asian mantis", "where": "yellow-lidded cup on the shelf", "in": "part-cup-mantis", "visible": false, "nameSource": "unverified" },
+        { "scientific": "Heterometrus silenus", "common": "Asian forest scorpion (baby)", "where": "small cup hidden behind the mantis cup", "in": "part-cup-scorpion", "visible": false, "nameSource": "unverified" },
+        { "scientific": "Artemia sp.", "common": "Sea Monkeys (brine shrimp)", "where": "tall tank on the shelf, bubbler from the NodeMCU", "in": "part-seamonkey-tank", "visible": false, "nameSource": "unverified" }
+      ]
+    },
+    {
+      "id": "cube-r4-r", "row": 4, "col": 1,
+      "name": "Top right: bottles",
+      "desc": "Whisky bottles, drawn as generic bottles.",
+      "residents": []
+    },
+    {
+      "id": "cube-r3-l", "row": 3, "col": 0,
+      "name": "Row 3 left: desert and isopod shelf",
+      "desc": "Open cube with a glass shelf and an LED panel. Not climatised.",
+      "lit": "ledTimer",
+      "residents": [
+        { "scientific": "Prionotheca coronata", "common": "Radiant sun beetle", "where": "acrylic box, top left", "in": "part-box-beetle", "visible": true, "nameSource": "plan" },
+        { "scientific": "Smeringurus mesaensis", "common": "Dune scorpion", "where": "round tub, top right", "in": "part-tub-scorpion", "visible": false, "nameSource": "unverified" },
+        { "scientific": "Porcellio laevis", "common": "Swift isopod, orange form (many)", "where": "glass terrarium, bottom", "in": "part-terra-isopods", "visible": true, "nameSource": "unverified" },
+        { "scientific": "Millipede (unidentified)", "common": "1 millipede", "where": "glass terrarium, bottom", "in": "part-terra-isopods", "visible": false, "nameSource": "plan" }
+      ]
+    },
+    {
+      "id": "cube-r3-r", "row": 3, "col": 1,
+      "name": "Row 3 right: the climate zone",
+      "desc": "Glass door hinged on the right, white insert, glass shelf with its back-right corner broken out so fog can rise. Fogger, fan and AHT10 sensor run from the NodeMCU in the cube below.",
+      "lit": "ledTimer",
+      "live": true,
+      "residents": [
+        { "scientific": "Caribena versicolor", "common": "Martinique pinktoe", "where": "top left", "in": "part-terra-versicolor", "visible": true, "nameSource": "site" },
+        { "scientific": "Avicularia purpurea", "common": "Purple pinktoe", "where": "top right", "in": "part-terra-purpurea", "visible": true, "nameSource": "site" },
+        { "scientific": "Avicularia minatrix", "common": "Red slate pinktoe", "where": "bottom left", "in": "part-terra-minatrix", "visible": true, "nameSource": "site" },
+        { "scientific": "Caribena laeta", "common": "Puerto Rican pinktoe", "where": "bottom right", "in": "part-terra-laeta", "visible": true, "nameSource": "site" }
+      ]
+    },
+    {
+      "id": "cube-r2-l", "row": 2, "col": 0,
+      "name": "Row 2 left: gimmicks and glasses",
+      "desc": "Four-compartment insert: Glencairn glasses, a hip flask, plush sheep and small gimmicks.",
+      "residents": []
+    },
+    {
+      "id": "cube-r2-r", "row": 2, "col": 1,
+      "name": "Row 2 right: stick insects and electronics",
+      "desc": "Zoo Med glass terrarium with an angled LED panel above. The light-wood box on the left wall holds the NodeMCU and its OLED; cables run up into the climate zone. The air pump and cable runs are behind the cupboard (open back).",
+      "lit": "ledTimer",
+      "residents": [
+        { "scientific": "Medauroidea extradentata", "common": "Annam walking stick, 'Blue' (2)", "where": "Zoo Med terrarium, on bramble in a water cup", "in": "part-terra-stickinsects", "visible": true, "nameSource": "unverified" }
+      ]
+    },
+    {
+      "id": "cube-r1-l", "row": 1, "col": 0,
+      "name": "Bottom left: stores",
+      "desc": "Closed door: animal equipment, food and tools.",
+      "residents": []
+    },
+    {
+      "id": "cube-r1-r", "row": 1, "col": 1,
+      "name": "Bottom right: sweets",
+      "desc": "Closed door: sweets.",
+      "residents": []
+    }
+  ],
+
+  "parts": [
+    { "id": "part-insert-r4l", "cube": "cube-r4-l", "kind": "whiteInsert", "label": "White insert", "back": 37.5, "topTrim": false },
+    { "id": "part-terra-hamorii", "cube": "cube-r4-l", "kind": "acrylicTerra", "label": "Acrylic terra (B. hamorii)", "at": [1.5, 2, 0], "size": [15, 16, 14.5], "substrate": "pale", "decor": ["bark", "plant"], "critter": { "type": "spider", "body": "#1d1714", "accent": "#d0612f", "span": 7, "u": 0.58, "b": 0.06 } },
+    { "id": "part-terra-parahybana", "cube": "cube-r4-l", "kind": "acrylicTerra", "label": "Acrylic terra (L. parahybana)", "at": [17, 2, 0], "size": [15, 16, 14.5], "substrate": "dark", "decor": ["wood", "burrow"], "critter": { "type": "spider", "body": "#4a3428", "accent": "#d79a86", "span": 6, "u": 0.3, "b": 0.05 } },
+    { "id": "part-glass-shelf-r4l", "cube": "cube-r4-l", "kind": "glassShelf", "label": "Glass shelf", "z": 15.5, "x0": 1, "x1": 32.75, "y0": 0.6, "y1": 37.5, "list": false },
+    { "id": "part-plant-polkadot", "cube": "cube-r4-l", "kind": "plantPot", "label": "Polka-dot plant", "at": [7.5, 11, 16.1], "r": 3.3, "h": 4.4 },
+    { "id": "part-cup-scorpion", "cube": "cube-r4-l", "kind": "cup", "label": "Cup (H. silenus, hidden behind)", "at": [16.5, 17, 16.1], "r": 3.2, "h": 4, "lid": "#e9e7df" },
+    { "id": "part-cup-mantis", "cube": "cube-r4-l", "kind": "cup", "label": "Mantis cup (yellow mesh lid)", "at": [15.8, 7.5, 16.1], "r": 3.9, "h": 4.6, "lid": "#e2c94a", "drape": true },
+    { "id": "part-seamonkey-tank", "cube": "cube-r4-l", "kind": "seaMonkeyTank", "label": "Sea Monkey tank + bubbler tube", "at": [25, 11, 16.1], "r": 5, "h": 12.6, "tubeFrom": [21.5, 37.4, 29.5] },
+    { "id": "part-led-r4l", "cube": "cube-r4-l", "kind": "ledPanel", "label": "LED panel (12 V, own timer)", "x0": 10, "x1": 24, "y0": 6, "y1": 21, "z": 33.0, "tilt": 0, "timer": "ledTimer" },
+    { "id": "part-door-r4l", "cube": "cube-r4-l", "kind": "glassDoor", "label": "Glass door (hinged left)", "hinge": "left" },
+
+    { "id": "part-bottle-1", "cube": "cube-r4-r", "kind": "bottle", "label": "Bottle", "at": [5.5, 15, 0], "r": 3.7, "h": 30, "glass": "#18243f", "liquid": "#0d1426", "cap": "#3b3b3b", "neck": 0.32 },
+    { "id": "part-bottle-2", "cube": "cube-r4-r", "kind": "bottle", "label": "Bottle", "at": [12.8, 16, 0], "r": 3.8, "h": 27.5, "glass": "#4b3a2a", "liquid": "#2a1a0e", "cap": "#5a5040", "neck": 0.3 },
+    { "id": "part-bottle-3", "cube": "cube-r4-r", "kind": "bottle", "label": "Bottle", "at": [19.4, 17, 0], "r": 3.1, "h": 27, "glass": "#2c3a24", "liquid": "#1d2414", "cap": "#6a4a2a", "neck": 0.36 },
+    { "id": "part-bottle-4", "cube": "cube-r4-r", "kind": "bottle", "label": "Bottle", "at": [25.4, 14, 0], "r": 3.8, "h": 29.5, "glass": "#2d5a2a", "liquid": "#2a3a12", "cap": "#e8e6df", "neck": 0.3 },
+
+    { "id": "part-terra-isopods", "cube": "cube-r3-l", "kind": "glassTerra", "label": "Glass terrarium (isopods + millipede)", "at": [2.5, 5, 0], "size": [28, 21, 14.5] },
+    { "id": "part-glass-shelf-r3l", "cube": "cube-r3-l", "kind": "glassShelf", "label": "Glass shelf", "z": 19.5, "x0": 0, "x1": 33.75, "y0": 0.6, "y1": 38.5, "list": false },
+    { "id": "part-box-beetle", "cube": "cube-r3-l", "kind": "acrylicTerra", "label": "Acrylic box (radiant sun beetle)", "at": [1.2, 5, 20.1], "size": [18, 12, 8], "substrate": "sandRed", "decor": [], "lid": "#3a2620", "door": false, "critter": { "type": "beetle", "u": 0.62, "b": 0.0 } },
+    { "id": "part-tub-scorpion", "cube": "cube-r3-l", "kind": "roundTub", "label": "Round tub (dune scorpion)", "at": [25, 10, 20.1], "r": 5.8, "h": 8 },
+    { "id": "part-led-r3l", "cube": "cube-r3-l", "kind": "ledPanel", "label": "LED panel (12 V, own timer)", "x0": 9, "x1": 25, "y0": 8, "y1": 24, "z": 33.0, "tilt": 0, "timer": "ledTimer", "note": "Position assumed (not in the photos)." },
+
+    { "id": "part-insert-climate", "cube": "cube-r3-r", "kind": "whiteInsert", "label": "White insert", "back": 37.5, "topTrim": true },
+    { "id": "part-cable-hole", "cube": "cube-r3-r", "kind": "cableHole", "label": "Cable entry (from the electronics box below)", "at": [2.4, 37.45, 1.4] },
+    { "id": "part-cable-fan", "cube": "cube-r3-r", "kind": "cable", "label": "Fan cable", "points": [[9.2, 37.4, 7.6], [5, 37.4, 4.5], [2.6, 37.4, 1.6]], "colour": "#111", "list": false },
+    { "id": "part-cable-sensor", "cube": "cube-r3-r", "kind": "cable", "label": "Sensor cable", "points": [[4.4, 37.4, 16.9], [3.4, 37.4, 9], [2.3, 37.4, 1.7]], "colour": "#1d3f9a", "list": false },
+    { "id": "part-cable-mood", "cube": "cube-r3-r", "kind": "cable", "label": "Mood LED cable (disconnected)", "points": [[4.6, 37.4, 27.2], [3.7, 37.4, 18], [2.9, 37.4, 9], [2.1, 37.4, 1.8]], "colour": "#2a3a7a", "list": false },
+    { "id": "part-cable-fogger", "cube": "cube-r3-r", "kind": "cable", "label": "Fogger cable", "points": [[26.6, 33.5, 0.15], [20, 36.5, 0.15], [8, 36.8, 0.15], [2.6, 37.2, 0.4], [2.4, 37.4, 1.2]], "colour": "#111", "list": false },
+    { "id": "part-fan", "cube": "cube-r3-r", "kind": "fan", "label": "Fan (40 mm, on the back wall)", "at": [11, 37.5, 8.8], "size": 4 },
+    { "id": "part-fogger", "cube": "cube-r3-r", "kind": "fogger", "label": "Fogger (USB mist maker, BC548B button mod)", "at": [28.2, 31.5, 0], "r": 3.1, "h": 6.6 },
+    { "id": "part-terra-minatrix", "cube": "cube-r3-r", "kind": "acrylicTerra", "label": "Acrylic terra (A. minatrix)", "at": [1.3, 1.5, 0], "size": [15.2, 15.5, 15.3], "substrate": "coco", "decor": ["wood", "plant", "dish"], "critter": { "type": "spider", "body": "#1f2230", "accent": "#d77a6a", "span": 4.5, "u": 0.62, "b": 0.42 } },
+    { "id": "part-terra-laeta", "cube": "cube-r3-r", "kind": "acrylicTerra", "label": "Acrylic terra (C. laeta)", "at": [17.1, 1.5, 0], "size": [15.2, 15.5, 15.3], "substrate": "coco", "decor": ["corkTube", "dish", "moss"], "critter": { "type": "spider", "body": "#2a2420", "accent": "#e2a3a0", "span": 4, "u": 0.24, "b": 0.55 } },
+    { "id": "part-glass-shelf-climate", "cube": "cube-r3-r", "kind": "glassShelf", "label": "Glass shelf (back-right corner broken out)", "z": 16.2, "x0": 1, "x1": 32.75, "y0": 0.6, "y1": 37.5, "notch": [6.5, 6.5] },
+    { "id": "part-sensor", "cube": "cube-r3-r", "kind": "sensor", "label": "AHT10 sensor (I²C)", "at": [4.4, 37.4, 17.6] },
+    { "id": "part-mood-led", "cube": "cube-r3-r", "kind": "moodLed", "label": "Mood LED (not connected, unlit)", "at": [4.8, 37.4, 28.6], "r": 2, "glow": "#c4b5fd" },
+    { "id": "part-terra-versicolor", "cube": "cube-r3-r", "kind": "acrylicTerra", "label": "Acrylic terra (C. versicolor)", "at": [1.3, 1.5, 16.8], "size": [15.2, 15.5, 14.6], "substrate": "coco", "decor": ["wood", "plant", "web"], "critter": { "type": "spider", "body": "#243a3f", "accent": "#c7577a", "span": 4.5, "u": 0.3, "b": 0.5 } },
+    { "id": "part-terra-purpurea", "cube": "cube-r3-r", "kind": "acrylicTerra", "label": "Acrylic terra (A. purpurea)", "at": [17.1, 1.5, 16.8], "size": [15.2, 15.5, 14.6], "substrate": "coco", "decor": ["corkTube", "web", "succulent", "dish"], "critter": { "type": "spider", "body": "#2b2238", "accent": "#d48a9a", "span": 4.5, "u": 0.42, "b": 0.62 } },
+    { "id": "part-led-climate", "cube": "cube-r3-r", "kind": "ledPanel", "label": "LED panel (12 V, own timer)", "x0": 9, "x1": 25, "y0": 4, "y1": 21, "z": 33.0, "tilt": -12, "timer": "ledTimer" },
+    { "id": "part-door-climate", "cube": "cube-r3-r", "kind": "glassDoor", "label": "Glass door (hinged right)", "hinge": "right" },
+
+    { "id": "part-insert-gimmicks", "cube": "cube-r2-l", "kind": "compartmentInsert", "label": "4-compartment insert", "split": 16.2, "divider": 15.6, "back": 37 },
+    { "id": "part-flask", "cube": "cube-r2-l", "kind": "flask", "label": "Hip flask", "at": [4, 12, 0.8], "size": [8, 2.6, 10.5] },
+    { "id": "part-plush-white", "cube": "cube-r2-l", "kind": "plush", "label": "Plush sheep", "at": [3.2, 6, 0.8], "r": 2.6, "body": "#ecebe6", "face": "#efe9e0" },
+    { "id": "part-plush-dark", "cube": "cube-r2-l", "kind": "plush", "label": "Plush sheep", "at": [22, 12, 0.8], "r": 3.6, "body": "#2a2524", "face": "#f1eee8" },
+    { "id": "part-figurine-1", "cube": "cube-r2-l", "kind": "plush", "label": "Sheep figurine", "at": [5.5, 14, 17.2], "r": 1.4, "body": "#f0eee8", "face": "#3a3330" },
+    { "id": "part-figurine-2", "cube": "cube-r2-l", "kind": "plush", "label": "Sheep figurine", "at": [10.5, 10, 17.2], "r": 1.3, "body": "#f0eee8", "face": "#3a3330" },
+    { "id": "part-glencairn-1", "cube": "cube-r2-l", "kind": "glencairn", "label": "Glencairn glass", "at": [20.5, 9, 17.2], "r": 2.3, "h": 10.5 },
+    { "id": "part-glencairn-2", "cube": "cube-r2-l", "kind": "glencairn", "label": "Glencairn glass", "at": [26.8, 7, 17.2], "r": 2.3, "h": 10.5 },
+
+    { "id": "part-terra-stickinsects", "cube": "cube-r2-r", "kind": "zooMedTerra", "label": "Zoo Med glass terrarium (stick insects)", "at": [10, 6, 0], "size": [19.5, 19.5, 28] },
+    { "id": "part-usb-cable", "cube": "cube-r2-r", "kind": "cable", "label": "USB cable", "points": [[1.2, 12, 27.2], [0.4, 10, 29.5], [0.3, 6, 33]], "colour": "#d9dde2", "list": false },
+    { "id": "part-cables-up", "cube": "cube-r2-r", "kind": "cable", "label": "Cables up to the climate zone", "points": [[3, 17.2, 26.6], [2.6, 30, 30.5], [2.4, 37.6, 33.1]], "colour": "#121212", "width": 1.6, "list": false },
+    { "id": "part-electronics-box", "cube": "cube-r2-r", "kind": "electronicsBox", "label": "Electronics box (NodeMCU + protoboard)", "at": [0, 9, 21.2], "size": [8.2, 8, 5.6] },
+    { "id": "part-oled", "cube": "cube-r2-r", "kind": "oled", "label": "SSD1306 OLED (6 screens)", "at": [4.1, 9, 24.1], "size": [4.6, 2.5], "note": "Drawn on the box's front face (exact spot not confirmed)." },
+    { "id": "part-led-r2r", "cube": "cube-r2-r", "kind": "ledPanel", "label": "LED panel (12 V, own timer)", "x0": 11, "x1": 29, "y0": 4, "y1": 16, "z": 33.0, "tilt": 16, "timer": "ledTimer" },
+
+    { "id": "part-door-r1l", "cube": "cube-r1-l", "kind": "door", "label": "Door (equipment, food, tools)", "knob": [0.86, 0.2] },
+    { "id": "part-door-r1r", "cube": "cube-r1-r", "kind": "door", "label": "Door (sweets)", "knob": [0.86, 0.2] }
+  ]
+}
