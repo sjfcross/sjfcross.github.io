@@ -188,6 +188,15 @@ the embed is still one element. In the panel, "Simulate a day" starts it. Smart 
 after it, longer after the bubbler starts (`bubblerHoldSeconds`). The fog, sounds, OLED (with BLOCKED / OVERRIDE /
 countdowns / ERR), LED panels and readings all follow the simulated day. With reduced motion it starts paused.
 
-## Not built yet
+## Where it's embedded (stage 4)
 
-The real page (`pages/cupboard.html`) and any embed in existing pages (stage 4).
+- `pages/cupboard.html`: the whole cupboard (figure, residents list, simulation section, links).
+- `pages/arachnid.html`, section `#live-figure`: the same module, started zoomed into the climate zone with
+  `data-start="climate"`.
+- `pages/animals.html`: a link "The cupboard, live →" next to "How it works →".
+
+The residents list is `<div data-cupboard-residents data-src="…/cupboard.json">`. When a figure is ready, the module
+fires a `cupboard:ready` event (with `detail` set to the figure's controls, e.g. `startSim()`) that bubbles from the
+embed element. `cupboard.html` uses it for its "Play the simulated day" button.
+
+Real pages never get `data-demo`; that's for previews only.

@@ -925,6 +925,7 @@
     '.cf-res em{font-style:normal;color:var(--cf-amber)}',
     '.cf-parts li{font-family:var(--cf-mono);font-size:11.5px;color:var(--cf-dim)}',
     '.cf-parts li b{font-weight:500;color:var(--cf-accent2)}',
+    '.cf-res-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));align-items:start}',
     '.cf-caption{margin:0;font-size:13px;line-height:1.6;color:var(--cf-dim);max-width:72ch}',
     '.cf-error{padding:16px;border:1px solid var(--cf-red);border-radius:4px;font-family:var(--cf-mono);font-size:12px;color:var(--cf-red)}'
   ].join('\n');
@@ -1952,6 +1953,7 @@
     poll();
     var api = { root: root, svg: svgEl, state: state, zoomTo: zoomTo, fog: fog, startSim: startSim, stopSim: stopSim };
     instances.push(api);
+    try { host.dispatchEvent(new CustomEvent('cupboard:ready', { detail: api, bubbles: true })); } catch (e) { /* old browser: no event */ }
     return api;
   }
 
@@ -1972,7 +1974,44 @@
       });
   }
 
-  function auto() { Array.prototype.forEach.call(document.querySelectorAll('[data-cupboard-figure]'), mountFrom); }
-  global.CupboardFigure = { mount: mount, mountFrom: mountFrom, painters: PAINTERS, instances: instances };
+  // A plain list of who lives where, from the same JSON as the figure:
+  // <div data-cupboard-residents data-src="/assets/data/cupboard.json"></div>
+  function mountResidents(host, cfg) {
+    injectStyle();
+    host.innerHTML = '';
+    var root = el('div', { class: 'cf-root cf-residents' }, host);
+    var cubes = cfg.cubes.filter(function (c) { return c.residents && c.residents.length; })
+      .sort(function (a, b) { return b.row - a.row || a.col - b.col; });
+    var total = cubes.reduce(function (n, c) { return n + c.residents.length; }, 0);
+    text(el('p', { class: 'cf-kicker' }, root), total + ' residents in ' + cubes.length + ' cubes');
+    var grid = el('div', { class: 'cf-res-grid' }, root);
+    cubes.forEach(function (c) {
+      var box = el('section', { class: 'cf-box cf-info' }, grid);
+      text(el('h3', null, box), c.name);
+      var ul = el('ul', null, box);
+      c.residents.forEach(function (r) {
+        var li = el('li', { class: 'cf-res' }, ul);
+        text(el('i', null, li), r.scientific);
+        li.appendChild(document.createTextNode(' · ' + r.common));
+        var meta = el('span', null, li);
+        meta.appendChild(document.createTextNode(r.where || ''));
+        if (r.visible === false) { meta.appendChild(document.createTextNode(' · ')); text(el('em', null, meta), 'hidden from view'); }
+      });
+    });
+  }
+  function mountResidentsFrom(host) {
+    if (host.__cupboardResidents) return;
+    host.__cupboardResidents = true;
+    var src = host.getAttribute('data-src') || 'assets/data/cupboard.json';
+    fetch(src, { cache: 'no-cache' }).then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function (cfg) { mountResidents(host, cfg); })
+      .catch(function () { host.textContent = 'Could not load the residents list.'; });
+  }
+
+  function auto() {
+    Array.prototype.forEach.call(document.querySelectorAll('[data-cupboard-figure]'), mountFrom);
+    Array.prototype.forEach.call(document.querySelectorAll('[data-cupboard-residents]'), mountResidentsFrom);
+  }
+  global.CupboardFigure = { mount: mount, mountFrom: mountFrom, mountResidents: mountResidents, painters: PAINTERS, instances: instances };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', auto); else auto();
 })(window);
