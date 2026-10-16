@@ -158,7 +158,7 @@ draws one still frame. Without WebGL (or with `data-no-webgl`), the stage 1 SVG 
 ## Sound
 
 A "Sound off / on" switch in the live box. Everything is generated with Web Audio, with no audio files: a fan hum, the
-fogger's hiss and gurgles, and the bubbler's pump buzz and bubbles. Each follows its output's `effect` (`spin`,
+fogger's soft shhh, and the bubbler's pump buzz and bubbles. Each follows its output's `effect` (`spin`,
 `mist`, `bubbles`), live or demo. It's off by default, because browsers only allow sound after a click. It fades in
 and out and pauses while the tab is hidden.
 

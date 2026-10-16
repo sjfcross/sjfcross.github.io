@@ -27,9 +27,9 @@
     "shelf": "part-glass-shelf-climate",
     "output": "fogger",
     "fanOutput": "fan",
-    "attackSeconds": 6,
+    "attackSeconds": 3,
     "lingerSeconds": 45,
-    "colour": "#d2e8fa",
+    "colour": "#cbb8ff",
     "quality": 0.75
   },
 

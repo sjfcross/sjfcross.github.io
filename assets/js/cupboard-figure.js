@@ -944,7 +944,7 @@
       lin('wall-l', [[0, '#e6e7e2'], [1, '#c9cac4']]) +
       lin('wall-b', [[0, '#cfd0ca'], [1, '#bfc0ba']], true) +
       lin('cone', [[0, '#fff6dc', .36], [.55, '#fff2d0', .1], [1, '#fff2d0', 0]], true) +
-      rad('puff', [[0, '#d6efff', .95], [.55, '#a9d8f5', .55], [1, '#9fd0ef', 0]]) +
+      rad('puff', [[0, '#e3d4ff', .95], [.55, '#c2b0fa', .6], [1, '#b8a4f5', 0]]) +
       rad('glow', [[0, '#c4b5fd', .9], [1, '#c4b5fd', 0]]) +
       '<filter id="' + uid + '-blur" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="2.2"/></filter>' +
       '</defs>';
@@ -1176,8 +1176,8 @@
     '  float d=density(vec3(x,y,z));',
     '  acc+=d*mix(1.,uSeep*.55,inT)*dy;',
     ' }',
-    ' float alpha=(1.-exp(-acc*.55))*open;',
-    ' vec3 col=uColour*mix(.62,1.,uLight)*(.82+.25*alpha);',
+    ' float alpha=(1.-exp(-acc*1.1))*open;',
+    ' vec3 col=uColour*mix(.72,1.,uLight);',
     ' float n=(hash12(gl_FragCoord.xy+fract(uTime*.61)*91.)+hash12(gl_FragCoord.yx*1.37+fract(uTime*.29)*57.)-1.)/255.;',
     ' alpha=max(alpha+n*smoothstep(0.,1.5/255.,alpha),0.);',
     ' gl_FragColor=vec4(col*alpha,alpha);',
@@ -1287,13 +1287,13 @@
   }
 
   // ------------------------------------------------------------------ sound
-  // Generated with Web Audio, no files: fan hum, the fogger's hiss and gurgle, the bubbler's pump buzz and bubbles.
+  // Generated with Web Audio, no files: fan hum, the fogger's soft shhh, the bubbler's pump buzz and bubbles.
   // Off until the viewer switches it on (browsers only allow sound after a click anyway).
 
   function createSound() {
     var AC = global.AudioContext || global.webkitAudioContext;
     if (!AC) return null;
-    var ctx = null, master = null, ch = {}, on = false, want = { fogger: false, fan: false, bubbler: false }, bubbleTimer = 0, gurgleTimer = 0;
+    var ctx = null, master = null, ch = {}, on = false, want = { fogger: false, fan: false, bubbler: false }, bubbleTimer = 0;
     function noiseBuffer() {
       var b = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate), d = b.getChannelData(0), last = 0;
       for (var i = 0; i < d.length; i++) { var w = Math.random() * 2 - 1; last = (last + 0.02 * w) / 1.02; d[i] = w * 0.5 + last * 3; }
@@ -1310,11 +1310,13 @@
       loopNoise().connect(fanBand); fanBand.connect(ch.fan);
       var motor = ctx.createOscillator(); motor.type = 'triangle'; motor.frequency.value = 118;
       var motorG = ctx.createGain(); motorG.gain.value = 0.18; motor.connect(motorG); motorG.connect(ch.fan); motor.start();
-      // fogger: thin high hiss (the ultrasonic disc and the mist), gurgles scheduled below
+      // fogger: a soft shhh
       ch.fogger = ctx.createGain(); ch.fogger.gain.value = 0; ch.fogger.connect(master);
-      var hiss = ctx.createBiquadFilter(); hiss.type = 'highpass'; hiss.frequency.value = 3200;
-      var hissG = ctx.createGain(); hissG.gain.value = 0.35;
-      loopNoise().connect(hiss); hiss.connect(hissG); hissG.connect(ch.fogger);
+      // a soft "shhh": noise band-passed around 3 kHz, gently rounded off at the top
+      var shh = ctx.createBiquadFilter(); shh.type = 'bandpass'; shh.frequency.value = 3000; shh.Q.value = 0.5;
+      var shhTop = ctx.createBiquadFilter(); shhTop.type = 'lowpass'; shhTop.frequency.value = 6500;
+      var hissG = ctx.createGain(); hissG.gain.value = 0.5;
+      loopNoise().connect(shh); shh.connect(shhTop); shhTop.connect(hissG); hissG.connect(ch.fogger);
       // bubbler: air pump buzz, bubbles scheduled below
       ch.bubbler = ctx.createGain(); ch.bubbler.gain.value = 0; ch.bubbler.connect(master);
       var pump = ctx.createOscillator(); pump.type = 'sawtooth'; pump.frequency.value = 100;
@@ -1329,24 +1331,19 @@
       o.connect(g); g.connect(dest); o.start(t); o.stop(t + dur + 0.02);
     }
     function schedule() {
-      clearTimeout(bubbleTimer); clearTimeout(gurgleTimer);
+      clearTimeout(bubbleTimer);
       if (!on) return;
       if (want.bubbler) (function bub() {
         var f = 380 + Math.random() * 500;
         blip(ch.bubbler, f, f * (2 + Math.random()), 0.05 + Math.random() * 0.05, 0.5 + Math.random() * 0.4);
         bubbleTimer = setTimeout(bub, 40 + Math.random() * 140);
       })();
-      if (want.fogger) (function gurgle() {
-        var f = 160 + Math.random() * 200;
-        blip(ch.fogger, f, f * 1.6, 0.09 + Math.random() * 0.08, 0.25);
-        gurgleTimer = setTimeout(gurgle, 500 + Math.random() * 1500);
-      })();
     }
     function apply() {
       if (!ctx) return;
       var t = ctx.currentTime;
       ch.fan.gain.setTargetAtTime(on && want.fan ? 0.09 : 0, t, 0.4);
-      ch.fogger.gain.setTargetAtTime(on && want.fogger ? 0.06 : 0, t, 0.6);
+      ch.fogger.gain.setTargetAtTime(on && want.fogger ? 0.035 : 0, t, 0.8);
       ch.bubbler.gain.setTargetAtTime(on && want.bubbler ? 0.07 : 0, t, 0.3);
       schedule();
     }
@@ -1453,6 +1450,7 @@
       var liveBtn = text(el('button', { type: 'button', class: 'cf-chip cf-chip-btn', 'data-state': 'off' }, row), 'Back to live');
       liveBtn.addEventListener('click', function () { state.demo = null; syncDemo(); render(); tick(); });
       text(el('p', { class: 'cf-demo-note' }, demoBox), 'Turns the fogger, fan and bubbler on or off in the drawing so you can see and hear the effects. Fog builds up over a few seconds and lingers after the fogger stops. Zoom into the climate zone to see it best.');
+      text(el('p', { class: 'cf-demo-note' }, demoBox), fog ? 'Fog: WebGL.' : 'Fog: simple (this browser has no WebGL, so the fog is drawn as SVG puffs).');
       panel.insertBefore(demoBox, panel.firstChild);
     }
     function syncDemo() {
