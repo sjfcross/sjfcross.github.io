@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>S9 Warden — Android Recorder &amp; Bird Nights | Project Documentation | SJFCROSS</title>
+  <meta name="description" content="An old Galaxy S9+ turned into a remote-controlled recorder: a custom Android app, a Telegram bot, and a BirdNET pipeline that turns a night of audio into a bird report.">
+  <link rel="icon" type="image/png" href="../assets/img/favicon-32x32.png">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400;500&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:           #070a10;
+      --bg2:          #0b1019;
+      --panel:        #101724;
+      --border:       rgba(85,152,231,0.18);
+      --border2:      rgba(85,152,231,0.08);
+      --accent:       #5598e7;
+      --accent2:      #9cc6f5;
+      --green:        #4cc38a;
+      --text:         #e2e8f0;
+      --text-dim:     #9aa8bb;
+      --text-bright:  #f1f5f9;
+      --ease-out:     cubic-bezier(0.23, 1, 0.32, 1);
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    'Lora', Georgia, serif;
+      --font-mono:    'DM Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: var(--font-body); font-size: 1rem; line-height: 1.75;
+      min-height: 100vh;
+    }
+    strong { color: var(--text-bright); font-weight: 600; }
+
+    /* Nav */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(7,10,16,0.92);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 2rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    }
+    nav a {
+      color: var(--text-dim); text-decoration: none;
+      font-family: var(--font-mono); font-size: 0.77rem; letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--accent2); }
+    nav .nav-brand { color: var(--accent2); font-size: 0.82rem; font-weight: 500; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .back-btn {
+      background: var(--panel); border: 1px solid var(--border);
+      padding: 0.35rem 0.9rem; border-radius: 6px; font-size: 0.75rem;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .back-btn:hover { border-color: var(--accent); }
+
+    /* Hero */
+    .hero {
+      position: relative; min-height: 520px;
+      display: flex; align-items: flex-end;
+      padding: 0 0 4.5rem; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: url('../assets/img/s9warden/spectrogram_wide.jpg') center / cover no-repeat;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(7,10,16,0.25) 0%, rgba(7,10,16,0.72) 55%, var(--bg) 100%);
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 680px; }
+    .hero-eyebrow {
+      font-family: var(--font-mono); font-size: 0.72rem;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--accent2); margin-bottom: 1rem;
+    }
+    .hero h1 {
+      font-family: var(--font-display); font-size: clamp(2.5rem, 6vw, 4.4rem);
+      font-weight: 700; color: var(--text-bright); line-height: 1.08; margin-bottom: 1rem;
+    }
+    .hero h1 em { color: var(--accent); font-style: italic; }
+    .hero-sub { font-size: 1.05rem; color: var(--text); max-width: 540px; margin-bottom: 2rem; }
+    .hero-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.6rem 1.4rem; border-radius: 8px;
+      font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.05em;
+      text-decoration: none; border: 1px solid transparent;
+      transition: transform 0.22s var(--ease-out), background 0.2s, border-color 0.2s;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn:active { transform: scale(0.97); transition-duration: 0.08s; }
+    .btn-primary { background: var(--accent); color: #06101d; border-color: var(--accent); }
+    .btn-primary:hover { background: var(--accent2); border-color: var(--accent2); }
+    .btn-ghost { background: rgba(85,152,231,0.08); color: var(--text); border-color: var(--border); }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent2); }
+
+    /* Layout */
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; width: 100%; }
+    section { padding: 3.5rem 0; }
+    .divider { border: none; border-top: 1px solid var(--border2); }
+    .section-label {
+      font-family: var(--font-mono); font-size: 0.68rem;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 0.4rem;
+    }
+    .section-title {
+      font-family: var(--font-display); font-size: clamp(1.55rem, 3vw, 2.1rem);
+      color: var(--text-bright); line-height: 1.2; margin-bottom: 0.6rem;
+    }
+    .section-intro { color: var(--text-dim); font-size: 0.95rem; max-width: 680px; margin-bottom: 2rem; }
+
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
+    .card {
+      background: var(--panel); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.6rem; min-width: 0;
+    }
+    .card-title { font-family: var(--font-display); font-size: 1.1rem; color: var(--text-bright); margin-bottom: 0.5rem; }
+    .card-body { font-size: 0.9rem; color: var(--text-dim); line-height: 1.7; }
+
+    .diagram {
+      background: #05080d; border: 1px solid var(--border);
+      border-radius: 12px; overflow-x: auto; margin-top: 0.5rem;
+    }
+    .diagram pre {
+      padding: 1.5rem;
+      font-family: 'Cascadia Mono', 'Cascadia Code', Consolas, 'DejaVu Sans Mono', ui-monospace, monospace;
+      font-size: 0.75rem; line-height: 1.7; color: var(--text-dim);
+    }
+    .diagram b { color: var(--accent2); font-weight: 400; }
+
+    .table-wrap { overflow-x: auto; background: var(--panel); border: 1px solid var(--border); border-radius: 12px; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+    th {
+      text-align: left; padding: 0.7rem 1rem; white-space: nowrap;
+      font-family: var(--font-mono); font-size: 0.63rem; font-weight: 500;
+      letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent);
+      border-bottom: 1px solid var(--border);
+    }
+    td { padding: 0.65rem 1rem; border-bottom: 1px solid var(--border2); color: var(--text-dim); vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    td:first-child { color: var(--text); }
+    td code { font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent2); }
+    td.num { font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent2); white-space: nowrap; }
+    p code, li code {
+      font-family: var(--font-mono); font-size: 0.82em; color: var(--accent2);
+      background: rgba(85,152,231,0.1); padding: 0.1rem 0.35rem; border-radius: 4px;
+    }
+
+    .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+    .shot { margin: 0; min-width: 0; }
+    .shot img { width: 100%; display: block; border-radius: 10px; border: 1px solid var(--border); }
+    .shot figcaption { font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-dim); margin-top: 0.6rem; line-height: 1.5; }
+
+    .notes { list-style: none; max-width: 780px; }
+    .notes li { padding: 0.7rem 0; border-bottom: 1px solid var(--border2); font-size: 0.92rem; color: var(--text-dim); }
+    .notes li:last-child { border-bottom: none; }
+
+    footer {
+      border-top: 1px solid var(--border2); padding: 2.25rem 2rem; text-align: center;
+      font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-dim);
+    }
+    footer a { color: var(--accent2); text-decoration: none; }
+    footer a:hover { color: #fff; }
+    footer p + p { margin-top: 0.45rem; }
+
+    @media (max-width: 640px) {
+      nav { padding: 0.65rem 16px; }
+      .nav-links a:not(:first-child) { display: none; }
+      .container { padding: 0 16px; }
+      .hero { min-height: 460px; padding-bottom: 3rem; }
+      .gallery { grid-template-columns: minmax(0, 1fr); }
+      .card-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .btn { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="projectdocs.html" class="back-btn">← Project Docs</a>
+    <a href="../index.html" class="nav-brand">SJFCROSS</a>
+    <div class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="https://bird-nights.pages.dev" target="_blank" rel="noopener">Bird Nights ↗</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="container">
+      <div class="hero-content">
+        <p class="hero-eyebrow">Division IV · Project Documentation</p>
+        <h1>S9 <em>Warden</em></h1>
+        <p class="hero-sub">An old Galaxy S9+ with a new battery and a custom Android app. It records nights of sound, takes photos and video on a schedule, answers over Telegram, and hands its audio to a PC that works out which birds flew past.</p>
+        <div class="hero-actions">
+          <a href="https://bird-nights.pages.dev" class="btn btn-primary" target="_blank" rel="noopener">Open the Bird Nights logbook ↗</a>
+          <a href="#pipeline" class="btn btn-ghost">How it works</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section>
+    <div class="container">
+      <div class="card-grid">
+        <div class="card">
+          <h3 class="card-title">The phone</h3>
+          <p class="card-body">A US Snapdragon S9+ stuck on Android 10 with a locked bootloader, so no root and no custom ROM. Its worn battery was replaced and a charge test passed before any app work started.</p>
+        </div>
+        <div class="card">
+          <h3 class="card-title">The app</h3>
+          <p class="card-body">Kotlin and Jetpack Compose, installed over adb as the phone's <strong>Device Owner</strong>. That gives it silent permissions, boot start and freedom from Samsung's battery killer, all without root.</p>
+        </div>
+        <div class="card">
+          <h3 class="card-title">The bird nights</h3>
+          <p class="card-body">Ten hours of audio from a window goes through <strong>BirdNET</strong> on the PC. The result is a report of species, call times, clips and spectrograms, published to the logbook.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section id="pipeline">
+    <div class="container">
+      <p class="section-label">Overview</p>
+      <h2 class="section-title">From a night outside to a page</h2>
+      <p class="section-intro">The phone only records and answers. All the analysis runs afterwards on the PC, on the CPU, with nothing sent to an outside service until the finished report is published.</p>
+      <div class="diagram"><pre><b>ON THE PHONE</b>
+  planner ── jobs saved, reconciled after a reboot, app update or clock change
+     │
+     ├── sound    hourly WAVs, 48 kHz mono, about 345 MB per hour
+     ├── photos   /snap, or a job every 1 s and up, optional timelapse
+     └── video    /clip, or a job of clips on a schedule
+     │
+     └── Telegram bot: commands, alerts, photos and files up to 50 MB
+
+<b>ON THE PC</b>
+  bird_night.py
+     │  pull the night over WiFi adb, then drop the link
+     ├── BirdNET 2.4       species, confidence, call times
+     ├── Perch v2          optional second opinion, about 30 min a night
+     └── report            one page per night
+
+<b>ONLINE</b>
+  publish_site.py ──► Cloudflare Pages: MP3 clips and JPEG spectrograms, about 5 MB a night</pre></div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section id="recorder">
+    <div class="container">
+      <p class="section-label">The app</p>
+      <h2 class="section-title">Everything is a job</h2>
+      <p class="section-intro">Audio, photo and video work all go through one planner, including manual recordings, which are temporary jobs. That means a recording started by hand also survives a reboot.</p>
+      <div class="card-grid">
+        <div class="card">
+          <h3 class="card-title">Survives interruptions</h3>
+          <p class="card-body">An app update resumes a recording about a second later. A reboot in mid-recording resumed after a gap of about 48 s when it was tested. The WAV header syncs every 10 s, so a cut-off file loses 10 s at most.</p>
+        </div>
+        <div class="card">
+          <h3 class="card-title">Never loses a recording</h3>
+          <p class="card-body">The phone doesn't delete recordings by itself. If free space falls below 2 GB, nothing new starts and a running recording stops with an alert. Raw WAVs are only ever read or copied, never changed.</p>
+        </div>
+        <div class="card">
+          <h3 class="card-title">Knows its mic</h3>
+          <p class="card-body">A plugged-in mic takes over from the built-in one, and that route offers raw UNPROCESSED audio. The usual mic now is a BOYA BY-M1 on a long cable with a furry windscreen.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section id="telegram">
+    <div class="container">
+      <p class="section-label">Remote control</p>
+      <h2 class="section-title">A Telegram bot as the control panel</h2>
+      <p class="section-intro">The bot answers only its paired owner. On the charger it replies instantly, and on battery it checks in every few minutes so the phone can sleep. These are the main commands.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Command</th><th>What it does</th></tr></thead>
+          <tbody>
+            <tr><td><code>/status</code></td><td>Battery, storage, recorder and network at a glance</td></tr>
+            <tr><td><code>/plan</code></td><td>What's planned for the next 7 days</td></tr>
+            <tr><td><code>/night 22:00 08:00 daily</code></td><td>Set the bird night, for tonight only or every night</td></tr>
+            <tr><td><code>/rec 60</code> · <code>/stop</code></td><td>Record now for 60 minutes, or stop the recording while keeping the plan</td></tr>
+            <tr><td><code>/snap front flash</code></td><td>A photo now, with options for camera, flash, focus and zoom</td></tr>
+            <tr><td><code>/snapjob every 10s for 1h stitch</code></td><td>Photos on a grid, optionally stitched into a timelapse on the phone</td></tr>
+            <tr><td><code>/clip 2</code></td><td>A 2-minute video now, sent when it's done</td></tr>
+            <tr><td><code>/clipjob 30s every 5 for 2h</code></td><td>A clip every 5 minutes, kept on the phone, with a frame of each sent</td></tr>
+            <tr><td><code>/files</code> · <code>/get</code></td><td>Browse what's recorded and send a file, up to 50 MB</td></tr>
+            <tr><td><code>/stopall</code> · <code>/resume</code></td><td>Stop everything and hold all jobs, then carry on. The hold survives a reboot</td></tr>
+            <tr><td><code>/mode</code> · <code>/awake 15</code></td><td>Choose instant or battery-saving replies, or stay responsive for 15 minutes</td></tr>
+            <tr><td><code>/data</code> · <code>/cap 2</code></td><td>Mobile data used per app, and a daily limit for the bot</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section id="birds">
+    <div class="container">
+      <p class="section-label">The analysis</p>
+      <h2 class="section-title">How a bird gets on the page</h2>
+      <p class="section-intro">BirdNET 2.4 from the Cornell Lab and TU Chemnitz runs locally and only considers species plausible for this location and week of the year. Each species then gets a rating.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Rating</th><th>Rule</th></tr></thead>
+          <tbody>
+            <tr><td>Confirmed</td><td>One match of at least 70%, or 3 or more matches of at least 50%</td></tr>
+            <tr><td>Probable</td><td>A best match of at least 50%</td></tr>
+            <tr><td>Unconfirmed</td><td>Everything else. Detections below 25% are never shown</td></tr>
+            <tr><td>Other sounds</td><td>Dogs, engines, sirens and human voices are listed with times only. <strong>No clips of them are kept</strong>, so that people's conversations stay out of the report</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="section-intro" style="margin-top:2rem;">Google's Perch v2 adds a second opinion. On this audio it's mostly noise, so the report only keeps UK mammals and amphibians, birds BirdNET also heard weakly, and an unverified table of what only Perch heard.</p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section id="denoise">
+    <div class="container">
+      <p class="section-label">Listening</p>
+      <h2 class="section-title">Taking the road out of the clips</h2>
+      <p class="section-intro">The logbook's clips play a cleaned copy by default, and one button switches to the raw recording. Where a recording spot has enough traffic-only moments, the site learns six fingerprints of that road and subtracts them. Elsewhere it falls back to a high-pass filter and spectral gating.</p>
+      <div class="gallery">
+        <figure class="shot">
+          <img src="../assets/img/s9warden/redwing_raw.jpg" alt="Spectrogram of a Redwing call with heavy low-frequency road noise" loading="lazy">
+          <figcaption>Redwing, raw. Road noise fills the bottom of the picture.</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="../assets/img/s9warden/redwing_denoised.jpg" alt="The same Redwing call after the road noise was reduced" loading="lazy">
+          <figcaption>The same clip with the road profile applied, on the same colour scale.</figcaption>
+        </figure>
+      </div>
+      <p class="section-intro" style="margin-top:2rem;margin-bottom:0;">On the test night the road band dropped about 15 dB, against 1 to 4 dB with the generic cleaning. It's for human ears only. Any cleaning made BirdNET less sure (85% raw, 69% generic, 60% road), so BirdNET always gets the raw audio.</p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section id="measured">
+    <div class="container">
+      <p class="section-label">Measurements</p>
+      <h2 class="section-title">Battery life, measured on the phone</h2>
+      <p class="section-intro">Most design choices came from these tests, so an estimate only stayed in until it could be measured. The figures use the battery's own charge counter, because polling the current over adb keeps the phone awake and spoils the reading.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>State</th><th>Drain</th><th>Roughly</th></tr></thead>
+          <tbody>
+            <tr><td>Bot in eco mode, on WiFi</td><td class="num">13 mA</td><td>11 days on a full battery</td></tr>
+            <tr><td>Bot in instant mode</td><td class="num">~30 mA</td><td>5 days</td></tr>
+            <tr><td>Recording a night</td><td class="num">~41 mA</td><td>14% of the battery for 10 hours</td></tr>
+            <tr><td>Overnight idle with SIM</td><td class="num">11.8 mA</td><td>12.4 days</td></tr>
+            <tr><td>Overnight idle, airplane mode with WiFi kept</td><td class="num">9.4 mA</td><td>15.5 days, so the SIM costs about 2.4 mA</td></tr>
+            <tr><td>Photo every 1 s, camera kept open</td><td class="num">~280 mA</td><td>About 0.08 mAh a photo, at full size</td></tr>
+            <tr><td>Photo with the camera closed between shots</td><td class="num">~0.48 mAh</td><td>Per photo. A photo every minute averages about 41 mA</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card-grid" style="margin-top:1.5rem;">
+        <div class="card">
+          <h3 class="card-title">The drain that was adb</h3>
+          <p class="card-body">Idle battery use was far too high, and the cause turned out to be the debugging link itself. With WiFi adb connected the phone woke about 2,300 times an hour, against about 30 without it. Every tool now closes the link when it's done.</p>
+        </div>
+        <div class="card">
+          <h3 class="card-title">Timelapse that doesn't jitter</h3>
+          <p class="card-body">Closing the camera between shots made frames jump about 13 px, which the stabiliser caused, so it's now off. The flicker in 1 s runs dropped from a median step of 5.20 to 0.06 by locking exposure and white balance between re-meters.</p>
+        </div>
+        <div class="card">
+          <h3 class="card-title">Doze and the alarm clock</h3>
+          <p class="card-body">On battery, Android's deep sleep stalls a bot that tries to stay connected. Eco mode uses alarms that still fire in deep sleep, and <code>/awake</code> chains alarm-clock alarms to pull the phone out of it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section id="limits">
+    <div class="container">
+      <p class="section-label">Limits</p>
+      <h2 class="section-title">Known gaps</h2>
+      <ul class="notes">
+        <li><strong>No bats.</strong> Their calls are above the phone's 24 kHz limit, so they would need an ultrasonic mic.</li>
+        <li><strong>Mostly birds.</strong> BirdNET's frogs, insects and mammals are North American, so for Scotland it's effectively birds only.</li>
+        <li><strong>Windscreen vs wind is unresolved.</strong> Nights with the windscreen show fewer detections than an earlier calm night without it, but they were also windier, so the cause isn't separated yet.</li>
+        <li><strong>Detections are a machine's guess.</strong> Anything marked unconfirmed, and everything only Perch heard, hasn't been checked by a person.</li>
+        <li><strong>Reboots still need a cable.</strong> Android 10 won't let the app restore WiFi adb, so that takes USB once. Telegram keeps working in the meantime.</li>
+        <li><strong>Not tested yet.</strong> Long video and photo jobs through a whole night, including heat, storage and reboots during a run, and timelapses in the dark.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <p>S9 Warden &nbsp;·&nbsp; Built by <a href="https://github.com/sjfcross">sjfcross</a> &nbsp;·&nbsp; <a href="https://bird-nights.pages.dev" target="_blank" rel="noopener">Bird Nights logbook</a></p>
+    <p>Stack: Kotlin · Jetpack Compose · Camera2 · Telegram Bot API · Python · BirdNET 2.4 · Perch v2 · Cloudflare Pages &nbsp;·&nbsp; Since Oct 2026</p>
+    <p style="margin-top:0.75rem;"><a href="projectdocs.html">← Back to Project Docs</a></p>
+  </footer>
+
+</body>
+</html>
